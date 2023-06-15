@@ -1,0 +1,1 @@
+// we can use this file for shared global scope functions
