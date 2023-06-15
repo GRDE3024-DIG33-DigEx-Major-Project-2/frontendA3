@@ -9,20 +9,22 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <nav>
-          <NavLink id="nav-home" to="/">Home</NavLink>
-          <NavLink id="nav-blog" to="/blog">Blog</NavLink>
-          <NavLink id="nav-profile" to="/profile">Profile</NavLink>
-          <NavLink id="nav-events" to="/events">Events</NavLink>
-        </nav>
-        <div className="content">
+        <header>
+          <nav>
+            <NavLink id="nav-home" to="/">Home</NavLink>
+            <NavLink id="nav-blog" to="/blog">Blog</NavLink>
+            <NavLink id="nav-profile" to="/profile">Profile</NavLink>
+            <NavLink id="nav-events" to="/events">Events</NavLink>
+          </nav>
+        </header>
+        <article className="content">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/events" element={<Events />} />
           </Routes>
-        </div>
+        </article>
         <footer>
         </footer>
       </BrowserRouter>

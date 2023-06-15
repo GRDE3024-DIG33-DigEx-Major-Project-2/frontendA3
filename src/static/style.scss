@@ -1,0 +1,30 @@
+// colors 
+$black: #000000;
+$white: #ffffff;
+$blue: #5B5BE6;
+
+
+body {
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+header {
+    padding: 20px 10px;
+    background-color: $blue;
+}
+
+p { 
+    font-size: 12px;
+    margin: 2%;
+}
+
+h1 {
+    font-size: 30px;
+    margin:4%;
+}
+
+a {
+    text-decoration: none;
+    color: $white;
+}
