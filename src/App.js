@@ -2,10 +2,16 @@ import { BrowserRouter, NavLink, Routes, Route } from "react-router-dom";
 import './static/style.css';
 import Home from "./Home.js";
 import Blog from "./Blog.js";
-import Profile from "./Profile.js";
 import Events from "./Events.js";
+import User from "./User.js";
 
 function App() {
+
+  const user = {
+    id: "123456789",
+    name: "Test User"
+  }
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -13,16 +19,16 @@ function App() {
           <nav>
             <NavLink id="nav-home" to="/">Home</NavLink>
             <NavLink id="nav-blog" to="/blog">Blog</NavLink>
-            <NavLink id="nav-profile" to="/profile">Profile</NavLink>
+            <NavLink id="nav-user" to={`user/${user.id}`}>User</NavLink>
             <NavLink id="nav-events" to="/events">Events</NavLink>
           </nav>
         </header>
         <article className="content">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/events" element={<Events />} />
+            <Route path="blog" element={<Blog />} />
+            <Route path={`user/${user.id}`} element={<User user={user} />} />
+            <Route path="events" element={<Events />} />
           </Routes>
         </article>
         <footer>
