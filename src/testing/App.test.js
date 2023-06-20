@@ -1,8 +1,14 @@
 import { render, screen } from '@testing-library/react';
 import App from '../App';
 
-test('renders learn react link', () => {
+// checks if four links are present in the NavBar
+test('four nav links are displayed', () => {
+  // ARRANGE
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+
+  // ACT
+  const linkElements = screen.getAllByRole("link");
+
+  // ASSERT
+  expect(linkElements.length).toEqual(4);
 });
