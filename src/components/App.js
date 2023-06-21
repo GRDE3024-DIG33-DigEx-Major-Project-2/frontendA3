@@ -6,6 +6,7 @@ import Events from "./Events.js";
 import User from "./User.js";
 import Header from "./Header.js";
 import Profile from "./Profile.js";
+import Footer from "./Footer.js";
 
 function App() {
 
@@ -26,9 +27,7 @@ function App() {
             <Route path="events" element={<Events />} />
             <Route path="*" element={<h1 className="not-found">Page Not Found</h1>} />
           </Routes>
-
-        <footer>
-        </footer>
+      <Footer />
     </div>
   );
 }
