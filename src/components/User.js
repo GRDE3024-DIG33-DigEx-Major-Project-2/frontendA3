@@ -1,12 +1,25 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
-const User = ({user}) => {
-    return (
-      <div className="user-container">
-        <h1>{user.name}'s homepage</h1>
-        <Outlet />
-      </div>
-    );
-  };
+const User = () => {
   
-  export default User;
+  let { state } = useLocation();
+
+  return (
+    <div className="user-container">
+      { state && (
+        <>
+          <h1>{state.user.name}'s homepage</h1>
+          <Outlet />
+        </>
+      )}
+      { !state && (
+        <>
+          <h1>You must login to view this page.</h1>
+        </>
+      )}
+
+    </div>
+  );
+};
+
+export default User;

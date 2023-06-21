@@ -7,6 +7,7 @@ import User from "./User.js";
 import Header from "./Header.js";
 import Profile from "./Profile.js";
 import Footer from "./Footer.js";
+import Login from "./Login.js";
 
 function App() {
 
@@ -21,7 +22,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="blog" element={<Blog />} />
-            <Route path={`${user.id}`} element={<User user={user} />}>
+            <Route path="login" element={<Login />} />
+            <Route path={`${user.id}`} element={<User />}>
               <Route path="profile" element={<Profile user={user} />} />
             </Route>
             <Route path="events" element={<Events />} />
