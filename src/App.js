@@ -14,7 +14,6 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
         <header>
           <nav>
             <NavLink id="nav-home" to="/">Home</NavLink>
@@ -23,17 +22,15 @@ function App() {
             <NavLink id="nav-events" to="/events">Events</NavLink>
           </nav>
         </header>
-        <article className="content">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="blog" element={<Blog />} />
             <Route path={`user/${user.id}`} element={<User user={user} />} />
             <Route path="events" element={<Events />} />
           </Routes>
-        </article>
+
         <footer>
         </footer>
-      </BrowserRouter>
     </div>
   );
 }
