@@ -24,6 +24,7 @@ function App() {
               <Route path="profile" element={<Profile user={user} />} />
             </Route>
             <Route path="events" element={<Events />} />
+            <Route path="*" element={<h1 className="not-found">Page Not Found</h1>} />
           </Routes>
 
         <footer>
