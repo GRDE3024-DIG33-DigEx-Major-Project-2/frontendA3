@@ -1,9 +1,10 @@
-import { BrowserRouter, NavLink, Routes, Route } from "react-router-dom";
-import './static/style.css';
+import { Routes, Route } from "react-router-dom";
+import '../static/style.css';
 import Home from "./Home.js";
 import Blog from "./Blog.js";
 import Events from "./Events.js";
 import User from "./User.js";
+import Header from "./Header.js";
 
 function App() {
 
@@ -14,14 +15,7 @@ function App() {
 
   return (
     <div className="App">
-        <header>
-          <nav>
-            <NavLink id="nav-home" to="/">Home</NavLink>
-            <NavLink id="nav-blog" to="/blog">Blog</NavLink>
-            <NavLink id="nav-user" to={`user/${user.id}`}>User</NavLink>
-            <NavLink id="nav-events" to="/events">Events</NavLink>
-          </nav>
-        </header>
+          <Header user = {user} />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="blog" element={<Blog />} />
