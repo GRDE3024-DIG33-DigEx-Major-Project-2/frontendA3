@@ -19,25 +19,8 @@ nav {
   align-items: center;
 }
 
-footer {
-  padding: 20px 10px;
-  background-color:  lightgray;
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 8px;
-  text-align: center;
-}
-
-  footer a {
-      color: #5B5BE6;
-  }
-
 p {
   font-size: 12px;
-  margin: 2%;
 }
 
 h1 {
@@ -47,6 +30,71 @@ h1 {
 
 a {
   text-decoration: none;
+}
+
+/* LOGIN PAGE */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: left;
+  gap: 2%;
+  height: 13em;
+  width: 20em;
+  margin-left: 4%;
+}
+
+/* RESET PASSWORD */
+.reset-pwd-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: left;
+  gap: 2%;
+  height: 10em;
+  width: 20em;
+  margin-left: 4%;
+}
+
+/* FOOTER */
+footer {
+  padding: 20px 10px;
+  background-color: lightgray;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 8px;
+  text-align: center;
+}
+footer a {
+  color: #5B5BE6;
+}
+
+/* USERPAGE */
+.user-container {
+  margin: 4%;
+}
+.user-container h1 {
+  margin-left: 0;
+  margin-bottom: 2%;
+}
+
+.user-links {
+  width: 20em;
+  height: 3em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-link-active {
+  background-color: #5B5BE6;
+  color: #ffffff;
+  padding: 2%;
+  border-radius: 3px;
 }
 
 /*# sourceMappingURL=style.css.map */
