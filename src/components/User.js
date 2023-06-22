@@ -1,23 +1,40 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { NavLink, Link, Outlet} from "react-router-dom";
 
-const User = () => {
-  
-  let { state } = useLocation();
+const User = ({isLoggedIn, user}) => {
+
+  function logOut(){
+    console.log("logging out")
+  }
 
   return (
     <div className="user-container">
-      { state && (
+      {isLoggedIn && (
         <>
-          <h1>{state.user.name}'s homepage</h1>
+          <h1>{user.name}'s homepage</h1>
+          <NavLink
+            className={({ isActive }) => (isActive ? "user-link-active" : null)}
+            to="profile">
+            Profile
+          </NavLink>
+          <NavLink
+            className={({ isActive }) => (isActive ? "user-link-active" : null)}
+            to="favourites">
+            Favourites List
+          </NavLink>
+          <NavLink
+            className={({ isActive }) => (isActive ? "user-link-active" : null)}
+            to="past-events">
+            Past Events
+          </NavLink>
           <Outlet />
+          <Link to="../" onClick={logOut}>Log Out</Link>
         </>
       )}
-      { !state && (
+      {!isLoggedIn && (
         <>
           <h1>You must login to view this page.</h1>
         </>
       )}
-
     </div>
   );
 };

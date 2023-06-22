@@ -1,8 +1,13 @@
-const Profile = ({user}) => {
+const Profile = () => {
+  
     return (
-      <div className="profile-container">
-        <h1>{user.name}'s Profile</h1>
-      </div>
+      <>
+        <h1>Profile</h1>
+        <h2>Personal Bio</h2>
+        <p>Something here</p>
+        <h3>Connected Social Media</h3> 
+        <p>Links here</p>
+      </>
     );
   };
   

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({setIsLoggedIn, setUser}) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,11 +13,13 @@ const Login = () => {
     console.log("Login Handler");
 
     // if the email and password are validated, get user object and navigate to homepage
-    const user = {
+    const currentUser = {
       id: "123456789",
       name: "Test User"
     }
-    navigate(`../${user.id}`, {state: {user:user}});
+    setUser(currentUser);
+    setIsLoggedIn(true);
+    navigate("../user");
 
     // if wrong email or password, set message - logic to be added with backend
     setMessage("Invalid email or password. Try again.")
