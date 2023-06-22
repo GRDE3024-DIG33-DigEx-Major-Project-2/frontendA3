@@ -32,7 +32,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="blog" element={<Blog />} />
             <Route path="login" element={<Login setIsLoggedIn={setIsLoggedIn} setUser={setUser}/>} />
-            <Route path="user" element={<User isLoggedIn={isLoggedIn} user={user} />}>
+            <Route path="user" element={<User isLoggedIn={isLoggedIn} user={user} setIsLoggedIn={setIsLoggedIn} setUser={setUser} />}>
               <Route path="profile" element={<Profile user = {user} />} />
               <Route path="favourites" element={<FavouritesList user = {user} />} />
               <Route path="past-events" element={<PastEvents user = {user} />} />

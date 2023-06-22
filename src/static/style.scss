@@ -11,7 +11,14 @@ $blue: #5B5BE6;
     align-items: $align-items;
 }
 
-// for selector inheritance, use @extend elemenName
+@mixin flex-column($justify-content:space-around, $align-items:center){
+    display:flex;
+    flex-direction:column;
+    justify-content: $justify-content;
+    align-items: $align-items;
+}
+
+// for selector inheritance, use @extend elementName
 
 
 body {
@@ -35,7 +42,6 @@ nav {
 
 p { 
     font-size: 12px;
-    margin: 2%;
 }
 
 h1 {
@@ -45,4 +51,53 @@ h1 {
 
 a {
     text-decoration: none;
+}
+
+/* LOGIN PAGE */
+.login-form{
+    @include flex-column(space-around, left);
+    gap: 2%;
+    height: 11em;
+    width: 20em;
+    margin-left: 4%;
+}
+
+/* FOOTER */
+footer {
+    padding: 20px 10px;
+    background-color:  lightgray;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 8px;
+    text-align: center;
+
+    a{
+        color: $blue;
+    }
+}
+
+/* USERPAGE */
+
+.user-container{
+    margin: 4%;
+    h1{
+        margin-left:0;
+        margin-bottom:2%;
+    }
+}
+
+.user-links{
+    width:20em;
+    height:3em;
+    @include flex-row(space-between, center);
+}
+
+.user-link-active {
+    background-color: $blue;
+    color: $white;
+    padding: 2%;
+    border-radius: 3px;
 }
