@@ -11,6 +11,7 @@ import Footer from "./Footer.js";
 import Login from "./Login.js";
 import FavouritesList from "./FavouritesList";
 import PastEvents from "./PastEvents";
+import ResetPassword from "./ResetPassword";
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="blog" element={<Blog />} />
             <Route path="login" element={<Login setIsLoggedIn={setIsLoggedIn} setUser={setUser}/>} />
+            <Route path="reset-password" element={<ResetPassword />} />
             <Route path="user" element={<User isLoggedIn={isLoggedIn} user={user} setIsLoggedIn={setIsLoggedIn} setUser={setUser} />}>
               <Route path="profile" element={<Profile user = {user} />} />
               <Route path="favourites" element={<FavouritesList user = {user} />} />

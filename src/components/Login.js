@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Login = ({setIsLoggedIn, setUser}) => {
 
@@ -23,12 +23,10 @@ const Login = ({setIsLoggedIn, setUser}) => {
 
     // if wrong email or password, set message - logic to be added with backend
     setMessage("Invalid email or password. Try again.")
-
-
   };
 
   return (
-    <div className="login-container">
+    <>
       <h1>Login</h1>
       <form className="login-form" onSubmit={loginHandler}>
       <label htmlFor="email">Email</label>
@@ -48,13 +46,15 @@ const Login = ({setIsLoggedIn, setUser}) => {
         {/* if the message is defined, show it */}
         {message && <p className="error-message">{message}</p>}
         <input
-          id="register-btn"
+          id="login-btn"
           className="input-btn"
           type="submit"
           value="Login"
         />
+        <Link to="../reset-password">Forgot password?</Link>
       </form>
-    </div>
+      
+    </>
   );
 };
 

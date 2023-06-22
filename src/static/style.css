@@ -39,7 +39,19 @@ a {
   justify-content: space-around;
   align-items: left;
   gap: 2%;
-  height: 11em;
+  height: 13em;
+  width: 20em;
+  margin-left: 4%;
+}
+
+/* RESET PASSWORD */
+.reset-pwd-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: left;
+  gap: 2%;
+  height: 10em;
   width: 20em;
   margin-left: 4%;
 }
