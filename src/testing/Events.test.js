@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom'
-import Events from '../Events';
+import Events from '../components/Events.js';
 
 // checks if the page correctly renders H1 title
 test('events page renders title', async () => {

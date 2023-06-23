@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom'
-import Blog from '../Blog';
+import Blog from '../components/Blog.js';
 
 // checks if the page correctly renders H1 title
 test('blog page renders title', async () => {
