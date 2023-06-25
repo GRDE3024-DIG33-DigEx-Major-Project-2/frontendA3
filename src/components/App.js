@@ -9,6 +9,7 @@ import Header from "./Header.js";
 import Profile from "./Profile.js";
 import Footer from "./Footer.js";
 import Login from "./Login.js";
+import About from "./About";
 import FavouritesList from "./FavouritesList";
 import PastEvents from "./PastEvents";
 import ResetPassword from "./ResetPassword";
@@ -32,6 +33,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="blog" element={<Blog />} />
+            <Route path="about" element={<About />} />
             <Route path="login" element={<Login setIsLoggedIn={setIsLoggedIn} setUser={setUser}/>} />
             <Route path="reset-password" element={<ResetPassword />} />
             <Route path="user" element={<User isLoggedIn={isLoggedIn} user={user} setIsLoggedIn={setIsLoggedIn} setUser={setUser} />}>
