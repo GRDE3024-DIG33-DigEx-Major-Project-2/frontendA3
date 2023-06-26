@@ -11,8 +11,7 @@ import Footer from "./Footer.js";
 import Login from "./Login.js";
 import Signup from "./Signup";
 import About from "./About";
-import FavouritesList from "./FavouritesList";
-import PastEvents from "./PastEvents";
+import Wishlist from "./Wishlist";
 import ResetPassword from "./ResetPassword";
 
 function App() {
@@ -40,8 +39,7 @@ function App() {
             <Route path="reset-password" element={<ResetPassword />} />
             <Route path="user" element={<User isLoggedIn={isLoggedIn} user={user} setIsLoggedIn={setIsLoggedIn} setUser={setUser} />}>
               <Route path="profile" element={<Profile user = {user} />} />
-              <Route path="favourites" element={<FavouritesList user = {user} />} />
-              <Route path="past-events" element={<PastEvents user = {user} />} />
+              <Route path="wishlist" element={<Wishlist user = {user} />} />
             </Route>
             <Route path="events" element={<Events />} />
             <Route path="*" element={<h1 className="not-found">Page Not Found</h1>} />

@@ -21,13 +21,8 @@ const User = ({isLoggedIn, user, setIsLoggedIn, setUser}) => {
             </NavLink>
             <NavLink
               className={({ isActive }) => (isActive ? "user-link-active" : null)}
-              to="favourites">
-              Favourites List
-            </NavLink>
-            <NavLink
-              className={({ isActive }) => (isActive ? "user-link-active" : null)}
-              to="past-events">
-              Past Events
+              to="wishlist">
+              Events Wishlist
             </NavLink>
           </div>
           <Outlet />
