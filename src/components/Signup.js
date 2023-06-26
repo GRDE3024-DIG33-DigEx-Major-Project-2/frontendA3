@@ -4,9 +4,11 @@ import ReactDOM from "react-dom/client";
 
 function Signup() {
   const [inputs, setInputs] = useState({});
+  const [location, setLocation] = useState("Sydney");
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
+    setLocation(event.target.value)
     setInputs(values => ({...values, [name]: value}))
   }
 
@@ -44,13 +46,13 @@ function Signup() {
       />
       </label>
       <label>Enter your location:
-      <select value={inputs.location || ""} onChange={handleChange}>
+      <select value={location} onChange={handleChange}>
         <option value="Sydney">Sydney</option>
         <option value="Balmain">Balmain</option>
         <option value="Surry Hills">Surry Hills</option>
-        <option value="Surry Hills">Parramatta</option>
-        <option value="Surry Hills">Marrickville</option>
-        <option value="Surry Hills">Lane Cove</option>
+        <option value="Parramatta">Parramatta</option>
+        <option value="Marrickville">Marrickville</option>
+        <option value="Lane Cove">Lane Cove</option>
       </select>
       </label>
       <label>Enter your date of birth:
