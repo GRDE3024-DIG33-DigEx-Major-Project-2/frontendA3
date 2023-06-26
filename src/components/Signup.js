@@ -34,6 +34,14 @@ function Signup() {
         onChange={handleChange}
       />
       </label>
+      <label>Enter your password:
+      <input 
+        type="password" 
+        name="password" 
+        value={inputs.password || ""} 
+        onChange={handleChange}
+      />
+      </label>
       <label>Enter your location:
       <select value={inputs.location || ""} onChange={handleChange}>
         <option value="Sydney">Sydney</option>
