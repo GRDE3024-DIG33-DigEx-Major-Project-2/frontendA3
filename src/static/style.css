@@ -45,7 +45,7 @@ a {
 }
 
 /* SIGNUP PAGE */
-.login-form {
+.signup-form {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -107,4 +107,6 @@ footer a {
   color: #ffffff;
   padding: 2%;
   border-radius: 3px;
-}/*# sourceMappingURL=style.css.map */
+}
+
+/*# sourceMappingURL=style.css.map */

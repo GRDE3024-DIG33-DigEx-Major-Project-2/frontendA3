@@ -63,7 +63,7 @@ a {
 }
 
 /* SIGNUP PAGE */
-.login-form{
+.signup-form{
     @include flex-column(space-around, left);
     gap: 2%;
     height: 13em;
