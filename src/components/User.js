@@ -12,7 +12,6 @@ const User = ({isLoggedIn, user, setIsLoggedIn, setUser}) => {
     <div className="user-container">
       {isLoggedIn && (
         <>
-          <h1>{user.name}'s homepage</h1>
           <div className="user-links">
             <NavLink
               className={({ isActive }) => (isActive ? "user-link-active" : null)}
@@ -23,6 +22,11 @@ const User = ({isLoggedIn, user, setIsLoggedIn, setUser}) => {
               className={({ isActive }) => (isActive ? "user-link-active" : null)}
               to="wishlist">
               Events Wishlist
+            </NavLink>
+            <NavLink
+              className={({ isActive }) => (isActive ? "user-link-active" : null)}
+              to="edit-profile">
+              Edit Profile
             </NavLink>
           </div>
           <Outlet />

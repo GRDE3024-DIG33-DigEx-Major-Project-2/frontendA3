@@ -9,10 +9,14 @@ import Header from "./Header.js";
 import Profile from "./Profile.js";
 import Footer from "./Footer.js";
 import Login from "./Login.js";
-import Signup from "./Signup";
-import About from "./About";
-import Wishlist from "./Wishlist";
-import ResetPassword from "./ResetPassword";
+import Signup from "./Signup.js";
+import About from "./About.js";
+import Wishlist from "./Wishlist.js";
+import ResetPassword from "./ResetPassword.js";
+import EditProfile from "./EditProfile.js";
+import EditBio from "./EditBio";
+import RemoveWishlist from "./RemoveWishlist";
+import AccountSettings from "./AccountSettings";
 
 function App() {
 
@@ -40,6 +44,11 @@ function App() {
             <Route path="user" element={<User isLoggedIn={isLoggedIn} user={user} setIsLoggedIn={setIsLoggedIn} setUser={setUser} />}>
               <Route path="profile" element={<Profile user = {user} />} />
               <Route path="wishlist" element={<Wishlist user = {user} />} />
+              <Route path="edit-profile" element={<EditProfile user = {user} />}>
+                <Route path="bio" element={<EditBio />} />
+                <Route path="wishlist" element={<RemoveWishlist />} />
+                <Route path="settings" element={<AccountSettings />} />
+              </Route>
             </Route>
             <Route path="events" element={<Events />} />
             <Route path="*" element={<h1 className="not-found">Page Not Found</h1>} />

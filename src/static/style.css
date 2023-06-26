@@ -94,7 +94,7 @@ footer a {
 }
 
 .user-links {
-  width: 12em;
+  width: 18em;
   height: 3em;
   display: flex;
   flex-direction: row;
@@ -107,6 +107,16 @@ footer a {
   color: #ffffff;
   padding: 2%;
   border-radius: 3px;
+}
+
+/* EDIT PROFILE */
+.edit-links {
+  width: 25em;
+  height: 3em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /*# sourceMappingURL=style.css.map */

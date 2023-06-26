@@ -108,7 +108,7 @@ footer {
 }
 
 .user-links{
-    width:12em;
+    width:18em;
     height:3em;
     @include flex-row(space-between, center);
 }
@@ -118,4 +118,11 @@ footer {
     color: $white;
     padding: 2%;
     border-radius: 3px;
+}
+
+/* EDIT PROFILE */
+.edit-links{
+    width:25em;
+    height:3em;
+    @include flex-row(space-between, center);
 }

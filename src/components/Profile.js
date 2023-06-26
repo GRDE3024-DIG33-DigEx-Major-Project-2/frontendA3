@@ -1,8 +1,8 @@
-const Profile = () => {
+const Profile = ({user}) => {
   
     return (
       <>
-        <h2>Profile</h2>
+        <h2>{user.name}'s Profile</h2>
         <p>User profile</p>
         <h3>Personal Bio</h3>
         <p>Something here</p>

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import ReactDOM from "react-dom/client";
 
 function Signup() {
   const [inputs, setInputs] = useState({});
@@ -70,7 +69,5 @@ function Signup() {
   )
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<Signup />);
 
 export default Signup;
