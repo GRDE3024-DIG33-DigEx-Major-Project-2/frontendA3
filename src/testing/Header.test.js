@@ -15,5 +15,5 @@ test("four nav links are displayed", () => {
   const linkElements = screen.getAllByRole("link");
 
   // ASSERT
-  expect(linkElements.length).toEqual(5);
+  expect(linkElements.length).toEqual(7);
 });
