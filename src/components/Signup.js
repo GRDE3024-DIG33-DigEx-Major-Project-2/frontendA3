@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import ReactDOM from "react-dom/client";
 
 function Signup() {
@@ -61,6 +62,7 @@ function Signup() {
         />
         </label>
         <input type="submit" />
+        <Link to="../login">Already have an account? Login here</Link>
     </form>
     </>
   )
