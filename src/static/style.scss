@@ -62,6 +62,15 @@ a {
     margin-left: 4%;
 }
 
+/* SIGNUP PAGE */
+.login-form{
+    @include flex-column(space-around, left);
+    gap: 2%;
+    height: 13em;
+    width: 20em;
+    margin-left: 4%;
+}
+
 /* RESET PASSWORD */
 .reset-pwd-form{
     @include flex-column(space-around, left);

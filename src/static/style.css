@@ -44,6 +44,18 @@ a {
   margin-left: 4%;
 }
 
+/* SIGNUP PAGE */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: left;
+  gap: 2%;
+  height: 13em;
+  width: 20em;
+  margin-left: 4%;
+}
+
 /* RESET PASSWORD */
 .reset-pwd-form {
   display: flex;
@@ -95,6 +107,4 @@ footer a {
   color: #ffffff;
   padding: 2%;
   border-radius: 3px;
-}
-
-/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */

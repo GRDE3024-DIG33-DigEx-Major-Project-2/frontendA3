@@ -12,6 +12,7 @@ export default function Header({user}) {
                 <Link id="nav-user" to="/user">User</Link>
                 <Link id="nav-events" to="/events">Events</Link>
                 <Link id="nav-login" to="/login">Login</Link>
+                <Link id="nav-login" to="/signup">Signup</Link>
             </nav>
         </header>
     )
