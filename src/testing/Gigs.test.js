@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom'
-import Blog from '../components/Blog.js';
+import Gigs from '../components/Gigs.js';
 
 // checks if the page correctly renders H1 title
-test('blog page renders title', async () => {
+test('Gigs page renders title', async () => {
   // ARRANGE
-  render(<Blog />);
+  render(<Gigs />);
 
   // ACT and ASSERT
-  expect(screen.getByText("Blog page")).toBeInTheDocument();
+  expect(screen.getByText("Gigs Page")).toBeInTheDocument();
 });

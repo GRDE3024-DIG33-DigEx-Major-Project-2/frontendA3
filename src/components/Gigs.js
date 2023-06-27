@@ -1,8 +1,8 @@
 const Gigs = () => {
     return (
-      <div className="blog-container">
-        <h1>Gigs page</h1>
-      </div>
+      <>
+        <h1>Gigs Page</h1>
+      </>
     );
   };
   
