@@ -2,8 +2,6 @@ import { Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import '../static/style.css';
 import Home from "./Home.js";
-import Blog from "./Blog.js";
-import Events from "./Events.js";
 import User from "./User.js";
 import Header from "./Header.js";
 import Profile from "./Profile.js";
@@ -17,6 +15,8 @@ import EditProfile from "./EditProfile.js";
 import EditBio from "./EditBio";
 import RemoveWishlist from "./RemoveWishlist";
 import AccountSettings from "./AccountSettings";
+import Gigs from "./Gigs";
+import Articles from "./Articles";
 
 function App() {
 
@@ -33,11 +33,12 @@ function App() {
 
   return (
     <div className="App">
-          <Header user = {user} />
+          <Header user = {user} isLoggedIn = {isLoggedIn} setIsLoggedIn = {setIsLoggedIn} setUser={setUser} />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="blog" element={<Blog />} />
+            <Route path="gigs" element={<Gigs/>} />
             <Route path="about" element={<About />} />
+            <Route path="articles" element={<Articles />} />
             <Route path="login" element={<Login setIsLoggedIn={setIsLoggedIn} setUser={setUser}/>} />
             <Route path="signup" element={<Signup />} />
             <Route path="reset-password" element={<ResetPassword />} />
@@ -50,7 +51,6 @@ function App() {
                 <Route path="settings" element={<AccountSettings />} />
               </Route>
             </Route>
-            <Route path="events" element={<Events />} />
             <Route path="*" element={<h1 className="not-found">Page Not Found</h1>} />
           </Routes>
       <Footer />

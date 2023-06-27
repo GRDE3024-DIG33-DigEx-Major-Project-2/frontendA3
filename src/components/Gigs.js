@@ -1,9 +1,9 @@
-const Blog = () => {
+const Gigs = () => {
     return (
       <div className="blog-container">
-        <h1>Blog page</h1>
+        <h1>Gigs page</h1>
       </div>
     );
   };
   
-  export default Blog;
+  export default Gigs;

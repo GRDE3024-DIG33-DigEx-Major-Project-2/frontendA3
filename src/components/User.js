@@ -1,12 +1,6 @@
-import { NavLink, Link, Outlet} from "react-router-dom";
+import { NavLink, Outlet} from "react-router-dom";
 
 const User = ({isLoggedIn, user, setIsLoggedIn, setUser}) => {
-
-  function logOut(){
-    setIsLoggedIn(false);
-    setUser(null);
-    console.log("logging out")
-  }
 
   return (
     <div className="user-container">
@@ -30,9 +24,6 @@ const User = ({isLoggedIn, user, setIsLoggedIn, setUser}) => {
             </NavLink>
           </div>
           <Outlet />
-          <div className="user-links">
-            <Link to="../" onClick={logOut}>Log Out</Link>
-          </div>
         </>
       )}
       {!isLoggedIn && (

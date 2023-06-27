@@ -38,6 +38,10 @@ header {
 nav {
     width: 100%;
     @include flex-row;
+
+    #nav-logo{
+        width: 15%;
+    }
 }
 
 p { 

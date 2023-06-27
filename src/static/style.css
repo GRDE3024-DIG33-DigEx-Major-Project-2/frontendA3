@@ -18,6 +18,9 @@ nav {
   justify-content: space-around;
   align-items: center;
 }
+nav #nav-logo {
+  width: 15%;
+}
 
 p {
   font-size: 12px;
