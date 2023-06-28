@@ -88,13 +88,12 @@ a {
 footer {
     padding: 20px 10px;
     background-color:  lightgray;
-    width: 100%;
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 8px;
-    text-align: center;
+    width: 100%;
+    @include flex-row;
 
     a{
         color: $blue;

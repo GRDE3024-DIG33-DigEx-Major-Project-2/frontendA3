@@ -17,6 +17,8 @@ import RemoveWishlist from "./RemoveWishlist";
 import AccountSettings from "./AccountSettings";
 import Gigs from "./Gigs";
 import Articles from "./Articles";
+import TermsOfUse from "./TermsOfUse";
+import PrivacyPolicy from "./PrivacyPolicy";
 
 function App() {
 
@@ -51,6 +53,8 @@ function App() {
                 <Route path="settings" element={<AccountSettings />} />
               </Route>
             </Route>
+            <Route path="/terms-of-use" element={<TermsOfUse/>} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="*" element={<h1 className="not-found">Page Not Found</h1>} />
           </Routes>
       <Footer />
