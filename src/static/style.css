@@ -114,6 +114,67 @@ footer a {
   border-radius: 3px;
 }
 
+.event-main-image {
+  width:100%;
+  max-width:100%;
+}
+
+/*EVENT PAGE*/
+.event-columns {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.event-column-title{
+  flex:80%;
+}
+
+.event-column-button{
+  flex:20%;
+}
+
+.event-tag {
+  background-color: #5B5BE6;
+  color: white;
+  margin:5px;
+  padding:3px 5px;
+}
+
+
+.event-buy-button {
+  margin-right:0px;
+  margin-top:20px;
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    background-color:#5B5BE6;; 
+    color: white; 
+}
+
+.event-body {
+  margin:15px;
+}
+
+
+.event-columns-details{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.event-column-detail{
+  flex:50%;
+}
+.event-logo {
+  width:90px;
+  margin-top:10px;
+}
 /* EDIT PROFILE */
 .edit-links {
   width: 25em;
@@ -122,6 +183,4 @@ footer a {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-}
-
-/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */

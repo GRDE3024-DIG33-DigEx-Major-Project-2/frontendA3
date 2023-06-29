@@ -19,6 +19,7 @@ import Gigs from "./Gigs";
 import Articles from "./Articles";
 import TermsOfUse from "./TermsOfUse";
 import PrivacyPolicy from "./PrivacyPolicy";
+import EventPage from "./EventPage.js";
 
 function App() {
 
@@ -55,6 +56,7 @@ function App() {
             </Route>
             <Route path="/terms-of-use" element={<TermsOfUse/>} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/event" element={<EventPage />} />
             <Route path="*" element={<h1 className="not-found">Page Not Found</h1>} />
           </Routes>
       <Footer />
