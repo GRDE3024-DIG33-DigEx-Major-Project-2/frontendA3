@@ -30,7 +30,7 @@ function Event() {
                         <h2>Organised By</h2>
                         <div class="event-columns-details">
                             <div class="event-column-detail">
-                                <img class="event-logo" src="https://www.frontiertouring.com/files/web_images/logo-frontier_footer.png"></img>
+                                <img class="event-logo" src="https://www.frontiertouring.com/files/web_images/logo-frontier_footer.png" alt="artist"></img>
                             </div>
                             <div class="event-column-detail">
                                 <p>Frontier Touring</p>
@@ -50,7 +50,7 @@ function Event() {
                 <p>&nbsp;</p>
                 <div class="event-columns">
                     <div class="event-column-title">
-                        <h1 class="event-title"></h1>
+                        <h1 class="event-title">Event Title</h1>
                     </div>
                     <div class="event-column-button">
                         <button class="event-buy-button">Buy Tickets</button>
