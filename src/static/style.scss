@@ -129,3 +129,11 @@ footer {
     height:3em;
     @include flex-row(space-between, center);
 }
+
+/* HOMEPAGE */
+.find-event-header{
+    width: 100%;
+}
+.find-event-search{
+    @include flex-row;
+}
