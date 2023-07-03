@@ -127,13 +127,19 @@ footer a {
 /* HOMEPAGE */
 .find-event-header {
   width: 100%;
+  text-align: center;
 }
 
-.find-event-search {
+.find-event-search, .find-event-tags {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  margin: 5% 2%;
+}
+
+.search-form-els {
+  min-height: 56px;
 }
 
 /*# sourceMappingURL=style.css.map */

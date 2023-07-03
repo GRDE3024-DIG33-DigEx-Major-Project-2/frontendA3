@@ -133,7 +133,12 @@ footer {
 /* HOMEPAGE */
 .find-event-header{
     width: 100%;
+    text-align: center;
 }
-.find-event-search{
+.find-event-search, .find-event-tags{
     @include flex-row;
+    margin: 5% 2%;
+}
+.search-form-els{
+    min-height: 56px;
 }
