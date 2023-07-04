@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import FindEventHeader from "./FindEventHeader";
+import EventCard from "./EventCard";
 const Home = () => {
     return (
       <>
@@ -10,6 +11,7 @@ const Home = () => {
         </div>
         <div className="home-row">
           <h1>Dance music events</h1>
+          <EventCard />
         </div>
         <div className="home-row">
           <h1>Country music events</h1>
