@@ -4,8 +4,16 @@ const Home = () => {
     return (
       <>
         <FindEventHeader />
-        <h1>Homepage</h1>
-       <div><Link id="" to="/event"><h1>First Event</h1></Link></div> 
+        <div className="home-row">
+          <h1>Music events nearby</h1>
+          <Link id="" to="/event"><h3>First Event</h3></Link>
+        </div>
+        <div className="home-row">
+          <h1>Dance music events</h1>
+        </div>
+        <div className="home-row">
+          <h1>Country music events</h1>
+        </div>
       </>
     );
   };

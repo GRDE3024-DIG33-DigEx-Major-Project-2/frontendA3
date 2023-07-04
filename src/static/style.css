@@ -28,7 +28,6 @@ p {
 
 h1 {
   font-size: 30px;
-  margin: 4%;
 }
 
 a {
@@ -126,8 +125,10 @@ footer a {
 
 /* HOMEPAGE */
 .find-event-header {
-  width: 100%;
+  width: 90%;
   text-align: center;
+  background-color: #9c9ced;
+  padding: 3% 5%;
 }
 
 .find-event-search, .find-event-tags {
@@ -135,11 +136,21 @@ footer a {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  margin: 5% 2%;
+  padding: 3% 2%;
 }
 
 .search-form-els {
-  min-height: 56px;
+  height: 54px;
+  background-color: #ffffff;
+}
+
+#events-txt-field {
+  min-width: 27vw;
+}
+
+.home-row {
+  padding: 4%;
+  height: 300px;
 }
 
 /*# sourceMappingURL=style.css.map */

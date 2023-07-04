@@ -7,7 +7,6 @@ const FindEventHeader = () => {
     const [location, setLocation] = useState("-");
     const [date, setDate] = useState(null);
     const [genre, setGenre] = useState("country");
-    const [selected, setSelected] = useState(false);
 
     const searchHandler = () => {
         console.log("Search event fired");
@@ -16,7 +15,6 @@ const FindEventHeader = () => {
 
     const chipHandler = (genre) => {
         setGenre(genre);  
-        setSelected((s) => !s);
     }
 
     return <div className="find-event-header">
@@ -39,15 +37,15 @@ const FindEventHeader = () => {
                 </span>
             </div>
             <div className="find-event-tags">
-                <Chip label="Country" color={selected ? "primary" : "default"} onClick={() => chipHandler("Country") } />
-                <Chip label="Jazz" color={selected ? "primary" : "default"} onClick={() => chipHandler("Jazz") } />
-                <Chip label="Electronic" color={selected ? "primary" : "default"} onClick={() => chipHandler("Electronic") } />
-                <Chip label="Reggae" color={selected ? "primary" : "default"} onClick={() => chipHandler("Reggae") } />
-                <Chip label="Dance" color={selected ? "primary" : "default"} onClick={() => chipHandler("Dance") } />
-                <Chip label="Metal" color={selected ? "primary" : "default"} onClick={() => chipHandler("Metal") } />
-                <Chip label="Hip Hop" color={selected ? "primary" : "default"} onClick={() => chipHandler("Hip Hop") } />
-                <Chip label="Pop" color={selected ? "primary" : "default"} onClick={() => chipHandler("Pop") } />
-                <Chip label="Classical" color={selected ? "primary" : "default"} onClick={() => chipHandler("Classical") } />
+                <Chip label="Country" color="default" onClick={() => chipHandler("Country") } />
+                <Chip label="Jazz" color="default" onClick={() => chipHandler("Jazz") } />
+                <Chip label="Electronic" color="default" onClick={() => chipHandler("Electronic") } />
+                <Chip label="Reggae" color="default" onClick={() => chipHandler("Reggae") } />
+                <Chip label="Dance" color="default" onClick={() => chipHandler("Dance") } />
+                <Chip label="Metal" color="default" onClick={() => chipHandler("Metal") } />
+                <Chip label="Hip Hop" color="default" onClick={() => chipHandler("Hip Hop") } />
+                <Chip label="Pop" color="default" onClick={() => chipHandler("Pop") } />
+                <Chip label="Classical" color="default" onClick={() => chipHandler("Classical") } />
             </div>
         </form>
     </div>

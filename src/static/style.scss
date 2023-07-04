@@ -2,6 +2,7 @@
 $black: #000000;
 $white: #ffffff;
 $blue: #5B5BE6;
+$lightblue: #9c9ced;
 
 // mixins
 @mixin flex-row($justify-content:space-around, $align-items:center){
@@ -50,7 +51,6 @@ p {
 
 h1 {
     font-size: 30px;
-    margin:4%;
 }
 
 a {
@@ -132,13 +132,27 @@ footer {
 
 /* HOMEPAGE */
 .find-event-header{
-    width: 100%;
+    width: 90%;
     text-align: center;
+    background-color: $lightblue;
+    padding: 3% 5%;
 }
+
 .find-event-search, .find-event-tags{
     @include flex-row;
-    margin: 5% 2%;
+    padding: 3% 2%;
 }
+
 .search-form-els{
-    min-height: 56px;
+    height: 54px;
+    background-color: $white;
+}
+
+#events-txt-field{
+    min-width: 27vw;
+}
+
+.home-row{
+    padding: 4%;
+    height: 300px;
 }
