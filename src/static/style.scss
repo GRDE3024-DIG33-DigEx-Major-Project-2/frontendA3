@@ -161,4 +161,26 @@ footer {
 
 .event-card{
     width: 250px;
+    position: relative;
+}
+
+.card-icon{
+    background-color: #3131b8;
+    color: $white;
+    width:25px;
+    height:25px;
+    padding: 2%;
+    border-radius: 50%;
+    text-align: center;
+    position: absolute;
+}
+
+.ev-share{
+    top:47%;
+    right:5%;
+}
+
+.ev-bookmark{
+    top:47%;
+    right: 24%;
 }
