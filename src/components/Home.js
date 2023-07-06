@@ -48,6 +48,7 @@ const Home = () => {
           speed="500"
           loop="true"
           css-mode="true"
+          className="event-carousel"
         >
           {events.map((event, i) => (
             <swiper-slide key={i}>
