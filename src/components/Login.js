@@ -18,7 +18,7 @@ const Login = ({ setIsLoggedIn, setUser }) => {
     };
     setUser(currentUser);
     setIsLoggedIn(true);
-    navigate("../user");
+    navigate("../profile");
 
     // if wrong email or password, set message - logic to be added with backend
     setMessage("Invalid email or password. Try again.");

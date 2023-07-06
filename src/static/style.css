@@ -52,7 +52,8 @@ a {
   align-items: center;
 }
 
-.left, .right {
+.left,
+.right {
   width: 50%;
   height: 100%;
 }
@@ -127,39 +128,29 @@ footer a {
   color: #5b5be6;
 }
 
-/* USERPAGE */
-.user-container {
+/* PROFILE PAGE */
+.profile-container {
   margin: 4%;
+  min-height: 65vh;
+  display: grid;
+  grid-template-areas: "head head" "bio events" "account events";
+  grid-template-rows: auto auto;
 }
-.user-container h1 {
+.profile-container .profile-banner {
+  grid-area: head;
+}
+.profile-container .personal-bio {
+  grid-area: bio;
+}
+.profile-container .account-settings {
+  grid-area: account;
+}
+.profile-container .saved-events {
+  grid-area: events;
+}
+.profile-container h1 {
   margin-left: 0;
   margin-bottom: 2%;
-}
-
-.user-links {
-  width: 18em;
-  height: 3em;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.user-link-active {
-  background-color: #5b5be6;
-  color: #ffffff;
-  padding: 2%;
-  border-radius: 3px;
-}
-
-/* EDIT PROFILE */
-.edit-links {
-  width: 25em;
-  height: 3em;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
 }
 
 /*EVENT PAGE*/

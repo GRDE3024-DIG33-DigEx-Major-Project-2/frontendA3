@@ -44,7 +44,7 @@ nav {
     width: 30%;
   }
 
-  .nav-links{
+  .nav-links {
     width: 70%;
     @include flex-row;
   }
@@ -63,13 +63,14 @@ a {
 }
 
 /* LOGIN PAGE */
-.login-page{
+.login-page {
   height: 80vh;
   width: 100%;
   @include flex-row;
 }
 
-.left, .right{
+.left,
+.right {
   width: 50%;
   height: 100%;
 }
@@ -81,11 +82,11 @@ a {
 .right {
   @include flex-column;
   gap: 0;
-  .login-logo{
+  .login-logo {
     width: 20%;
     text-align: center;
-    img{
-      width:100%;
+    img {
+      width: 100%;
     }
   }
 }
@@ -130,34 +131,35 @@ footer {
   }
 }
 
-/* USERPAGE */
+/* PROFILE PAGE */
 
-.user-container {
+.profile-container {
   margin: 4%;
+  min-height: 65vh;
+  display: grid;
+  grid-template-areas:
+    "head head"
+    "bio events"
+    "account events";
+  grid-template-rows: auto auto;
+
+  .profile-banner {
+    grid-area: head;
+  }
+  .personal-bio {
+    grid-area: bio;
+  }
+  .account-settings {
+    grid-area: account;
+  }
+  .saved-events {
+    grid-area: events;
+  }
+
   h1 {
     margin-left: 0;
     margin-bottom: 2%;
   }
-}
-
-.user-links {
-  width: 18em;
-  height: 3em;
-  @include flex-row(space-between, center);
-}
-
-.user-link-active {
-  background-color: $blue;
-  color: $white;
-  padding: 2%;
-  border-radius: 3px;
-}
-
-/* EDIT PROFILE */
-.edit-links {
-  width: 25em;
-  height: 3em;
-  @include flex-row(space-between, center);
 }
 
 /*EVENT PAGE*/
@@ -253,7 +255,6 @@ footer {
   padding: 4%;
   height: 300px;
 }
-
 
 /* EVENT CARDS */
 
