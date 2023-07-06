@@ -1,23 +1,93 @@
-import { Link } from "react-router-dom";
 import FindEventHeader from "./FindEventHeader";
 import EventCard from "./EventCard";
+import { register } from "swiper/element/bundle";
+
 const Home = () => {
-    return (
-      <>
-        <FindEventHeader />
-        <div className="home-row">
-          <h1>Music events nearby</h1>
-          <Link id="" to="/event"><h3>First Event</h3></Link>
-        </div>
-        <div className="home-row">
-          <h1>Dance music events</h1>
-          <EventCard />
-        </div>
-        <div className="home-row">
-          <h1>Country music events</h1>
-        </div>
-      </>
-    );
-  };
-  
-  export default Home;
+  register();
+
+  var events = [
+    {
+      name: "Event #1",
+      description: "Some event description!",
+      img: "../gigney.png",
+    },
+    {
+      name: "Event #2",
+      description: "Hello World!",
+      img: "../gigney.png",
+    },
+    {
+      name: "Event #3",
+      description: "Another one..",
+      img: "../gigney.png",
+    },
+    {
+      name: "Event #4",
+      description: "Some event description!",
+      img: "../gigney.png",
+    },
+    {
+      name: "Event #5",
+      description: "Hello World!",
+      img: "../gigney.png",
+    },
+    {
+      name: "Event #6",
+      description: "Another one..",
+      img: "../gigney.png",
+    },
+  ];
+
+  return (
+    <section className="home-section">
+      <FindEventHeader />
+      <div className="home-row">
+        <h1>Music events nearby</h1>
+        <swiper-container
+          slides-per-view="3"
+          speed="500"
+          loop="true"
+          css-mode="true"
+        >
+          {events.map((event, i) => (
+            <swiper-slide key={i}>
+              <EventCard event={event} />
+            </swiper-slide>
+          ))}
+        </swiper-container>
+      </div>
+      <div className="home-row">
+        <h1>Dance music events</h1>
+        <swiper-container
+          slides-per-view="3"
+          speed="500"
+          loop="true"
+          css-mode="true"
+        >
+          {events.map((event, i) => (
+            <swiper-slide key={i}>
+              <EventCard event={event} />
+            </swiper-slide>
+          ))}
+        </swiper-container>
+      </div>
+      <div className="home-row">
+        <h1>Country music events</h1>
+        <swiper-container
+          slides-per-view="3"
+          speed="500"
+          loop="true"
+          css-mode="true"
+        >
+          {events.map((event, i) => (
+            <swiper-slide key={i}>
+              <EventCard event={event} />
+            </swiper-slide>
+          ))}
+        </swiper-container>
+      </div>
+    </section>
+  );
+};
+
+export default Home;
