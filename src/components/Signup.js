@@ -1,73 +1,50 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
-function Signup() {
-  const [inputs, setInputs] = useState({});
-  const [location, setLocation] = useState("Sydney");
+function SignUp() {
+  const [accountType, setAccountType] = React.useState('');
+
   const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setLocation(event.target.value)
-    setInputs(values => ({...values, [name]: value}))
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(inputs);
-  }
+    setAccountType(event.target.value);
+  };
 
   return (
     <>
-    <h1>Signup</h1>
-    <form className="signup-form" onSubmit={handleSubmit}>
-      <label>Enter your name:
-      <input 
-        type="text" 
-        name="username" 
-        value={inputs.username || ""} 
-        onChange={handleChange}
-      />
-      </label>
-      <label>Enter your email:
-      <input 
-        type="email" 
-        name="email" 
-        value={inputs.email || ""} 
-        onChange={handleChange}
-      />
-      </label>
-      <label>Enter your password:
-      <input 
-        type="password" 
-        name="password" 
-        value={inputs.password || ""} 
-        onChange={handleChange}
-      />
-      </label>
-      <label>Enter your location:
-      <select value={location} onChange={handleChange}>
-        <option value="Sydney">Sydney</option>
-        <option value="Balmain">Balmain</option>
-        <option value="Surry Hills">Surry Hills</option>
-        <option value="Parramatta">Parramatta</option>
-        <option value="Marrickville">Marrickville</option>
-        <option value="Lane Cove">Lane Cove</option>
-      </select>
-      </label>
-      <label>Enter your date of birth:
-        <input 
-          type="date" 
-          name="age" 
-          value={inputs.age || ""} 
+    <div class="signup">
+    <div class="signup-left">
+    <Box class="signup-form"  alignItems="center"
+  justifyContent="center" sx={{ maxWidth: 450}}>
+        <div class="signup-logo">
+        <img src="../gigney-logo-white.jpg" alt="gigney logo white" />
+        </div>
+        <h1>Create an account</h1>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">What would you like to do on this site?</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={accountType}
+          label="What would you like to do on this site?"
           onChange={handleChange}
-        />
-        </label>
-        <input type="submit" />
-        <Link to="../login">Already have an account? Login here</Link>
-    </form>
+        >
+          <MenuItem value={'guest'}>Search for events</MenuItem>
+          <MenuItem value={'organiser'}>Create an event</MenuItem>
+        </Select>
+      </FormControl>
+    </Box>
+    <div class="signup-next-button">
+                        <button class="next-button">Continue</button>
+                    </div>
+    </div>
+  
+    <div class="signup-right"></div>
+    </div>
     </>
-  )
-}
+  );
+};
 
-
-export default Signup;
+export default SignUp;
