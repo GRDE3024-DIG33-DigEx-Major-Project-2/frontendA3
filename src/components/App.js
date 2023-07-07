@@ -14,6 +14,8 @@ import Articles from "./Articles";
 import TermsOfUse from "./TermsOfUse";
 import PrivacyPolicy from "./PrivacyPolicy";
 import EventPage from "./EventPage.js";
+import SignUpGuest from "./SignupGuest.js";
+import SignUpOrganiser from "./SignupOrganiser";
 
 function App() {
 
@@ -43,6 +45,8 @@ function App() {
             <Route path="/terms-of-use" element={<TermsOfUse/>} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/event" element={<EventPage />} />
+            <Route path="/signupguest" element={<SignUpGuest />} />
+            <Route path="/signuporganiser" element={<SignUpOrganiser />} />
             <Route path="*" element={<h1 className="not-found">Page Not Found</h1>} />
           </Routes>
       <Footer />
