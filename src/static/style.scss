@@ -132,33 +132,48 @@ footer {
 }
 
 /* PROFILE PAGE */
-
 .profile-container {
-  margin: 4%;
-  min-height: 65vh;
+  min-height: 78vh;
   display: grid;
   grid-template-areas:
     "head head"
     "bio events"
     "account events";
-  grid-template-rows: auto auto;
+  grid-template-rows: 100px auto auto;
+  grid-template-columns: 35% 65%;
 
   .profile-banner {
     grid-area: head;
+    background-color: $lightblue;
+    @include flex-row;
   }
   .personal-bio {
     grid-area: bio;
+    margin: 4%;
   }
   .account-settings {
     grid-area: account;
+    margin: 4%;
   }
   .saved-events {
     grid-area: events;
+    margin: 4%;
   }
 
   h1 {
     margin-left: 0;
     margin-bottom: 2%;
+  }
+
+  .profile-paper{
+    border: solid 1px $black;
+    @include flex-column;
+    padding: 5%;
+  }
+
+  .profile-avatar{
+    height: 150px;
+    width: 150px;
   }
 }
 
