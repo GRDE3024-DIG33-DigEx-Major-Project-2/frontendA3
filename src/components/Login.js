@@ -1,3 +1,7 @@
+import { FormControl, TextField, InputAdornment, Button } from "@mui/material";
+import ContactMailIcon from "@mui/icons-material/ContactMail";
+import LockIcon from "@mui/icons-material/Lock";
+import LoginIcon from '@mui/icons-material/Login';
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -29,33 +33,44 @@ const Login = ({ setIsLoggedIn, setUser }) => {
       <div className="left"></div>
       <div className="right">
         <div className="login-logo">
-        <img src="../gigney-logo-white.jpg" alt="gigney logo white" />
-        <h1>Login</h1>
+          <img src="../gigney-logo-white.jpg" alt="gigney logo white" />
+          <h1>Login</h1>
         </div>
-        <form className="login-form" onSubmit={loginHandler}>
-          <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            id="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-          {/* if the message is defined, show it */}
-          {message && <p className="error-message">{message}</p>}
-          <input
-            id="login-btn"
-            className="input-btn"
-            type="submit"
-            value="Login"
-          />
-          <Link to="../reset-password">Forgot password?</Link>
+        <form onSubmit={loginHandler}>
+          <FormControl className="login-form">
+            <TextField
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              id="email"
+              label="Email"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <ContactMailIcon />
+                  </InputAdornment>
+                ),
+              }}
+              variant="standard"
+            />
+            <TextField
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              id="password"
+              label="Password"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <LockIcon />
+                  </InputAdornment>
+                ),
+              }}
+              variant="standard"
+            />
+            {/* if the message is defined, show it */}
+            {message && <p className="error-message">{message}</p>}
+            <Button variant="contained" id="login-btn" className="input-btn" type="submit" startIcon={<LoginIcon />}>Login</Button>
+            <Link to="../reset-password">Forgot password?</Link>
+          </FormControl>
         </form>
       </div>
     </div>

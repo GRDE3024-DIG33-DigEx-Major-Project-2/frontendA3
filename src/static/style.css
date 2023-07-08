@@ -84,7 +84,7 @@ a {
   align-items: left;
   gap: 2%;
   height: 13em;
-  width: 20em;
+  width: 34vw;
 }
 
 /* SIGNUP PAGE */
@@ -185,8 +185,8 @@ footer a {
   min-height: 78vh;
   display: grid;
   grid-template-areas: "head head" "bio events" "account events";
-  grid-template-rows: 100px auto auto;
-  grid-template-columns: 35% 65%;
+  grid-template-rows: 100px minmax(300px, auto) minmax(400px, auto);
+  grid-template-columns: 30% 70%;
 }
 .profile-container .profile-banner {
   grid-area: head;
@@ -198,31 +198,61 @@ footer a {
 }
 .profile-container .personal-bio {
   grid-area: bio;
-  margin: 4%;
+  margin: 2em;
 }
 .profile-container .account-settings {
   grid-area: account;
-  margin: 4%;
+  margin: 2em;
 }
 .profile-container .saved-events {
   grid-area: events;
-  margin: 4%;
+  margin: 2em;
 }
 .profile-container h1 {
   margin-left: 0;
   margin-bottom: 2%;
 }
-.profile-container .profile-paper {
+.profile-container .profile-box {
   border: solid 1px #000000;
+  padding: 5%;
+  position: relative;
+}
+.profile-container .prof-center {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  padding: 5%;
+}
+.profile-container .prof-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: left;
+}
+.profile-container .prof-left #delete-account-profile {
+  margin-top: 20%;
 }
 .profile-container .profile-avatar {
   height: 150px;
   width: 150px;
+}
+.profile-container .edit-note {
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  cursor: pointer;
+}
+.profile-container .edit-note:hover {
+  transform: scale(1.1);
+}
+.profile-container .events-profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 90%;
+  width: 100%;
+  gap: 2%;
 }
 
 /*EVENT PAGE*/
@@ -336,8 +366,8 @@ footer a {
 .card-icon {
   background-color: #3131b8;
   color: #ffffff;
-  width: 25px;
-  height: 25px;
+  width: 23px;
+  height: 23px;
   padding: 2%;
   border-radius: 50%;
   text-align: center;
@@ -356,6 +386,31 @@ footer a {
 
 .event-carousel {
   height: 100px;
+}
+
+.horizontal-card-box {
+  width: 130%;
+  position: relative;
+  padding-left: 3%;
+}
+
+.horizontal-card {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: left;
+}
+
+.ev-share-h {
+  bottom: 10%;
+  right: 5%;
+}
+
+.ev-bookmark-h {
+  bottom: 10%;
+  right: 20%;
 }
 
 /*# sourceMappingURL=style.css.map */

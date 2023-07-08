@@ -95,11 +95,10 @@ a {
   @include flex-column(space-around, left);
   gap: 2%;
   height: 13em;
-  width: 20em;
+  width: 34vw;
 }
 
 /* SIGNUP PAGE */
-
 .signup {
   display: flex;
   flex-direction: row;
@@ -190,8 +189,8 @@ footer {
     "head head"
     "bio events"
     "account events";
-  grid-template-rows: 100px auto auto;
-  grid-template-columns: 35% 65%;
+  grid-template-rows: 100px minmax(300px, auto) minmax(400px, auto);
+  grid-template-columns: 30% 70%;
 
   .profile-banner {
     grid-area: head;
@@ -200,15 +199,15 @@ footer {
   }
   .personal-bio {
     grid-area: bio;
-    margin: 4%;
+    margin: 2em;
   }
   .account-settings {
     grid-area: account;
-    margin: 4%;
+    margin: 2em;
   }
   .saved-events {
     grid-area: events;
-    margin: 4%;
+    margin: 2em;
   }
 
   h1 {
@@ -216,15 +215,45 @@ footer {
     margin-bottom: 2%;
   }
 
-  .profile-paper {
+  .profile-box {
     border: solid 1px $black;
-    @include flex-column;
     padding: 5%;
+    position: relative;
+  }
+
+  .prof-center {
+    @include flex-column;
+  }
+
+  .prof-left {
+    @include flex-column(space-around, left);
+
+    #delete-account-profile{
+      margin-top: 20%;
+    }
   }
 
   .profile-avatar {
     height: 150px;
     width: 150px;
+  }
+
+  .edit-note {
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    cursor: pointer;
+  }
+
+  .edit-note:hover{
+    transform: scale(1.1);
+  }
+
+  .events-profile{
+    @include flex-column;
+    height: 90%;
+    width: 100%;
+    gap: 2%;
   }
 }
 
@@ -337,8 +366,8 @@ footer {
 .card-icon {
   background-color: #3131b8;
   color: $white;
-  width: 25px;
-  height: 25px;
+  width: 23px;
+  height: 23px;
   padding: 2%;
   border-radius: 50%;
   text-align: center;
@@ -357,4 +386,26 @@ footer {
 
 .event-carousel {
   height: 100px;
+}
+
+.horizontal-card-box {
+  width:130%;
+  position: relative;
+  padding-left: 3%;
+}
+
+.horizontal-card {
+  position: relative;
+  width: 100%;
+  @include flex-row(space-around, left)
+}
+
+.ev-share-h {
+  bottom: 10%;
+  right: 5%;
+}
+
+.ev-bookmark-h {
+  bottom: 10%;
+  right: 20%;
 }
