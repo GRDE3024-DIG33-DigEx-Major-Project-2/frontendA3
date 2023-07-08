@@ -99,12 +99,63 @@ a {
 }
 
 /* SIGNUP PAGE */
+
+.signup {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 80vh;
+}
+
+.signup-next-button {
+  margin: auto;
+  text-align: center;
+}
+.next-button {
+  margin-top: 100px;
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #5b5be6;
+  color: white;
+  width: 450px;
+}
 .signup-form {
-  @include flex-column(space-around, left);
-  gap: 2%;
-  height: 13em;
-  width: 20em;
-  margin-left: 4%;
+  width: 450px;
+  margin: auto;
+}
+.signup-left {
+  background-color: white;
+  height: 100%;
+  flex: 50%;
+}
+
+.signup-left h1 {
+  text-align: center;
+}
+
+.signup-logo {
+  text-align: center;
+  margin: auto;
+}
+.signup-logo img {
+  width: 120px;
+  text-align: center;
+  margin: auto;
+  text-align: center;
+}
+.signup-right .signup-logo img {
+  width: 100%;
+}
+
+.signup-right {
+  background-color: #9c9ced;
+  flex: 50%;
 }
 
 /* RESET PASSWORD */
@@ -165,13 +216,13 @@ footer {
     margin-bottom: 2%;
   }
 
-  .profile-paper{
+  .profile-paper {
     border: solid 1px $black;
     @include flex-column;
     padding: 5%;
   }
 
-  .profile-avatar{
+  .profile-avatar {
     height: 150px;
     width: 150px;
   }

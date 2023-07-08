@@ -88,20 +88,21 @@ a {
 }
 
 /* SIGNUP PAGE */
-
 .signup {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
-  height:80vh;
+  height: 80vh;
 }
+
 .signup-next-button {
   margin: auto;
   text-align: center;
 }
+
 .next-button {
-  margin-top:100px;
+  margin-top: 100px;
   border: none;
   padding: 15px 32px;
   text-align: center;
@@ -111,42 +112,44 @@ a {
   cursor: pointer;
   background-color: #5b5be6;
   color: white;
-  width:450px;
+  width: 450px;
 }
 
 .signup-form {
   width: 450px;
-  margin:auto;
+  margin: auto;
 }
+
 .signup-left {
-background-color: white;
-height:100%;
-flex:50%;
+  background-color: white;
+  height: 100%;
+  flex: 50%;
 }
 
 .signup-left h1 {
-  text-align:center;
+  text-align: center;
 }
 
 .signup-logo {
-text-align:center;
-margin:auto;
+  text-align: center;
+  margin: auto;
 }
-.signup-logo img{
+
+.signup-logo img {
   width: 120px;
   text-align: center;
-  margin:auto;
-  text-align:center;
+  margin: auto;
+  text-align: center;
 }
+
 .signup-right .signup-logo img {
   width: 100%;
 }
 
 .signup-right {
   background-color: #9c9ced;
-  flex:50%;
+  flex: 50%;
 }
-
 
 /* RESET PASSWORD */
 .reset-pwd-form {
