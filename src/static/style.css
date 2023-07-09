@@ -171,10 +171,7 @@ footer {
   left: 0;
   right: 0;
   width: 98%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
+  text-align: center;
 }
 footer a {
   color: #5b5be6;

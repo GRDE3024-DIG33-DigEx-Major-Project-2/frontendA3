@@ -9,8 +9,7 @@ import Login from "./Login.js";
 import Signup from "./Signup.js";
 import About from "./About.js";
 import ResetPassword from "./ResetPassword.js";
-import Gigs from "./Gigs";
-import Articles from "./Articles";
+import Events from "./Events";
 import TermsOfUse from "./TermsOfUse";
 import PrivacyPolicy from "./PrivacyPolicy";
 import EventPage from "./EventPage.js";
@@ -35,9 +34,8 @@ function App() {
           <Header user = {user} isLoggedIn = {isLoggedIn} setIsLoggedIn = {setIsLoggedIn} setUser={setUser} />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="gigs" element={<Gigs/>} />
+            <Route path="events" element={<Events/>} />
             <Route path="about" element={<About />} />
-            <Route path="articles" element={<Articles />} />
             <Route path="login" element={<Login setIsLoggedIn={setIsLoggedIn} setUser={setUser}/>} />
             <Route path="signup" element={<Signup />} />
             <Route path="reset-password" element={<ResetPassword />} />

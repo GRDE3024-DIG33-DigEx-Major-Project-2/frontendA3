@@ -18,13 +18,10 @@ export default function Header({ user, isLoggedIn, setIsLoggedIn, setUser }) {
           />
         </Link>
         <div className="nav-links">
-          <Link id="nav-gigs" to="/gigs">
-            Gigs
+          <Link id="nav-events" to="/events">
+            Events
           </Link>
-          <Link id="nav-articles" to="/articles">
-            Articles
-          </Link>
-          <Link id="nav-user" to="/user">
+          <Link id="nav-user" to="/profile">
             Profile
           </Link>
           {!isLoggedIn && (

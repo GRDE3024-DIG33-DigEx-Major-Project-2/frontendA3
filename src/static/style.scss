@@ -174,7 +174,7 @@ footer {
   left: 0;
   right: 0;
   width: 98%;
-  @include flex-row;
+  text-align: center;
 
   a {
     color: $blue;
