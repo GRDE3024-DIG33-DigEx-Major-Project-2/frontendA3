@@ -16,13 +16,22 @@ const Login = ({ setIsLoggedIn, setUser }) => {
     console.log("Login Handler");
 
     // if the email and password are validated, get user object and navigate to homepage
+    // NOTE while in development, just change type between organiser and guest manually to test different views
     const currentUser = {
       id: "123456789",
       name: "Test User",
+      type: "organiser" // change to "guest" to see guest view
     };
     setUser(currentUser);
     setIsLoggedIn(true);
-    navigate("../profile");
+
+    if(currentUser.type === "organiser"){
+      navigate("../dashboard");
+    }
+    if(currentUser.type === "guest"){
+      navigate("../profile");
+    }
+    
 
     // if wrong email or password, set message - logic to be added with backend
     setMessage("Invalid email or password. Try again.");

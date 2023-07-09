@@ -219,6 +219,12 @@ footer a {
   grid-area: events;
   margin: 2em;
 }
+.profile-container .saved-events #saved-events-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
 .profile-container h1 {
   margin-left: 0;
   margin-bottom: 2%;
@@ -422,4 +428,25 @@ footer a {
 .ev-bookmark-h {
   bottom: 10%;
   right: 20%;
-}/*# sourceMappingURL=style.css.map */
+}
+
+.ev-menu-h {
+  bottom: 11%;
+  right: 5%;
+  position: absolute;
+  width: 23px;
+  height: 23px;
+  padding: 2%;
+}
+
+.ev-menu-h:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.ev-share-h-2 {
+  bottom: 10%;
+  right: 15%;
+}
+
+/*# sourceMappingURL=style.css.map */

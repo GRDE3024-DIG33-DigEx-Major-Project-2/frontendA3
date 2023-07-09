@@ -15,6 +15,7 @@ import PrivacyPolicy from "./PrivacyPolicy";
 import EventPage from "./EventPage.js";
 import SignUpGuest from "./SignupGuest.js";
 import SignUpOrganiser from "./SignupOrganiser";
+import Dashboard from "./Dashboard";
 
 function App() {
 
@@ -40,6 +41,7 @@ function App() {
             <Route path="signup" element={<Signup />} />
             <Route path="reset-password" element={<ResetPassword />} />
             <Route path="profile" element={<Profile isLoggedIn={isLoggedIn} user={user} setIsLoggedIn={setIsLoggedIn} setUser={setUser} />} />
+            <Route path="dashboard" element={<Dashboard isLoggedIn={isLoggedIn} user={user} setIsLoggedIn={setIsLoggedIn} setUser={setUser} />} />
             <Route path="/terms-of-use" element={<TermsOfUse/>} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/event" element={<EventPage />} />

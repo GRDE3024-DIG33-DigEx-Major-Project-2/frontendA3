@@ -19,6 +19,11 @@ $lightblue: #9c9ced;
   align-items: $align-items;
 }
 
+@mixin interaction-expand-on-hover(){
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
 // for selector inheritance, use @extend elementName
 
 body {
@@ -228,6 +233,10 @@ footer {
   .saved-events {
     grid-area: events;
     margin: 2em;
+
+    #saved-events-header{
+      @include flex-row(space-between, center);
+    }
   }
 
   h1 {
@@ -379,8 +388,7 @@ footer {
 }
 
 .card-icon:hover {
-  transform: scale(1.1);
-  cursor: pointer;
+  @include interaction-expand-on-hover;
 }
 
 .card-icon {
@@ -428,4 +436,22 @@ footer {
 .ev-bookmark-h {
   bottom: 10%;
   right: 20%;
+}
+
+.ev-menu-h {
+  bottom: 11%;
+  right: 5%;
+  position: absolute;
+  width: 23px;
+  height: 23px;
+  padding: 2%;
+}
+
+.ev-menu-h:hover {
+  @include interaction-expand-on-hover;
+}
+
+.ev-share-h-2 {
+  bottom: 10%;
+  right: 15%;
 }

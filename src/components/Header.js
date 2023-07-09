@@ -21,9 +21,21 @@ export default function Header({ user, isLoggedIn, setIsLoggedIn, setUser }) {
           <Link id="nav-events" to="/events">
             Events
           </Link>
-          <Link id="nav-user" to="/profile">
-            Profile
-          </Link>
+          {isLoggedIn && user.type === "guest" && (
+            <Link id="nav-profile" to="/profile">
+              Profile
+            </Link>
+          )}
+          {isLoggedIn && user.type === "organiser" && (
+            <>
+              <Link id="nav-create-event" to="/create-event">
+                Create Event
+              </Link>
+              <Link id="nav-dashboard" to="/dashboard">
+                Dashboard
+              </Link>
+            </>
+          )}
           {!isLoggedIn && (
             <>
               <Link id="nav-signup" to="/signup">
