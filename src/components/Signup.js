@@ -31,7 +31,7 @@ function SignUp() {
               <img src="../gigney-logo-white.jpg" alt="gigney logo white" />
             </div>
             <h1>Create an account</h1>
-            <form classNameName="signup-form" onSubmit={handleChange}>
+            <form className="signup-form" onSubmit={handleChange}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">
                   What would you like to do on this site?
@@ -50,12 +50,12 @@ function SignUp() {
                   <input
                     className="next-button"
                     type="submit"
-                    value="Continue"
+                    value="Submit"
                     onClick={handleClick}
                   />
                   <p>&nbsp;</p>
-                  <Link to="../reset-password">
-                    Already have an account? Login
+                  <Link to="../Login">
+                    Already have an account? Login instead
                   </Link>
                 </div>
               </FormControl>

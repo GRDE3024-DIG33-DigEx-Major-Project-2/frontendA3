@@ -116,8 +116,14 @@ a {
 }
 
 .signup-form {
-  width: 450px;
+  max-width: 900px;
+  width: 100%;
   margin: auto;
+}
+
+.signup-submit {
+  width: 300px;
+  margin: auto !important;
 }
 
 .signup-left {
@@ -126,13 +132,16 @@ a {
   flex: 50%;
 }
 
-.signup-left h1 {
+.signup h1 {
   text-align: center;
+  margin: auto;
+  margin-bottom: 30px;
 }
 
 .signup-logo {
   text-align: center;
   margin: auto;
+  width: 100%;
 }
 
 .signup-logo img {
@@ -149,6 +158,11 @@ a {
 .signup-right {
   background-color: #9c9ced;
   flex: 50%;
+}
+
+.login-link {
+  margin: auto;
+  padding-top: 15px;
 }
 
 /* RESET PASSWORD */
@@ -408,6 +422,4 @@ footer a {
 .ev-bookmark-h {
   bottom: 10%;
   right: 20%;
-}
-
-/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */

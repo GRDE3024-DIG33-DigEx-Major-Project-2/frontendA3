@@ -4,35 +4,35 @@ function Event() {
 
         <div className="Event">
 
-            <img class="event-main-image" alt="eventimage" src="https://www.etonline.com/sites/default/files/styles/1440x600/public/images/2023-03/MK-Taylor-Swift-1920-x-800-GALLERY-HERO.jpg?h=8a38cc7d"></img>
-            <div class="event-body">
-                <div class="event-columns">
-                    <div class="event-column-title">
-                        <h1 class="event-title">Taylor Swift</h1>
+            <img className="event-main-image" alt="eventimage" src="https://www.etonline.com/sites/default/files/styles/1440x600/public/images/2023-03/MK-Taylor-Swift-1920-x-800-GALLERY-HERO.jpg?h=8a38cc7d"></img>
+            <div className="event-body">
+                <div className="event-columns">
+                    <div className="event-column-title">
+                        <h1 className="event-title">Taylor Swift</h1>
                     </div>
-                    <div class="event-column-button">
-                        <button class="event-buy-button">Buy Tickets</button>
+                    <div className="event-column-button">
+                        <button className="event-buy-button">Buy Tickets</button>
                     </div>
-                    <div class="event-column-title">
-                        <h2 class="event-title">When and where</h2>
-                        <div class="event-columns-details">
-                            <div class="event-column-detail">
+                    <div className="event-column-title">
+                        <h2 className="event-title">When and where</h2>
+                        <div className="event-columns-details">
+                            <div className="event-column-detail">
                                 <h4>Date & Time</h4>
                                 <p>Saturday 30th February, 2024</p>
                             </div>
-                            <div class="event-column-detail">
+                            <div className="event-column-detail">
                                 <h4>Location</h4>
                                 <p>Sydney Olympic Park</p>
                             </div>
                         </div>
                     </div>
-                    <div class="event-column-button">
+                    <div className="event-column-button">
                         <h2>Organised By</h2>
-                        <div class="event-columns-details">
-                            <div class="event-column-detail">
-                                <img class="event-logo" src="https://www.frontiertouring.com/files/web_images/logo-frontier_footer.png" alt="artist"></img>
+                        <div className="event-columns-details">
+                            <div className="event-column-detail">
+                                <img className="event-logo" src="https://www.frontiertouring.com/files/web_images/logo-frontier_footer.png" alt="artist"></img>
                             </div>
-                            <div class="event-column-detail">
+                            <div className="event-column-detail">
                                 <p>Frontier Touring</p>
                             </div>
                         </div>
@@ -44,16 +44,16 @@ function Event() {
                     </div>
                     <div>
                     <h3>Tags</h3>
-                    <span class="event-tag">Pop</span><span class="event-tag">Country</span><span class="event-tag">Event</span><span class="event-tag">Music</span><span class="event-tag">Female</span>
+                    <span className="event-tag">Pop</span><span className="event-tag">Country</span><span className="event-tag">Event</span><span className="event-tag">Music</span><span className="event-tag">Female</span>
                 </div>
                 </div>
                 <p>&nbsp;</p>
-                <div class="event-columns">
-                    <div class="event-column-title">
-                        <h1 class="event-title">Event Title</h1>
+                <div className="event-columns">
+                    <div className="event-column-title">
+                        <h1 className="event-title">Event Title</h1>
                     </div>
-                    <div class="event-column-button">
-                        <button class="event-buy-button">Buy Tickets</button>
+                    <div className="event-column-button">
+                        <button className="event-buy-button">Buy Tickets</button>
                     </div>
                 </div>
                 </div>

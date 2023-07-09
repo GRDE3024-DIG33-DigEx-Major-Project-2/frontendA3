@@ -111,6 +111,7 @@ a {
   margin: auto;
   text-align: center;
 }
+
 .next-button {
   margin-top: 100px;
   border: none;
@@ -124,30 +125,43 @@ a {
   color: white;
   width: 450px;
 }
+
 .signup-form {
-  width: 450px;
+  max-width: 900px;
+  width: 100%;
   margin: auto;
 }
+
+.signup-submit {
+  width: 300px;
+  margin: auto !important;
+}
+
 .signup-left {
   background-color: white;
   height: 100%;
   flex: 50%;
 }
 
-.signup-left h1 {
+.signup h1 {
   text-align: center;
+  margin: auto;
+  margin-bottom: 30px;
 }
 
 .signup-logo {
   text-align: center;
   margin: auto;
+  width: 100%;
 }
+
 .signup-logo img {
   width: 120px;
   text-align: center;
   margin: auto;
   text-align: center;
 }
+
 .signup-right .signup-logo img {
   width: 100%;
 }
@@ -156,6 +170,12 @@ a {
   background-color: #9c9ced;
   flex: 50%;
 }
+
+.login-link {
+  margin: auto;
+  padding-top: 15px;
+}
+
 
 /* RESET PASSWORD */
 .reset-pwd-form {
