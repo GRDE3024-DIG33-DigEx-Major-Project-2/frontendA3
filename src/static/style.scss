@@ -206,6 +206,55 @@ footer {
   }
 }
 
+/* SEARCH RESULTS PAGE */
+.search-results-grid{
+  min-height: 90vh;
+  display: grid;
+  grid-template-areas: "filters results";
+  grid-template-columns: 35% 65%;
+
+  .search-filters{
+    grid-area: filters;
+    margin: 2em;
+
+    .filter-box{
+      @include flex-column(justify-content, left);
+      height: 100%;
+      border: solid 1px $black;
+      div{
+        padding: 5%;
+      }
+    }
+  }
+
+  .search-results{
+    grid-area: results;
+    margin: 2em;
+  }
+
+  #price-select-box{
+    border: solid 1px $black;
+    width: 90%;
+    padding: 5%;
+  }
+
+  .search-filters-top{
+    border: solid 1px $black;
+    width: 90%;
+    padding: 3%;
+  }
+
+  .events-result{
+    height: 100%;
+    width: 96%;
+    @include flex-column(flex-start, flex-start);
+    gap: 2%;
+    padding: 4% 0;
+  }
+}
+
+
+
 /* PROFILE PAGE */
 .profile-container {
   min-height: 78vh;
