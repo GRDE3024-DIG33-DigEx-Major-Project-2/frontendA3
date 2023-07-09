@@ -16,6 +16,7 @@ import EventPage from "./EventPage.js";
 import SignUpGuest from "./SignupGuest.js";
 import SignUpOrganiser from "./SignupOrganiser";
 import Dashboard from "./Dashboard";
+import CreateEvent from "./CreateEvent.js";
 
 function App() {
 
@@ -47,6 +48,7 @@ function App() {
             <Route path="/event" element={<EventPage />} />
             <Route path="/signupguest" element={<SignUpGuest />} />
             <Route path="/signuporganiser" element={<SignUpOrganiser />} />
+            <Route path="/createevent" element={<CreateEvent />} />
             <Route path="*" element={<h1 className="not-found">Page Not Found</h1>} />
           </Routes>
       <Footer />

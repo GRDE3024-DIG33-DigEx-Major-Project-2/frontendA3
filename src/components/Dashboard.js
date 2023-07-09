@@ -1,8 +1,9 @@
 import { Box, Avatar, Button } from "@mui/material";
 import EditNote from "@mui/icons-material/EditNote";
-import { Link } from "react-router-dom";
+import {useNavigate, Link } from "react-router-dom";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import CreatedEventCardHorizontal from "./CreatedEventCardHorizontal";
+
 
 const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
   var events = [
@@ -32,8 +33,10 @@ const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
     console.log("redirecting to delete page or pop up");
   };
 
+  const navigate = useNavigate();
+  
   const createNewEventHandler = () => {
-    console.log("redirecting to create event page");
+    navigate("/createevent");
   }
 
   return (
