@@ -498,7 +498,7 @@ footer a {
 
 /*CREATE EVENT */
 #create-event-screen {
-  height: 50vh;
+  height: 60vh;
 }
 
 .create-event-header {
@@ -511,4 +511,17 @@ footer a {
 
 .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
   color: #9c9ced !important;
-}/*# sourceMappingURL=style.css.map */
+}
+
+.css-14lo706 {
+  overflow: visible !important;
+}
+
+.css-14lo706 > span {
+  opacity: 100;
+}
+
+.css-14lo706 {
+  padding-bottom: 11px;
+}
+/*# sourceMappingURL=style.css.map */
