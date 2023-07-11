@@ -13,7 +13,7 @@ const Login = ({ setIsLoggedIn, setUser }) => {
   const navigate = useNavigate();
 
   const loginUrl =
-    "http://gignet-api.ap-southeast-2.elasticbeanstalk.com/auth/login";
+    "https://gigney.ryanriddiford.com/auth/login";
 
   const loginHandler = async (event) => {
     event.preventDefault();
