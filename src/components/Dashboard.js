@@ -52,11 +52,11 @@ const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
               <Box className="profile-box prof-center">
                 <EditNote className="edit-note" />
                 <Avatar
-                  alt={user.name}
+                  alt={user.organizationName}
                   src="../gigney.png"
                   className="profile-avatar"
                 />
-                <h4>{user.name}</h4>
+                <h4>{user.organizationName}</h4>
                 <p>Something here</p>
               </Box>
             </article>

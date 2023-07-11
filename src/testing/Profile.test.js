@@ -7,7 +7,8 @@ import { MemoryRouter } from "react-router-dom";
 test("user page renders appropriate content when logged in", () => {
   const testUser = {
     id: "123456789",
-    name: "Test User",
+    fullName: "Test User",
+    type: "attendee"
   };
 
   // ARRANGE

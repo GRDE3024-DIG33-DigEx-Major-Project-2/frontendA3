@@ -44,12 +44,12 @@ const Profile = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
               <Box className="profile-box prof-center">
                 <EditNote className="edit-note" />
                 <Avatar
-                  alt={user.name}
+                  alt={user.fullName}
                   src="../gigney.png"
                   className="profile-avatar"
                 />
-                <h4>{user.name}</h4>
-                <p>Something here</p>
+                <h4>{user.fullName}</h4>
+                <p>{user.bio}</p>
               </Box>
             </article>
             <article className="account-settings">

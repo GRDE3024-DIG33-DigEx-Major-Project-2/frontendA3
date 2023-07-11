@@ -4,6 +4,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import LoginIcon from '@mui/icons-material/Login';
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 
 const Login = ({ setIsLoggedIn, setUser }) => {
   const [email, setEmail] = useState("");
@@ -11,30 +12,64 @@ const Login = ({ setIsLoggedIn, setUser }) => {
   const [message, setMessage] = useState(null);
   const navigate = useNavigate();
 
+  const loginUrl = 'http://gignet-api.ap-southeast-2.elasticbeanstalk.com/auth/login';
+
   const loginHandler = async (event) => {
     event.preventDefault();
     console.log("Login Handler");
 
-    // if the email and password are validated, get user object and navigate to homepage
-    // NOTE while in development, just change type between organiser and guest manually to test different views
-    const currentUser = {
-      id: "123456789",
-      name: "Test User",
-      type: "organiser" // change to "guest" to see guest view
-    };
-    setUser(currentUser);
-    setIsLoggedIn(true);
-
-    if(currentUser.type === "organiser"){
-      navigate("../dashboard");
+    let loginBody = {
+      email: email,
+      password: password
     }
-    if(currentUser.type === "guest"){
-      navigate("../profile");
-    }
-    
 
-    // if wrong email or password, set message - logic to be added with backend
-    setMessage("Invalid email or password. Try again.");
+    let destinationPage="";
+    let user;
+
+    axios
+    .post(loginUrl, loginBody)
+    .then((response) => {
+      setMessage("Login Succesful");
+
+      if (response.data.user.organizationName){
+        user = {
+          type: "organiser",
+          email: response.data.user.email,
+          firstName: response.data.user.firstName,
+          lastName: response.data.user.lastName,
+          fullName: response.data.user.fullName,
+          id: response.data.user.id,
+          password: response.data.user.password,
+          phoneNumber: response.data.user.phoneNumber,
+          organizationName: response.data.user.organizationName
+        }
+
+        destinationPage = "../dashboard";
+      } else {
+        user = {
+          type: "attendee",
+          email: response.data.user.email,
+          firstName: response.data.user.firstName,
+          lastName: response.data.user.lastName,
+          fullName: response.data.user.fullName,
+          id: response.data.user.id,
+          password: response.data.user.password,
+          phoneNumber: response.data.user.phoneNumber,
+          bio: response.data.user.bio,
+          dob: response.data.user.dob
+        }
+        
+        destinationPage = "../profile";
+      }
+
+      setUser(user);
+      setIsLoggedIn(true);
+      navigate(destinationPage);
+    })
+    .catch((error) => {
+      setMessage("Invalid email or password. Try again.");
+      console.log(error);
+    });
   };
 
   return (
