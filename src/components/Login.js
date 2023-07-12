@@ -76,11 +76,11 @@ const Login = ({ setIsLoggedIn, setUser }) => {
 
   return (
     <div className="login-page">
-      <div className="left"></div>
+      <div className="left"> <img src="Gigney_login.png" alt="Login photo" class="left-img"></img></div>
       <div className="right">
         <div className="login-logo">
           <img src="../gigney-logo-white.jpg" alt="gigney logo white" />
-          <h1>Login</h1>
+          <h1 class="login">Login</h1>
         </div>
         <form onSubmit={loginHandler}>
           <FormControl className="login-form">
@@ -88,7 +88,8 @@ const Login = ({ setIsLoggedIn, setUser }) => {
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               id="email"
-              label="Email"
+              label="Email:"
+              placeholder="Enter your email address"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -102,7 +103,8 @@ const Login = ({ setIsLoggedIn, setUser }) => {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               id="password"
-              label="Password"
+              label="Password:"
+              placeholder="Enter your password"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -123,7 +125,7 @@ const Login = ({ setIsLoggedIn, setUser }) => {
             >
               Login
             </Button>
-            <Link to="../reset-password">Forgot password?</Link>
+            <Link to="../reset-password" class=".forgot-btn">Forgot password?</Link>
           </FormControl>
         </form>
       </div>

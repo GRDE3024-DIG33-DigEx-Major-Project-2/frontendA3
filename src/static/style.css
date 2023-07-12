@@ -62,6 +62,11 @@ a {
   background-color: #9c9ced;
 }
 
+.left-img{
+  width: 100%;
+  height: 100%;
+}
+
 .right {
   display: flex;
   flex-direction: column;
@@ -72,9 +77,16 @@ a {
 .right .login-logo {
   width: 20%;
   text-align: center;
+  margin-left: 220px;
+  margin-right: auto;
 }
 .right .login-logo img {
-  width: 100%;
+  width: 200%;
+  display: block;
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
 }
 
 .login-form {
@@ -85,7 +97,36 @@ a {
   gap: 2%;
   height: 13em;
   width: 34vw;
+  
 }
+
+.forgot-btn{
+  text-decoration: underline;
+  text-align: center;
+  color: #F58146;
+  font-weight: bold;
+}
+#email{
+border: 1px solid;
+}
+.label{
+  font-weight: bold;
+  font-size: larger;
+  }
+
+#password{
+  border: 1px solid;
+}
+
+#login-btn{
+  background-color: #F58146;
+}
+
+.login{
+  font-size: 40px;
+  margin: 0px 0px 0px 80px;
+}
+
 
 /* SIGNUP PAGE */
 .signup {
