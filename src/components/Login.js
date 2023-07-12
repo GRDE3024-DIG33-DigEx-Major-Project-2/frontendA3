@@ -125,7 +125,7 @@ const Login = ({ setIsLoggedIn, setUser }) => {
             >
               Login
             </Button>
-            <Link to="../reset-password" class=".forgot-btn">Forgot password?</Link>
+            <Link to="../reset-password" class="forgot-btn">Forgot password?</Link>
           </FormControl>
         </form>
       </div>
