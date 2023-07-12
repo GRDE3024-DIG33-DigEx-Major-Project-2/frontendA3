@@ -145,7 +145,7 @@ a {
   display: inline-block;
   font-size: 16px;
   cursor: pointer;
-  background-color: #5b5be6;
+  background-color: #F58146;
   color: white;
   width: 450px;
 }
@@ -171,6 +171,7 @@ a {
   text-align: center;
   margin: auto;
   margin-bottom: 30px;
+  font-weight: bold;
 }
 
 .signup-logo {
@@ -180,24 +181,51 @@ a {
 }
 
 .signup-logo img {
-  width: 120px;
-  text-align: center;
-  margin: auto;
-  text-align: center;
+  width: 100%;
+  display: block;
+  margin-block-start: 0.67em;
+  margin-block-end: -4.33em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
 }
 
 .signup-right .signup-logo img {
   width: 100%;
+  display:block;
+}
+
+.signup-right img {
+  width: 100%;
+  height: 100%;
+
 }
 
 .signup-right {
   background-color: #9c9ced;
+  height: 100%;
   flex: 50%;
 }
 
 .login-link {
   margin: auto;
   padding-top: 15px;
+}
+
+.login-divert{
+  text-decoration: underline;
+  text-align: center;
+  color: #F58146;
+  font-weight: bold;
+}
+
+#demo-simple-select{
+  background:#7759A6;
+}
+
+#demo-simple-select-label{
+  color:#ffffff;
+  font-weight: bold;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 /* RESET PASSWORD */

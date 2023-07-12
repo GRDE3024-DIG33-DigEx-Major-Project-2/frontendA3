@@ -2,10 +2,13 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
+import InputAdornment from "@mui/material/InputAdornment";
 
 function SignUp() {
   const [accountType, setAccountType] = useState("");
@@ -43,18 +46,30 @@ function SignUp() {
                   value={accountType}
                   onChange={(event) => setAccountType(event.target.value)}
                 >
-                  <MenuItem value={"guest"}>Search for events</MenuItem>
-                  <MenuItem value={"organiser"}>Create an event</MenuItem>
+                  <MenuItem value={"guest"}  InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <LocationOnIcon />
+                  </InputAdornment>
+                ),
+              }}>Search for events</MenuItem>
+                  <MenuItem value={"organiser"} InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <AddCircleOutlineRoundedIcon />
+                  </InputAdornment>
+                ),
+              }}>Create an event</MenuItem>
                 </Select>
                 <div className="signup-next-button">
                   <input
                     className="next-button"
                     type="submit"
-                    value="Submit"
+                    value="Continue"
                     onClick={handleClick}
                   />
                   <p>&nbsp;</p>
-                  <Link to="../Login">
+                  <Link to="../Login" class="login-divert">
                     Already have an account? Login instead
                   </Link>
                 </div>
@@ -63,7 +78,7 @@ function SignUp() {
           </Box>
         </div>
 
-        <div className="signup-right"></div>
+        <div className="signup-right"> <img src="Gigney-signup-img.png" alt="Signup photo"/> </div>
       </div>
     </>
   );
