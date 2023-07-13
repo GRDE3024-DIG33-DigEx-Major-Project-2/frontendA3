@@ -211,7 +211,7 @@ a {
 }
 
 .signup-logo img {
-  width: 300px;
+  width: 250px;
   text-align: center;
   margin: auto;
 }
@@ -263,6 +263,46 @@ a {
 color:#ffffff;
 text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
+
+.guest{
+  color:#ffffff;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+.organiser{
+  color:#ffffff;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+/*SIGNUP GUEST*/
+
+.login-link{
+  text-decoration: underline;
+  color:#F58146;
+  font-weight:bold;
+}
+
+.signup-form{
+  justify-content: space-around;
+  }
+  .signup{
+    h1{
+      font-weight:bold;
+      margin-bottom: 10px;
+    }
+  }
+.css-v4u5dn-MuiInputBase-root-MuiInput-root{
+    border: 2px solid;
+    margin-bottom: 15px;
+   }
+.signup-form{
+  label{
+  font-weight: bold;
+  font-size: 20px;
+}
+}
+
+/*SIGNUP ORGANISER*/
+
 
 /* RESET PASSWORD */
 .reset-pwd-form {

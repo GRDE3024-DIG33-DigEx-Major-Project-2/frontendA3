@@ -68,14 +68,14 @@ function SignUpGuest() {
         >
           <form className="signup-form" onSubmit={signupHandler}>
             <FormControl fullWidth>
-              <Grid container spacing={2} paddingBottom="15px">
+              <Grid container spacing={4} paddingBottom="30px">
                 <Grid container item xs={6} direction="column">
                   <TextField
                     value={firstName}
                     required
                     onChange={(event) => setFirstName(event.target.value)}
                     id="input-with-icon-textfield"
-                    label="First Name"
+                    label="First Name:"
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
@@ -90,7 +90,7 @@ function SignUpGuest() {
                     required
                     onChange={(event) => setLastName(event.target.value)}
                     id="input-with-icon-textfield"
-                    label="Last Name"
+                    label="Last Name:"
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
@@ -105,7 +105,7 @@ function SignUpGuest() {
                     required
                     onChange={(event) => setEmail(event.target.value)}
                     id="email"
-                    label="Email"
+                    label="Email:"
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
@@ -120,7 +120,7 @@ function SignUpGuest() {
                     required
                     onChange={(event) => setDob(event.target.value)}
                     id="input-with-icon-textfield"
-                    label="Date of Birth"
+                    label="Date of Birth:"
                     type="Date"
                     InputProps={{
                       startAdornment: (
@@ -138,7 +138,7 @@ function SignUpGuest() {
                     required
                     onChange={(event) => setPassword(event.target.value)}
                     id="password"
-                    label="Password"
+                    label="Password:"
                     type="password"
                     InputProps={{
                       startAdornment: (
@@ -156,7 +156,7 @@ function SignUpGuest() {
                       setPasswordConfirmation(event.target.value)
                     }
                     id="password"
-                    label="Confirm Password"
+                    label="Confirm Password:"
                     type="password"
                     InputProps={{
                       startAdornment: (
@@ -181,8 +181,7 @@ function SignUpGuest() {
                     value={privacy}
                     onChange={(event) => setPrivacy(event.target.value)}
                   />
-                </Grid>
-              </Grid>
+
               <Button
                 variant="contained"
                 id="login-btn"
@@ -192,6 +191,9 @@ function SignUpGuest() {
               >
                 Submit
               </Button>
+                </Grid>
+              </Grid>
+        
               <Link to="../Login" class="login-link">
                 Already have an account? Login instead
               </Link>
