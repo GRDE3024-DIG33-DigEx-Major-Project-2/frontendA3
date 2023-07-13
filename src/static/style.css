@@ -62,12 +62,13 @@ a {
   background-color: #9c9ced;
 }
 
-.left-img{
-  width: 100%;
-  height: 100%;
-}
-
 .right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 50%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -97,30 +98,43 @@ a {
   gap: 2%;
   height: 13em;
   width: 34vw;
-  
 }
 
-.forgot-btn{
+.left-img {
+  width: 100%;
+  height: 100%;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: left;
+  gap: 2%;
+  height: 13em;
+  width: 34vw;
+}
+
+.forgot-btn {
   text-decoration: underline;
   text-align: center;
   color: #F58146;
   font-weight: bold;
 }
 
-.label{
+.label {
   font-weight: bold;
   font-size: larger;
-  }
+}
 
-#login-btn{
+#login-btn {
   background-color: #F58146;
 }
 
-.login{
+.login {
   font-size: 40px;
   margin: 0px 0px 0px 130px;
 }
-
 
 /* SIGNUP PAGE */
 .signup {
@@ -145,7 +159,7 @@ a {
   display: inline-block;
   font-size: 16px;
   cursor: pointer;
-  background-color: #F58146;
+  background-color: #5b5be6;
   color: white;
   width: 450px;
 }
@@ -171,7 +185,6 @@ a {
   text-align: center;
   margin: auto;
   margin-bottom: 30px;
-  font-weight: bold;
 }
 
 .signup-logo {
@@ -181,51 +194,24 @@ a {
 }
 
 .signup-logo img {
-  width: 100%;
-  display: block;
-  margin-block-start: 0.67em;
-  margin-block-end: -4.33em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
+  width: 120px;
+  text-align: center;
+  margin: auto;
+  text-align: center;
 }
 
 .signup-right .signup-logo img {
   width: 100%;
-  display:block;
-}
-
-.signup-right img {
-  width: 100%;
-  height: 100%;
-
 }
 
 .signup-right {
   background-color: #9c9ced;
-  height: 100%;
   flex: 50%;
 }
 
 .login-link {
   margin: auto;
   padding-top: 15px;
-}
-
-.login-divert{
-  text-decoration: underline;
-  text-align: center;
-  color: #F58146;
-  font-weight: bold;
-}
-
-#demo-simple-select{
-  background:#7759A6;
-}
-
-#demo-simple-select-label{
-  color:#ffffff;
-  font-weight: bold;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 /* RESET PASSWORD */
@@ -587,4 +573,5 @@ footer a {
 .css-14lo706 {
   padding-bottom: 11px;
 }
+
 /*# sourceMappingURL=style.css.map */
