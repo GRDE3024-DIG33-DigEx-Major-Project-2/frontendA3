@@ -46,20 +46,14 @@ function SignUp() {
                   value={accountType}
                   onChange={(event) => setAccountType(event.target.value)}
                 >
-                  <MenuItem value={"guest"}  InputProps={{
+                  <MenuItem id="guest" value={"guest"}  InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
                     <LocationOnIcon />
                   </InputAdornment>
                 ),
               }}>Search for events</MenuItem>
-                  <MenuItem value={"organiser"} InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <AddCircleOutlineRoundedIcon />
-                  </InputAdornment>
-                ),
-              }}>Create an event</MenuItem>
+                  <MenuItem id="organiser"  value={"organiser"} startIcon={<AddCircleOutlineRoundedIcon />}>Create an event</MenuItem>
                 </Select>
                 <div className="signup-next-button">
                   <input
