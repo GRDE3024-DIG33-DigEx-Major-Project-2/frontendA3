@@ -76,7 +76,7 @@ const Login = ({ setIsLoggedIn, setUser }) => {
 
   return (
     <div className="login-page">
-      <div className="left"> <img src="Gigney_login.png" alt="Login photo" class="left-img"></img></div>
+      <div className="left"> <img src="Gigney_login.png" alt="Band playing music" class="left-img"></img></div>
       <div className="right">
         <div className="login-logo">
           <img src="../gigney-logo-white.jpg" alt="gigney logo white" />

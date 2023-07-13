@@ -78,7 +78,7 @@ function SignUp() {
           </Box>
         </div>
 
-        <div className="signup-right"> <img src="Gigney-signup-img.png" alt="Signup photo"/> </div>
+        <div className="signup-right"> <img src="Gigney-signup-img.png" alt="live concert"/> </div>
       </div>
     </>
   );
