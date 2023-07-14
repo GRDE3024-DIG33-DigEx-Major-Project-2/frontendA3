@@ -195,12 +195,6 @@ a {
   width: 40%;
 }
 
-.login-link {
-  text-decoration: underline;
-  color: #f58146;
-  font-weight: bold;
-}
-
 .login-divert {
   text-decoration: underline;
   color: #f58146;
@@ -222,6 +216,38 @@ a {
 }
 
 /*SIGNUP GUEST*/
+.signup-second-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 95vh;
+}
+
+.signup-second-page-logo {
+  width: 100%;
+  text-align: center;
+}
+.signup-second-page-logo img {
+  width: 30vh;
+}
+.signup-second-page-logo h1 {
+  margin: 0;
+}
+
+.signup-second-page-form {
+  width: 90%;
+  max-height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.signup-second-page-form label {
+  font-size: 1.1em;
+}
+
 .guest {
   color: #ffffff;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
@@ -231,10 +257,20 @@ a {
   width: 90%;
 }
 
+.login-link {
+  text-decoration: underline;
+  color: #f58146;
+  font-weight: bold;
+}
+
 /*SIGNUP ORGANISER*/
 .organiser {
   color: #ffffff;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.link-organizer {
+  padding-top: 6%;
 }
 
 /* RESET PASSWORD */

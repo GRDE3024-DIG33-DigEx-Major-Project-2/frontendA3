@@ -1,5 +1,4 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import { FormControl, TextField, InputAdornment, Button } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { useNavigate, Link } from "react-router-dom";
@@ -55,134 +54,129 @@ function SignUpOrganiser() {
 
   return (
     <>
-      <div className="signup">
-        <div className="signup-logo">
+      <div className="signup-second-page">
+        <div className="signup-second-page-logo">
           <img src="../gigney-logo-white.jpg" alt="gigney logo white" />
           <h1>Create an account</h1>
         </div>
-        <Box
-          className="signup-form"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <form className="signup-form" onSubmit={signupHandler}>
-            <FormControl fullWidth>
-              <Grid container spacing={2} paddingBottom="15px">
-                <Grid container item xs={6} direction="column">
-                  <TextField
-                    value={organizationName}
-                    required
-                    onChange={(event) =>
-                      setOrganizationName(event.target.value)
-                    }
-                    id="input-with-icon-textfield"
-                    label="Organization Name"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <AccountCircle />
-                        </InputAdornment>
-                      ),
-                    }}
-                    variant="standard"
-                  />
-                  <TextField
-                    value={email}
-                    required
-                    onChange={(event) => setEmail(event.target.value)}
-                    id="email"
-                    label="Email"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <ContactMailIcon />
-                        </InputAdornment>
-                      ),
-                    }}
-                    variant="standard"
-                  />
-                  <TextField
-                    value={phoneNumber}
-                    required
-                    onChange={(event) => setPhoneNumber(event.target.value)}
-                    id="phone-number"
-                    label="Phone Number"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <ContactMailIcon />
-                        </InputAdornment>
-                      ),
-                    }}
-                    variant="standard"
-                  />
-                </Grid>{" "}
-                <Grid container item xs={6} direction="column">
-                  <TextField
-                    value={password}
-                    required
-                    onChange={(event) => setPassword(event.target.value)}
-                    id="password"
-                    label="Password"
-                    type="password"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <LockIcon />
-                        </InputAdornment>
-                      ),
-                    }}
-                    variant="standard"
-                  />
-                  <TextField
-                    value={confirmPassword}
-                    required
-                    onChange={(event) =>
-                      setPasswordConfirmation(event.target.value)
-                    }
-                    id="confirm-password"
-                    label="Confirm Password"
-                    type="password"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <LockIcon />
-                        </InputAdornment>
-                      ),
-                    }}
-                    variant="standard"
-                  />
-                  <FormControlLabel
-                    required
-                    control={<Checkbox />}
-                    label="I accept Gigney's terms of use"
-                    value={terms}
-                    onChange={(event) => setTerms(event.target.value)}
-                  />
-                  <FormControlLabel
-                    required
-                    control={<Checkbox />}
-                    label="I accept Gigney's privacy policy"
-                    value={privacy}
-                    onChange={(event) => setPrivacy(event.target.value)}
-                  />
-                </Grid>
+        <form className="signup-second-page-form" onSubmit={signupHandler}>
+          <FormControl fullWidth>
+            <Grid container spacing={4} paddingBottom="15px">
+              <Grid container item xs={6} direction="column">
+                <TextField
+                  value={organizationName}
+                  required
+                  onChange={(event) => setOrganizationName(event.target.value)}
+                  id="input-with-icon-textfield"
+                  label="Organization Name"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <AccountCircle />
+                      </InputAdornment>
+                    ),
+                  }}
+                  variant="standard"
+                />
+                <TextField
+                  value={email}
+                  required
+                  onChange={(event) => setEmail(event.target.value)}
+                  id="email"
+                  label="Email"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <ContactMailIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                  variant="standard"
+                />
+                <TextField
+                  value={phoneNumber}
+                  required
+                  onChange={(event) => setPhoneNumber(event.target.value)}
+                  id="phone-number"
+                  label="Phone Number"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <ContactMailIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                  variant="standard"
+                />
+                <div className="link-organizer">
+                  Already have an account?
+                  <Link to="../Login" className="login-link">
+                    Login instead
+                  </Link>
+                </div>
+              </Grid>{" "}
+              <Grid container item xs={6} direction="column">
+                <TextField
+                  value={password}
+                  required
+                  onChange={(event) => setPassword(event.target.value)}
+                  id="password"
+                  label="Password"
+                  type="password"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LockIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                  variant="standard"
+                />
+                <TextField
+                  value={confirmPassword}
+                  required
+                  onChange={(event) =>
+                    setPasswordConfirmation(event.target.value)
+                  }
+                  id="confirm-password"
+                  label="Confirm Password"
+                  type="password"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LockIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                  variant="standard"
+                />
+                <FormControlLabel
+                  required
+                  control={<Checkbox />}
+                  label="I accept Gigney's terms of use"
+                  value={terms}
+                  onChange={(event) => setTerms(event.target.value)}
+                />
+                <FormControlLabel
+                  required
+                  control={<Checkbox />}
+                  label="I accept Gigney's privacy policy"
+                  value={privacy}
+                  onChange={(event) => setPrivacy(event.target.value)}
+                />
+                <Button
+                  variant="contained"
+                  id="login-btn"
+                  className="signup-submit"
+                  type="submit"
+                  startIcon={<LoginIcon />}
+                >
+                  Submit
+                </Button>
               </Grid>
-              <Button
-                variant="contained"
-                id="login-btn"
-                className="signup-submit"
-                type="submit"
-                startIcon={<LoginIcon />}
-              >
-                Submit
-              </Button>
-              <Link to="../Login" className="login-link">
-                Already have an account? Login instead
-              </Link>
-            </FormControl>
-          </form>
-        </Box>
+            </Grid>
+          </FormControl>
+        </form>
       </div>
     </>
   );
