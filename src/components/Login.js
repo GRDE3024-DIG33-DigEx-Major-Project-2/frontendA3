@@ -90,7 +90,7 @@ const Login = ({ setIsLoggedIn, setUser }) => {
       <div className="right">
         <div className="login-logo">
           <img src="../gigney-logo-white.jpg" alt="gigney logo white" />
-          <h1 className="login">Login</h1>
+          <h1>Login</h1>
         </div>
         <form onSubmit={loginHandler}>
           <FormControl className="login-form">

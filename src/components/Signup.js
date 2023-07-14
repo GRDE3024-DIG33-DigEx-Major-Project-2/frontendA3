@@ -2,8 +2,8 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useNavigate, Link } from "react-router-dom";
@@ -24,16 +24,10 @@ function SignUp() {
     <>
       <div className="signup">
         <div className="signup-left">
-          <Box
-            className="signup-form"
-            alignItems="center"
-            justifyContent="center"
-            sx={{ maxWidth: 450 }}
-          >
             <div className="signup-logo">
               <img src="../gigney-logo-white.jpg" alt="gigney logo white" />
+              <h1>Create an account</h1>
             </div>
-            <h1>Create an account</h1>
             <form className="signup-form" onSubmit={handleChange}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">
@@ -46,16 +40,29 @@ function SignUp() {
                   value={accountType}
                   onChange={(event) => setAccountType(event.target.value)}
                 >
-                  <MenuItem id="guest" value={"guest"}  InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <LocationOnIcon />
-                  </InputAdornment>
-                ),
-              }}>Search for events</MenuItem>
-                  <MenuItem id="organiser"  value={"organiser"} startIcon={<AddCircleOutlineRoundedIcon />}>Create an event</MenuItem>
+                  <MenuItem
+                    id="guest"
+                    value={"guest"}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <LocationOnIcon />
+                        </InputAdornment>
+                      ),
+                    }}
+                  >
+                    Search for events
+                  </MenuItem>
+                  <MenuItem
+                    id="organiser"
+                    value={"organiser"}
+                    startIcon={<AddCircleOutlineRoundedIcon />}
+                  >
+                    Create an event
+                  </MenuItem>
                 </Select>
-                <div className="signup-next-button">
+              </FormControl>
+              <div className="signup-next-button">
                   <input
                     className="next-button"
                     type="submit"
@@ -67,12 +74,13 @@ function SignUp() {
                     Already have an account? Login instead
                   </Link>
                 </div>
-              </FormControl>
             </form>
-          </Box>
         </div>
 
-        <div className="signup-right"> <img src="Gigney-signup-img.png" alt="live concert"/> </div>
+        <div className="signup-right">
+          {" "}
+          <img src="Gigney-signup-img.png" alt="live concert" />{" "}
+        </div>
       </div>
     </>
   );
