@@ -33,9 +33,6 @@ function SignUpOrganiser() {
 
       const requestBody = {
         userType: "organizer",
-        firstName: "",
-        lastName: "",
-        dob:"",
         email: email,
         password: password,
         organizationName: organizationName,
@@ -143,7 +140,7 @@ function SignUpOrganiser() {
                     onChange={(event) =>
                       setPasswordConfirmation(event.target.value)
                     }
-                    id="password"
+                    id="confirm-password"
                     label="Confirm Password"
                     type="password"
                     InputProps={{
@@ -180,7 +177,7 @@ function SignUpOrganiser() {
               >
                 Submit
               </Button>
-              <Link to="../Login" class="login-link">
+              <Link to="../Login" className="login-link">
                 Already have an account? Login instead
               </Link>
             </FormControl>

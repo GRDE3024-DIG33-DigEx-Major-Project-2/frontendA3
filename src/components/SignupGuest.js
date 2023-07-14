@@ -89,7 +89,7 @@ function SignUpGuest() {
                     value={lastName}
                     required
                     onChange={(event) => setLastName(event.target.value)}
-                    id="input-with-icon-textfield"
+                    id="input-with-icon-textfield-1"
                     label="Last Name:"
                     InputProps={{
                       startAdornment: (
@@ -119,7 +119,7 @@ function SignUpGuest() {
                     value={dob}
                     required
                     onChange={(event) => setDob(event.target.value)}
-                    id="input-with-icon-textfield"
+                    id="input-with-icon-textfield-2"
                     label="Date of Birth:"
                     type="Date"
                     InputProps={{
@@ -155,7 +155,7 @@ function SignUpGuest() {
                     onChange={(event) =>
                       setPasswordConfirmation(event.target.value)
                     }
-                    id="password"
+                    id="confirm-password"
                     label="Confirm Password:"
                     type="password"
                     InputProps={{
@@ -194,7 +194,7 @@ function SignUpGuest() {
                 </Grid>
               </Grid>
         
-              <Link to="../Login" class="login-link">
+              <Link to="../Login" className="login-link">
                 Already have an account? Login instead
               </Link>
             </FormControl>

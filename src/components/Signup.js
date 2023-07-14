@@ -63,7 +63,7 @@ function SignUp() {
                     onClick={handleClick}
                   />
                   <p>&nbsp;</p>
-                  <Link to="../Login" class="login-divert">
+                  <Link to="../Login" className="login-divert">
                     Already have an account? Login instead
                   </Link>
                 </div>

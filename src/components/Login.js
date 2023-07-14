@@ -12,8 +12,7 @@ const Login = ({ setIsLoggedIn, setUser }) => {
   const [message, setMessage] = useState(null);
   const navigate = useNavigate();
 
-  const loginUrl =
-    "https://gigney.ryanriddiford.com/auth/login";
+  const loginUrl = "https://gigney.ryanriddiford.com/auth/login";
 
   const loginHandler = async (event) => {
     event.preventDefault();
@@ -27,60 +26,71 @@ const Login = ({ setIsLoggedIn, setUser }) => {
     let destinationPage = "";
     let user;
 
-    axios
-      .post(loginUrl, loginBody)
-      .then((response) => {
-        setMessage("Login Succesful");
+    if (email === "" || password === "") {
+      setMessage("Both email and password required. Try again.");
+    } else {
+      axios
+        .post(loginUrl, loginBody)
+        .then((response) => {
+          setMessage("Login Succesful");
 
-        if (response.data.user.organizationName) {
-          user = {
-            type: response.data.userType,
-            email: response.data.user.email,
-            firstName: response.data.user.firstName,
-            lastName: response.data.user.lastName,
-            fullName: response.data.user.fullName,
-            id: response.data.user.id,
-            password: response.data.user.password,
-            phoneNumber: response.data.user.phoneNumber,
-            organizationName: response.data.user.organizationName,
-          };
+          if (response.data.user.organizationName) {
+            user = {
+              type: response.data.user.userType,
+              email: response.data.user.email,
+              firstName: response.data.user.firstName,
+              lastName: response.data.user.lastName,
+              fullName: response.data.user.fullName,
+              id: response.data.user.id,
+              password: response.data.user.password,
+              phoneNumber: response.data.user.phoneNumber,
+              organizationName: response.data.user.organizationName,
+            };
 
-          destinationPage = "../dashboard";
-        } else {
-          user = {
-            type: response.data.userType,
-            email: response.data.user.email,
-            firstName: response.data.user.firstName,
-            lastName: response.data.user.lastName,
-            fullName: response.data.user.fullName,
-            id: response.data.user.id,
-            password: response.data.user.password,
-            phoneNumber: response.data.user.phoneNumber,
-            bio: response.data.user.bio,
-            dob: response.data.user.dob,
-          };
+            destinationPage = "../dashboard";
+          } else {
+            user = {
+              type: response.data.user.userType,
+              email: response.data.user.email,
+              firstName: response.data.user.firstName,
+              lastName: response.data.user.lastName,
+              fullName: response.data.user.fullName,
+              id: response.data.user.id,
+              password: response.data.user.password,
+              phoneNumber: response.data.user.phoneNumber,
+              bio: response.data.user.bio,
+              dob: response.data.user.dob,
+            };
 
-          destinationPage = "../profile";
-        }
+            destinationPage = "../profile";
+          }
 
-        console.log(user);
-        setUser(user);
-        setIsLoggedIn(true);
-        navigate(destinationPage);
-      })
-      .catch((error) => {
-        setMessage("Invalid email or password. Try again.");
-        console.log(error);
-      });
+          console.log(user);
+          setUser(user);
+          setIsLoggedIn(true);
+          navigate(destinationPage);
+        })
+        .catch((error) => {
+          setMessage("Invalid email or password. Try again.");
+          console.log(error);
+        });
+    }
   };
 
   return (
     <div className="login-page">
-      <div className="left"> <img src="Gigney_login.png" alt="Band playing music" class="left-img"></img></div>
+      <div className="left">
+        {" "}
+        <img
+          src="Gigney_login.png"
+          alt="Band playing music"
+          className="left-img"
+        ></img>
+      </div>
       <div className="right">
         <div className="login-logo">
           <img src="../gigney-logo-white.jpg" alt="gigney logo white" />
-          <h1 class="login">Login</h1>
+          <h1 className="login">Login</h1>
         </div>
         <form onSubmit={loginHandler}>
           <FormControl className="login-form">
@@ -125,7 +135,9 @@ const Login = ({ setIsLoggedIn, setUser }) => {
             >
               Login
             </Button>
-            <Link to="../reset-password" class="forgot-btn">Forgot password?</Link>
+            <Link to="../reset-password" className="forgot-btn">
+              Forgot password?
+            </Link>
           </FormControl>
         </form>
       </div>
