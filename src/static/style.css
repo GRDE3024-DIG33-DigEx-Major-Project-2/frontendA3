@@ -6,7 +6,7 @@ body {
 header {
   padding: 1% 1%;
   height: 8vh;
-  background-color: #5b5be6;
+  background-color: #000000;
 }
 header a {
   color: #ffffff;
@@ -20,7 +20,7 @@ nav {
   align-items: center;
 }
 nav #nav-logo {
-  width: 30%;
+  width: 20vw;
 }
 nav .nav-links {
   width: 70%;
@@ -40,11 +40,12 @@ h1 {
 
 a {
   text-decoration: none;
+  color: #f58146;
 }
 
 /* LOGIN PAGE */
 .login-page {
-  height: 80vh;
+  height: 85vh;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -59,7 +60,7 @@ a {
 }
 
 .left {
-  background-color: #9c9ced;
+  background-color: #4D7BBE;
 }
 
 .right {
@@ -74,11 +75,12 @@ a {
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: start;
   align-items: center;
+  padding: 0;
 }
 .right .login-logo img {
-  width: 40%;
+  width: 35%;
 }
 
 .login-form {
@@ -129,7 +131,7 @@ a {
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
-  height: 80vh;
+  height: 85vh;
 }
 
 .signup-left,
@@ -288,15 +290,13 @@ a {
 /* FOOTER */
 footer {
   padding: 2% 1%;
-  background-color: lightgray;
+  background-color: #000000;
   bottom: 0;
   left: 0;
   right: 0;
   width: 98%;
   text-align: center;
-}
-footer a {
-  color: #5b5be6;
+  color: #ffffff;
 }
 
 /* SEARCH RESULTS PAGE */
@@ -356,7 +356,7 @@ footer a {
 }
 .profile-container .profile-banner {
   grid-area: head;
-  background-color: #9c9ced;
+  background-color: #4D7BBE;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -497,7 +497,7 @@ footer a {
 .find-event-header {
   width: 90%;
   text-align: center;
-  background-color: #9c9ced;
+  background-color: #4D7BBE;
   padding: 3% 5%;
 }
 
@@ -605,12 +605,38 @@ footer a {
 }
 
 /*CREATE EVENT */
+#create-event-main {
+  background-color: #F5F5F5;
+  padding-bottom: 1%;
+}
+
 #create-event-screen {
-  height: 60vh;
+  min-height: 65vh;
+  background-color: #ffffff;
+  padding: 2%;
+  margin: 2%;
+}
+#create-event-screen h2 {
+  font-size: 2em;
 }
 
 .create-event-header {
-  margin: 15px;
+  height: 20vh;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background: linear-gradient(90deg, #4D7BBE 23%, #EF7F4E 100%);
+}
+.create-event-header h1 {
+  font-size: 2.7em;
+  color: #ffffff;
+  text-shadow: rgb(40, 39, 39) 1px 1px 4px;
+}
+
+.create-event-stepper {
+  padding: 2% 3% 1% 3%;
 }
 
 .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
