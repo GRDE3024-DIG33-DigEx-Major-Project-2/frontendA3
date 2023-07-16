@@ -556,27 +556,88 @@ footer {
 }
 
 /* HOMEPAGE */
-
 .home-section {
-  margin-bottom: 15%;
+  padding-bottom: 30px;
+  background-color: #F5F5F5;
+}
+
+.card-name {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.card-date {
+  font-weight: 500;
+}
+
+.css-1oe4rwd-MuiSvgIcon-root {
+  color: #4B7CBE;
+  margin-bottom: -3px;
+}
+
+.css-o69gx8-MuiCardMedia-root {
+  width: 360px !important;
+  height: 223px !important;
+}
+
+.css-nz3zgg-MuiButtonBase-root-MuiChip-root {
+  background-color: #7759A6 !important;
+  color: white !important;
+  font-weight: 500 !important;
+}
+
+#search-event-form > div.find-event-search > span > button {
+  background-color: #F58146;
+}
+
+.css-1q79v3g-MuiButtonBase-root-MuiChip-root {
+  background-color: #9c9ced !important;
+  color: white !important;
+  font-weight: 500 !important;
 }
 
 .find-event-header {
   width: 90%;
   text-align: center;
-  background-color: $lightblue;
+  background-image: url("/public/Homepage-background.jpeg");
   padding: 3% 5%;
+  background-position: center;
+  background-size: contain;
+}
+
+.find-event-header-text {
+  color: white;
+  font-size: 45px !important;
+  font-weight: 700;
+}
+
+.find-event-tags {
+  max-width: 1000px;
+  margin: auto;
+  text-align: center;
+  width: 100%;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.find-event-search {
+  max-width: 1000px;
+  margin: auto;
+  text-align: center;
+  width: 100%;
 }
 
 .find-event-search,
 .find-event-tags {
-  @include flex-row;
-  padding: 3% 2%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: 25px;
 }
-
 .search-form-els {
   height: 54px;
-  background-color: $white;
+  background-color: #ffffff;
 }
 
 #events-txt-field {
@@ -584,24 +645,23 @@ footer {
 }
 
 .home-row {
-  padding: 4%;
-  height: 300px;
+  padding: 15px;
 }
 
 /* EVENT CARDS */
-
 .event-card {
-  width: 250px;
+  width: 350px;
   position: relative;
 }
 
 .card-icon:hover {
-  @include interaction-expand-on-hover;
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
 .card-icon {
-  background-color: #3131b8;
-  color: $white;
+  background-color: #F58146;
+  color: #ffffff;
   width: 23px;
   height: 23px;
   padding: 2%;
@@ -611,13 +671,13 @@ footer {
 }
 
 .ev-share {
-  top: 47%;
-  right: 5%;
+  top: 200px;
+  right: 20%;
 }
 
 .ev-bookmark {
-  top: 47%;
-  right: 24%;
+  top: 200px;
+  right: 5%;
 }
 
 .event-carousel {
@@ -633,7 +693,10 @@ footer {
 .horizontal-card {
   position: relative;
   width: 100%;
-  @include flex-row(space-around, left);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: left;
 }
 
 .ev-share-h {
@@ -656,7 +719,8 @@ footer {
 }
 
 .ev-menu-h:hover {
-  @include interaction-expand-on-hover;
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
 .ev-share-h-2 {
@@ -701,6 +765,7 @@ footer {
   padding: 2% 3% 1% 3%;
   max-width: 94%;
 }
+
 .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
   color: #3131b8 !important;
 }
@@ -719,13 +784,6 @@ footer {
 
 .css-14lo706 {
   padding-bottom: 10px;
-}
-
-.create-event-title {
-  margin: auto;
-  text-align: center;
-  margin-bottom: 25px;
-  margin-top: 15px;
 }
 
 .preview-image {
