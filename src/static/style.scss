@@ -37,6 +37,10 @@ $purple1: #7759a6;
 }
 
 // for selector inheritance, use @extend elementName
+* {
+  font-family: 'Barlow', sans-serif;
+}
+
 
 body {
   margin: 0;
