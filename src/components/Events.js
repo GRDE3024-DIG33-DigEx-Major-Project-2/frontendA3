@@ -12,32 +12,10 @@ import {
 import FindEventHeader from "./FindEventHeader";
 import EventCardHorizontal from "./EventCardHorizontal"
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getAllEvents } from "../utils/utils";
 
 const Events = () => {
-
-  var events = [
-    {
-      name: "Event #1",
-      description: "Some event description!",
-      img: "../gigney.png",
-    },
-    {
-      name: "Event #2",
-      description: "Hello World!",
-      img: "../gigney.png",
-    },
-    {
-      name: "Event #3",
-      description: "Another one..",
-      img: "../gigney.png",
-    },
-    {
-      name: "Event #4",
-      description: "Some event description!",
-      img: "../gigney.png",
-    },
-  ];
 
   const [paid, setPaid] = useState("free");
   const [price, setPrice] = useState(0);
@@ -47,6 +25,18 @@ const Events = () => {
     { key: 1, label: "23 Jun 2023" },
     { key: 2, label: "Country" }
   ]);
+  const [loading, setLoading] = useState(false);
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    async function fetchEvents(){
+      setLoading(true);
+      const data = await getAllEvents();
+      setEvents(data);
+    }
+
+    fetchEvents();
+  },[setEvents])
 
   const chipSelect = (genre) => {
     let newKey = chipData.length + 1;
@@ -55,7 +45,6 @@ const Events = () => {
     setChipData(temp);
     setChange(!change);
   };
-
 
   const handleDelete = (chipToDelete) => () => {
     console.log("deleting this filter: ");
