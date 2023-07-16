@@ -13,7 +13,13 @@ const EventCard = (props) => {
     const navigate = useNavigate();
     
     const cardRedirect = ()=> {
-        navigate("/event");
+        navigate("/event", {state:{event:props.event}});
+    }
+
+    let imgUrl = "../Gigney_login.png";
+
+    if(props.event.eventImg){
+      imgUrl = "https://gigney.s3.ap-southeast-2.amazonaws.com/" + props.event.eventImg.filename + ".jpeg";
     }
 
   return (
@@ -22,12 +28,12 @@ const EventCard = (props) => {
         <CardMedia
           component="img"
           height="140"
-          image= {props.event.img}
+          image = {imgUrl}
           alt="gigney logo"
         />
         <CardContent>
-          <h2>{props.event.name}</h2>
-          <p>{props.event.description}</p>
+          <h2>{props.event.event.title}</h2>
+          <p>{props.event.event.summary}</p>
         </CardContent>
       </CardActionArea>
         <div className="card-icon ev-share">

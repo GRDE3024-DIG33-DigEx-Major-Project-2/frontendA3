@@ -1,42 +1,58 @@
 import FindEventHeader from "./FindEventHeader";
 import EventCard from "./EventCard";
 import { register } from "swiper/element/bundle";
+import { getAllEvents } from "../utils/utils";
+import { useEffect, useState } from "react";
 
 const Home = () => {
   register();
 
-  var events = [
-    {
-      name: "Event #1",
-      description: "Some event description!",
-      img: "../gigney.png",
-    },
-    {
-      name: "Event #2",
-      description: "Hello World!",
-      img: "../gigney.png",
-    },
-    {
-      name: "Event #3",
-      description: "Another one..",
-      img: "../gigney.png",
-    },
-    {
-      name: "Event #4",
-      description: "Some event description!",
-      img: "../gigney.png",
-    },
-    {
-      name: "Event #5",
-      description: "Hello World!",
-      img: "../gigney.png",
-    },
-    {
-      name: "Event #6",
-      description: "Another one..",
-      img: "../gigney.png",
-    },
-  ];
+  const [loading, setLoading] = useState(false);
+  const [events, setEvents] = useState([]);
+
+
+  useEffect(() => {
+    async function fetchEvents(){
+      setLoading(true);
+      const data = await getAllEvents();
+      setEvents(data);
+    }
+
+    fetchEvents();
+  },[setEvents])
+
+  // var events = [
+  //   {
+  //     name: "Event #1",
+  //     description: "Some event description!",
+  //     img: "../gigney.png",
+  //   },
+  //   {
+  //     name: "Event #2",
+  //     description: "Hello World!",
+  //     img: "../gigney.png",
+  //   },
+  //   {
+  //     name: "Event #3",
+  //     description: "Another one..",
+  //     img: "../gigney.png",
+  //   },
+  //   {
+  //     name: "Event #4",
+  //     description: "Some event description!",
+  //     img: "../gigney.png",
+  //   },
+  //   {
+  //     name: "Event #5",
+  //     description: "Hello World!",
+  //     img: "../gigney.png",
+  //   },
+  //   {
+  //     name: "Event #6",
+  //     description: "Another one..",
+  //     img: "../gigney.png",
+  //   },
+  // ];
 
   return (
     <section className="home-section">
