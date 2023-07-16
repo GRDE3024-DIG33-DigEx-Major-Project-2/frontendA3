@@ -16,6 +16,14 @@ $purple1: #7759a6;
   align-items: $align-items;
 }
 
+@mixin flex-nav($justify-content: space-between, $align-items: center) {
+  display: flex;
+  flex-direction: row;
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
+
+
 @mixin flex-column($justify-content: space-around, $align-items: center) {
   display: flex;
   flex-direction: column;
@@ -47,14 +55,15 @@ header {
 
 nav {
   width: 100%;
-  @include flex-row;
+  @include flex-nav;
 
   #nav-logo {
     width: 20vw;
+    @include flex-row;
   }
 
   .nav-links {
-    width: 70%;
+    width: 30vw;
     @include flex-row;
   }
 }
@@ -70,6 +79,51 @@ h1 {
 a {
   text-decoration: none;
   color: $orange1;
+}
+
+/* HEADER */
+
+#nav-events {
+  border: 2px solid #7759A6;
+  padding: 12px 25px;
+  font-weight: bold;
+
+  @media (max-width: 768px) {
+    padding: 8px 20px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 6px 15px;
+  }
+}
+
+#nav-signup {
+  border: 2px solid #7759A6;
+  padding: 12px 25px;
+  font-weight: bold;
+
+  @media (max-width: 768px) {
+    padding: 8px 20px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 3px 15px;
+  }
+}
+
+#nav-login {
+  border: 2px solid #F58146;
+  background-color: #F58146;
+  padding: 12px 25px;
+  font-weight: bold;
+
+  @media (max-width: 768px) {
+    padding: 8px 20px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 6px 15px;
+  }
 }
 
 /* LOGIN PAGE */
@@ -304,6 +358,14 @@ footer {
   text-align: center;
   color: $white;
 }
+
+#footer-tou{
+  text-decoration: underline;
+  }
+  
+  #footer-privpol{
+  text-decoration: underline;
+  }
 
 /* SEARCH RESULTS PAGE */
 .search-results-grid {
@@ -653,4 +715,9 @@ footer {
 
 .css-14lo706 {
   padding-bottom: 11px;
+}
+
+.css-zrqpq1{
+  border: 2px solid;
+  margin: 15px;
 }

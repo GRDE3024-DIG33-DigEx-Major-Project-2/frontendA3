@@ -16,14 +16,18 @@ nav {
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
 nav #nav-logo {
   width: 20vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }
 nav .nav-links {
-  width: 70%;
+  width: 30vw;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -41,6 +45,56 @@ h1 {
 a {
   text-decoration: none;
   color: #f58146;
+}
+
+/* HEADER */
+#nav-events {
+  border: 2px solid #7759A6;
+  padding: 12px 25px;
+  font-weight: bold;
+}
+@media (max-width: 768px) {
+  #nav-events {
+    padding: 8px 20px;
+  }
+}
+@media (max-width: 480px) {
+  #nav-events {
+    padding: 6px 15px;
+  }
+}
+
+#nav-signup {
+  border: 2px solid #7759A6;
+  padding: 12px 25px;
+  font-weight: bold;
+}
+@media (max-width: 768px) {
+  #nav-signup {
+    padding: 8px 20px;
+  }
+}
+@media (max-width: 480px) {
+  #nav-signup {
+    padding: 3px 15px;
+  }
+}
+
+#nav-login {
+  border: 2px solid #F58146;
+  background-color: #F58146;
+  padding: 12px 25px;
+  font-weight: bold;
+}
+@media (max-width: 768px) {
+  #nav-login {
+    padding: 8px 20px;
+  }
+}
+@media (max-width: 480px) {
+  #nav-login {
+    padding: 6px 15px;
+  }
 }
 
 /* LOGIN PAGE */
@@ -297,6 +351,14 @@ footer {
   width: 98%;
   text-align: center;
   color: #ffffff;
+}
+
+#footer-tou {
+  text-decoration: underline;
+}
+
+#footer-privpol {
+  text-decoration: underline;
 }
 
 /* SEARCH RESULTS PAGE */
@@ -657,6 +719,11 @@ footer {
 
 .css-14lo706 {
   padding-bottom: 11px;
+}
+
+.css-zrqpq1 {
+  border: 2px solid;
+  margin: 15px;
 }
 
 /*# sourceMappingURL=style.css.map */
