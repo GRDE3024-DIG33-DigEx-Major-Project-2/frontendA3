@@ -17,8 +17,9 @@ const FindEventHeader = () => {
         setGenre(genre);  
     }
 
+
     return <div className="find-event-header">
-        <h1>Find an event</h1>
+        <h1 className="find-event-header-text">Find an event</h1>
         <form id="search-event-form" onSubmit={searchHandler}>
             <div className="find-event-search">
                 <Select className="search-form-els" labelId="search-locations" value={location} label="Your Location" onChange={(event) => setLocation(event.target.value)}>
@@ -33,7 +34,7 @@ const FindEventHeader = () => {
                 <DatePicker className="search-form-els" onChange={(event) => setDate(event.target.value)} />
                 <span>
                     <TextField className="search-form-els" id="events-txt-field" variant="outlined" label="Search artists, venues or events"></TextField>
-                    <Button className="search-form-els" type="submit" variant="contained">Search</Button>
+                    <Button className="search-form-els" type="submit" variant="contained" >Search</Button>
                 </span>
             </div>
             <div className="find-event-tags">
@@ -45,7 +46,11 @@ const FindEventHeader = () => {
                 <Chip label="Metal" color="default" onClick={() => chipHandler("Metal") } />
                 <Chip label="Hip Hop" color="default" onClick={() => chipHandler("Hip Hop") } />
                 <Chip label="Pop" color="default" onClick={() => chipHandler("Pop") } />
-                <Chip label="Classical" color="default" onClick={() => chipHandler("Classical") } />
+                <Chip label="Solo" color="default" onClick={() => chipHandler("Solo") } />
+                <Chip label="Instrumental" color="default" onClick={() => chipHandler("Instrumental") } />
+                <Chip label="Rap" color="default" onClick={() => chipHandler("Rap") } />
+                <Chip label="International" color="default" onClick={() => chipHandler("International") } />
+
             </div>
         </form>
     </div>

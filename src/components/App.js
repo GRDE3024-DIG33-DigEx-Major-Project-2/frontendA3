@@ -17,6 +17,8 @@ import SignUpGuest from "./SignupGuest.js";
 import SignUpOrganiser from "./SignupOrganiser";
 import Dashboard from "./Dashboard";
 import CreateEvent from "./CreateEvent.js";
+import "../static/fonts.css";
+
 
 function App() {
 

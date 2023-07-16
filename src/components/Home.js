@@ -1,58 +1,49 @@
 import FindEventHeader from "./FindEventHeader";
 import EventCard from "./EventCard";
 import { register } from "swiper/element/bundle";
-import { getAllEvents } from "../utils/utils";
-import { useEffect, useState } from "react";
 
 const Home = () => {
   register();
 
-  const [loading, setLoading] = useState(false);
-  const [events, setEvents] = useState([]);
+  var events = [
+    {
+      name: "Eagles of Death Metal",
+      date:"23rd July 2023",
+      location: "Allianz Stadium",
+      img: "../Event-Image1.png",
+    },
+    {
+      name: "Arlo Parks",
+      date:"23rd July 2023",
+      location: "Sydney Cricket Ground",
+      img: "../Event-Image2.png",
+    },
+    {
+      name: "Beartooth",
+      date:"23rd July 2023",
+      location: "Parramatta Community Hall",
+      img: "../Event-Image3.png",
+    },
+    {
+      name: "The Milk Carton",
+      date:"23rd July 2023",
+      location: "4 Pines Park",
+      img: "../Event-Image4.png"
+    },
+    {
+      name: "The Amity Affliction",
+      date:"23rd July 2023",
+      location: "Accor Stadium",
+      img: "../Event-Image5.png"
+    },
+    {
+      name: "A Day To Remember",
+      date:"23rd July 2023",
+      location: "Sydney Showground",
+      img: "../Event-Image6.png"
+    },
+  ];
 
-
-  useEffect(() => {
-    async function fetchEvents(){
-      setLoading(true);
-      const data = await getAllEvents();
-      setEvents(data);
-    }
-
-    fetchEvents();
-  },[setEvents])
-
-  // var events = [
-  //   {
-  //     name: "Event #1",
-  //     description: "Some event description!",
-  //     img: "../gigney.png",
-  //   },
-  //   {
-  //     name: "Event #2",
-  //     description: "Hello World!",
-  //     img: "../gigney.png",
-  //   },
-  //   {
-  //     name: "Event #3",
-  //     description: "Another one..",
-  //     img: "../gigney.png",
-  //   },
-  //   {
-  //     name: "Event #4",
-  //     description: "Some event description!",
-  //     img: "../gigney.png",
-  //   },
-  //   {
-  //     name: "Event #5",
-  //     description: "Hello World!",
-  //     img: "../gigney.png",
-  //   },
-  //   {
-  //     name: "Event #6",
-  //     description: "Another one..",
-  //     img: "../gigney.png",
-  //   },
-  // ];
 
   return (
     <section className="home-section">
@@ -60,7 +51,7 @@ const Home = () => {
       <div className="home-row">
         <h1>Music events nearby</h1>
         <swiper-container
-          slides-per-view="3"
+          slides-per-view="4"
           speed="500"
           loop="true"
           css-mode="true"
@@ -76,7 +67,7 @@ const Home = () => {
       <div className="home-row">
         <h1>Dance music events</h1>
         <swiper-container
-          slides-per-view="3"
+          slides-per-view="4"
           speed="500"
           loop="true"
           css-mode="true"
@@ -91,7 +82,7 @@ const Home = () => {
       <div className="home-row">
         <h1>Country music events</h1>
         <swiper-container
-          slides-per-view="3"
+          slides-per-view="4"
           speed="500"
           loop="true"
           css-mode="true"

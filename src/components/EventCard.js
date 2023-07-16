@@ -7,19 +7,15 @@ import {
 import ShareIcon from "@mui/icons-material/Share";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import { useNavigate } from "react-router-dom";
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 
 const EventCard = (props) => {
 
     const navigate = useNavigate();
     
     const cardRedirect = ()=> {
-        navigate("/event", {state:{event:props.event}});
-    }
-
-    let imgUrl = "../Gigney_login.png";
-
-    if(props.event.eventImg){
-      imgUrl = "https://gigney.s3.ap-southeast-2.amazonaws.com/" + props.event.eventImg.filename + ".jpeg";
+        navigate("/event");
     }
 
   return (
@@ -28,12 +24,13 @@ const EventCard = (props) => {
         <CardMedia
           component="img"
           height="140"
-          image = {imgUrl}
+          image= {props.event.img}
           alt="gigney logo"
         />
         <CardContent>
-          <h2>{props.event.event.title}</h2>
-          <p>{props.event.event.summary}</p>
+          <h3 className="card-name">{props.event.name}</h3>
+          <p className="card-date"><CalendarTodayIcon sx={{ fontSize: 15}}/>  {props.event.date}</p>
+          <p clasName="card-location"><LocationOnOutlinedIcon sx={{ fontSize: 15}}/>  {props.event.location}</p>
         </CardContent>
       </CardActionArea>
         <div className="card-icon ev-share">
