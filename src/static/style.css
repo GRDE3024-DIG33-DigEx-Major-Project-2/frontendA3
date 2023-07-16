@@ -603,8 +603,8 @@ footer {
   text-align: center;
   background-image: url("/public/Homepage-background.jpeg");
   padding: 3% 5%;
-  background-position: center;
-  background-size: contain;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .find-event-header-text {
