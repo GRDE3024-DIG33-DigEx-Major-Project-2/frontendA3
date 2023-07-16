@@ -150,7 +150,8 @@ a {
 .left-img {
   height: 100%;
   max-width: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .login-form {
@@ -208,7 +209,8 @@ a {
 .signup-right img {
   height: 100%;
   width: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .signup-next-button {
@@ -667,38 +669,12 @@ footer {
 }
 
 /*CREATE EVENT */
-#create-event-main {
-  background-color: #F5F5F5;
-  padding-bottom: 1%;
-}
-
 #create-event-screen {
-  min-height: 65vh;
-  background-color: #ffffff;
-  padding: 2%;
-  margin: 2%;
-}
-#create-event-screen h2 {
-  font-size: 2em;
+  height: 60vh;
 }
 
 .create-event-header {
-  height: 20vh;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  background: linear-gradient(90deg, #4D7BBE 23%, #EF7F4E 100%);
-}
-.create-event-header h1 {
-  font-size: 2.7em;
-  color: #ffffff;
-  text-shadow: rgb(40, 39, 39) 1px 1px 4px;
-}
-
-.create-event-stepper {
-  padding: 2% 3% 1% 3%;
+  margin: 15px;
 }
 
 .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
@@ -714,16 +690,21 @@ footer {
 }
 
 .css-14lo706 > span {
-  opacity: 100;
+  opacity: 100 !important;
 }
 
 .css-14lo706 {
-  padding-bottom: 11px;
+  padding-bottom: 10px;
 }
 
-.css-zrqpq1 {
-  border: 2px solid;
-  margin: 15px;
+.create-event-title {
+  margin: auto;
+  text-align: center;
+  margin-bottom: 25px;
+  margin-top: 15px;
 }
 
-/*# sourceMappingURL=style.css.map */
+.preview-image {
+  height: 300px;
+  width: 100%;
+}/*# sourceMappingURL=style.css.map */
