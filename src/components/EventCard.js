@@ -15,7 +15,22 @@ const EventCard = (props) => {
     const navigate = useNavigate();
     
     const cardRedirect = ()=> {
-        navigate("/event");
+      navigate("/event", {state:{event:props.event}});
+    }
+
+    const date = new Date(Date.parse(props.event.event.startDate));
+    const stringDate = date.toLocaleString([], {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    let imgUrl = "../Gigney_login.png";
+
+    if(props.event.eventImg){
+      imgUrl = "https://gigney.s3.ap-southeast-2.amazonaws.com/" + props.event.eventImg.filename + ".jpeg";
     }
 
   return (
@@ -24,13 +39,13 @@ const EventCard = (props) => {
         <CardMedia
           component="img"
           height="140"
-          image= {props.event.img}
-          alt="gigney logo"
+          image= {imgUrl}
+          alt={props.event.event.title}
         />
         <CardContent>
-          <h3 className="card-name">{props.event.name}</h3>
-          <p className="card-date"><CalendarTodayIcon sx={{ fontSize: 15}}/>  {props.event.date}</p>
-          <p clasName="card-location"><LocationOnOutlinedIcon sx={{ fontSize: 15}}/>  {props.event.location}</p>
+          <h3 className="card-name">{props.event.event.title}</h3>
+          <p className="card-date"><CalendarTodayIcon sx={{ fontSize: 15}}/>  {stringDate}</p>
+          <p clasName="card-location"><LocationOnOutlinedIcon sx={{ fontSize: 15}}/>  {props.event.event.venueName}</p>
         </CardContent>
       </CardActionArea>
         <div className="card-icon ev-share">
