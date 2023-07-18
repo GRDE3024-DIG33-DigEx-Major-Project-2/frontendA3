@@ -9,7 +9,7 @@ export const getAllEvents = async function (genre) {
   let events = [];
 
   const requestBody = {
-    offset: 0,
+    page: 0,
   };
 
   await axios
