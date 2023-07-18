@@ -8,6 +8,7 @@ import {
   Slider,
   Stack,
   Chip,
+  Divider
 } from "@mui/material";
 import FindEventHeader from "./FindEventHeader";
 import EventCardHorizontal from "./EventCardHorizontal"
@@ -63,8 +64,8 @@ const Events = () => {
       <article className="search-results-grid">
         <div className="search-filters">
           <h1>Filters</h1>
-          <Box className="filter-box">
             <FormControl>
+            <Stack className="filter-box" spacing={2} divider={<Divider orientation="horizontal" flexItem />}>
               <div>
                 <FormLabel id="date-radio-label">
                   <h4>Date</h4>
@@ -123,7 +124,7 @@ const Events = () => {
                     id="price-select-box"
                     spacing={2}
                     direction="row"
-                    sx={{ mb: 1 }}
+                    sx={{ mb: 1}}
                     alignItems="center"
                   >
                     <p>$5</p>
@@ -222,8 +223,8 @@ const Events = () => {
                 </RadioGroup>
                 <Link>View more</Link>
               </div>
+              </Stack>
             </FormControl>
-          </Box>
         </div>
         <div className="search-results">
           <h1>Search Results</h1>
