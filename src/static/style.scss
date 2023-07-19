@@ -2,7 +2,7 @@
 $black: #000000;
 $white: #ffffff;
 $lightgrey: #e6e2e2;
-$blue: #5b5be6;
+$blue: #4B7CBE;
 $lightblue: #4D7BBE;
 $lightorange: #EF7F4E;
 $orange1: #f58146;
@@ -398,9 +398,9 @@ footer {
   }
 
   #price-select-box {
-    width: 100%;
+    width: 95%;
     padding: 5%;
-    margin: 0 0 0 -5%;
+    margin: 5% 0 0 -2%;
     background-color: $lightgrey;
   }
 
@@ -411,11 +411,15 @@ footer {
   }
 
   .events-result {
-    height: 100%;
+    height: 91%;
     width: 96%;
     @include flex-column(flex-start, flex-start);
     gap: 2%;
     padding: 4% 0;
+  }
+
+  #view-more-tags{
+    margin: 2%;
   }
 }
 
@@ -583,12 +587,6 @@ footer {
 .css-o69gx8-MuiCardMedia-root {
   width: 360px !important;
   height: 223px !important;
-}
-
-.css-nz3zgg-MuiButtonBase-root-MuiChip-root {
-  background-color: #7759A6 !important;
-  color: white !important;
-  font-weight: 500 !important;
 }
 
 #search-event-form > div.find-event-search > span > button {

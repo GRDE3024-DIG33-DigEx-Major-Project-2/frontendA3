@@ -392,9 +392,9 @@ footer {
   margin: 2em;
 }
 .search-results-grid #price-select-box {
-  width: 100%;
+  width: 95%;
   padding: 5%;
-  margin: 0 0 0 -5%;
+  margin: 5% 0 0 -2%;
   background-color: #e6e2e2;
 }
 .search-results-grid .search-filters-top {
@@ -403,7 +403,7 @@ footer {
   padding: 3%;
 }
 .search-results-grid .events-result {
-  height: 100%;
+  height: 91%;
   width: 96%;
   display: flex;
   flex-direction: column;
@@ -411,6 +411,9 @@ footer {
   align-items: flex-start;
   gap: 2%;
   padding: 4% 0;
+}
+.search-results-grid #view-more-tags {
+  margin: 2%;
 }
 
 /* PROFILE PAGE */
@@ -579,12 +582,6 @@ footer {
 .css-o69gx8-MuiCardMedia-root {
   width: 360px !important;
   height: 223px !important;
-}
-
-.css-nz3zgg-MuiButtonBase-root-MuiChip-root {
-  background-color: #7759A6 !important;
-  color: white !important;
-  font-weight: 500 !important;
 }
 
 #search-event-form > div.find-event-search > span > button {
