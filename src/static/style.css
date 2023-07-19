@@ -52,7 +52,7 @@ a {
 
 /* HEADER */
 #nav-events {
-  border: 2px solid #7759A6;
+  border: 2px solid #7759a6;
   padding: 12px 25px;
   font-weight: bold;
 }
@@ -68,7 +68,7 @@ a {
 }
 
 #nav-signup {
-  border: 2px solid #7759A6;
+  border: 2px solid #7759a6;
   padding: 12px 25px;
   font-weight: bold;
 }
@@ -84,8 +84,8 @@ a {
 }
 
 #nav-login {
-  border: 2px solid #F58146;
-  background-color: #F58146;
+  border: 2px solid #f58146;
+  background-color: #f58146;
   padding: 12px 25px;
   font-weight: bold;
 }
@@ -266,7 +266,7 @@ a {
 
 #demo-simple-select-label {
   color: #ffffff;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
 }
 
 .css-v4u5dn-MuiInputBase-root-MuiInput-root {
@@ -309,7 +309,7 @@ a {
 
 .guest {
   color: #ffffff;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
 }
 
 .signup-submit {
@@ -325,7 +325,7 @@ a {
 /*SIGNUP ORGANISER*/
 .organiser {
   color: #ffffff;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
 }
 
 .link-organizer {
@@ -520,7 +520,7 @@ footer {
 
 .event-tag {
   background-color: #5b5be6;
-  color: white;
+  color: #ffffff;
   margin: 5px;
   padding: 3px 5px;
 }
@@ -536,7 +536,7 @@ footer {
   font-size: 16px;
   cursor: pointer;
   background-color: #5b5be6;
-  color: white;
+  color: #ffffff;
 }
 
 .event-body {
@@ -585,12 +585,12 @@ footer {
 }
 
 #search-event-form > div.find-event-search > span > button {
-  background-color: #F58146;
+  background-color: #f58146;
 }
 
 .css-1q79v3g-MuiButtonBase-root-MuiChip-root {
   background-color: #9c9ced !important;
-  color: white !important;
+  color: #ffffff !important;
   font-weight: 500 !important;
 }
 
@@ -604,7 +604,7 @@ footer {
 }
 
 .find-event-header-text {
-  color: white;
+  color: #ffffff;
   font-size: 45px !important;
   font-weight: 700;
 }
@@ -659,7 +659,7 @@ footer {
 }
 
 .card-icon {
-  background-color: #F58146;
+  background-color: #f58146;
   color: #ffffff;
   width: 23px;
   height: 23px;

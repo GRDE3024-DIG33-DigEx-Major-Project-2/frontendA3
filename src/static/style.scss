@@ -7,6 +7,10 @@ $lightblue: #4D7BBE;
 $lightorange: #EF7F4E;
 $orange1: #f58146;
 $purple1: #7759a6;
+$purple: #5b5be6;
+$lightpurple: #9c9ced;
+$darkblue: #3131b8;
+$offwhite: #F5F5F5;
 
 // mixins
 @mixin flex-row($justify-content: space-around, $align-items: center) {
@@ -87,7 +91,7 @@ a {
 /* HEADER */
 
 #nav-events {
-  border: 2px solid #7759A6;
+  border: 2px solid $purple1;
   padding: 12px 25px;
   font-weight: bold;
 
@@ -101,7 +105,7 @@ a {
 }
 
 #nav-signup {
-  border: 2px solid #7759A6;
+  border: 2px solid $purple1;
   padding: 12px 25px;
   font-weight: bold;
 
@@ -115,8 +119,8 @@ a {
 }
 
 #nav-login {
-  border: 2px solid #F58146;
-  background-color: #F58146;
+  border: 2px solid $orange1;
+  background-color: $orange1;
   padding: 12px 25px;
   font-weight: bold;
 
@@ -274,9 +278,9 @@ a {
 }
 
 #demo-simple-select-label {
-  color: #ffffff;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
-    1px 1px 0 #000;
+  color: $white;
+  text-shadow: -1px -1px 0 $black, 1px -1px 0 $black, -1px 1px 0 $black,
+    1px 1px 0 $black;
 }
 
 .css-v4u5dn-MuiInputBase-root-MuiInput-root {
@@ -314,9 +318,9 @@ a {
 }
 
 .guest {
-  color: #ffffff;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
-    1px 1px 0 #000;
+  color: $white;
+  text-shadow: -1px -1px 0 $black, 1px -1px 0 $black, -1px 1px 0 $black,
+    1px 1px 0 $black;
 }
 
 .signup-submit {
@@ -332,9 +336,9 @@ a {
 /*SIGNUP ORGANISER*/
 
 .organiser {
-  color: #ffffff;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
-    1px 1px 0 #000;
+  color: $white;
+  text-shadow: -1px -1px 0 $black, 1px -1px 0 $black, -1px 1px 0 $black,
+    1px 1px 0 $black;
 }
 
 .link-organizer {
@@ -526,8 +530,8 @@ footer {
 }
 
 .event-tag {
-  background-color: #5b5be6;
-  color: white;
+  background-color: $purple;
+  color: $white;
   margin: 5px;
   padding: 3px 5px;
 }
@@ -542,8 +546,8 @@ footer {
   display: inline-block;
   font-size: 16px;
   cursor: pointer;
-  background-color: #5b5be6;
-  color: white;
+  background-color: $purple;
+  color: $white;
 }
 
 .event-body {
@@ -567,7 +571,7 @@ footer {
 /* HOMEPAGE */
 .home-section {
   padding-bottom: 30px;
-  background-color: #F5F5F5;
+  background-color: $offwhite;
 }
 
 .card-name {
@@ -580,7 +584,7 @@ footer {
 }
 
 .css-1oe4rwd-MuiSvgIcon-root {
-  color: #4B7CBE;
+  color: $blue;
   margin-bottom: -3px;
 }
 
@@ -590,12 +594,12 @@ footer {
 }
 
 #search-event-form > div.find-event-search > span > button {
-  background-color: #F58146;
+  background-color: $orange1;
 }
 
 .css-1q79v3g-MuiButtonBase-root-MuiChip-root {
-  background-color: #9c9ced !important;
-  color: white !important;
+  background-color: $lightpurple !important;
+  color: $white !important;
   font-weight: 500 !important;
 }
 
@@ -609,7 +613,7 @@ footer {
 }
 
 .find-event-header-text {
-  color: white;
+  color: $white;
   font-size: 45px !important;
   font-weight: 700;
 }
@@ -640,7 +644,7 @@ footer {
 }
 .search-form-els {
   height: 54px;
-  background-color: #ffffff;
+  background-color: $white;
 }
 
 #events-txt-field {
@@ -663,8 +667,8 @@ footer {
 }
 
 .card-icon {
-  background-color: #F58146;
-  color: #ffffff;
+  background-color: $orange1;
+  color: $white;
   width: 23px;
   height: 23px;
   padding: 2%;
@@ -733,7 +737,7 @@ footer {
 
 /*CREATE EVENT */
 #create-event-main {
-  background-color: #F5F5F5;
+  background-color: $offwhite;
   padding-bottom: 1%;
 }
 
@@ -741,7 +745,7 @@ footer {
   height: 60vh;
   max-width: 100%;
   min-height: 65vh;
-  background-color: #ffffff;
+  background-color: $white;
   padding: 2%;
   margin: 2%;
 }
@@ -756,11 +760,11 @@ footer {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  background: linear-gradient(90deg, #4D7BBE 23%, #EF7F4E 100%);
+  background: linear-gradient(90deg, $lightblue 23%, $lightorange 100%);
 }
 .create-event-header h1 {
   font-size: 2.7em;
-  color: #ffffff;
+  color: $white;
   text-shadow: rgb(40, 39, 39) 1px 1px 4px;
 }
 
@@ -770,11 +774,11 @@ footer {
 }
 
 .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
-  color: #3131b8 !important;
+  color: $darkblue !important;
 }
 
 .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
-  color: #9c9ced !important;
+  color: $lightpurple !important;
 }
 
 .css-14lo706 {
