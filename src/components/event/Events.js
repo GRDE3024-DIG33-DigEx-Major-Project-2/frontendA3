@@ -1,3 +1,9 @@
+/**
+ * Main search component for events
+ */
+
+
+//Import dependencies
 import {
   Box,
   FormControl,
@@ -16,12 +22,21 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getAllEvents, getAllTags, getTomorrowISODate } from "../../utils/utils";
 
-const Events = () => {
-  const today = new Date().toISOString();
 
+
+/**
+ * The event search component
+ * @param {*} param0 
+ * @returns The event search component
+ */
+const Events = ({ isLoggedIn, user, setIsLoggedIn, setUser, setEvents, events, setPageCount, pageCount }) => {
+
+  //Filter form fields
+  const today = new Date().toISOString();
   const [paid, setPaid] = useState("free");
   const [price, setPrice] = useState([50, 500]);
   const [change, setChange] = useState(true);
+  //Pre-made filters
   const [chipData, setChipData] = useState([
     { key: 0, searchCategory: "venue", label: "Arena51", value: "Arena51" },
     { key: 1, searchCategory: "date", label: "Today", value: { today } },
@@ -32,9 +47,11 @@ const Events = () => {
       value: "9a58b4a6-af1d-4102-b074-6cc5f1fda00e",
     },
   ]);
-  const [events, setEvents] = useState([]);
+
+  //The tag filters
   const [tags, setTags] = useState([]);
 
+  //
   useEffect(() => {
     async function fetchTags() {
       const tags = await getAllTags();
@@ -47,9 +64,17 @@ const Events = () => {
     }
 
     fetchTags();
-    fetchEvents();
+    console.log("Set Events Test:");
+    console.log(events);
+    if (events.length == 0) {
+      fetchEvents();
+    } else {
+      console.log("Events have already been retrieved");
+    }
+
   }, [setTags, setEvents]);
 
+  //
   const chipSelect = (genre) => {
 
     let newKey = chipData.length + 1;
@@ -225,7 +250,7 @@ const Events = () => {
               </div>
               <div>
                 <h2>Venue</h2>
-                <RadioGroup defaultValue="" name="venue-radio"  onChange={(event) => chipSelectVenue(event.target.value)}>
+                <RadioGroup defaultValue="" name="venue-radio" onChange={(event) => chipSelectVenue(event.target.value)}>
                   {events.map((event, i) => (
                     <FormControlLabel
                       key={i}
