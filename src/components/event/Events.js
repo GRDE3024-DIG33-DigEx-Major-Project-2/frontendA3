@@ -51,10 +51,14 @@ const Events = () => {
   }, [setTags, setEvents]);
 
   const chipSelect = (genre) => {
-
     let newKey = chipData.length + 1;
     let temp = chipData;
-    temp.push({ key: newKey, searchCategory: "genre", label: genre.name, value: genre.id });
+    temp.push({
+      key: newKey,
+      searchCategory: "genre",
+      label: genre.name,
+      value: genre.id,
+    });
     setChipData(temp);
     setChange(!change);
   };
@@ -85,7 +89,12 @@ const Events = () => {
   const chipSelectVenue = (venue) => {
     let newKey = chipData.length + 1;
     let temp = chipData;
-    temp.push({ key: newKey, searchCategory: "venue", label: venue, value: venue });
+    temp.push({
+      key: newKey,
+      searchCategory: "venue",
+      label: venue,
+      value: venue,
+    });
     setChipData(temp);
     setChange(!change);
   };
@@ -116,7 +125,7 @@ const Events = () => {
       <article className="search-results-grid">
         <div className="search-filters">
           <h1>Filters</h1>
-          <FormControl>
+          <FormControl fullWidth>
             <Stack
               className="filter-box"
               spacing={2}
@@ -225,7 +234,11 @@ const Events = () => {
               </div>
               <div>
                 <h2>Venue</h2>
-                <RadioGroup defaultValue="" name="venue-radio"  onChange={(event) => chipSelectVenue(event.target.value)}>
+                <RadioGroup
+                  defaultValue=""
+                  name="venue-radio"
+                  onChange={(event) => chipSelectVenue(event.target.value)}
+                >
                   {events.map((event, i) => (
                     <FormControlLabel
                       key={i}
@@ -250,6 +263,11 @@ const Events = () => {
           >
             {chipData.map((data) => (
               <Chip
+                sx={{
+                  backgroundColor: "#9c9ced",
+                  color: "white",
+                  margin: "1%",
+                }}
                 key={data.key}
                 label={data.label}
                 onDelete={handleDelete(data)}

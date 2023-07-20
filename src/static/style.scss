@@ -388,6 +388,7 @@ footer {
     .filter-box {
       @include flex-column(justify-content, left);
       height: 100%;
+      width: 100%;
       padding: 5%;
       border: solid 1px $black;
       div {
@@ -597,17 +598,11 @@ footer {
   background-color: $orange1;
 }
 
-.css-1q79v3g-MuiButtonBase-root-MuiChip-root {
-  background-color: $lightpurple !important;
-  color: $white !important;
-  font-weight: 500 !important;
-}
-
 .find-event-header {
   width: 90%;
   max-height: 30vw;
   text-align: center;
-  background-image: url("Homepage-background.jpeg");
+  background-image: url("https://gigney.s3.ap-southeast-2.amazonaws.com/frontend/Homepage-background.jpeg");
   padding: 3% 5%;
   background-size: cover;
   background-repeat: no-repeat;

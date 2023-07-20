@@ -381,6 +381,7 @@ footer {
   justify-content: justify-content;
   align-items: left;
   height: 100%;
+  width: 100%;
   padding: 5%;
   border: solid 1px #000000;
 }
@@ -588,17 +589,11 @@ footer {
   background-color: #f58146;
 }
 
-.css-1q79v3g-MuiButtonBase-root-MuiChip-root {
-  background-color: #9c9ced !important;
-  color: #ffffff !important;
-  font-weight: 500 !important;
-}
-
 .find-event-header {
   width: 90%;
   max-height: 30vw;
   text-align: center;
-  background-image: url("Homepage-background.jpeg");
+  background-image: url("https://gigney.s3.ap-southeast-2.amazonaws.com/frontend/Homepage-background.jpeg");
   padding: 3% 5%;
   background-size: cover;
   background-repeat: no-repeat;
