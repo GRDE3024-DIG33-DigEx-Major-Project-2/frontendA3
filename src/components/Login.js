@@ -12,7 +12,12 @@ const Login = ({ setIsLoggedIn, setUser }) => {
   const [message, setMessage] = useState(null);
   const navigate = useNavigate();
 
-  const loginUrl = "https://gigney.ryanriddiford.com/auth/login";
+  // URL FOR DEPLOYED VERSION
+  // const loginUrl = "https://gigney.ryanriddiford.com/auth/login";
+
+  // URL FOR LOCALHOST
+  const loginUrl = "http://localhost:3000/auth/login";
+  
 
   const loginHandler = async (event) => {
     event.preventDefault();

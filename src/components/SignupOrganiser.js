@@ -28,7 +28,11 @@ function SignUpOrganiser() {
     if (password !== confirmPassword) {
       alert("Passwords must match");
     } else {
-      const registerUrl = "https://gigney.ryanriddiford.com/user/register";
+      // URL FOR DEPLOYED VERSION
+      // const searchEventsURL = "https://gigney.ryanriddiford.com/user/register";
+
+      // URL FOR LOCALHOST
+      const registerUrl = "http://localhost:3000/user/register";
 
       const requestBody = {
         userType: "organizer",

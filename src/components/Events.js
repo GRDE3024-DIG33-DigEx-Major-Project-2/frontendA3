@@ -14,7 +14,7 @@ import FindEventHeader from "./FindEventHeader";
 import EventCardHorizontal from "./EventCardHorizontal";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getAllEvents } from "../utils/utils";
+import { getAllEvents, getAllTags } from "../utils/utils";
 
 const Events = () => {
   const [paid, setPaid] = useState("free");
@@ -27,6 +27,16 @@ const Events = () => {
   ]);
   const [loading, setLoading] = useState(false);
   const [events, setEvents] = useState([]);
+  const [tags, setTags] = useState([]);
+
+  useEffect(() => {
+    async function fetchTags() {
+      const tags = await getAllTags();
+      setTags(tags);
+    }
+
+    fetchTags();
+  }, [setTags]);
 
   useEffect(() => {
     async function fetchEvents() {
@@ -159,240 +169,22 @@ const Events = () => {
               <div>
                 <h2>Genre</h2>
                 <Grid container rowSpacing={2} columnSpacing={2}>
-                  <Grid item xs={4}>
-                    <Chip
-                      sx={{
-                        width: 1,
-                        backgroundColor: "#7759A6",
-                        color: "white",
-                        margin: "4%"
-                      }}
-                      label="Alternative"
-                      color="default"
-                      onClick={() => chipSelect("Alternative")}
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Chip
-                      sx={{
-                        width: 1,
-                        backgroundColor: "#7759A6",
-                        color: "white",
-                        margin: "4%"
-                      }}
-                      label="Blues"
-                      color="default"
-                      onClick={() => chipSelect("Blues")}
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Chip
-                      sx={{
-                        width: 1,
-                        backgroundColor: "#7759A6",
-                        color: "white",
-                        margin: "4%"
-                      }}
-                      label="Classical"
-                      color="default"
-                      onClick={() => chipSelect("Classical")}
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Chip
-                      sx={{
-                        width: 1,
-                        backgroundColor: "#7759A6",
-                        color: "white",
-                        margin: "4%"
-                      }}
-                      label="Country"
-                      color="default"
-                      onClick={() => chipSelect("Country")}
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Chip
-                      sx={{
-                        width: 1,
-                        backgroundColor: "#7759A6",
-                        color: "white",
-                        margin: "4%"
-                      }}
-                      label="Dance"
-                      color="default"
-                      onClick={() => chipSelect("Dance")}
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Chip
-                      sx={{
-                        width: 1,
-                        backgroundColor: "#7759A6",
-                        color: "white",
-                        margin: "4%"
-                      }}
-                      label="Electronic"
-                      color="default"
-                      onClick={() => chipSelect("Electronic")}
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Chip
-                      sx={{
-                        width: 1,
-                        backgroundColor: "#7759A6",
-                        color: "white",
-                        margin: "4%"
-                      }}
-                      label="Folk"
-                      color="default"
-                      onClick={() => chipSelect("Folk")}
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Chip
-                      sx={{
-                        width: 1,
-                        backgroundColor: "#7759A6",
-                        color: "white",
-                        margin: "4%"
-                      }}
-                      label="Gospel"
-                      color="default"
-                      onClick={() => chipSelect("Gospel")}
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Chip
-                      sx={{
-                        width: 1,
-                        backgroundColor: "#7759A6",
-                        color: "white",
-                        margin: "4%"
-                      }}
-                      label="Hip Hop"
-                      color="default"
-                      onClick={() => chipSelect("Hip Hop")}
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Chip
-                      sx={{
-                        width: 1,
-                        backgroundColor: "#7759A6",
-                        color: "white",
-                        margin: "4%"
-                      }}
-                      label="Indie Pop"
-                      color="default"
-                      onClick={() => chipSelect("Indie Pop")}
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Chip
-                      sx={{
-                        width: 1,
-                        backgroundColor: "#7759A6",
-                        color: "white",
-                        margin: "4%"
-                      }}
-                      label="Industrial"
-                      color="default"
-                      onClick={() => chipSelect("Industrial")}
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Chip
-                      sx={{
-                        width: 1,
-                        backgroundColor: "#7759A6",
-                        color: "white",
-                        margin: "4%"
-                      }}
-                      label="Instrumental"
-                      color="default"
-                      onClick={() => chipSelect("Instrumental")}
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Chip
-                      sx={{
-                        width: 1,
-                        backgroundColor: "#7759A6",
-                        color: "white",
-                        margin: "4%"
-                      }}
-                      label="J-Pop"
-                      color="default"
-                      onClick={() => chipSelect("J-Pop")}
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Chip
-                      sx={{
-                        width: 1,
-                        backgroundColor: "#7759A6",
-                        color: "white",
-                        margin: "4%"
-                      }}
-                      label="Jazz"
-                      color="default"
-                      onClick={() => chipSelect("Jazz")}
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Chip
-                      sx={{
-                        width: 1,
-                        backgroundColor: "#7759A6",
-                        color: "white",
-                        margin: "4%"
-                      }}
-                      label="K-Pop"
-                      color="default"
-                      onClick={() => chipSelect("K-Pop")}
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Chip
-                      sx={{
-                        width: 1,
-                        backgroundColor: "#7759A6",
-                        color: "white",
-                        margin: "4%"
-                      }}
-                      label="Karaoke"
-                      color="default"
-                      onClick={() => chipSelect("Karaoke")}
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Chip
-                      sx={{
-                        width: 1,
-                        backgroundColor: "#7759A6",
-                        color: "white",
-                        margin: "4%"
-                      }}
-                      label="Latin"
-                      color="default"
-                      onClick={() => chipSelect("Latin")}
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Chip
-                      sx={{
-                        width: 1,
-                        backgroundColor: "#7759A6",
-                        color: "white",
-                        margin: "4%"
-                      }}
-                      label="Metal"
-                      color="default"
-                      onClick={() => chipSelect("Metal")}
-                    />
-                  </Grid>
+                  {tags.map((tag, i) => (
+                    <Grid item xs={4} key={i}>
+                      <Chip
+                        sx={{
+                          width: 1,
+                          backgroundColor: "#7759A6",
+                          color: "white",
+                          margin: "4%",
+                        }}
+                        label={tag.name}
+                        id={tag.id}
+                        color="default"
+                        onClick={() => chipSelect(tag.name)}
+                      />
+                    </Grid>
+                  ))}
                 </Grid>
                 <Link id="view-more-tags">View more</Link>
               </div>

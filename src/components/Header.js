@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 export default function Header({ user, isLoggedIn, setIsLoggedIn, setUser }) {
+
   const logOut = () => {
     setIsLoggedIn(false);
     setUser(null);

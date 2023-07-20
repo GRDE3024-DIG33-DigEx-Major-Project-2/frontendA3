@@ -45,7 +45,7 @@ const EventCard = (props) => {
         <CardContent>
           <h3 className="card-name">{props.event.event.title}</h3>
           <p className="card-date"><CalendarTodayIcon sx={{ fontSize: 15}}/>  {stringDate}</p>
-          <p clasName="card-location"><LocationOnOutlinedIcon sx={{ fontSize: 15}}/>  {props.event.event.venueName}</p>
+          <p className="card-location"><LocationOnOutlinedIcon sx={{ fontSize: 15}}/>  {props.event.event.venueName}</p>
         </CardContent>
       </CardActionArea>
         <div className="card-icon ev-share">
