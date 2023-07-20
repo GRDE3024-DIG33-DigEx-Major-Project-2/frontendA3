@@ -1,7 +1,7 @@
-import FindEventHeader from "./FindEventHeader";
-import EventCard from "./EventCard";
+import FindEventHeader from "../event/FindEventHeader";
+import EventCard from "../event/EventCard";
 import { register } from "swiper/element/bundle";
-import { getAllEvents } from "../utils/utils";
+import { getAllEvents } from "../../utils/utils";
 import { useEffect, useState } from "react";
 
 const Home = () => {

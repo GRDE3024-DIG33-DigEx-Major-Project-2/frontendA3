@@ -1,6 +1,6 @@
 import { DatePicker } from "@mui/x-date-pickers";
 import { MenuItem, Select, Chip, TextField, Button } from "@mui/material";
-import { getAllTags } from "../utils/utils";
+import { getAllTags } from "../../utils/utils";
 import { useState, useEffect } from "react";
 
 const FindEventHeader = () => {

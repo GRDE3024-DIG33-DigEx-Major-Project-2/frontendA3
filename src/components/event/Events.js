@@ -14,7 +14,7 @@ import FindEventHeader from "./FindEventHeader";
 import EventCardHorizontal from "./EventCardHorizontal";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getAllEvents, getAllTags, getTomorrowISODate } from "../utils/utils";
+import { getAllEvents, getAllTags, getTomorrowISODate } from "../../utils/utils";
 
 const Events = () => {
   const today = new Date().toISOString();

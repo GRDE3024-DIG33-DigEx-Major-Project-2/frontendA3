@@ -1,9 +1,11 @@
 import { Box, Avatar, Button } from "@mui/material";
 import EditNote from "@mui/icons-material/EditNote";
-import { Link } from "react-router-dom";
-import EventCardHorizontal from "./EventCardHorizontal";
+import {useNavigate, Link } from "react-router-dom";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import CreatedEventCardHorizontal from "../event/CreatedEventCardHorizontal";
 
-const Profile = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
+
+const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
   var events = [
     {
       name: "Event #1",
@@ -31,25 +33,31 @@ const Profile = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
     console.log("redirecting to delete page or pop up");
   };
 
+  const navigate = useNavigate();
+  
+  const createNewEventHandler = () => {
+    navigate("/createevent");
+  }
+
   return (
     <>
       <div className="profile-container">
         {isLoggedIn && (
           <>
             <div className="profile-banner">
-              <h2>My Profile</h2>
+              <h2>Dashboard</h2>
             </div>
             <article className="personal-bio">
-              <h2>Personal Bio</h2>
+              <h2>Organisation Bio</h2>
               <Box className="profile-box prof-center">
                 <EditNote className="edit-note" />
                 <Avatar
-                  alt={user.fullName}
+                  alt={user.organizationName}
                   src="../gigney.png"
                   className="profile-avatar"
                 />
-                <h4>{user.fullName}</h4>
-                <p>{user.bio}</p>
+                <h4>{user.organizationName}</h4>
+                <p>Something here</p>
               </Box>
             </article>
             <article className="account-settings">
@@ -75,10 +83,13 @@ const Profile = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
               </Box>
             </article>
             <article className="saved-events">
-              <h2>Saved Events</h2>
+              <div id="saved-events-header">
+                <h2>Created Events</h2>
+                <Button variant="contained" onClick={createNewEventHandler} endIcon={<AddCircleOutlineIcon />}>Create New Event</Button>
+              </div>
               <Box className="events-profile">
                 {events.map((event, i) => (
-                  <EventCardHorizontal key={i} event={event} />
+                  <CreatedEventCardHorizontal key={i} event={event} />
                 ))}
               </Box>
             </article>
@@ -94,4 +105,4 @@ const Profile = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
   );
 };
 
-export default Profile;
+export default Dashboard;
