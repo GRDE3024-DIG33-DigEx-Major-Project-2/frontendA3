@@ -9,20 +9,27 @@ import axios from "axios";
 const searchEventsURL = "http://localhost:3000/event/search-page";
 const getAllTagsUrl = "http://localhost:3000/event/tags"
 
-// Get all events from endpoint
-export const getAllEvents = async function (genre) {
+// Get all events from endpoint - can specify genre
+export const getAllEvents = async function (tagId) {
   let events = [];
+  let requestBody = {}
 
-  const requestBody = {
-    page: 0,
-    tags: []
-  };
+  if (tagId){
+    requestBody = {
+      page: 0,
+      tags: [tagId]
+    };
+  } else {
+    requestBody = {
+      page: 0,
+      tags: []
+    };
+  }
 
   await axios
     .post(searchEventsURL, requestBody)
     .then((response) => {
       events = response.data.events;
-      console.log(events);
     })
     .catch((error) => {
       console.log(error);
@@ -62,3 +69,10 @@ export const getDateTimeString = async function (ISOdate) {
   console.log(stringDate);
   return stringDate;
 };
+
+export const getTomorrowISODate = () => {
+  let today = new Date();
+  let tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate()+1);
+  return tomorrow.toISOString();
+}

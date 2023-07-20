@@ -48,11 +48,11 @@ const EventCardHorizontal = (props) => {
           <p className="card-date">
             <CalendarTodayIcon sx={{ fontSize: 15 }} /> {stringDate}
           </p>
-          <p clasName="card-location">
+          <p className="card-location">
             <LocationOnOutlinedIcon sx={{ fontSize: 15 }} />{" "}
             {props.event.event.venueName}
           </p>
-          <p clasName="card-price">
+          <p className="card-price">
             <SellOutlinedIcon sx={{ fontSize: 15 }} /> {price}
           </p>
           <div className="card-icon ev-share-h">

@@ -6,20 +6,25 @@ import { useEffect, useState } from "react";
 
 const Home = () => {
   register();
-
-  const [loading, setLoading] = useState(false);
   const [events, setEvents] = useState([]);
+  const [rockEvents, setRockEvents] = useState([]);
 
 
   useEffect(() => {
-    async function fetchEvents(){
-      setLoading(true);
-      const data = await getAllEvents();
-      setEvents(data);
+    async function fetchAllEvents(){
+      const allEv = await getAllEvents();
+      setEvents(allEv);
     }
 
-    fetchEvents();
-  },[setEvents])
+    async function fetchRockEvents(){
+      const rockEv = await getAllEvents("9a58b4a6-af1d-4102-b074-6cc5f1fda00e");
+      setRockEvents(rockEv);
+    }
+
+    fetchAllEvents();
+    fetchRockEvents();
+  },[setEvents, setRockEvents])
+
 
   return (
     <section className="home-section">
@@ -40,14 +45,14 @@ const Home = () => {
         </swiper-container>
       </div>
       <div className="home-row">
-        <h1>Dance music events</h1>
+        <h1>Rock music events</h1>
         <swiper-container
           slides-per-view="4"
           speed="500"
           css-mode="true"
           className="event-carousel"
         >
-          {events.map((event, i) => (
+          {rockEvents.map((event, i) => (
             <swiper-slide key={i}>
               <EventCard event={event} />
             </swiper-slide>
@@ -55,7 +60,7 @@ const Home = () => {
         </swiper-container>
       </div>
       <div className="home-row">
-        <h1>Country music events</h1>
+        <h1>All events</h1>
         <swiper-container
           slides-per-view="4"
           speed="500"

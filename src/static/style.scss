@@ -605,8 +605,9 @@ footer {
 
 .find-event-header {
   width: 90%;
+  max-height: 30vw;
   text-align: center;
-  background-image: url("/public/Homepage-background.jpeg");
+  background-image: url("Homepage-background.jpeg");
   padding: 3% 5%;
   background-size: cover;
   background-repeat: no-repeat;

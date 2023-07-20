@@ -14,18 +14,24 @@ import FindEventHeader from "./FindEventHeader";
 import EventCardHorizontal from "./EventCardHorizontal";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getAllEvents, getAllTags } from "../utils/utils";
+import { getAllEvents, getAllTags, getTomorrowISODate } from "../utils/utils";
 
 const Events = () => {
+  const today = new Date().toISOString();
+
   const [paid, setPaid] = useState("free");
   const [price, setPrice] = useState([50, 500]);
   const [change, setChange] = useState(true);
   const [chipData, setChipData] = useState([
-    { key: 0, label: "My Location" },
-    { key: 1, label: "23 Jun 2023" },
-    { key: 2, label: "Country" },
+    { key: 0, searchCategory: "venue", label: "Arena51", value: "Arena51" },
+    { key: 1, searchCategory: "date", label: "Today", value: { today } },
+    {
+      key: 2,
+      searchCategory: "genre",
+      label: "Rock",
+      value: "9a58b4a6-af1d-4102-b074-6cc5f1fda00e",
+    },
   ]);
-  const [loading, setLoading] = useState(false);
   const [events, setEvents] = useState([]);
   const [tags, setTags] = useState([]);
 
@@ -35,48 +41,73 @@ const Events = () => {
       setTags(tags);
     }
 
-    fetchTags();
-  }, [setTags]);
-
-  useEffect(() => {
     async function fetchEvents() {
-      setLoading(true);
       const data = await getAllEvents();
       setEvents(data);
     }
 
+    fetchTags();
     fetchEvents();
-  }, [setEvents]);
+  }, [setTags, setEvents]);
 
   const chipSelect = (genre) => {
+
     let newKey = chipData.length + 1;
     let temp = chipData;
-    temp.push({ key: newKey, label: genre });
+    temp.push({ key: newKey, searchCategory: "genre", label: genre.name, value: genre.id });
+    setChipData(temp);
+    setChange(!change);
+  };
+
+  const chipSelectDate = (value) => {
+    let newKey = chipData.length + 1;
+    let temp = chipData;
+
+    let ISODate = "";
+    // get ISO date value
+    if (value === "Today") {
+      ISODate = new Date().toISOString();
+    } else if (value === "Tomorrow") {
+      ISODate = getTomorrowISODate();
+    }
+
+    temp.push({
+      key: newKey,
+      searchCategory: "date",
+      label: value,
+      value: ISODate,
+    });
+
+    setChipData(temp);
+    setChange(!change);
+  };
+
+  const chipSelectVenue = (venue) => {
+    let newKey = chipData.length + 1;
+    let temp = chipData;
+    temp.push({ key: newKey, searchCategory: "venue", label: venue, value: venue });
     setChipData(temp);
     setChange(!change);
   };
 
   const handleDelete = (chipToDelete) => () => {
-    console.log("deleting this filter: ");
     setChipData((chips) =>
       chips.filter((chip) => chip.key !== chipToDelete.key)
     );
+    setChange(!change);
   };
 
   const clearFilters = () => {
     setChipData([]);
+    setChange(!change);
   };
 
   const handlePriceChange = (event, newPrice) => {
     setPrice(newPrice);
   };
 
-  const priceText = (price) => {
-    return "$" + ` ${price}`;
-  };
-
-  const valueLabelFormat = (priceText) => {
-    return `AUD$${priceText}`;
+  const valueLabelFormat = (price) => {
+    return `AUD$${price}`;
   };
 
   return (
@@ -93,19 +124,23 @@ const Events = () => {
             >
               <div>
                 <h2>Date</h2>
-                <RadioGroup defaultValue="today" name="date-radio">
+                <RadioGroup
+                  defaultValue="Today"
+                  name="date-radio"
+                  onChange={(event) => chipSelectDate(event.target.value)}
+                >
                   <FormControlLabel
-                    value="today"
+                    value="Today"
                     control={<Radio />}
                     label="Today"
                   />
                   <FormControlLabel
-                    value="tomorrow"
+                    value="Tomorrow"
                     control={<Radio />}
                     label="Tomorrow"
                   />
                   <FormControlLabel
-                    value="weekend"
+                    value="Weekend"
                     control={<Radio />}
                     label="This weekend"
                   />
@@ -159,7 +194,7 @@ const Events = () => {
                       max={1000}
                       step={5}
                       valueLabelDisplay="on"
-                      getAriaValueText={priceText}
+                      getAriaValueText={valueLabelFormat}
                       valueLabelFormat={valueLabelFormat}
                     />
                     <p>$1000</p>
@@ -181,7 +216,7 @@ const Events = () => {
                         label={tag.name}
                         id={tag.id}
                         color="default"
-                        onClick={() => chipSelect(tag.name)}
+                        onClick={() => chipSelect(tag)}
                       />
                     </Grid>
                   ))}
@@ -190,27 +225,15 @@ const Events = () => {
               </div>
               <div>
                 <h2>Venue</h2>
-                <RadioGroup defaultValue="today" name="venue-radio">
-                  <FormControlLabel
-                    value="aware super theatre"
-                    control={<Radio />}
-                    label="Aware Super Theatre"
-                  />
-                  <FormControlLabel
-                    value="city recital hall"
-                    control={<Radio />}
-                    label="City Recital Hall"
-                  />
-                  <FormControlLabel
-                    value="enmore theatre"
-                    control={<Radio />}
-                    label="Enmore Theatre"
-                  />
-                  <FormControlLabel
-                    value="metro theatre"
-                    control={<Radio />}
-                    label="Metro Theatre"
-                  />
+                <RadioGroup defaultValue="" name="venue-radio"  onChange={(event) => chipSelectVenue(event.target.value)}>
+                  {events.map((event, i) => (
+                    <FormControlLabel
+                      key={i}
+                      value={event.event.venueName}
+                      control={<Radio />}
+                      label={event.event.venueName}
+                    />
+                  ))}
                 </RadioGroup>
                 <Link>View more</Link>
               </div>
