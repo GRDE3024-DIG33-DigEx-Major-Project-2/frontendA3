@@ -1,23 +1,18 @@
 import { DatePicker } from "@mui/x-date-pickers";
-import {
-  MenuItem,
-  Select,
-  Chip,
-  TextField,
-  Button,
-  InputLabel,
-  FormControl,
-} from "@mui/material";
-import { getAllTags } from "../../utils/utils";
+import { MenuItem, Select, Chip, TextField, Button } from "@mui/material";
 import { useState, useEffect } from "react";
-import FmdGoodOutlinedIcon from '@mui/icons-material/FmdGoodOutlined';
-import InputAdornment from "@mui/material/InputAdornment";
 
 const FindEventHeader = () => {
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState("-");
   const [date, setDate] = useState(null);
-  const [genre, setGenre] = useState("country");
+  // const [genre, setGenre] = useState("country");
   const [tags, setTags] = useState([]);
+  const [keywords, setKeywords] = useState(null);
+  const [startDate, setStartDate] = useState(null);
+
+
+  // const [events, setEvents] = useState([]);
+  // const [pageCount, setPageCount] = useState(0);
 
   useEffect(() => {
     async function fetchTags() {
@@ -28,14 +23,30 @@ const FindEventHeader = () => {
     fetchTags();
   }, [setTags]);
 
-  const searchHandler = () => {
+  /**
+   * Search for first page of filtered events
+   */
+  const searchHandler = async () => {
     console.log("Search event fired");
-    console.log(location, date, genre);
+    console.log(location, date, keywords);
+    //Make request for filtered events
+    const searchResult = await searchEvents(tags, keywords, startDate, location, 0);
+    //Set state props of events and page count
+    setEvents(searchResult.events);
+    setPageCount(searchResult.pageCount);
+
+    console.log("After search result found");
+    console.log(searchResult);
+    console.log("Page Count: "+pageCount);
+
+    //Navigate to event listing component
+    navigator();
+
   };
 
-  const chipHandler = (genre) => {
-    setGenre(genre);
-  };
+  // const chipHandler = (genre) => {
+  //   setGenre(genre);
+  // };
 
   return (
     <div className="find-event-header">
@@ -67,22 +78,24 @@ const FindEventHeader = () => {
             className="search-form-els"
             onChange={(event) => setDate(event.target.value)}
           />
-          <TextField
-            className="search-form-els"
-            id="events-txt-field"
-            variant="outlined"
-            label="Search artists, venues or events"
-          ></TextField>
-          <Button
-            className="search-form-els"
-            id="search-form-submit-btn"
-            type="submit"
-            variant="contained"
-          >
-            Search
-          </Button>
+          <span>
+            <TextField
+              className="search-form-els"
+              id="events-txt-field"
+              variant="outlined"
+              label="Search artists, venues or events"
+              onChange={(event) => setLocation(event.target.value)}
+            ></TextField>
+            <Button
+              className="search-form-els"
+              type="submit"
+              variant="contained"
+            >
+              Search
+            </Button>
+          </span>
         </div>
-        <div className="find-event-tags">
+        {/* <div className="find-event-tags">
           {tags.map((tag, i) => (
             <Chip
               sx={{
@@ -97,7 +110,7 @@ const FindEventHeader = () => {
               onClick={() => chipHandler(tag.name)}
             />
           ))}
-        </div>
+        </div> */}
       </form>
     </div>
   );

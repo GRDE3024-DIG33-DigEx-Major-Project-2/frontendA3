@@ -24,6 +24,10 @@ function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState();
   const [user, setUser] = useState(null);
+  //Array of events
+  const [events, setEvents] = useState([]);
+  //Page count that match event search criteria
+  const [pageCount, setPageCount] = useState(0);
 
   useEffect(() => {
     if (user) {
