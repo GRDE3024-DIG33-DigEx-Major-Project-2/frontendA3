@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Profile from "../components/Profile.js"
+import Profile from "../components/user/Profile.js"
 import { MemoryRouter } from "react-router-dom";
 
 // checks if the page correctly renders view for logged in users
