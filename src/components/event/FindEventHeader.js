@@ -73,7 +73,6 @@ const FindEventHeader = () => {
           {tags.map((tag, i) => (
             <Chip
               sx={{
-                width: 1,
                 backgroundColor: "#7759A6",
                 color: "white",
                 margin: "1%"

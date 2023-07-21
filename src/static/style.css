@@ -7,8 +7,8 @@ body {
 }
 
 header {
-  padding: 1% 1%;
-  height: 8vh;
+  padding: 1%;
+  max-height: 8vh;
   background-color: #000000;
 }
 header a {
@@ -56,31 +56,11 @@ a {
   padding: 12px 25px;
   font-weight: bold;
 }
-@media (max-width: 768px) {
-  #nav-events {
-    padding: 8px 20px;
-  }
-}
-@media (max-width: 480px) {
-  #nav-events {
-    padding: 6px 15px;
-  }
-}
 
 #nav-signup {
   border: 2px solid #7759a6;
   padding: 12px 25px;
   font-weight: bold;
-}
-@media (max-width: 768px) {
-  #nav-signup {
-    padding: 8px 20px;
-  }
-}
-@media (max-width: 480px) {
-  #nav-signup {
-    padding: 3px 15px;
-  }
 }
 
 #nav-login {
@@ -88,16 +68,55 @@ a {
   background-color: #f58146;
   padding: 12px 25px;
   font-weight: bold;
+  color: black;
 }
-@media (max-width: 768px) {
-  #nav-login {
-    padding: 8px 20px;
-  }
+
+#mobile-menu {
+  display: none;
 }
-@media (max-width: 480px) {
-  #nav-login {
-    padding: 6px 15px;
-  }
+
+.find-event-header {
+  width: 90%;
+  max-height: 30vw;
+  text-align: center;
+  background-image: url("https://gigney.s3.ap-southeast-2.amazonaws.com/frontend/Homepage-background.jpeg");
+  padding: 3% 5%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.find-event-header-text {
+  color: #ffffff;
+  font-size: 45px !important;
+  font-weight: 700;
+}
+
+.find-event-tags {
+  margin: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 90%;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.find-event-search {
+  margin: auto;
+  text-align: center;
+  max-width: 85%;
+}
+
+.find-event-search,
+.find-event-tags {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: 25px;
 }
 
 /* LOGIN PAGE */
@@ -117,7 +136,7 @@ a {
 }
 
 .left {
-  background-color: #4D7BBE;
+  background-color: #4d7bbe;
 }
 
 .right {
@@ -427,7 +446,7 @@ footer {
 }
 .profile-container .profile-banner {
   grid-area: head;
-  background-color: #4D7BBE;
+  background-color: #4d7bbe;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -563,7 +582,7 @@ footer {
 /* HOMEPAGE */
 .home-section {
   padding-bottom: 30px;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
 }
 
 .card-name {
@@ -576,7 +595,7 @@ footer {
 }
 
 .css-1oe4rwd-MuiSvgIcon-root {
-  color: #4B7CBE;
+  color: #4b7cbe;
   margin-bottom: -3px;
 }
 
@@ -587,47 +606,6 @@ footer {
 
 #search-event-form > div.find-event-search > span > button {
   background-color: #f58146;
-}
-
-.find-event-header {
-  width: 90%;
-  max-height: 30vw;
-  text-align: center;
-  background-image: url("https://gigney.s3.ap-southeast-2.amazonaws.com/frontend/Homepage-background.jpeg");
-  padding: 3% 5%;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
-.find-event-header-text {
-  color: #ffffff;
-  font-size: 45px !important;
-  font-weight: 700;
-}
-
-.find-event-tags {
-  max-width: 1000px;
-  margin: auto;
-  text-align: center;
-  width: 100%;
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.find-event-search {
-  max-width: 1000px;
-  margin: auto;
-  text-align: center;
-  width: 100%;
-}
-
-.find-event-search,
-.find-event-tags {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  padding: 25px;
 }
 
 .search-form-els {
@@ -673,10 +651,6 @@ footer {
 .ev-bookmark {
   top: 200px;
   right: 5%;
-}
-
-.event-carousel {
-  height: 100px;
 }
 
 .horizontal-card-box {
@@ -725,7 +699,7 @@ footer {
 
 /*CREATE EVENT */
 #create-event-main {
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   padding-bottom: 1%;
 }
 
@@ -749,7 +723,7 @@ footer {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  background: linear-gradient(90deg, #4D7BBE 23%, #EF7F4E 100%);
+  background: linear-gradient(90deg, #4d7bbe 23%, #ef7f4e 100%);
 }
 
 .create-event-header h1 {
@@ -792,6 +766,57 @@ footer {
 .content-body {
   margin: 15px;
   margin-bottom: 30px;
+}
+
+/* Tablet */
+@media screen and (max-width: 1023px) {
+  /* HEADER */
+  nav .nav-links {
+    width: 40vw;
+  }
+  .find-event-header {
+    max-height: 40vw;
+  }
+  .find-event-search {
+    width: 90%;
+    max-width: 90%;
+  }
+}
+/* Small Tablet */
+@media screen and (max-width: 800px) {
+  /* HEADER */
+  header {
+    padding: 3%;
+  }
+  nav .nav-links {
+    width: 50vw;
+  }
+  #nav-signup,
+  #nav-login,
+  #nav-events {
+    padding: 8px 20px;
+  }
+  .find-event-header {
+    max-height: 58vw;
+  }
+}
+/* Phone */
+@media screen and (max-width: 620px) {
+  /* HEADER */
+  nav .nav-links {
+    display: none;
+  }
+  #mobile-menu {
+    display: block;
+  }
+  #nav-signup,
+  #nav-login,
+  #nav-events {
+    padding: 3px 15px;
+  }
+  .find-event-header {
+    max-height: 60vh;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

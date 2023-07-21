@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 
 export default function Header({ user, isLoggedIn, setIsLoggedIn, setUser }) {
-
   const logOut = () => {
     setIsLoggedIn(false);
     setUser(null);
+  };
+
+  // only for mobile menu
+  const openMenu = () => {
+    console.log("opening menu");
   };
 
   return (
@@ -52,6 +56,11 @@ export default function Header({ user, isLoggedIn, setIsLoggedIn, setUser }) {
               Logout
             </Link>
           )}
+        </div>
+        <div id="mobile-menu">
+          <Link id="mobile-menu-link" onClick={openMenu}>
+            Menu
+          </Link>
         </div>
       </nav>
     </header>

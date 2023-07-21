@@ -2,15 +2,15 @@
 $black: #000000;
 $white: #ffffff;
 $lightgrey: #e6e2e2;
-$blue: #4B7CBE;
-$lightblue: #4D7BBE;
-$lightorange: #EF7F4E;
+$blue: #4b7cbe;
+$lightblue: #4d7bbe;
+$lightorange: #ef7f4e;
 $orange1: #f58146;
 $purple1: #7759a6;
 $purple: #5b5be6;
 $lightpurple: #9c9ced;
 $darkblue: #3131b8;
-$offwhite: #F5F5F5;
+$offwhite: #f5f5f5;
 
 // mixins
 @mixin flex-row($justify-content: space-around, $align-items: center) {
@@ -27,7 +27,6 @@ $offwhite: #F5F5F5;
   align-items: $align-items;
 }
 
-
 @mixin flex-column($justify-content: space-around, $align-items: center) {
   display: flex;
   flex-direction: column;
@@ -42,17 +41,16 @@ $offwhite: #F5F5F5;
 
 // for selector inheritance, use @extend elementName
 * {
-  font-family: 'Barlow', Arial, sans-serif;
+  font-family: "Barlow", Arial, sans-serif;
 }
-
 
 body {
   margin: 0;
 }
 
 header {
-  padding: 1% 1%;
-  height: 8vh;
+  padding: 1%;
+  max-height: 8vh;
   background-color: $black;
 
   a {
@@ -94,28 +92,12 @@ a {
   border: 2px solid $purple1;
   padding: 12px 25px;
   font-weight: bold;
-
-  @media (max-width: 768px) {
-    padding: 8px 20px;
-  }
-
-  @media (max-width: 480px) {
-    padding: 6px 15px;
-  }
 }
 
 #nav-signup {
   border: 2px solid $purple1;
   padding: 12px 25px;
   font-weight: bold;
-
-  @media (max-width: 768px) {
-    padding: 8px 20px;
-  }
-
-  @media (max-width: 480px) {
-    padding: 3px 15px;
-  }
 }
 
 #nav-login {
@@ -123,14 +105,52 @@ a {
   background-color: $orange1;
   padding: 12px 25px;
   font-weight: bold;
+  color: black;
+}
 
-  @media (max-width: 768px) {
-    padding: 8px 20px;
-  }
+#mobile-menu{
+  display: none;
+}
 
-  @media (max-width: 480px) {
-    padding: 6px 15px;
-  }
+.find-event-header {
+  width: 90%;
+  max-height: 30vw;
+  text-align: center;
+  background-image: url("https://gigney.s3.ap-southeast-2.amazonaws.com/frontend/Homepage-background.jpeg");
+  padding: 3% 5%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.find-event-header-text {
+  color: $white;
+  font-size: 45px !important;
+  font-weight: 700;
+}
+
+.find-event-tags {
+  margin: auto;
+  text-align: center;
+  @include flex-row;
+  flex-wrap: wrap;
+  width: 90%;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.find-event-search {
+  margin: auto;
+  text-align: center;
+  max-width: 85%;
+}
+
+.find-event-search,
+.find-event-tags {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: 25px;
 }
 
 /* LOGIN PAGE */
@@ -366,13 +386,13 @@ footer {
   color: $white;
 }
 
-#footer-tou{
+#footer-tou {
   text-decoration: underline;
-  }
-  
-  #footer-privpol{
+}
+
+#footer-privpol {
   text-decoration: underline;
-  }
+}
 
 /* SEARCH RESULTS PAGE */
 .search-results-grid {
@@ -423,7 +443,7 @@ footer {
     padding: 4% 0;
   }
 
-  #view-more-tags{
+  #view-more-tags {
     margin: 2%;
   }
 }
@@ -598,46 +618,6 @@ footer {
   background-color: $orange1;
 }
 
-.find-event-header {
-  width: 90%;
-  max-height: 30vw;
-  text-align: center;
-  background-image: url("https://gigney.s3.ap-southeast-2.amazonaws.com/frontend/Homepage-background.jpeg");
-  padding: 3% 5%;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
-.find-event-header-text {
-  color: $white;
-  font-size: 45px !important;
-  font-weight: 700;
-}
-
-.find-event-tags {
-  max-width: 1000px;
-  margin: auto;
-  text-align: center;
-  width: 100%;
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.find-event-search {
-  max-width: 1000px;
-  margin: auto;
-  text-align: center;
-  width: 100%;
-}
-
-.find-event-search,
-.find-event-tags {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  padding: 25px;
-}
 .search-form-els {
   height: 54px;
   background-color: $white;
@@ -681,10 +661,6 @@ footer {
 .ev-bookmark {
   top: 200px;
   right: 5%;
-}
-
-.event-carousel {
-  height: 100px;
 }
 
 .horizontal-card-box {
@@ -796,6 +772,89 @@ footer {
 
 /* CONTENT PAGES */
 .content-body {
-  margin:15px;
-  margin-bottom:30px;
+  margin: 15px;
+  margin-bottom: 30px;
+}
+
+// ** MEDIA QUERIES ** //
+
+/* Tablet */
+@media screen and (max-width: 1023px) {
+  /* HEADER */
+
+  nav {
+    .nav-links {
+      width: 40vw;
+    }
+  }
+
+  .find-event-header {
+    max-height: 40vw;
+  }
+
+  .find-event-search {
+    width: 90%;
+    max-width: 90%;
+  }
+}
+
+/* Small Tablet */
+@media screen and (max-width: 800px) {
+  /* HEADER */
+  header{
+    padding: 3%;
+  }
+
+  nav {
+    .nav-links {
+      width: 50vw;
+    }
+  }
+
+  #nav-signup,
+  #nav-login,
+  #nav-events {
+    padding: 8px 20px;
+  }
+
+  .find-event-header {
+    max-height: 58vw;
+  }
+}
+
+/* Phone */
+@media screen and (max-width: 620px) {
+  /* HEADER */
+
+  nav {
+    .nav-links {
+      // @include flex-column(center, center);
+      // gap: 4%;
+      // background-color: $black;
+      // position: absolute;
+      // top: 0;
+      // left: 0;
+      // width: 100vw;
+      // height: 100vh;
+      // margin: 0;
+      // padding: 0;
+      // z-index: 10;
+      // overflow: hidden;
+      display: none;
+    }
+  }
+
+  #mobile-menu{
+    display:block;
+  }
+
+  #nav-signup,
+  #nav-login,
+  #nav-events {
+    padding: 3px 15px;
+  }
+
+  .find-event-header {
+    max-height: 60vh;
+  }
 }
