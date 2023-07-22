@@ -181,6 +181,13 @@ a {
   max-width: 85%;
 }
 
+#search-form-submit-btn{
+  color: $black;
+  background-color: $orange1;
+  margin-left: -5%;
+  width: 10%;
+}
+
 .find-event-search,
 .find-event-tags {
   display: flex;
@@ -888,7 +895,18 @@ footer {
   }
 
   .find-event-header {
-    max-height: 60vh;
+    min-height: 60vh;
+  }
+
+  .find-event-search {
+    @include flex-column(space-between, center);
+    width: 80%;
+    height: 30vh;
+  }
+
+  .search-form-els, #search-form-submit-btn{
+    width: 100%;
+    margin:0;
   }
 
   // FOOTER 

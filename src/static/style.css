@@ -156,6 +156,13 @@ a {
   max-width: 85%;
 }
 
+#search-form-submit-btn {
+  color: #000000;
+  background-color: #f58146;
+  margin-left: -5%;
+  width: 10%;
+}
+
 .find-event-search,
 .find-event-tags {
   display: flex;
@@ -870,7 +877,19 @@ footer {
     padding: auto;
   }
   .find-event-header {
-    max-height: 60vh;
+    min-height: 60vh;
+  }
+  .find-event-search {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    height: 30vh;
+  }
+  .search-form-els, #search-form-submit-btn {
+    width: 100%;
+    margin: 0;
   }
   .menu-footer {
     padding: 2% 1%;
