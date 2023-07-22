@@ -51,28 +51,78 @@ a {
 }
 
 /* HEADER */
-#nav-events {
+.bttn-style-purple {
   border: 2px solid #7759a6;
   padding: 12px 25px;
   font-weight: bold;
+  color: #ffffff;
 }
 
-#nav-signup {
-  border: 2px solid #7759a6;
-  padding: 12px 25px;
-  font-weight: bold;
-}
-
-#nav-login {
+.bttn-style-orange {
   border: 2px solid #f58146;
   background-color: #f58146;
   padding: 12px 25px;
   font-weight: bold;
-  color: black;
+  color: #000000;
 }
 
 #mobile-menu {
   display: none;
+}
+
+.css-1160xiw-MuiPaper-root-MuiDrawer-paper {
+  height: 102% !important;
+}
+
+.close-icon-btn {
+  font-size: 4.5em;
+  position: absolute;
+}
+
+#gigney-menu-logo {
+  width: 50%;
+}
+#gigney-menu-logo img {
+  object-fit: cover;
+  width: 100%;
+  max-height: 100%;
+}
+
+#loggedin-links-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 30%;
+}
+
+#loggedout-bttns-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 20%;
+  width: 100%;
+}
+
+.mobile-menu-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #000000;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  z-index: 10;
+  overflow: hidden;
+  color: #ffffff;
+  padding: 5% 0 3% 0;
+}
+.mobile-menu-box h1 {
+  font-size: 3em;
 }
 
 .find-event-header {
@@ -791,9 +841,7 @@ footer {
   nav .nav-links {
     width: 50vw;
   }
-  #nav-signup,
-  #nav-login,
-  #nav-events {
+  .bttn-style-purple, .bttn-style-orange {
     padding: 8px 20px;
   }
   .find-event-header {
@@ -809,13 +857,24 @@ footer {
   #mobile-menu {
     display: block;
   }
-  #nav-signup,
-  #nav-login,
-  #nav-events {
-    padding: 3px 15px;
+  .mobile-menu-link {
+    color: #ffffff;
+  }
+  .bttn-style-purple, .bttn-style-orange {
+    width: 70%;
+    text-align: center;
+    font-size: 25px;
+    padding: auto;
   }
   .find-event-header {
     max-height: 60vh;
+  }
+  .menu-footer {
+    padding: 2% 1%;
+    background-color: #000000;
+    width: 98%;
+    text-align: center;
+    color: #ffffff;
   }
 }
 
