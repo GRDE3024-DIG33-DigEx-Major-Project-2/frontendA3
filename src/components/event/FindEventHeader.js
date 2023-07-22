@@ -2,7 +2,10 @@ import { DatePicker } from "@mui/x-date-pickers";
 import { MenuItem, Select, Chip, TextField, Button } from "@mui/material";
 import { useState, useEffect } from "react";
 
-const FindEventHeader = () => {
+//Import endpoint handlers for events
+import { searchEvents, getAllTags } from "../../services/EventAPI";
+
+const FindEventHeader = ({setEvents, events, setPageCount, pageCount}) => {
   const [location, setLocation] = useState("-");
   const [date, setDate] = useState(null);
   // const [genre, setGenre] = useState("country");
