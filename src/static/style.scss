@@ -107,10 +107,6 @@ a {
   display: none;
 }
 
-.css-1160xiw-MuiPaper-root-MuiDrawer-paper{
-  height: 102% !important;
-}
-
 .close-icon-btn {
   font-size: 4.5em;
   position: absolute;
@@ -141,7 +137,7 @@ a {
   background-color: $black;
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   margin: 0;
   padding: 0;
   z-index: 10;
@@ -868,6 +864,10 @@ footer {
   nav {
     .nav-links {
       display: none;
+    }
+    #nav-logo {
+      width: 40vw;
+      @include flex-row;
     }
   }
 

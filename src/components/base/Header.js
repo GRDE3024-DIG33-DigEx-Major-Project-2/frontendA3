@@ -126,7 +126,7 @@ export default function Header({ user, isLoggedIn, setIsLoggedIn, setUser }) {
                   color="primary"
                   className="close-icon-btn"
                   fontSize="2"
-                  sx={{ ml: "75%", mb: "155%" }}
+                  sx={{ ml: "75%", mb: "145%" }}
                   onClick={toggleDrawer(false)}
                 />
                 <div id="gigney-menu-logo">
