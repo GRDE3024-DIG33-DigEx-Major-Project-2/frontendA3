@@ -509,6 +509,12 @@ footer {
   grid-template-rows: 100px minmax(300px, auto) minmax(400px, auto);
   grid-template-columns: 30% 70%;
 }
+.profile-container h2 {
+  font-size: 1.8em;
+}
+.profile-container h3 {
+  font-size: 1.5em;
+}
 .profile-container .profile-banner {
   grid-area: head;
   background-color: #4d7bbe;
@@ -516,6 +522,11 @@ footer {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  background: linear-gradient(90deg, #4d7bbe 23%, #ef7f4e 100%);
+}
+.profile-container .profile-banner h1 {
+  color: #ffffff;
+  font-size: 2em;
 }
 .profile-container .personal-bio {
   grid-area: bio;
@@ -582,6 +593,7 @@ footer {
   gap: 2%;
 }
 
+/* ORGANISER DASHBOARD */
 /*EVENT PAGE*/
 .event-main-image {
   width: 100%;

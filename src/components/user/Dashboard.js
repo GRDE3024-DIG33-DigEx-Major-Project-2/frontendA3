@@ -1,43 +1,62 @@
-import { Box, Avatar, Button } from "@mui/material";
+import {
+  Box,
+  Avatar,
+  Button,
+  FormControl,
+  TextField,
+  InputAdornment,
+} from "@mui/material";
 import EditNote from "@mui/icons-material/EditNote";
-import {useNavigate, Link } from "react-router-dom";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { useNavigate, Link } from "react-router-dom";
 import CreatedEventCardHorizontal from "../event/CreatedEventCardHorizontal";
-
+import LockIcon from "@mui/icons-material/Lock";
+import { useState, useEffect } from "react";
+import { getAllEvents } from "../../utils/utils";
 
 const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
-  var events = [
-    {
-      name: "Event #1",
-      description: "Some event description!",
-      img: "../gigney.png",
-    },
-    {
-      name: "Event #2",
-      description: "Hello World!",
-      img: "../gigney.png",
-    },
-    {
-      name: "Event #3",
-      description: "Another one..",
-      img: "../gigney.png",
-    },
-    {
-      name: "Event #4",
-      description: "Some event description!",
-      img: "../gigney.png",
-    },
-  ];
+  // var events = [
+  //   {
+  //     name: "Event #1",
+  //     description: "Some event description!",
+  //     img: "../gigney.png",
+  //   },
+  //   {
+  //     name: "Event #2",
+  //     description: "Hello World!",
+  //     img: "../gigney.png",
+  //   },
+  //   {
+  //     name: "Event #3",
+  //     description: "Another one..",
+  //     img: "../gigney.png",
+  //   },
+  //   {
+  //     name: "Event #4",
+  //     description: "Some event description!",
+  //     img: "../gigney.png",
+  //   },
+  // ];
+
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    async function fetchEvents() {
+      const data = await getAllEvents();
+      setEvents(data);
+    }
+
+    fetchEvents();
+  }, [setEvents]);
 
   const handleDelete = () => {
     console.log("redirecting to delete page or pop up");
   };
 
   const navigate = useNavigate();
-  
+
   const createNewEventHandler = () => {
     navigate("/createevent");
-  }
+  };
 
   return (
     <>
@@ -45,7 +64,7 @@ const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
         {isLoggedIn && (
           <>
             <div className="profile-banner">
-              <h2>Dashboard</h2>
+              <h1>Dashboard</h1>
             </div>
             <article className="personal-bio">
               <h2>Organisation Bio</h2>
@@ -56,7 +75,7 @@ const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
                   src="../gigney.png"
                   className="profile-avatar"
                 />
-                <h4>{user.organizationName}</h4>
+                <h3>{user.organizationName}</h3>
                 <p>Something here</p>
               </Box>
             </article>
@@ -64,28 +83,63 @@ const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
               <h2>Account settings</h2>
               <Box className="profile-box prof-left">
                 <div>
-                  <h4>Password:</h4>
-                  <p>********</p>
-                  <Button color="secondary" variant="outlined" size="small">
-                    Reset Password
-                  </Button>
+                  <h3>Change Password</h3>
+                  <FormControl fullWidth>
+                    <TextField
+                      id="password"
+                      label="Password:"
+                      placeholder="Enter your password"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <LockIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                      variant="standard"
+                    />
+                    <TextField
+                      id="password"
+                      label="Confirm Password:"
+                      placeholder="Enter your password again"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <LockIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                      variant="standard"
+                    />
+                    <Button
+                      variant="contained"
+                      id="login-btn"
+                      className="input-btn"
+                      type="submit"
+                      sx={{color: "black"}}
+                    >
+                      Save new password
+                    </Button>
+                    <Link
+                      id="delete-account-profile"
+                      to="/"
+                      onClick={handleDelete}
+                    >
+                      Delete account
+                    </Link>
+                  </FormControl>
                 </div>
-                <div>
-                  <h4>Permissions:</h4>
-                  <p>Location</p>
-                  <Button color="secondary" variant="outlined" size="small">
-                    Revoke permissions
-                  </Button>
-                </div>
-                <Link id="delete-account-profile" to="/" onClick={handleDelete}>
-                  Delete account
-                </Link>
               </Box>
             </article>
             <article className="saved-events">
               <div id="saved-events-header">
                 <h2>Created Events</h2>
-                <Button variant="contained" onClick={createNewEventHandler} endIcon={<AddCircleOutlineIcon />}>Create New Event</Button>
+                <Link
+                  className="bttn-style-orange"
+                  onClick={createNewEventHandler}
+                >
+                  Create New Event
+                </Link>
               </div>
               <Box className="events-profile">
                 {events.map((event, i) => (

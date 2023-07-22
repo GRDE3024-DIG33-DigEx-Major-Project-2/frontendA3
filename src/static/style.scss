@@ -514,10 +514,23 @@ footer {
   grid-template-rows: 100px minmax(300px, auto) minmax(400px, auto);
   grid-template-columns: 30% 70%;
 
+  h2 {
+    font-size: 1.8em;
+  }
+
+  h3 {
+    font-size: 1.5em;
+  }
+
   .profile-banner {
     grid-area: head;
     background-color: $lightblue;
     @include flex-row;
+    background: linear-gradient(90deg, $lightblue 23%, $lightorange 100%);
+      h1 {
+        color: $white;
+        font-size: 2em;
+      }
   }
   .personal-bio {
     grid-area: bio;
@@ -582,6 +595,8 @@ footer {
     gap: 2%;
   }
 }
+
+/* ORGANISER DASHBOARD */
 
 /*EVENT PAGE*/
 

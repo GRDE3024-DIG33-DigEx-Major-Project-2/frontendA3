@@ -37,7 +37,7 @@ const Profile = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
         {isLoggedIn && (
           <>
             <div className="profile-banner">
-              <h2>My Profile</h2>
+              <h1>My Profile</h1>
             </div>
             <article className="personal-bio">
               <h2>Personal Bio</h2>
