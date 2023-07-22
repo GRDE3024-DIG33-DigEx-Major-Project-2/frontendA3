@@ -118,7 +118,6 @@ export default function Header({ user, isLoggedIn, setIsLoggedIn, setUser }) {
               anchor="right"
               open={menu}
               onClose={toggleDrawer(false)}
-              onOpen={toggleDrawer(true)}
             >
               <div className="mobile-menu-box">
                 <CloseIcon
@@ -126,7 +125,7 @@ export default function Header({ user, isLoggedIn, setIsLoggedIn, setUser }) {
                   color="primary"
                   className="close-icon-btn"
                   fontSize="2"
-                  sx={{ ml: "75%", mb: "145%" }}
+                  sx={{ ml: "75vw", mb: "80vh" }}
                   onClick={toggleDrawer(false)}
                 />
                 <div id="gigney-menu-logo">

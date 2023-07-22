@@ -5,16 +5,19 @@ import {
   Chip,
   TextField,
   Button,
-  InputLabel,
   FormControl,
+  Box,
 } from "@mui/material";
 import { getAllTags } from "../../utils/utils";
 import { useState, useEffect } from "react";
-import FmdGoodOutlinedIcon from '@mui/icons-material/FmdGoodOutlined';
+import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
+import SvgIcon from "@mui/material/SvgIcon";
 import InputAdornment from "@mui/material/InputAdornment";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 const FindEventHeader = () => {
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState("Sydney");
   const [date, setDate] = useState(null);
   const [genre, setGenre] = useState("country");
   const [tags, setTags] = useState([]);
@@ -43,17 +46,22 @@ const FindEventHeader = () => {
       <form id="search-event-form" onSubmit={searchHandler}>
         <div className="find-event-search">
           <FormControl fullWidth>
-            <InputLabel id="location-label"><FmdGoodOutlinedIcon /> My location</InputLabel>
             <Select
               className="search-form-els"
-              labelId="location-label"
-              label="My Location"
-              value={location}
+              displayEmpty
+              placeholder="My location"
               onChange={(event) => setLocation(event.target.value)}
+              renderValue={(value) => {
+                return (
+                  <Box sx={{ display: "flex", gap: 1 }}>
+                    <SvgIcon color="primary">
+                      <FmdGoodOutlinedIcon />
+                    </SvgIcon>
+                    {value}
+                  </Box>
+                );
+              }}
             >
-              {/* <MenuItem disabled selected hidden value="-">
-              My Location
-            </MenuItem> */}
               <MenuItem value="Sydney">Sydney</MenuItem>
               <MenuItem value="Balmain">Balmain</MenuItem>
               <MenuItem value="Surry Hills">Surry Hills</MenuItem>
@@ -62,16 +70,34 @@ const FindEventHeader = () => {
               <MenuItem value="Lane Cove">Lane Cove</MenuItem>
             </Select>
           </FormControl>
-
           <DatePicker
             className="search-form-els"
+            placeholder="Date"
             onChange={(event) => setDate(event.target.value)}
+            slotProps={{
+              textField: {
+                InputProps: {
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <CalendarMonthIcon color="primary" />
+                    </InputAdornment>
+                  ),
+                },
+              },
+            }}
           />
           <TextField
             className="search-form-els"
             id="events-txt-field"
             variant="outlined"
-            label="Search artists, venues or events"
+            placeholder="Search artists, venues or events"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchOutlinedIcon color="primary" />
+                </InputAdornment>
+              ),
+            }}Ï
           ></TextField>
           <Button
             className="search-form-els"

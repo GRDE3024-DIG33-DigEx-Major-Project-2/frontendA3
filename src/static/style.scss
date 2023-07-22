@@ -895,13 +895,19 @@ footer {
   }
 
   .find-event-header {
-    min-height: 60vh;
+    min-height: 70vh;
   }
 
   .find-event-search {
     @include flex-column(space-between, center);
     width: 80%;
-    height: 30vh;
+    min-height: 30vh;
+    max-height: 40vh;
+  }
+
+  .find-event-tags{
+    min-height: 20%;
+    height: 30%;
   }
 
   .search-form-els, #search-form-submit-btn{
@@ -916,6 +922,20 @@ footer {
     width: 98%;
     text-align: center;
     color: $white;
+  }
+
+}
+
+/* Small Phone */
+@media screen and (max-width: 380px) {
+  /* HEADER */
+  .find-event-header {
+    min-height: 85vh;
+  }
+
+  .find-event-search {
+    width: 90%;
+    min-height: 35vh;
   }
 
 }
