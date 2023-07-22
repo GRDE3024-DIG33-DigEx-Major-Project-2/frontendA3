@@ -19,7 +19,6 @@ import Dashboard from "./user/Dashboard";
 import CreateEvent from "./event/CreateEvent.js";
 import "../static/fonts.css";
 
-
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState();

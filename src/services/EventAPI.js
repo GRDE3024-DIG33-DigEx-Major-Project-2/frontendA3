@@ -23,6 +23,7 @@ const getAllTagsUrl = "http://localhost:3000/event/tags"
  */
 export const searchEvents = async function (tagIds, keywords, startDate, city, page) {
 
+  console.log("Inside Search Events");
   //The array of events to return
   let events = [];
   //The total number of event pages that match the filter options

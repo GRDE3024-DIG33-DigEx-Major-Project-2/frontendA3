@@ -1,10 +1,19 @@
 import { DatePicker } from "@mui/x-date-pickers";
-import { MenuItem, Select, Chip, TextField, Button } from "@mui/material";
 import { useState, useEffect } from "react";
+import {
+  MenuItem,
+  Select,
+  Chip,
+  TextField,
+  Button,
+  InputLabel,
+  FormControl,
+} from "@mui/material";
+
 
 //Import endpoint handlers for events
 import { searchEvents, getAllTags } from "../../services/EventAPI";
-
+import FmdGoodOutlinedIcon from '@mui/icons-material/FmdGoodOutlined';
 const FindEventHeader = ({setEvents, events, setPageCount, pageCount}) => {
   const [location, setLocation] = useState("-");
   const [date, setDate] = useState(null);
@@ -43,7 +52,7 @@ const FindEventHeader = ({setEvents, events, setPageCount, pageCount}) => {
     console.log("Page Count: "+pageCount);
 
     //Navigate to event listing component
-    navigator();
+    //navigator();
 
   };
 
@@ -79,7 +88,7 @@ const FindEventHeader = ({setEvents, events, setPageCount, pageCount}) => {
 
           <DatePicker
             className="search-form-els"
-            onChange={(event) => setDate(event.target.value)}
+            onChange={(date) => setDate(date.toISOString())}
           />
           <span>
             <TextField
@@ -87,7 +96,7 @@ const FindEventHeader = ({setEvents, events, setPageCount, pageCount}) => {
               id="events-txt-field"
               variant="outlined"
               label="Search artists, venues or events"
-              onChange={(event) => setLocation(event.target.value)}
+              onChange={(keywords) => setKeywords(keywords.target.value)}
             ></TextField>
             <Button
               className="search-form-els"
