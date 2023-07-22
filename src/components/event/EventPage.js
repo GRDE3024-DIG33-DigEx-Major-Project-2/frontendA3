@@ -35,24 +35,24 @@ function Event() {
             <button className="event-buy-button">Buy Tickets</button>
           </div>
           <div className="event-column-title">
-            <h2 className="event-title">When and where</h2>
+            <h2 className="event-details"><span>When and where</span></h2>
             <div className="event-columns-details">
               <div className="event-column-detail">
                 <h4>Date & Time</h4>
-                <p>{stringDate}</p>
+                <p className="dateandtime">{stringDate}</p>
               </div>
               <div className="event-column-detail">
                 <h4>Location</h4>
                 <h5>{event.event.venueName}</h5>
-                <p>{event.event.address}</p>
-                <p>
+                <p className="eventlocation">{event.event.address}</p>
+                <p className="eventlocation">
                   {event.event.city} - {event.event.region}
                 </p>
               </div>
             </div>
           </div>
           <div className="event-column-button">
-            <h2>Organised By</h2>
+            <h2 className="organised_by"><span>Organised By</span></h2>
             <div className="event-columns-details">
               <div className="event-column-detail">
                 <img
@@ -67,23 +67,33 @@ function Event() {
               </div>
             </div>
           </div>
+        <p>&nbsp;</p>
+        <div>
+          <div className="pricing">
+            <h2><span>Pricing</span></h2>
+            <p></p>
+          </div>
+        </div>
+
           <p>&nbsp;</p>
-          <div>
+          <div className="about">
             <h2>About this event</h2>
             <p>{event.event.description}</p>
           </div>
-          <div>
+          <div className="lineup">
+            <h2 className="lineup"><span>Artist Line-Up</span></h2>
+            <p></p>
+          </div>
+        </div>
+
+        <div className="event-columns">
+        <div className="tags"> 
             <h3>Tags</h3>
             {event.tags.map((tag, i) => (
               <span key={i} className="event-tag">{tag.name}</span>
             ))}
           </div>
-        </div>
-        <p>&nbsp;</p>
-        <div className="event-columns">
-          <div className="event-column-title">
-            <h1 className="event-title">{event.event.title}</h1>
-          </div>
+         
           <div className="event-column-button">
             <button className="event-buy-button">Buy Tickets</button>
           </div>

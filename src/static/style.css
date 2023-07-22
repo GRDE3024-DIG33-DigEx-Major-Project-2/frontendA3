@@ -608,11 +608,29 @@ footer {
 }
 
 .event-column-title {
-  flex: 80%;
+  flex: 70%;
 }
 
 .event-column-button {
   flex: 20%;
+  margin: 20px;
+}
+
+.about {
+  flex: 70%;
+}
+
+.lineup {
+  flex: 20%;
+  margin: 20px;
+}
+
+.tags {
+  flex: 70%;
+}
+
+.pricing {
+  flex: 100%;
 }
 
 .event-tag {
@@ -632,7 +650,7 @@ footer {
   display: inline-block;
   font-size: 16px;
   cursor: pointer;
-  background-color: #5b5be6;
+  background-color: #f58146;
   color: #ffffff;
 }
 
@@ -645,6 +663,10 @@ footer {
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
+  border-left: 2px solid #dfdfdf;
+  border-right: 2px solid #dfdfdf;
+  border-bottom: 2px solid #dfdfdf;
+  text-align: center;
 }
 
 .event-column-detail {
@@ -654,6 +676,54 @@ footer {
 .event-logo {
   width: 90px;
   margin-top: 10px;
+}
+
+h2.event-details,
+h2.organised_by,
+h2.lineup {
+  margin-top: 30px;
+}
+
+h2.event-details,
+h2.organised_by,
+h2.lineup {
+  position: relative;
+  z-index: 1;
+}
+h2.event-details:before,
+h2.organised_by:before,
+h2.lineup:before {
+  border-top: 2px solid #dfdfdf;
+  content: "";
+  margin: 0 auto; /* this centers the line to the full width specified */
+  position: absolute; /* positioning must be absolute here, and relative positioning must be applied to the parent */
+  top: 50%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: -1;
+}
+h2.event-details span,
+h2.organised_by span,
+h2.lineup span {
+  /* to hide the lines from behind the text, you have to set the background color the same as the container */
+  background: #fff;
+  padding: 0 15px;
+}
+
+.dateandtime,
+.eventlocation {
+  text-decoration: underline;
+  color: #f58146;
+  font-weight: bold;
+}
+
+div.lineup {
+  border-left: 2px solid #dfdfdf;
+  border-right: 2px solid #dfdfdf;
+  border-bottom: 2px solid #dfdfdf;
+  text-align: center;
 }
 
 /* HOMEPAGE */
