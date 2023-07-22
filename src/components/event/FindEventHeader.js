@@ -45,7 +45,7 @@ const FindEventHeader = () => {
       <h1 className="find-event-header-text">Find an event</h1>
       <form id="search-event-form" onSubmit={searchHandler}>
         <div className="find-event-search">
-          <FormControl fullWidth>
+          <FormControl id="location-field-search">
             <Select
               className="search-form-els"
               displayEmpty
@@ -71,6 +71,7 @@ const FindEventHeader = () => {
             </Select>
           </FormControl>
           <DatePicker
+            id = "date-field-search"
             className="search-form-els"
             placeholder="Date"
             onChange={(event) => setDate(event.target.value)}

@@ -197,6 +197,17 @@ a {
   padding: 25px;
 }
 
+
+#location-field-search{
+  width: 22%;
+}
+#date-field-search{
+  width: 18%;
+}
+#events-txt-field{
+ width: 50%;
+}
+
 /* LOGIN PAGE */
 .login-page {
   height: 85vh;
@@ -837,8 +848,18 @@ footer {
   }
 
   .find-event-search {
-    width: 90%;
-    max-width: 90%;
+    width: 90vw;
+    max-width: 90vw;
+  }
+
+  #location-field-search{
+    width: 20%;
+  }
+  #date-field-search{
+    width: 15vw;
+  }
+  #events-txt-field{
+   width: 40%;
   }
 }
 
@@ -860,8 +881,30 @@ footer {
   }
 
   .find-event-header {
-    max-height: 58vw;
+    max-height: 60vh;
   }
+
+  .find-event-search {
+    @include flex-column(space-between, center);
+    width: 80%;
+    min-height: 30vh;
+    max-height: 40vh;
+  }
+
+  .find-event-tags{
+    min-height: 20%;
+    height: 30%;
+  }
+
+  .search-form-els, #search-form-submit-btn{
+    width: 100%;
+    margin:0;
+  }
+
+  #location-field-search{
+    width: 100%;
+  }
+
 }
 
 /* Phone */
@@ -898,22 +941,7 @@ footer {
     min-height: 70vh;
   }
 
-  .find-event-search {
-    @include flex-column(space-between, center);
-    width: 80%;
-    min-height: 30vh;
-    max-height: 40vh;
-  }
 
-  .find-event-tags{
-    min-height: 20%;
-    height: 30%;
-  }
-
-  .search-form-els, #search-form-submit-btn{
-    width: 100%;
-    margin:0;
-  }
 
   // FOOTER 
   .menu-footer{
