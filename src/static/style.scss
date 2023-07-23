@@ -763,9 +763,9 @@ table hr{
   padding: 15px 0 0 0;
 }
 div.lineup {
-  border-left: 2px solid #dfdfdf;
-  border-right: 2px solid #dfdfdf;
-  border-bottom: 2px solid #dfdfdf;
+  border-left: 2px solid $border;
+  border-right: 2px solid $border;
+  border-bottom: 2px solid $border;
   text-align: center;
   width: 20%;
   padding: 15px 0 5px 0;
