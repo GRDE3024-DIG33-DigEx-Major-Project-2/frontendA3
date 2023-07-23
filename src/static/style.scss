@@ -88,19 +88,19 @@ a {
 
 /* HEADER */
 
-.bttn-style-purple{
+.bttn-style-purple {
   border: 2px solid $purple1;
   padding: 12px 25px;
   font-weight: bold;
   color: $white;
 }
 
-.bttn-style-orange{
+.bttn-style-orange {
   border: 2px solid $orange1;
   background-color: $orange1;
   padding: 12px 25px;
   font-weight: bold;
-  color:$black;
+  color: $black;
 }
 
 #mobile-menu {
@@ -121,12 +121,12 @@ a {
   }
 }
 
-#loggedin-links-menu{
+#loggedin-links-menu {
   @include flex-column;
   height: 30%;
 }
 
-#loggedout-bttns-menu{
+#loggedout-bttns-menu {
   @include flex-column;
   height: 20%;
   width: 100%;
@@ -144,7 +144,7 @@ a {
   overflow: hidden;
   color: $white;
   padding: 5% 0 3% 0;
-  h1{
+  h1 {
     font-size: 3em;
   }
 }
@@ -181,7 +181,7 @@ a {
   max-width: 85%;
 }
 
-#search-form-submit-btn{
+#search-form-submit-btn {
   color: $black;
   background-color: $orange1;
   margin-left: -5%;
@@ -197,20 +197,19 @@ a {
   padding: 25px;
 }
 
-
-#location-field-search{
+#location-field-search {
   width: 22%;
 }
-#date-field-search{
+#date-field-search {
   width: 18%;
 }
-#events-txt-field{
- width: 50%;
+#events-txt-field {
+  width: 50%;
 }
 
 /* LOGIN PAGE */
 .login-page {
-  height: 85vh;
+  height: 90vh;
   width: 100%;
   @include flex-row;
 }
@@ -226,7 +225,7 @@ a {
 }
 
 .right {
-  @include flex-column(space-around, center);
+  @include flex-column(center, center);
   width: 50%;
   height: 100%;
   .login-logo {
@@ -242,24 +241,19 @@ a {
 .login-form {
   @include flex-column(space-around, left);
   gap: 2%;
-  height: 20%;
-  width: 80%;
+  height: 18em;
+  width: 34vw;
+
+  p {
+    font-size: 1em;
+    margin-bottom: 0;
+  }
 }
 
 .left-img {
   height: 100%;
   max-width: 100%;
   object-fit: cover;
-}
-
-.login-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: left;
-  gap: 2%;
-  height: 13em;
-  width: 34vw;
 }
 
 .forgot-btn {
@@ -276,6 +270,8 @@ a {
 
 #login-btn {
   background-color: $orange1;
+  margin: 4% 0;
+  color: $black;
 }
 
 /* SIGNUP PAGE */
@@ -358,11 +354,6 @@ a {
     1px 1px 0 $black;
 }
 
-.css-v4u5dn-MuiInputBase-root-MuiInput-root {
-  border: 2px solid;
-  margin-bottom: 15px;
-}
-
 /*SIGNUP GUEST*/
 
 .signup-second-page {
@@ -418,15 +409,6 @@ a {
 
 .link-organizer {
   padding-top: 6%;
-}
-
-/* RESET PASSWORD */
-.reset-pwd-form {
-  @include flex-column(space-around, left);
-  gap: 2%;
-  height: 10em;
-  width: 20em;
-  margin-left: 4%;
 }
 
 /* FOOTER */
@@ -503,7 +485,7 @@ footer {
   }
 }
 
-/* PROFILE PAGE */
+/* PROFILE PAGE & ORGANIZAER DASHBOARD */
 .profile-container {
   min-height: 78vh;
   display: grid;
@@ -514,6 +496,11 @@ footer {
   grid-template-rows: 100px minmax(300px, auto) minmax(400px, auto);
   grid-template-columns: 30% 70%;
   background-color: $lightgrey;
+
+  #save-pwd-btn {
+    background-color: $orange1;
+    margin: 10% 0 0 0;
+  }
 
   h2 {
     font-size: 1.8em;
@@ -528,10 +515,10 @@ footer {
     background-color: $lightblue;
     @include flex-row;
     background: linear-gradient(90deg, $lightblue 23%, $lightorange 100%);
-      h1 {
-        color: $white;
-        font-size: 2em;
-      }
+    h1 {
+      color: $white;
+      font-size: 2em;
+    }
   }
   .personal-bio {
     grid-area: bio;
@@ -559,14 +546,13 @@ footer {
     padding: 5%;
     position: relative;
     background-color: $white;
-
-    p{
-      text-align: center
-    }
   }
 
   .prof-center {
     @include flex-column;
+    p {
+      text-align: center;
+    }
   }
 
   .prof-left {
@@ -604,8 +590,6 @@ footer {
   }
 }
 
-/* ORGANISER DASHBOARD */
-
 /*EVENT PAGE*/
 
 .event-main-image {
@@ -629,7 +613,7 @@ footer {
   margin: 20px;
 }
 
-.about{
+.about {
   flex: 70%;
 }
 
@@ -638,10 +622,10 @@ footer {
   margin: 20px;
 }
 
-.tags{
+.tags {
   flex: 70%;
 }
-.pricing{
+.pricing {
   flex: 100%;
 }
 
@@ -700,31 +684,34 @@ h2.organised_by,
 h2.lineup {
   position: relative;
   z-index: 1;
-  
+
   &:before {
-      border-top: 2px solid #dfdfdf;
-      content:"";
-      margin: 0 auto; /* this centers the line to the full width specified */
-      position: absolute; /* positioning must be absolute here, and relative positioning must be applied to the parent */
-      top: 50%; left: 0; right: 0; bottom: 0;
-      width: 100%;
-      z-index: -1;
+    border-top: 2px solid #dfdfdf;
+    content: "";
+    margin: 0 auto; /* this centers the line to the full width specified */
+    position: absolute; /* positioning must be absolute here, and relative positioning must be applied to the parent */
+    top: 50%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: -1;
   }
 
-  span { 
-      /* to hide the lines from behind the text, you have to set the background color the same as the container */ 
-      background: #fff; 
-      padding: 0 15px; 
+  span {
+    /* to hide the lines from behind the text, you have to set the background color the same as the container */
+    background: #fff;
+    padding: 0 15px;
   }
 }
 .dateandtime,
-.eventlocation{
+.eventlocation {
   text-decoration: underline;
   color: $orange1;
   font-weight: bold;
 }
 
-div.lineup{  
+div.lineup {
   border-left: 2px solid #dfdfdf;
   border-right: 2px solid #dfdfdf;
   border-bottom: 2px solid #dfdfdf;
@@ -939,14 +926,14 @@ div.lineup{
     max-width: 90vw;
   }
 
-  #location-field-search{
+  #location-field-search {
     width: 20%;
   }
-  #date-field-search{
+  #date-field-search {
     width: 15vw;
   }
-  #events-txt-field{
-   width: 40%;
+  #events-txt-field {
+    width: 40%;
   }
 }
 
@@ -963,7 +950,8 @@ div.lineup{
     }
   }
 
-  .bttn-style-purple, .bttn-style-orange {
+  .bttn-style-purple,
+  .bttn-style-orange {
     padding: 8px 20px;
   }
 
@@ -978,20 +966,20 @@ div.lineup{
     max-height: 40vh;
   }
 
-  .find-event-tags{
+  .find-event-tags {
     min-height: 20%;
     height: 30%;
   }
 
-  .search-form-els, #search-form-submit-btn{
+  .search-form-els,
+  #search-form-submit-btn {
     width: 100%;
-    margin:0;
+    margin: 0;
   }
 
-  #location-field-search{
+  #location-field-search {
     width: 100%;
   }
-
 }
 
 /* Phone */
@@ -1012,33 +1000,30 @@ div.lineup{
     display: block;
   }
 
-  .mobile-menu-link{
+  .mobile-menu-link {
     color: $white;
   }
 
-  .bttn-style-purple, .bttn-style-orange {
+  .bttn-style-purple,
+  .bttn-style-orange {
     width: 70%;
     text-align: center;
     font-size: 25px;
     padding: auto;
-
   }
 
   .find-event-header {
     min-height: 70vh;
   }
 
-
-
-  // FOOTER 
-  .menu-footer{
+  // FOOTER
+  .menu-footer {
     padding: 2% 1%;
     background-color: $black;
     width: 98%;
     text-align: center;
     color: $white;
   }
-
 }
 
 /* Small Phone */
@@ -1052,5 +1037,4 @@ div.lineup{
     width: 90%;
     min-height: 35vh;
   }
-
 }

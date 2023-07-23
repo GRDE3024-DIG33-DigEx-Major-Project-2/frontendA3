@@ -55,10 +55,10 @@ const EventCardHorizontal = (props) => {
             <SellOutlinedIcon sx={{ fontSize: 15 }} /> {price}
           </p>
           <div className="card-icon ev-share-h">
-            <ShareIcon sx={{ fontSize: 23 }} />
+            <ShareIcon sx={{ fontSize: 23, color:"black" }} />
           </div>
           <div className="card-icon ev-bookmark-h">
-            <BookmarkAddIcon sx={{ fontSize: 21 }} />
+            <BookmarkAddIcon sx={{ fontSize: 21, color:"black" }} />
           </div>
         </CardContent>
       </Box>

@@ -186,7 +186,7 @@ a {
 
 /* LOGIN PAGE */
 .login-page {
-  height: 85vh;
+  height: 90vh;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -207,7 +207,7 @@ a {
 .right {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   width: 50%;
   height: 100%;
@@ -230,24 +230,18 @@ a {
   justify-content: space-around;
   align-items: left;
   gap: 2%;
-  height: 20%;
-  width: 80%;
+  height: 18em;
+  width: 34vw;
+}
+.login-form p {
+  font-size: 1em;
+  margin-bottom: 0;
 }
 
 .left-img {
   height: 100%;
   max-width: 100%;
   object-fit: cover;
-}
-
-.login-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: left;
-  gap: 2%;
-  height: 13em;
-  width: 34vw;
 }
 
 .forgot-btn {
@@ -264,6 +258,8 @@ a {
 
 #login-btn {
   background-color: #f58146;
+  margin: 4% 0;
+  color: #000000;
 }
 
 /* SIGNUP PAGE */
@@ -353,11 +349,6 @@ a {
   text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
 }
 
-.css-v4u5dn-MuiInputBase-root-MuiInput-root {
-  border: 2px solid;
-  margin-bottom: 15px;
-}
-
 /*SIGNUP GUEST*/
 .signup-second-page {
   display: flex;
@@ -414,18 +405,6 @@ a {
 
 .link-organizer {
   padding-top: 6%;
-}
-
-/* RESET PASSWORD */
-.reset-pwd-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: left;
-  gap: 2%;
-  height: 10em;
-  width: 20em;
-  margin-left: 4%;
 }
 
 /* FOOTER */
@@ -501,7 +480,7 @@ footer {
   margin: 2%;
 }
 
-/* PROFILE PAGE */
+/* PROFILE PAGE & ORGANIZAER DASHBOARD */
 .profile-container {
   min-height: 78vh;
   display: grid;
@@ -509,6 +488,10 @@ footer {
   grid-template-rows: 100px minmax(300px, auto) minmax(400px, auto);
   grid-template-columns: 30% 70%;
   background-color: #e6e2e2;
+}
+.profile-container #save-pwd-btn {
+  background-color: #f58146;
+  margin: 10% 0 0 0;
 }
 .profile-container h2 {
   font-size: 1.8em;
@@ -556,14 +539,14 @@ footer {
   position: relative;
   background-color: #ffffff;
 }
-.profile-container .profile-box p {
-  text-align: center;
-}
 .profile-container .prof-center {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+}
+.profile-container .prof-center p {
+  text-align: center;
 }
 .profile-container .prof-left {
   display: flex;
@@ -600,7 +583,6 @@ footer {
   gap: 2%;
 }
 
-/* ORGANISER DASHBOARD */
 /*EVENT PAGE*/
 .event-main-image {
   width: 100%;
@@ -954,7 +936,8 @@ div.lineup {
   nav .nav-links {
     width: 75vw;
   }
-  .bttn-style-purple, .bttn-style-orange {
+  .bttn-style-purple,
+  .bttn-style-orange {
     padding: 8px 20px;
   }
   .find-event-header {
@@ -973,7 +956,8 @@ div.lineup {
     min-height: 20%;
     height: 30%;
   }
-  .search-form-els, #search-form-submit-btn {
+  .search-form-els,
+  #search-form-submit-btn {
     width: 100%;
     margin: 0;
   }
@@ -1000,7 +984,8 @@ div.lineup {
   .mobile-menu-link {
     color: #ffffff;
   }
-  .bttn-style-purple, .bttn-style-orange {
+  .bttn-style-purple,
+  .bttn-style-orange {
     width: 70%;
     text-align: center;
     font-size: 25px;

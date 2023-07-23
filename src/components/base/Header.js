@@ -70,7 +70,7 @@ export default function Header({ user, isLoggedIn, setIsLoggedIn, setUser }) {
               <Link
                 id="nav-create-event"
                 className="bttn-style-orange"
-                to="/create-event"
+                to="/createevent"
               >
                 Create a new event
               </Link>
