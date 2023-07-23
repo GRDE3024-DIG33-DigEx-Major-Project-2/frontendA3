@@ -1,31 +1,29 @@
-import { Box, Avatar, Button } from "@mui/material";
-import EditNote from "@mui/icons-material/EditNote";
+import {
+  Box,
+  Avatar,
+  Button,
+  FormControl,
+  TextField,
+  InputAdornment,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 import EventCardHorizontal from "../event/EventCardHorizontal";
+import { useState, useEffect } from "react";
+import { getAllEvents, getFirstLetters } from "../../utils/utils";
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import LockIcon from "@mui/icons-material/Lock";
 
 const Profile = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
-  var events = [
-    {
-      name: "Event #1",
-      description: "Some event description!",
-      img: "../gigney.png",
-    },
-    {
-      name: "Event #2",
-      description: "Hello World!",
-      img: "../gigney.png",
-    },
-    {
-      name: "Event #3",
-      description: "Another one..",
-      img: "../gigney.png",
-    },
-    {
-      name: "Event #4",
-      description: "Some event description!",
-      img: "../gigney.png",
-    },
-  ];
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    async function fetchEvents() {
+      const data = await getAllEvents();
+      setEvents(data);
+    }
+
+    fetchEvents();
+  }, [setEvents]);
 
   const handleDelete = () => {
     console.log("redirecting to delete page or pop up");
@@ -42,36 +40,60 @@ const Profile = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
             <article className="personal-bio">
               <h2>Personal Bio</h2>
               <Box className="profile-box prof-center">
-                <EditNote className="edit-note" />
-                <Avatar
-                  alt={user.fullName}
-                  src="../gigney.png"
-                  className="profile-avatar"
-                />
-                <h4>{user.fullName}</h4>
+                <Avatar className="profile-avatar">
+                  {getFirstLetters(user.fullName)}
+                </Avatar>
+                <h3>{user.fullName}</h3>
                 <p>{user.bio}</p>
               </Box>
             </article>
             <article className="account-settings">
               <h2>Account settings</h2>
               <Box className="profile-box prof-left">
-                <div>
-                  <h4>Password:</h4>
-                  <p>********</p>
-                  <Button color="secondary" variant="outlined" size="small">
-                    Reset Password
+                <FormControl fullWidth>
+                  <h3>Change Password</h3>
+                  <p>Password:</p>
+                  <TextField
+                    variant="outlined"
+                    id="password"
+                    placeholder="Enter your password"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <LockOutlinedIcon color="primary" />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                  <p>Confirm Password:</p>
+                  <TextField
+                    variant="outlined"
+                    id="confirm-password"
+                    placeholder="Enter your password again"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <LockIcon color="primary" />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                  <Button
+                    variant="contained"
+                    id="save-pwd-btn"
+                    type="submit"
+                    sx={{ color: "black" }}
+                  >
+                    Save new password
                   </Button>
-                </div>
-                <div>
-                  <h4>Permissions:</h4>
-                  <p>Location</p>
-                  <Button color="secondary" variant="outlined" size="small">
-                    Revoke permissions
-                  </Button>
-                </div>
-                <Link id="delete-account-profile" to="/" onClick={handleDelete}>
-                  Delete account
-                </Link>
+                  <Link
+                    id="delete-account-profile"
+                    to="/"
+                    onClick={handleDelete}
+                  >
+                    Delete this account
+                  </Link>
+                </FormControl>
               </Box>
             </article>
             <article className="saved-events">

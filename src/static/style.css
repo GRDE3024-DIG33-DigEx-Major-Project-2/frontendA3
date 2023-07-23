@@ -186,7 +186,7 @@ a {
 
 /* LOGIN PAGE */
 .login-page {
-  height: 85vh;
+  height: 90vh;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -207,7 +207,7 @@ a {
 .right {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   width: 50%;
   height: 100%;
@@ -230,24 +230,18 @@ a {
   justify-content: space-around;
   align-items: left;
   gap: 2%;
-  height: 20%;
-  width: 80%;
+  height: 18em;
+  width: 34vw;
+}
+.login-form p {
+  font-size: 1em;
+  margin-bottom: 0;
 }
 
 .left-img {
   height: 100%;
   max-width: 100%;
   object-fit: cover;
-}
-
-.login-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: left;
-  gap: 2%;
-  height: 13em;
-  width: 34vw;
 }
 
 .forgot-btn {
@@ -264,6 +258,8 @@ a {
 
 #login-btn {
   background-color: #f58146;
+  margin: 4% 0;
+  color: #000000;
 }
 
 /* SIGNUP PAGE */
@@ -353,11 +349,6 @@ a {
   text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
 }
 
-.css-v4u5dn-MuiInputBase-root-MuiInput-root {
-  border: 2px solid;
-  margin-bottom: 15px;
-}
-
 /*SIGNUP GUEST*/
 .signup-second-page {
   display: flex;
@@ -414,18 +405,6 @@ a {
 
 .link-organizer {
   padding-top: 6%;
-}
-
-/* RESET PASSWORD */
-.reset-pwd-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: left;
-  gap: 2%;
-  height: 10em;
-  width: 20em;
-  margin-left: 4%;
 }
 
 /* FOOTER */
@@ -501,7 +480,7 @@ footer {
   margin: 2%;
 }
 
-/* PROFILE PAGE */
+/* PROFILE PAGE & ORGANIZAER DASHBOARD */
 .profile-container {
   min-height: 78vh;
   display: grid;
@@ -509,6 +488,10 @@ footer {
   grid-template-rows: 100px minmax(300px, auto) minmax(400px, auto);
   grid-template-columns: 30% 70%;
   background-color: #e6e2e2;
+}
+.profile-container #save-pwd-btn {
+  background-color: #f58146;
+  margin: 10% 0 0 0;
 }
 .profile-container h2 {
   font-size: 1.8em;
@@ -556,14 +539,14 @@ footer {
   position: relative;
   background-color: #ffffff;
 }
-.profile-container .profile-box p {
-  text-align: center;
-}
 .profile-container .prof-center {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+}
+.profile-container .prof-center p {
+  text-align: center;
 }
 .profile-container .prof-left {
   display: flex;
@@ -600,7 +583,6 @@ footer {
   gap: 2%;
 }
 
-/* ORGANISER DASHBOARD */
 /*EVENT PAGE*/
 /* Main image */
 .event-main-image {
@@ -628,6 +610,10 @@ footer {
   margin: 20px;
 }
 
+.about {
+  flex: 70%;
+}
+
 .lineup {
   flex: 20%;
 }
@@ -637,11 +623,24 @@ footer {
 }
 
 .pricing {
+  /* Event tags */
+  /* Buy button */
+  /* Event body */
+  /* Event column detail styles */
+  /* Event logo */
+  /* Headings styles for event details, organized by, lineup, and pricing */
+  /* Vertical line */
+  /* Table horizontal line */
+  /* Event details and location styles */
+  /* Pricing table styles */
+}
+.pricing .tags {
+  flex: 70%;
+}
+.pricing .pricing {
   flex: 100%;
 }
-
-/* Event tags */
-.event-tag {
+.pricing .event-tag {
   background-color: #ffffff;
   border: 2px solid #5b5be6;
   border-radius: 10px;
@@ -649,9 +648,7 @@ footer {
   margin: 5px;
   padding: 5px 10px;
 }
-
-/* Buy button */
-.event-buy-button {
+.pricing .event-buy-button {
   margin-right: 0px;
   margin-top: 20px;
   border: none;
@@ -665,14 +662,10 @@ footer {
   color: #000000;
   font-weight: bold;
 }
-
-/* Event body */
-.event-body {
+.pricing .event-body {
   margin: 15px;
 }
-
-/* Event column detail styles */
-.event-columns-details {
+.pricing .event-columns-details {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -682,42 +675,35 @@ footer {
   border-bottom: 2px solid #dfdfdf;
   text-align: center;
 }
-
-.event-columns-detail li {
+.pricing .event-columns-detail li {
   padding: 10px;
   width: 50%;
 }
-
-.event-column-detail {
+.pricing .event-column-detail {
   flex: 49%;
   display: table;
 }
-
-.event-column-detail h4 {
+.pricing .event-column-detail h4 {
   padding: 10px 10px 10px 5px;
   word-break: break-all;
 }
-
-/* Event logo */
-.event-logo {
+.pricing .event-logo {
   width: 90px;
   margin-top: 10px;
 }
-
-/* Headings styles for event details, organized by, lineup, and pricing */
-h2.event-details,
-h2.organised_by,
-h2.lineup,
-.pricing h2 {
+.pricing h2.event-details,
+.pricing h2.organised_by,
+.pricing h2.lineup,
+.pricing .pricing h2 {
   margin-top: 30px;
   margin-bottom: 0px;
   position: relative;
   z-index: 1;
 }
-h2.event-details:before,
-h2.organised_by:before,
-h2.lineup:before,
-.pricing h2:before {
+.pricing h2.event-details:before,
+.pricing h2.organised_by:before,
+.pricing h2.lineup:before,
+.pricing .pricing h2:before {
   border-top: 2px solid #dfdfdf;
   border-left: 2px solid #dfdfdf;
   border-right: 2px solid #dfdfdf;
@@ -731,117 +717,141 @@ h2.lineup:before,
   width: 100%;
   z-index: -1;
 }
-h2.event-details span,
-h2.organised_by span,
-h2.lineup span,
-.pricing h2 span {
+.pricing h2.event-details span,
+.pricing h2.organised_by span,
+.pricing h2.lineup span,
+.pricing .pricing h2 span {
   /* to hide the lines from behind the text, you have to set the background color the same as the container */
   background: #ffffff;
   padding: 0 15px;
+  border-top: 2px solid #dfdfdf;
+  content: "";
+  margin: 0 auto; /* this centers the line to the full width specified */
+  position: absolute; /* positioning must be absolute here, and relative positioning must be applied to the parent */
+  top: 50%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: -1;
 }
-
-/* Vertical line */
-hr.vertical {
+.pricing h2.event-details span,
+.pricing h2.organised_by span,
+.pricing h2.lineup span,
+.pricing .pricing h2 span {
+  /* to hide the lines from behind the text, you have to set the background color the same as the container */
+  background: #fff;
+  padding: 0 15px;
+}
+.pricing hr.vertical {
   height: 100px;
   border: 1px solid #dfdfdf;
   display: none; /* Hide the vertical line on small screens */
 }
-
-/* Table horizontal line */
-table hr {
+.pricing table hr {
   height: 50px;
   margin: 0;
 }
-
-/* Event details and location styles */
-.dateandtime,
-.eventlocation {
+.pricing .dateandtime,
+.pricing .eventlocation {
   text-decoration: underline;
   color: #f58146;
   font-weight: bold;
   font-size: medium;
 }
-
-/* Pricing table styles */
-.pricing table {
+.pricing .pricing table {
   width: 100%;
   padding: 5px 0 10px 0;
 }
-
-.pricing td,
-.pricing th {
+.pricing .pricing td,
+.pricing .pricing th {
+  /* Media Queries for responsiveness */
+  /* Adjust layout for screens smaller than 768px (e.g., smartphones) */
+  /* HOMEPAGE */
+  /* EVENT CARDS */
+  /*CREATE EVENT */
+  /* CONTENT PAGES */
+  /* Tablet */
+  /* Small Tablet */
+  /* Phone */
+  /* Small Phone */
+}
+.pricing .pricing td div.lineup,
+.pricing .pricing th div.lineup {
+  border-left: 2px solid #dfdfdf;
+  border-right: 2px solid #dfdfdf;
+  border-bottom: 2px solid #dfdfdf;
   text-align: center;
   width: 20%;
   padding: 15px 0 5px 0;
 }
-
-/* Media Queries for responsiveness */
-/* Adjust layout for screens smaller than 768px (e.g., smartphones) */
 @media only screen and (max-width: 767px) {
-  .event-columns {
+  .pricing .pricing td .event-columns,
+  .pricing .pricing th .event-columns {
     flex-direction: column;
   }
-  .event-columns-detail li {
+  .pricing .pricing td .event-columns-detail li,
+  .pricing .pricing th .event-columns-detail li {
     width: 100%;
   }
-  .event-buy-button {
+  .pricing .pricing td .event-buy-button,
+  .pricing .pricing th .event-buy-button {
     margin: 10px auto;
   }
 }
-/* HOMEPAGE */
-.home-section {
+.pricing .pricing td .home-section,
+.pricing .pricing th .home-section {
   padding-bottom: 30px;
   background-color: #f5f5f5;
 }
-
-.card-name {
+.pricing .pricing td .card-name,
+.pricing .pricing th .card-name {
   font-size: 22px;
   font-weight: 700;
 }
-
-.card-date {
+.pricing .pricing td .card-date,
+.pricing .pricing th .card-date {
   font-weight: 500;
 }
-
-.css-1oe4rwd-MuiSvgIcon-root {
+.pricing .pricing td .css-1oe4rwd-MuiSvgIcon-root,
+.pricing .pricing th .css-1oe4rwd-MuiSvgIcon-root {
   color: #4b7cbe;
   margin-bottom: -3px;
 }
-
-.css-o69gx8-MuiCardMedia-root {
+.pricing .pricing td .css-o69gx8-MuiCardMedia-root,
+.pricing .pricing th .css-o69gx8-MuiCardMedia-root {
   width: 360px !important;
   height: 223px !important;
 }
-
-#search-event-form > div.find-event-search > span > button {
+.pricing .pricing td #search-event-form > div.find-event-search > span > button,
+.pricing .pricing th #search-event-form > div.find-event-search > span > button {
   background-color: #f58146;
 }
-
-.search-form-els {
+.pricing .pricing td .search-form-els,
+.pricing .pricing th .search-form-els {
   height: 54px;
   background-color: #ffffff;
 }
-
-#events-txt-field {
+.pricing .pricing td #events-txt-field,
+.pricing .pricing th #events-txt-field {
   min-width: 27vw;
 }
-
-.home-row {
+.pricing .pricing td .home-row,
+.pricing .pricing th .home-row {
   padding: 15px;
 }
-
-/* EVENT CARDS */
-.event-card {
+.pricing .pricing td .event-card,
+.pricing .pricing th .event-card {
   width: 350px;
   position: relative;
 }
-
-.card-icon:hover {
+.pricing .pricing td .card-icon:hover,
+.pricing .pricing th .card-icon:hover {
   transform: scale(1.1);
   cursor: pointer;
 }
-
-.card-icon {
+.pricing .pricing td .card-icon,
+.pricing .pricing th .card-icon {
   background-color: #f58146;
   color: #ffffff;
   width: 23px;
@@ -851,24 +861,24 @@ table hr {
   text-align: center;
   position: absolute;
 }
-
-.ev-share {
+.pricing .pricing td .ev-share,
+.pricing .pricing th .ev-share {
   top: 200px;
   right: 20%;
 }
-
-.ev-bookmark {
+.pricing .pricing td .ev-bookmark,
+.pricing .pricing th .ev-bookmark {
   top: 200px;
   right: 5%;
 }
-
-.horizontal-card-box {
+.pricing .pricing td .horizontal-card-box,
+.pricing .pricing th .horizontal-card-box {
   width: 130%;
   position: relative;
   padding-left: 3%;
 }
-
-.horizontal-card {
+.pricing .pricing td .horizontal-card,
+.pricing .pricing th .horizontal-card {
   position: relative;
   width: 100%;
   display: flex;
@@ -876,18 +886,18 @@ table hr {
   justify-content: space-around;
   align-items: left;
 }
-
-.ev-share-h {
+.pricing .pricing td .ev-share-h,
+.pricing .pricing th .ev-share-h {
   bottom: 10%;
   right: 5%;
 }
-
-.ev-bookmark-h {
+.pricing .pricing td .ev-bookmark-h,
+.pricing .pricing th .ev-bookmark-h {
   bottom: 10%;
   right: 20%;
 }
-
-.ev-menu-h {
+.pricing .pricing td .ev-menu-h,
+.pricing .pricing th .ev-menu-h {
   bottom: 14.5%;
   right: 5%;
   position: absolute;
@@ -895,24 +905,23 @@ table hr {
   height: 23px;
   padding: 2%;
 }
-
-.ev-menu-h:hover {
+.pricing .pricing td .ev-menu-h:hover,
+.pricing .pricing th .ev-menu-h:hover {
   transform: scale(1.1);
   cursor: pointer;
 }
-
-.ev-share-h-2 {
+.pricing .pricing td .ev-share-h-2,
+.pricing .pricing th .ev-share-h-2 {
   bottom: 10%;
   right: 15%;
 }
-
-/*CREATE EVENT */
-#create-event-main {
+.pricing .pricing td #create-event-main,
+.pricing .pricing th #create-event-main {
   background-color: #f5f5f5;
   padding-bottom: 1%;
 }
-
-#create-event-screen {
+.pricing .pricing td #create-event-screen,
+.pricing .pricing th #create-event-screen {
   height: 60vh;
   max-width: 100%;
   min-height: 65vh;
@@ -920,12 +929,12 @@ table hr {
   padding: 2%;
   margin: 2%;
 }
-
-#create-event-screen h2 {
+.pricing .pricing td #create-event-screen h2,
+.pricing .pricing th #create-event-screen h2 {
   font-size: 2em;
 }
-
-.create-event-header {
+.pricing .pricing td .create-event-header,
+.pricing .pricing th .create-event-header {
   height: 20vh;
   width: 100%;
   display: flex;
@@ -934,88 +943,103 @@ table hr {
   align-items: center;
   background: linear-gradient(90deg, #4d7bbe 23%, #ef7f4e 100%);
 }
-
-.create-event-header h1 {
+.pricing .pricing td .create-event-header h1,
+.pricing .pricing th .create-event-header h1 {
   font-size: 2.7em;
   color: #ffffff;
   text-shadow: rgb(40, 39, 39) 1px 1px 4px;
 }
-
-.create-event-stepper {
+.pricing .pricing td .create-event-stepper,
+.pricing .pricing th .create-event-stepper {
   padding: 2% 3% 1% 3%;
   max-width: 94%;
 }
-
-.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
+.pricing .pricing td .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed,
+.pricing .pricing th .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
   color: #3131b8 !important;
 }
-
-.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
+.pricing .pricing td .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active,
+.pricing .pricing th .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
   color: #9c9ced !important;
 }
-
-.css-14lo706 {
+.pricing .pricing td .css-14lo706,
+.pricing .pricing th .css-14lo706 {
   overflow: visible !important;
 }
-
-.css-14lo706 > span {
+.pricing .pricing td .css-14lo706 > span,
+.pricing .pricing th .css-14lo706 > span {
   opacity: 100 !important;
 }
-
-.css-14lo706 {
+.pricing .pricing td .css-14lo706,
+.pricing .pricing th .css-14lo706 {
   padding-bottom: 10px;
 }
-
-.preview-image {
+.pricing .pricing td .preview-image,
+.pricing .pricing th .preview-image {
   height: 300px;
   width: 100%;
 }
-
-/* CONTENT PAGES */
-.content-body {
+.pricing .pricing td .content-body,
+.pricing .pricing th .content-body {
   margin: 15px;
   margin-bottom: 30px;
 }
-
-/* Tablet */
 @media screen and (max-width: 1023px) {
-  /* HEADER */
-  nav .nav-links {
+  .pricing .pricing td,
+  .pricing .pricing th {
+    /* HEADER */
+  }
+  .pricing .pricing td nav .nav-links,
+  .pricing .pricing th nav .nav-links {
     width: 65vw;
   }
-  .find-event-header {
+  .pricing .pricing td .find-event-header,
+  .pricing .pricing th .find-event-header {
     max-height: 40vw;
   }
-  .find-event-search {
+  .pricing .pricing td .find-event-search,
+  .pricing .pricing th .find-event-search {
     width: 90vw;
     max-width: 90vw;
   }
-  #location-field-search {
+  .pricing .pricing td #location-field-search,
+  .pricing .pricing th #location-field-search {
     width: 20%;
   }
-  #date-field-search {
+  .pricing .pricing td #date-field-search,
+  .pricing .pricing th #date-field-search {
     width: 15vw;
   }
-  #events-txt-field {
+  .pricing .pricing td #events-txt-field,
+  .pricing .pricing th #events-txt-field {
     width: 40%;
   }
 }
-/* Small Tablet */
 @media screen and (max-width: 800px) {
-  /* HEADER */
-  header {
+  .pricing .pricing td,
+  .pricing .pricing th {
+    /* HEADER */
+  }
+  .pricing .pricing td header,
+  .pricing .pricing th header {
     padding: 3%;
   }
-  nav .nav-links {
+  .pricing .pricing td nav .nav-links,
+  .pricing .pricing th nav .nav-links {
     width: 75vw;
   }
-  .bttn-style-purple, .bttn-style-orange {
+  .pricing .pricing td .bttn-style-purple,
+  .pricing .pricing td .bttn-style-orange,
+  .pricing .pricing th .bttn-style-purple,
+  .pricing .pricing th .bttn-style-orange {
     padding: 8px 20px;
   }
-  .find-event-header {
+  .pricing .pricing td .find-event-header,
+  .pricing .pricing th .find-event-header {
     max-height: 60vh;
   }
-  .find-event-search {
+  .pricing .pricing td .find-event-search,
+  .pricing .pricing th .find-event-search {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -1024,47 +1048,63 @@ table hr {
     min-height: 30vh;
     max-height: 40vh;
   }
-  .find-event-tags {
+  .pricing .pricing td .find-event-tags,
+  .pricing .pricing th .find-event-tags {
     min-height: 20%;
     height: 30%;
   }
-  .search-form-els, #search-form-submit-btn {
+  .pricing .pricing td .search-form-els,
+  .pricing .pricing td #search-form-submit-btn,
+  .pricing .pricing th .search-form-els,
+  .pricing .pricing th #search-form-submit-btn {
     width: 100%;
     margin: 0;
   }
-  #location-field-search {
+  .pricing .pricing td #location-field-search,
+  .pricing .pricing th #location-field-search {
     width: 100%;
   }
 }
-/* Phone */
 @media screen and (max-width: 620px) {
-  /* HEADER */
-  nav .nav-links {
+  .pricing .pricing td,
+  .pricing .pricing th {
+    /* HEADER */
+  }
+  .pricing .pricing td nav .nav-links,
+  .pricing .pricing th nav .nav-links {
     display: none;
   }
-  nav #nav-logo {
+  .pricing .pricing td nav #nav-logo,
+  .pricing .pricing th nav #nav-logo {
     width: 40vw;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
   }
-  #mobile-menu {
+  .pricing .pricing td #mobile-menu,
+  .pricing .pricing th #mobile-menu {
     display: block;
   }
-  .mobile-menu-link {
+  .pricing .pricing td .mobile-menu-link,
+  .pricing .pricing th .mobile-menu-link {
     color: #ffffff;
   }
-  .bttn-style-purple, .bttn-style-orange {
+  .pricing .pricing td .bttn-style-purple,
+  .pricing .pricing td .bttn-style-orange,
+  .pricing .pricing th .bttn-style-purple,
+  .pricing .pricing th .bttn-style-orange {
     width: 70%;
     text-align: center;
     font-size: 25px;
     padding: auto;
   }
-  .find-event-header {
+  .pricing .pricing td .find-event-header,
+  .pricing .pricing th .find-event-header {
     min-height: 70vh;
   }
-  .menu-footer {
+  .pricing .pricing td .menu-footer,
+  .pricing .pricing th .menu-footer {
     padding: 2% 1%;
     background-color: #000000;
     width: 98%;
@@ -1072,13 +1112,17 @@ table hr {
     color: #ffffff;
   }
 }
-/* Small Phone */
 @media screen and (max-width: 380px) {
-  /* HEADER */
-  .find-event-header {
+  .pricing .pricing td,
+  .pricing .pricing th {
+    /* HEADER */
+  }
+  .pricing .pricing td .find-event-header,
+  .pricing .pricing th .find-event-header {
     min-height: 85vh;
   }
-  .find-event-search {
+  .pricing .pricing td .find-event-search,
+  .pricing .pricing th .find-event-search {
     width: 90%;
     min-height: 35vh;
   }

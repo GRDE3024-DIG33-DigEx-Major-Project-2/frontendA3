@@ -1,6 +1,6 @@
 import { FormControl, TextField, InputAdornment, Button } from "@mui/material";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
-import LockIcon from "@mui/icons-material/Lock";
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import LoginIcon from "@mui/icons-material/Login";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
@@ -17,7 +17,6 @@ const Login = ({ setIsLoggedIn, setUser }) => {
 
   // URL FOR LOCALHOST
   const loginUrl = "http://localhost:3000/auth/login";
-  
 
   const loginHandler = async (event) => {
     event.preventDefault();
@@ -99,35 +98,35 @@ const Login = ({ setIsLoggedIn, setUser }) => {
         </div>
         <form onSubmit={loginHandler}>
           <FormControl className="login-form">
+            <p>Email:</p>
             <TextField
+              variant="outlined"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               id="email"
-              label="Email:"
               placeholder="Enter your email address"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <ContactMailIcon />
+                    <ContactMailIcon color="primary" />
                   </InputAdornment>
                 ),
               }}
-              variant="standard"
             />
+            <p>Password:</p>
             <TextField
+              variant="outlined"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               id="password"
-              label="Password:"
               placeholder="Enter your password"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <LockIcon />
+                    <LockOutlinedIcon color="primary" />
                   </InputAdornment>
                 ),
               }}
-              variant="standard"
             />
             {/* if the message is defined, show it */}
             {message && <p className="error-message">{message}</p>}

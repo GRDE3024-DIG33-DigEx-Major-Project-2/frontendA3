@@ -9,9 +9,9 @@ import {
 import { useNavigate, Link } from "react-router-dom";
 import CreatedEventCardHorizontal from "../event/CreatedEventCardHorizontal";
 import LockIcon from "@mui/icons-material/Lock";
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useState, useEffect } from "react";
 import { getAllEvents, getFirstLetters } from "../../utils/utils";
-
 
 const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
   const [events, setEvents] = useState([]);
@@ -64,50 +64,50 @@ const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
             <article className="account-settings">
               <h2>Account settings</h2>
               <Box className="profile-box prof-left">
-                  <FormControl fullWidth>
+                <FormControl fullWidth>
                   <h3>Change Password</h3>
-                    <TextField
-                      id="password"
-                      label="Password:"
-                      placeholder="Enter your password"
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <LockIcon />
-                          </InputAdornment>
-                        ),
-                      }}
-                      variant="standard"
-                    />
-                    <TextField
-                      id="password"
-                      label="Confirm Password:"
-                      placeholder="Enter your password again"
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <LockIcon />
-                          </InputAdornment>
-                        ),
-                      }}
-                      variant="standard"
-                    />
-                    <Button
-                      variant="contained"
-                      id="login-btn"
-                      type="submit"
-                      sx={{ color: "black" }}
-                    >
-                      Save new password
-                    </Button>
-                    <Link
-                      id="delete-account-profile"
-                      to="/"
-                      onClick={handleDelete}
-                    >
-                      Delete this account
-                    </Link>
-                  </FormControl>
+                  <p>Password:</p>
+                  <TextField
+                    variant="outlined"
+                    id="password"
+                    placeholder="Enter your password"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <LockOutlinedIcon color="primary" />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                  <p>Confirm Password:</p>
+                  <TextField
+                    variant="outlined"
+                    id="confirm-password"
+                    placeholder="Enter your password again"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <LockIcon color="primary" />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                  <Button
+                    variant="contained"
+                    id="save-pwd-btn"
+                    type="submit"
+                    sx={{ color: "black" }}
+                  >
+                    Save new password
+                  </Button>
+                  <Link
+                    id="delete-account-profile"
+                    to="/"
+                    onClick={handleDelete}
+                  >
+                    Delete this account
+                  </Link>
+                </FormControl>
               </Box>
             </article>
             <article className="saved-events">
