@@ -24,6 +24,8 @@ const getAllTagsUrl = "http://localhost:3000/event/tags"
 export const searchEvents = async function (tagIds, keywords, startDate, city, page) {
 
   console.log("Inside Search Events");
+  console.log(tagIds, keywords, startDate, city, page);
+
   //The array of events to return
   let events = [];
   //The total number of event pages that match the filter options
@@ -31,12 +33,15 @@ export const searchEvents = async function (tagIds, keywords, startDate, city, p
 
   //Set request body values
   let requestBody = {
-    tags: tagIds | [],
-    keywords: keywords | null,
-    startDate: startDate | null,
+    tags: tagIds,
+    keywords: keywords,
+    startDate: startDate,
     city: city,
-    page: page | 0
+    page: page
   };
+
+  console.log("Request body test");
+  console.log(requestBody);
 
   //Get the array of events and the page number
   await axios
