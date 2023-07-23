@@ -15,10 +15,12 @@ import SvgIcon from "@mui/material/SvgIcon";
 import InputAdornment from "@mui/material/InputAdornment";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
+import dayjs from 'dayjs';
 
 const FindEventHeader = () => {
   const [location, setLocation] = useState("Sydney");
-  const [date, setDate] = useState(null);
+  const [date, setDate] = useState(dayjs());
   const [genre, setGenre] = useState("country");
   const [tags, setTags] = useState([]);
 
@@ -74,7 +76,11 @@ const FindEventHeader = () => {
             id = "date-field-search"
             className="search-form-els"
             placeholder="Date"
-            onChange={(event) => setDate(event.target.value)}
+            value={date}
+            onChange={(newValue) => setDate(newValue)}
+            slots={{
+              openPickerIcon: ArrowDropDownOutlinedIcon
+            }}
             slotProps={{
               textField: {
                 InputProps: {
