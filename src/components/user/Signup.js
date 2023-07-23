@@ -42,22 +42,14 @@ function SignUp() {
                   <MenuItem
                     id="guest"
                     value={"guest"}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <LocationOnIcon />
-                        </InputAdornment>
-                      ),
-                    }}
                   >
-                    Search for events
+                   <LocationOnIcon />    Search for events
                   </MenuItem>
                   <MenuItem
                     id="organiser"
                     value={"organiser"}
-                    startIcon={<AddCircleOutlineRoundedIcon />}
                   >
-                    Create an event
+                   <AddCircleOutlineRoundedIcon />    Create an event
                   </MenuItem>
                 </Select>
               </FormControl>
