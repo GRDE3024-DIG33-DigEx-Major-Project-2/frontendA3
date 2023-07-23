@@ -9,6 +9,7 @@ import {
   InputLabel,
   FormControl,
 } from "@mui/material";
+import {Dayjs} from "dayjs";
 
 
 //Import endpoint handlers for events
@@ -16,11 +17,20 @@ import { searchEvents, getAllTags } from "../../services/EventAPI";
 import FmdGoodOutlinedIcon from '@mui/icons-material/FmdGoodOutlined';
 const FindEventHeader = ({setEvents, events, setPageCount, pageCount}) => {
   const [location, setLocation] = useState("-");
-  const [date, setDate] = useState(null);
+  const [date, setDate] = useState(new Date());
   // const [genre, setGenre] = useState("country");
   const [tags, setTags] = useState([]);
   const [keywords, setKeywords] = useState(null);
-  const [startDate, setStartDate] = useState(null);
+  //const [startDate, setStartDate] = useState(null);
+  //const date = new Date(Date.parse(props.event.event.startDate));
+  // const stringDate = date.toLocaleString([], {
+  //   year: "numeric",
+  //   month: "2-digit",
+  //   day: "2-digit",
+  //   hour: "2-digit",
+  //   minute: "2-digit",
+  // });
+
 
 
   // const [events, setEvents] = useState([]);
@@ -39,17 +49,30 @@ const FindEventHeader = ({setEvents, events, setPageCount, pageCount}) => {
    * Search for first page of filtered events
    */
   const searchHandler = async () => {
+
+    console.log("Original date");
+
+    // const stringDate = date.toLocaleString([], {
+    //   year: "numeric",
+    //   month: "2-digit",
+    //   day: "2-digit",
+    //   hour: "2-digit",
+    //   minute: "2-digit",
+    // }); 
     console.log("Search event fired");
-    console.log(location, date, keywords);
+    console.log([], keywords, Dayjs(date.toISOString()).format("YY-MM-DD HH:mm:ss"), location, 0);
     //Make request for filtered events
-    const searchResult = await searchEvents(tags, keywords, startDate, location, 0);
+    let searchResult = await searchEvents([], keywords, Dayjs(date.toISOString()).format("YY-MM-DD HH:mm:ss"), location, 0);
+
+    console.log("After search result found");
+    console.log(searchResult);
+    console.log("Page Count: "+ pageCount);
+
     //Set state props of events and page count
     setEvents(searchResult.events);
     setPageCount(searchResult.pageCount);
 
-    console.log("After search result found");
-    console.log(searchResult);
-    console.log("Page Count: "+pageCount);
+
 
     //Navigate to event listing component
     //navigator();
@@ -88,7 +111,7 @@ const FindEventHeader = ({setEvents, events, setPageCount, pageCount}) => {
 
           <DatePicker
             className="search-form-els"
-            onChange={(date) => setDate(date.toISOString())}
+            onChange={(startDate) => setDate(new Date(Date.parse(startDate)))}
           />
           <span>
             <TextField
