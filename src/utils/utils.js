@@ -1,5 +1,4 @@
 // we can use this file for shared global scope functions
-
 import axios from "axios";
 
 // URL FOR DEPLOYED VERSION
