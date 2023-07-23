@@ -2,6 +2,8 @@ import { useLocation } from "react-router-dom";
 import LocalActivityRoundedIcon from '@mui/icons-material/LocalActivityRounded';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
+import ShareIcon from "@mui/icons-material/Share";
+import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 
 function Event() {
   const location = useLocation();
@@ -29,6 +31,12 @@ function Event() {
   return (
     <div className="Event">
       <img className="event-main-image" alt="eventimage" src={imgUrl}></img>
+      <div className="card-icon ev-share">
+          <ShareIcon sx={{ fontSize: 22, color:"black" }} />
+        </div>
+        <div className="card-icon ev-bookmark">
+          <BookmarkAddIcon sx={{ fontSize: 23, color:"black" }} />
+        </div>
       <div className="event-body">
         <div className="event-columns">
           <div className="event-column-title">
