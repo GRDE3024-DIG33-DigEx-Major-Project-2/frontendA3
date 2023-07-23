@@ -1,4 +1,7 @@
 import { useLocation } from "react-router-dom";
+import LocalActivityRoundedIcon from '@mui/icons-material/LocalActivityRounded';
+import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
+import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 
 function Event() {
   const location = useLocation();
@@ -38,13 +41,13 @@ function Event() {
             <h2 className="event-details"><span>When and where</span></h2>
             <div className="event-columns-details">
               <div className="event-column-detail">
-                <h4>Date & Time</h4>
+                <h4><CalendarMonthRoundedIcon />  Date & Time</h4>
                 <p className="dateandtime">{stringDate}</p>
               </div>
+              <hr></hr>
               <div className="event-column-detail">
-                <h4>Location</h4>
-                <h5>{event.event.venueName}</h5>
-                <p className="eventlocation">{event.event.address}</p>
+                <h4><LocationOnRoundedIcon />    Location</h4>
+                <p className="eventlocation">{event.event.venueName}, {event.event.address}</p>
                 <p className="eventlocation">
                   {event.event.city} - {event.event.region}
                 </p>
@@ -68,21 +71,64 @@ function Event() {
             </div>
           </div>
         <p>&nbsp;</p>
-        <div>
+        <div className="event-column-title">
+        <p>&nbsp;</p>
           <div className="pricing">
             <h2><span>Pricing</span></h2>
-            <p></p>
+            <div className="event-columns-details">
+            <div className="event-column-detail">
+            <table>
+      <thead>
+        <tr>
+          <th><LocalActivityRoundedIcon /> Early Bird</th>
+          <hr></hr>
+          <th><LocalActivityRoundedIcon /> Concession</th>
+          <hr></hr>
+          <th><LocalActivityRoundedIcon /> General</th>
+          <hr></hr>
+          <th><LocalActivityRoundedIcon /> VIP</th>
+          <hr></hr>
+          <th><LocalActivityRoundedIcon /> Backstage</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>$95</td>
+          <hr></hr>
+          <td>$120</td>
+          <hr></hr>
+          <td>$240</td>
+          <hr></hr>
+          <td>$360</td>
+          <hr></hr>
+          <td>$150</td>
+        </tr>
+      </tbody>
+    </table>
           </div>
+        </div>
+        </div>
         </div>
 
           <p>&nbsp;</p>
-          <div className="about">
-            <h2>About this event</h2>
+          
+          <div className="event-column-title">
+            <h2 className="about">About this event</h2>
             <p>{event.event.description}</p>
           </div>
-          <div className="lineup">
+          <div className="event-column-button">
             <h2 className="lineup"><span>Artist Line-Up</span></h2>
-            <p></p>
+            <div className="event-columns-details">
+            <div className="event-column-detail">
+            <ul>
+              <li>Artist 1</li>
+              <li>Artist 2</li>
+              <li>Artist 3</li>
+              <li>Artist 4</li>
+              <li>Artist 5</li>
+            </ul>
+            </div>
+            </div>
           </div>
         </div>
 
