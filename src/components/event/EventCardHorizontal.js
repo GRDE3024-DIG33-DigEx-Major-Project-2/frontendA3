@@ -6,7 +6,6 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import SellOutlinedIcon from '@mui/icons-material/SellOutlined';
 
 const EventCardHorizontal = (props) => {
-  console.log(props);
   const date = new Date(Date.parse(props.event.event.startDate));
   const stringDate = date.toLocaleString([], {
     year: "numeric",

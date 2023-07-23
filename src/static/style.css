@@ -30,7 +30,7 @@ nav #nav-logo {
   align-items: center;
 }
 nav .nav-links {
-  width: 30vw;
+  width: 50vw;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -508,6 +508,7 @@ footer {
   grid-template-areas: "head head" "bio events" "account events";
   grid-template-rows: 100px minmax(300px, auto) minmax(400px, auto);
   grid-template-columns: 30% 70%;
+  background-color: #e6e2e2;
 }
 .profile-container h2 {
   font-size: 1.8em;
@@ -551,9 +552,12 @@ footer {
   margin-bottom: 2%;
 }
 .profile-container .profile-box {
-  border: solid 1px #000000;
   padding: 5%;
   position: relative;
+  background-color: #ffffff;
+}
+.profile-container .profile-box p {
+  text-align: center;
 }
 .profile-container .prof-center {
   display: flex;
@@ -571,8 +575,11 @@ footer {
   margin-top: 20%;
 }
 .profile-container .profile-avatar {
-  height: 150px;
-  width: 150px;
+  height: 20vw;
+  width: 20vw;
+  background-color: #4d7bbe;
+  font-size: 9vw;
+  font-weight: bold;
 }
 .profile-container .edit-note {
   position: absolute;
@@ -826,7 +833,7 @@ div.lineup {
 }
 
 .ev-menu-h {
-  bottom: 11%;
+  bottom: 14.5%;
   right: 5%;
   position: absolute;
   width: 23px;
@@ -919,7 +926,7 @@ div.lineup {
 @media screen and (max-width: 1023px) {
   /* HEADER */
   nav .nav-links {
-    width: 40vw;
+    width: 65vw;
   }
   .find-event-header {
     max-height: 40vw;
@@ -945,7 +952,7 @@ div.lineup {
     padding: 3%;
   }
   nav .nav-links {
-    width: 50vw;
+    width: 75vw;
   }
   .bttn-style-purple, .bttn-style-orange {
     padding: 8px 20px;

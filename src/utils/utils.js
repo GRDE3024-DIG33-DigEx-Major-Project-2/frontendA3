@@ -76,3 +76,16 @@ export const getTomorrowISODate = () => {
   tomorrow.setDate(today.getDate()+1);
   return tomorrow.toISOString();
 }
+
+// get first letter of organisation's or customer's name
+export const getFirstLetters = (name) => {
+  if(name.includes(" ")){
+    let split = name.split(" ");
+    let a = split[0].charAt(0);
+    let b = split[1].charAt(0);
+
+    return a+b;
+  } else {
+    return name.charAt(0);
+  }
+}

@@ -68,7 +68,7 @@ nav {
   }
 
   .nav-links {
-    width: 30vw;
+    width: 50vw;
     @include flex-row;
   }
 }
@@ -513,6 +513,7 @@ footer {
     "account events";
   grid-template-rows: 100px minmax(300px, auto) minmax(400px, auto);
   grid-template-columns: 30% 70%;
+  background-color: $lightgrey;
 
   h2 {
     font-size: 1.8em;
@@ -555,9 +556,13 @@ footer {
   }
 
   .profile-box {
-    border: solid 1px $black;
     padding: 5%;
     position: relative;
+    background-color: $white;
+
+    p{
+      text-align: center
+    }
   }
 
   .prof-center {
@@ -573,8 +578,11 @@ footer {
   }
 
   .profile-avatar {
-    height: 150px;
-    width: 150px;
+    height: 20vw;
+    width: 20vw;
+    background-color: $lightblue;
+    font-size: 9vw;
+    font-weight: bold;
   }
 
   .edit-note {
@@ -823,7 +831,7 @@ div.lineup{
 }
 
 .ev-menu-h {
-  bottom: 11%;
+  bottom: 14.5%;
   right: 5%;
   position: absolute;
   width: 23px;
@@ -918,7 +926,7 @@ div.lineup{
 
   nav {
     .nav-links {
-      width: 40vw;
+      width: 65vw;
     }
   }
 
@@ -951,7 +959,7 @@ div.lineup{
 
   nav {
     .nav-links {
-      width: 50vw;
+      width: 75vw;
     }
   }
 

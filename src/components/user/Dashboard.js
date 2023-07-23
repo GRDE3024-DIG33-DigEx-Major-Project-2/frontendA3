@@ -6,37 +6,14 @@ import {
   TextField,
   InputAdornment,
 } from "@mui/material";
-import EditNote from "@mui/icons-material/EditNote";
 import { useNavigate, Link } from "react-router-dom";
 import CreatedEventCardHorizontal from "../event/CreatedEventCardHorizontal";
 import LockIcon from "@mui/icons-material/Lock";
 import { useState, useEffect } from "react";
-import { getAllEvents } from "../../utils/utils";
+import { getAllEvents, getFirstLetters } from "../../utils/utils";
+
 
 const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
-  // var events = [
-  //   {
-  //     name: "Event #1",
-  //     description: "Some event description!",
-  //     img: "../gigney.png",
-  //   },
-  //   {
-  //     name: "Event #2",
-  //     description: "Hello World!",
-  //     img: "../gigney.png",
-  //   },
-  //   {
-  //     name: "Event #3",
-  //     description: "Another one..",
-  //     img: "../gigney.png",
-  //   },
-  //   {
-  //     name: "Event #4",
-  //     description: "Some event description!",
-  //     img: "../gigney.png",
-  //   },
-  // ];
-
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
@@ -67,24 +44,28 @@ const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
               <h1>Dashboard</h1>
             </div>
             <article className="personal-bio">
-              <h2>Organisation Bio</h2>
+              <h2>Organisation Info</h2>
               <Box className="profile-box prof-center">
-                <EditNote className="edit-note" />
-                <Avatar
-                  alt={user.organizationName}
-                  src="../gigney.png"
-                  className="profile-avatar"
-                />
+                <Avatar className="profile-avatar">
+                  {getFirstLetters(user.organizationName)}
+                </Avatar>
                 <h3>{user.organizationName}</h3>
-                <p>Something here</p>
+                <p>Organisation description</p>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Pellentesque urna nisi, mollis consequat nisi ac, efficitur
+                  accumsan enim. Interdum et malesuada fames ac ante ipsum
+                  primis in faucibus. Vivamus rhoncus aliquam nibh egestas
+                  convallis. Aenean efficitur laoreet leo non sagittis. Proin
+                  eget diam volutpat enim volutpat interdum.
+                </p>
               </Box>
             </article>
             <article className="account-settings">
               <h2>Account settings</h2>
               <Box className="profile-box prof-left">
-                <div>
-                  <h3>Change Password</h3>
                   <FormControl fullWidth>
+                  <h3>Change Password</h3>
                     <TextField
                       id="password"
                       label="Password:"
@@ -114,9 +95,8 @@ const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
                     <Button
                       variant="contained"
                       id="login-btn"
-                      className="input-btn"
                       type="submit"
-                      sx={{color: "black"}}
+                      sx={{ color: "black" }}
                     >
                       Save new password
                     </Button>
@@ -125,10 +105,9 @@ const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
                       to="/"
                       onClick={handleDelete}
                     >
-                      Delete account
+                      Delete this account
                     </Link>
                   </FormControl>
-                </div>
               </Box>
             </article>
             <article className="saved-events">
@@ -138,7 +117,7 @@ const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
                   className="bttn-style-orange"
                   onClick={createNewEventHandler}
                 >
-                  Create New Event
+                  Create a new event
                 </Link>
               </div>
               <Box className="events-profile">

@@ -51,25 +51,28 @@ export default function Header({ user, isLoggedIn, setIsLoggedIn, setUser }) {
           />
         </Link>
         <div className="nav-links">
+          <Link id="nav-home-txt" to="/">
+            Home
+          </Link>
           <Link id="nav-events" to="/events">
             Search
           </Link>
-          {isLoggedIn && user.type === "guest" && (
+          {isLoggedIn && !user.organizationName && (
             <Link id="nav-profile" to="/profile">
               Profile
             </Link>
           )}
-          {isLoggedIn && user.type === "organiser" && (
+          {isLoggedIn && user.organizationName && (
             <>
+              <Link id="nav-dashboard" to="/dashboard">
+                Dashboard
+              </Link>
               <Link
                 id="nav-create-event"
                 className="bttn-style-orange"
                 to="/create-event"
               >
-                Create Event
-              </Link>
-              <Link id="nav-dashboard" to="/dashboard">
-                Dashboard
+                Create a new event
               </Link>
             </>
           )}
