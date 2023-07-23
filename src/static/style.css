@@ -622,25 +622,16 @@ footer {
   flex: 10%;
 }
 
-.pricing {
-  /* Event tags */
-  /* Buy button */
-  /* Event body */
-  /* Event column detail styles */
-  /* Event logo */
-  /* Headings styles for event details, organized by, lineup, and pricing */
-  /* Vertical line */
-  /* Table horizontal line */
-  /* Event details and location styles */
-  /* Pricing table styles */
-}
 .pricing .tags {
   flex: 70%;
 }
-.pricing .pricing {
+
+.pricing {
   flex: 100%;
 }
-.pricing .event-tag {
+
+/* Event tags */
+.event-tag {
   background-color: #ffffff;
   border: 2px solid #5b5be6;
   border-radius: 10px;
@@ -648,7 +639,9 @@ footer {
   margin: 5px;
   padding: 5px 10px;
 }
-.pricing .event-buy-button {
+
+/* Buy button */
+.event-buy-button {
   margin-right: 0px;
   margin-top: 20px;
   border: none;
@@ -662,10 +655,14 @@ footer {
   color: #000000;
   font-weight: bold;
 }
-.pricing .event-body {
+
+/* Event body */
+.event-body {
   margin: 15px;
 }
-.pricing .event-columns-details {
+
+/* Event column detail styles */
+.event-columns-details {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -675,35 +672,42 @@ footer {
   border-bottom: 2px solid #dfdfdf;
   text-align: center;
 }
-.pricing .event-columns-detail li {
+
+.event-columns-detail li {
   padding: 10px;
   width: 50%;
 }
-.pricing .event-column-detail {
+
+.event-column-detail {
   flex: 49%;
   display: table;
 }
-.pricing .event-column-detail h4 {
+
+.event-column-detail h4 {
   padding: 10px 10px 10px 5px;
   word-break: break-all;
 }
-.pricing .event-logo {
+
+/* Event logo */
+.event-logo {
   width: 90px;
   margin-top: 10px;
 }
-.pricing h2.event-details,
-.pricing h2.organised_by,
-.pricing h2.lineup,
-.pricing .pricing h2 {
+
+/* Headings styles for event details, organized by, lineup, and pricing */
+h2.event-details,
+h2.organised_by,
+h2.lineup,
+.pricing h2 {
   margin-top: 30px;
   margin-bottom: 0px;
   position: relative;
   z-index: 1;
 }
-.pricing h2.event-details:before,
-.pricing h2.organised_by:before,
-.pricing h2.lineup:before,
-.pricing .pricing h2:before {
+h2.event-details:before,
+h2.organised_by:before,
+h2.lineup:before,
+.pricing h2:before {
   border-top: 2px solid #dfdfdf;
   border-left: 2px solid #dfdfdf;
   border-right: 2px solid #dfdfdf;
@@ -717,67 +721,51 @@ footer {
   width: 100%;
   z-index: -1;
 }
-.pricing h2.event-details span,
-.pricing h2.organised_by span,
-.pricing h2.lineup span,
-.pricing .pricing h2 span {
-  /* to hide the lines from behind the text, you have to set the background color the same as the container */
-  background: #ffffff;
-  padding: 0 15px;
-  border-top: 2px solid #dfdfdf;
-  content: "";
-  margin: 0 auto; /* this centers the line to the full width specified */
-  position: absolute; /* positioning must be absolute here, and relative positioning must be applied to the parent */
-  top: 50%;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  z-index: -1;
-}
-.pricing h2.event-details span,
-.pricing h2.organised_by span,
-.pricing h2.lineup span,
-.pricing .pricing h2 span {
+h2.event-details span,
+h2.organised_by span,
+h2.lineup span,
+.pricing h2 span {
   /* to hide the lines from behind the text, you have to set the background color the same as the container */
   background: #fff;
   padding: 0 15px;
 }
-.pricing hr.vertical {
+
+/* Vertical line */
+hr.vertical {
   height: 100px;
   border: 1px solid #dfdfdf;
-  display: none; /* Hide the vertical line on small screens */
 }
-.pricing table hr {
+
+/* Table horizontal line */
+table hr {
   height: 50px;
   margin: 0;
+  width: 0;
 }
-.pricing .dateandtime,
-.pricing .eventlocation {
+
+/* Event details and location styles */
+.dateandtime,
+.eventlocation {
   text-decoration: underline;
   color: #f58146;
   font-weight: bold;
   font-size: medium;
 }
-.pricing .pricing table {
+
+/* Pricing table styles */
+.pricing table {
   width: 100%;
   padding: 5px 0 10px 0;
 }
-.pricing .pricing td,
-.pricing .pricing th {
-  /* Media Queries for responsiveness */
-  /* Adjust layout for screens smaller than 768px (e.g., smartphones) */
-  /* HOMEPAGE */
-  /* EVENT CARDS */
-  /*CREATE EVENT */
-  /* CONTENT PAGES */
-  /* Tablet */
-  /* Small Tablet */
-  /* Phone */
-  /* Small Phone */
+
+.pricing td,
+.pricing th {
+  text-align: center;
+  width: 20%;
+  padding: 15px 0 0 0;
 }
-.pricing .pricing td div.lineup,
-.pricing .pricing th div.lineup {
+
+div.lineup {
   border-left: 2px solid #dfdfdf;
   border-right: 2px solid #dfdfdf;
   border-bottom: 2px solid #dfdfdf;
@@ -785,73 +773,74 @@ footer {
   width: 20%;
   padding: 15px 0 5px 0;
 }
+
+/* Media Queries for responsiveness */
+/* Adjust layout for screens smaller than 768px (e.g., smartphones) */
 @media only screen and (max-width: 767px) {
-  .pricing .pricing td .event-columns,
-  .pricing .pricing th .event-columns {
+  .event-columns {
     flex-direction: column;
   }
-  .pricing .pricing td .event-columns-detail li,
-  .pricing .pricing th .event-columns-detail li {
+  .event-columns-detail li {
     width: 100%;
   }
-  .pricing .pricing td .event-buy-button,
-  .pricing .pricing th .event-buy-button {
+  .event-buy-button {
     margin: 10px auto;
   }
 }
-.pricing .pricing td .home-section,
-.pricing .pricing th .home-section {
+/* HOMEPAGE */
+.home-section {
   padding-bottom: 30px;
   background-color: #f5f5f5;
 }
-.pricing .pricing td .card-name,
-.pricing .pricing th .card-name {
+
+.card-name {
   font-size: 22px;
   font-weight: 700;
 }
-.pricing .pricing td .card-date,
-.pricing .pricing th .card-date {
+
+.card-date {
   font-weight: 500;
 }
-.pricing .pricing td .css-1oe4rwd-MuiSvgIcon-root,
-.pricing .pricing th .css-1oe4rwd-MuiSvgIcon-root {
+
+.css-1oe4rwd-MuiSvgIcon-root {
   color: #4b7cbe;
   margin-bottom: -3px;
 }
-.pricing .pricing td .css-o69gx8-MuiCardMedia-root,
-.pricing .pricing th .css-o69gx8-MuiCardMedia-root {
+
+.css-o69gx8-MuiCardMedia-root {
   width: 360px !important;
   height: 223px !important;
 }
-.pricing .pricing td #search-event-form > div.find-event-search > span > button,
-.pricing .pricing th #search-event-form > div.find-event-search > span > button {
+
+#search-event-form > div.find-event-search > span > button {
   background-color: #f58146;
 }
-.pricing .pricing td .search-form-els,
-.pricing .pricing th .search-form-els {
+
+.search-form-els {
   height: 54px;
   background-color: #ffffff;
 }
-.pricing .pricing td #events-txt-field,
-.pricing .pricing th #events-txt-field {
+
+#events-txt-field {
   min-width: 27vw;
 }
-.pricing .pricing td .home-row,
-.pricing .pricing th .home-row {
+
+.home-row {
   padding: 15px;
 }
-.pricing .pricing td .event-card,
-.pricing .pricing th .event-card {
+
+/* EVENT CARDS */
+.event-card {
   width: 350px;
   position: relative;
 }
-.pricing .pricing td .card-icon:hover,
-.pricing .pricing th .card-icon:hover {
+
+.card-icon:hover {
   transform: scale(1.1);
   cursor: pointer;
 }
-.pricing .pricing td .card-icon,
-.pricing .pricing th .card-icon {
+
+.card-icon {
   background-color: #f58146;
   color: #ffffff;
   width: 23px;
@@ -861,24 +850,24 @@ footer {
   text-align: center;
   position: absolute;
 }
-.pricing .pricing td .ev-share,
-.pricing .pricing th .ev-share {
+
+.ev-share {
   top: 200px;
   right: 20%;
 }
-.pricing .pricing td .ev-bookmark,
-.pricing .pricing th .ev-bookmark {
+
+.ev-bookmark {
   top: 200px;
   right: 5%;
 }
-.pricing .pricing td .horizontal-card-box,
-.pricing .pricing th .horizontal-card-box {
+
+.horizontal-card-box {
   width: 130%;
   position: relative;
   padding-left: 3%;
 }
-.pricing .pricing td .horizontal-card,
-.pricing .pricing th .horizontal-card {
+
+.horizontal-card {
   position: relative;
   width: 100%;
   display: flex;
@@ -886,18 +875,18 @@ footer {
   justify-content: space-around;
   align-items: left;
 }
-.pricing .pricing td .ev-share-h,
-.pricing .pricing th .ev-share-h {
+
+.ev-share-h {
   bottom: 10%;
   right: 5%;
 }
-.pricing .pricing td .ev-bookmark-h,
-.pricing .pricing th .ev-bookmark-h {
+
+.ev-bookmark-h {
   bottom: 10%;
   right: 20%;
 }
-.pricing .pricing td .ev-menu-h,
-.pricing .pricing th .ev-menu-h {
+
+.ev-menu-h {
   bottom: 14.5%;
   right: 5%;
   position: absolute;
@@ -905,23 +894,24 @@ footer {
   height: 23px;
   padding: 2%;
 }
-.pricing .pricing td .ev-menu-h:hover,
-.pricing .pricing th .ev-menu-h:hover {
+
+.ev-menu-h:hover {
   transform: scale(1.1);
   cursor: pointer;
 }
-.pricing .pricing td .ev-share-h-2,
-.pricing .pricing th .ev-share-h-2 {
+
+.ev-share-h-2 {
   bottom: 10%;
   right: 15%;
 }
-.pricing .pricing td #create-event-main,
-.pricing .pricing th #create-event-main {
+
+/*CREATE EVENT */
+#create-event-main {
   background-color: #f5f5f5;
   padding-bottom: 1%;
 }
-.pricing .pricing td #create-event-screen,
-.pricing .pricing th #create-event-screen {
+
+#create-event-screen {
   height: 60vh;
   max-width: 100%;
   min-height: 65vh;
@@ -929,12 +919,12 @@ footer {
   padding: 2%;
   margin: 2%;
 }
-.pricing .pricing td #create-event-screen h2,
-.pricing .pricing th #create-event-screen h2 {
+
+#create-event-screen h2 {
   font-size: 2em;
 }
-.pricing .pricing td .create-event-header,
-.pricing .pricing th .create-event-header {
+
+.create-event-header {
   height: 20vh;
   width: 100%;
   display: flex;
@@ -943,103 +933,89 @@ footer {
   align-items: center;
   background: linear-gradient(90deg, #4d7bbe 23%, #ef7f4e 100%);
 }
-.pricing .pricing td .create-event-header h1,
-.pricing .pricing th .create-event-header h1 {
+
+.create-event-header h1 {
   font-size: 2.7em;
   color: #ffffff;
   text-shadow: rgb(40, 39, 39) 1px 1px 4px;
 }
-.pricing .pricing td .create-event-stepper,
-.pricing .pricing th .create-event-stepper {
+
+.create-event-stepper {
   padding: 2% 3% 1% 3%;
   max-width: 94%;
 }
-.pricing .pricing td .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed,
-.pricing .pricing th .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
+
+.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
   color: #3131b8 !important;
 }
-.pricing .pricing td .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active,
-.pricing .pricing th .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
+
+.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
   color: #9c9ced !important;
 }
-.pricing .pricing td .css-14lo706,
-.pricing .pricing th .css-14lo706 {
+
+.css-14lo706 {
   overflow: visible !important;
 }
-.pricing .pricing td .css-14lo706 > span,
-.pricing .pricing th .css-14lo706 > span {
+
+.css-14lo706 > span {
   opacity: 100 !important;
 }
-.pricing .pricing td .css-14lo706,
-.pricing .pricing th .css-14lo706 {
+
+.css-14lo706 {
   padding-bottom: 10px;
 }
-.pricing .pricing td .preview-image,
-.pricing .pricing th .preview-image {
+
+.preview-image {
   height: 300px;
   width: 100%;
 }
-.pricing .pricing td .content-body,
-.pricing .pricing th .content-body {
+
+/* CONTENT PAGES */
+.content-body {
   margin: 15px;
   margin-bottom: 30px;
 }
+
+/* Tablet */
 @media screen and (max-width: 1023px) {
-  .pricing .pricing td,
-  .pricing .pricing th {
-    /* HEADER */
-  }
-  .pricing .pricing td nav .nav-links,
-  .pricing .pricing th nav .nav-links {
+  /* HEADER */
+  nav .nav-links {
     width: 65vw;
   }
-  .pricing .pricing td .find-event-header,
-  .pricing .pricing th .find-event-header {
+  .find-event-header {
     max-height: 40vw;
   }
-  .pricing .pricing td .find-event-search,
-  .pricing .pricing th .find-event-search {
+  .find-event-search {
     width: 90vw;
     max-width: 90vw;
   }
-  .pricing .pricing td #location-field-search,
-  .pricing .pricing th #location-field-search {
+  #location-field-search {
     width: 20%;
   }
-  .pricing .pricing td #date-field-search,
-  .pricing .pricing th #date-field-search {
+  #date-field-search {
     width: 15vw;
   }
-  .pricing .pricing td #events-txt-field,
-  .pricing .pricing th #events-txt-field {
+  #events-txt-field {
     width: 40%;
   }
 }
+/* Small Tablet */
 @media screen and (max-width: 800px) {
-  .pricing .pricing td,
-  .pricing .pricing th {
-    /* HEADER */
-  }
-  .pricing .pricing td header,
-  .pricing .pricing th header {
+  /* HEADER */
+  header {
     padding: 3%;
   }
-  .pricing .pricing td nav .nav-links,
-  .pricing .pricing th nav .nav-links {
+  nav .nav-links {
     width: 75vw;
   }
-  .pricing .pricing td .bttn-style-purple,
-  .pricing .pricing td .bttn-style-orange,
-  .pricing .pricing th .bttn-style-purple,
-  .pricing .pricing th .bttn-style-orange {
+  .bttn-style-purple,
+  .bttn-style-orange {
     padding: 8px 20px;
   }
-  .pricing .pricing td .find-event-header,
-  .pricing .pricing th .find-event-header {
+  .find-event-header {
     max-height: 60vh;
   }
-  .pricing .pricing td .find-event-search,
-  .pricing .pricing th .find-event-search {
+  .find-event-search {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -1048,63 +1024,49 @@ footer {
     min-height: 30vh;
     max-height: 40vh;
   }
-  .pricing .pricing td .find-event-tags,
-  .pricing .pricing th .find-event-tags {
+  .find-event-tags {
     min-height: 20%;
     height: 30%;
   }
-  .pricing .pricing td .search-form-els,
-  .pricing .pricing td #search-form-submit-btn,
-  .pricing .pricing th .search-form-els,
-  .pricing .pricing th #search-form-submit-btn {
+  .search-form-els,
+  #search-form-submit-btn {
     width: 100%;
     margin: 0;
   }
-  .pricing .pricing td #location-field-search,
-  .pricing .pricing th #location-field-search {
+  #location-field-search {
     width: 100%;
   }
 }
+/* Phone */
 @media screen and (max-width: 620px) {
-  .pricing .pricing td,
-  .pricing .pricing th {
-    /* HEADER */
-  }
-  .pricing .pricing td nav .nav-links,
-  .pricing .pricing th nav .nav-links {
+  /* HEADER */
+  nav .nav-links {
     display: none;
   }
-  .pricing .pricing td nav #nav-logo,
-  .pricing .pricing th nav #nav-logo {
+  nav #nav-logo {
     width: 40vw;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
   }
-  .pricing .pricing td #mobile-menu,
-  .pricing .pricing th #mobile-menu {
+  #mobile-menu {
     display: block;
   }
-  .pricing .pricing td .mobile-menu-link,
-  .pricing .pricing th .mobile-menu-link {
+  .mobile-menu-link {
     color: #ffffff;
   }
-  .pricing .pricing td .bttn-style-purple,
-  .pricing .pricing td .bttn-style-orange,
-  .pricing .pricing th .bttn-style-purple,
-  .pricing .pricing th .bttn-style-orange {
+  .bttn-style-purple,
+  .bttn-style-orange {
     width: 70%;
     text-align: center;
     font-size: 25px;
     padding: auto;
   }
-  .pricing .pricing td .find-event-header,
-  .pricing .pricing th .find-event-header {
+  .find-event-header {
     min-height: 70vh;
   }
-  .pricing .pricing td .menu-footer,
-  .pricing .pricing th .menu-footer {
+  .menu-footer {
     padding: 2% 1%;
     background-color: #000000;
     width: 98%;
@@ -1112,17 +1074,13 @@ footer {
     color: #ffffff;
   }
 }
+/* Small Phone */
 @media screen and (max-width: 380px) {
-  .pricing .pricing td,
-  .pricing .pricing th {
-    /* HEADER */
-  }
-  .pricing .pricing td .find-event-header,
-  .pricing .pricing th .find-event-header {
+  /* HEADER */
+  .find-event-header {
     min-height: 85vh;
   }
-  .pricing .pricing td .find-event-search,
-  .pricing .pricing th .find-event-search {
+  .find-event-search {
     width: 90%;
     min-height: 35vh;
   }

@@ -722,22 +722,6 @@ h2.lineup,
       z-index: -1;
   }
 
-  span { 
-      /* to hide the lines from behind the text, you have to set the background color the same as the container */ 
-      background: $white; 
-      padding: 0 15px; 
-    border-top: 2px solid #dfdfdf;
-    content: "";
-    margin: 0 auto; /* this centers the line to the full width specified */
-    position: absolute; /* positioning must be absolute here, and relative positioning must be applied to the parent */
-    top: 50%;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    z-index: -1;
-  }
-
   span {
     /* to hide the lines from behind the text, you have to set the background color the same as the container */
     background: #fff;
@@ -749,13 +733,13 @@ h2.lineup,
 hr.vertical {
   height: 100px;
   border: 1px solid $border;
-  display: none; /* Hide the vertical line on small screens */
 }
 
 /* Table horizontal line */
 table hr{
   height:50px;
   margin: 0;
+  width:0;
 }
 
 /* Event details and location styles */
@@ -774,6 +758,10 @@ table hr{
 }
 .pricing td,
 .pricing th{
+  text-align: center;
+  width: 20%;
+  padding: 15px 0 0 0;
+}
 div.lineup {
   border-left: 2px solid #dfdfdf;
   border-right: 2px solid #dfdfdf;
@@ -1119,4 +1107,4 @@ div.lineup {
     min-height: 35vh;
   }
 }
-}
+
