@@ -50,6 +50,10 @@ a {
   color: #f58146;
 }
 
+.MuiButton-contained {
+  text-transform: initial !important;
+}
+
 /* HEADER */
 .bttn-style-purple {
   border: 2px solid #7759a6;
@@ -211,6 +215,7 @@ a {
   align-items: center;
   width: 50%;
   height: 100%;
+  gap: 10%;
 }
 .right .login-logo {
   width: 100%;
@@ -221,7 +226,10 @@ a {
   padding: 0;
 }
 .right .login-logo img {
-  width: 35%;
+  width: 30%;
+}
+.right .login-logo h1 {
+  font-size: 3em;
 }
 
 .login-form {

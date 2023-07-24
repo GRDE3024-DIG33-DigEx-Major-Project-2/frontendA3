@@ -93,8 +93,8 @@ const Login = ({ setIsLoggedIn, setUser }) => {
       </div>
       <div className="right">
         <div className="login-logo">
-          <img src="../gigney-logo-white.jpg" alt="gigney logo white" />
-          <h1>Login</h1>
+          <img src="../gigney_logo_black_square_no_bg_web.png" alt="gigney logo" />
+          <h1>Sign in</h1>
         </div>
         <form onSubmit={loginHandler}>
           <FormControl className="login-form">
@@ -135,12 +135,11 @@ const Login = ({ setIsLoggedIn, setUser }) => {
               id="login-btn"
               className="input-btn"
               type="submit"
-              startIcon={<LoginIcon />}
             >
               Login
             </Button>
             <Link to="../reset-password" className="forgot-btn">
-              Forgot password?
+              Forgot your password?
             </Link>
           </FormControl>
         </form>

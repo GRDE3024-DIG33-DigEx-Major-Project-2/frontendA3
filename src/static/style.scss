@@ -87,6 +87,10 @@ a {
   color: $orange1;
 }
 
+.MuiButton-contained {
+  text-transform: initial !important;
+}
+
 /* HEADER */
 
 .bttn-style-purple {
@@ -229,12 +233,17 @@ a {
   @include flex-column(center, center);
   width: 50%;
   height: 100%;
+  gap: 10%;
   .login-logo {
     width: 100%;
     @include flex-column(start, center);
     padding: 0;
     img {
-      width: 35%;
+      width: 30%;
+    }
+
+    h1 {
+      font-size: 3em;
     }
   }
 }
@@ -318,7 +327,7 @@ a {
   font-size: 16px;
   cursor: pointer;
   background-color: $orange1;
-  color:$white;
+  color: $white;
 }
 
 .signup-form {
@@ -599,7 +608,7 @@ footer {
   height: 400px;
 }
 
-.Event .card-icon{
+.Event .card-icon {
   padding: 1%;
 }
 
@@ -627,7 +636,7 @@ footer {
   flex: 70%;
 }
 
-.event-column-button{
+.event-column-button {
   flex: 20%;
   margin: 20px;
 }
@@ -640,12 +649,11 @@ footer {
   flex: 20%;
 }
 
-.artists{
+.artists {
   flex: 10%;
 }
 
-.pricing
-.tags {
+.pricing .tags {
   flex: 70%;
 }
 .pricing {
@@ -695,18 +703,18 @@ footer {
   text-align: center;
 }
 
-.event-columns-detail li{
+.event-columns-detail li {
   padding: 10px;
   width: 50%;
 }
 
 .event-column-detail {
   flex: 49%;
-  display:table;
+  display: table;
 }
-.event-column-detail h4{
+.event-column-detail h4 {
   padding: 10px 10px 10px 5px;
-  word-break:break-all;
+  word-break: break-all;
 }
 /* Event logo */
 .event-logo {
@@ -725,15 +733,18 @@ h2.lineup,
   z-index: 1;
 
   &:before {
-      border-top: 2px solid $border;
-      border-left: 2px solid $border;
-      border-right: 2px solid $border;
-      content:"";
-      margin: 0 auto; /* this centers the line to the full width specified */
-      position: absolute; /* positioning must be absolute here, and relative positioning must be applied to the parent */
-      top: 50%; left: 0; right: 0; bottom: 0;
-      width: 100%;
-      z-index: -1;
+    border-top: 2px solid $border;
+    border-left: 2px solid $border;
+    border-right: 2px solid $border;
+    content: "";
+    margin: 0 auto; /* this centers the line to the full width specified */
+    position: absolute; /* positioning must be absolute here, and relative positioning must be applied to the parent */
+    top: 50%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: -1;
   }
 
   span {
@@ -750,10 +761,10 @@ hr.vertical {
 }
 
 /* Table horizontal line */
-table hr{
-  height:50px;
+table hr {
+  height: 50px;
   margin: 0;
-  width:0;
+  width: 0;
 }
 
 /* Event details and location styles */
@@ -766,12 +777,12 @@ table hr{
 }
 
 /* Pricing table styles */
-.pricing table{
+.pricing table {
   width: 100%;
   padding: 5px 0 10px 0;
 }
 .pricing td,
-.pricing th{
+.pricing th {
   text-align: center;
   width: 20%;
   padding: 15px 0 0 0;
@@ -791,11 +802,11 @@ div.lineup {
   .event-columns {
     flex-direction: column;
   }
-  
+
   .event-columns-detail li {
     width: 100%;
   }
-  
+
   .event-buy-button {
     margin: 10px auto;
   }
@@ -1134,4 +1145,3 @@ div.lineup {
     margin-top: 10px; /* Add some space between the icons and other content */
   }
 }
-

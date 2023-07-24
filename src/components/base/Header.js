@@ -45,7 +45,7 @@ export default function Header({ user, isLoggedIn, setIsLoggedIn, setUser }) {
         {/* Can place the logo within a link component to have the logo routing to home */}
         <Link id="nav-home" to="/">
           <img
-            src="../gigney-logo-transparent.png"
+            src="../gigney_logo_white_landscape_no_bg_web.png"
             alt="Gigney Logo"
             id="nav-logo"
           />
