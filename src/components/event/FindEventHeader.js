@@ -12,15 +12,20 @@ import {
   Chip,
   TextField,
   Button,
-  InputLabel,
   FormControl,
+  Box,
 } from "@mui/material";
 import * as dayjs from 'dayjs';
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { SearchEventFiltersContext, SearchEventsContext } from "../../props/search-events.prop";
-import FmdGoodOutlinedIcon from '@mui/icons-material/FmdGoodOutlined';
 //Import endpoint handlers for events
 import { searchEvents, getAllTags } from "../../services/EventAPI";
+import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
+import SvgIcon from "@mui/material/SvgIcon";
+import InputAdornment from "@mui/material/InputAdornment";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
 
 
 /**
@@ -125,14 +130,22 @@ const FindEventHeader = () => {
       <h1 className="find-event-header-text">Find an event</h1>
       <form id="search-event-form" onSubmit={searchHandler}>
         <div className="find-event-search">
-          <FormControl fullWidth>
-            <InputLabel id="location-label"><FmdGoodOutlinedIcon /> My location</InputLabel>
+          <FormControl id="location-field-search">
             <Select
               className="search-form-els"
-              labelId="location-label"
-              label="My Location"
-              value={location}
+              displayEmpty
+              placeholder="My location"
               onChange={(event) => setLocation(event.target.value)}
+              renderValue={(value) => {
+                return (
+                  <Box sx={{ display: "flex", gap: 1 }}>
+                    <SvgIcon color="primary">
+                      <FmdGoodOutlinedIcon />
+                    </SvgIcon>
+                    {value}
+                  </Box>
+                );
+              }}
             >
               <MenuItem selected value="Sydney">Sydney</MenuItem>
               <MenuItem value="Balmain">Balmain</MenuItem>
@@ -142,8 +155,8 @@ const FindEventHeader = () => {
               <MenuItem value="Lane Cove">Lane Cove</MenuItem>
             </Select>
           </FormControl>
-
           <DatePicker
+            id = "date-field-search"
             className="search-form-els"
             onChange={(startDate) => setDate(new Date(Date.parse(startDate)))}
           />
