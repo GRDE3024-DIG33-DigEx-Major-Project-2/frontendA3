@@ -89,6 +89,7 @@ a {
 
 .MuiButton-contained {
   text-transform: initial !important;
+  border-radius: 0 !important;
 }
 
 /* HEADER */
@@ -300,8 +301,21 @@ a {
 }
 
 .signup-left {
-  @include flex-column;
-  gap: 4%;
+  @include flex-column(center, center);
+  min-height: 100%;
+  gap: 12%;
+  padding: 5% 0 0 0;
+  .signup-logo {
+    width: 100%;
+    @include flex-column;
+    img {
+      width: 30%;
+    }
+  }
+
+  h1{
+    font-size: 3em;
+  }
 }
 
 .signup-right {
@@ -319,33 +333,26 @@ a {
   width: 100%;
 }
 
-.next-button {
-  width: 100%;
+#next-button {
+  width: 60%;
   height: 3em;
-  border: none;
-  text-align: center;
-  font-size: 16px;
-  cursor: pointer;
+  color: $black;
   background-color: $orange1;
-  color: $white;
+  font-size: 1.1em;
 }
 
 .signup-form {
-  width: 90%;
   height: 50%;
-  @include flex-column;
+  width: 34vw;
+  @include flex-column(center, center);
 
   label {
     font-size: 1.1em;
   }
 }
 
-.signup-logo {
-  width: 100%;
-  @include flex-column;
-  img {
-    width: 40%;
-  }
+.dropdown-icon {
+  margin-right: 2%;
 }
 
 .login-divert {
@@ -360,8 +367,6 @@ a {
 
 #demo-simple-select-label {
   color: $white;
-  text-shadow: -1px -1px 0 $black, 1px -1px 0 $black, -1px 1px 0 $black,
-    1px 1px 0 $black;
 }
 
 /*SIGNUP GUEST*/
