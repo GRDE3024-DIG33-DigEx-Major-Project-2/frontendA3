@@ -33,10 +33,10 @@ function Event() {
 
     <div className="header">
       <img className="event-main-image" alt="eventimage" src={imgUrl}></img>
-      <div className="card-icon ev-share">
+      <div className="event-card-icon share">
           <ShareIcon sx={{ fontSize: 22, color:"black" }} />
         </div>
-        <div className="card-icon ev-bookmark">
+        <div className="event-card-icon bookmark">
           <BookmarkAddIcon sx={{ fontSize: 23, color:"black" }} />
         </div>
         </div>
