@@ -18,10 +18,11 @@ const getAllTagsUrl = "http://localhost:3000/event/tags"
  * @param {*} keywords Keywords that match 
  * @param {*} startDate The starting date of the event
  * @param {*} city The city the event is in
+ * @param {*} priceRange Object that contains minPrice and maxPrice
  * @param {*} page The page of event matches requested
  * @returns Array of events and number of pages that match the filter options
  */
-export const searchEvents = async function (tagIds, keywords, startDate, city, page) {
+export const searchEvents = async function (tagIds, keywords, startDate, city, priceRange, page) {
 
   console.log("Inside Search Events");
   console.log(tagIds, keywords, startDate, city, page);
@@ -37,7 +38,8 @@ export const searchEvents = async function (tagIds, keywords, startDate, city, p
     keywords: keywords,
     startDate: startDate,
     city: city,
-    page: page
+    //priceRange: priceRange,
+    page: page | 0
   };
 
   console.log("Request body test");

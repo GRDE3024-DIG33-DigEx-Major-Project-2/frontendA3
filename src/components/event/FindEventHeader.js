@@ -95,7 +95,7 @@ const FindEventHeader = () => {
     console.log(selectedTagIds, keywords, stringDate, location, 0);
 
     //Make request for filtered events
-    let searchResult = await searchEvents(selectedTagIds, keywords, stringDate, location, 0);
+    let searchResult = await searchEvents(selectedTagIds, keywords, stringDate, location, {minPrice: Number(minPrice), maxPrice: Number(maxPrice)}, 0);
 
     console.log("After search result found");
     console.log(searchResult);

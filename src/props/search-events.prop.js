@@ -43,12 +43,12 @@ const SearchEventFiltersProvider = ({ children }) => {
 
 
     //Filter form fields as props
-    const [location, setLocation] = useState("-");
+    const [location, setLocation] = useState(null);
     const [date, setDate] = useState(new Date());
     const [selectedTagIds, setSelectedTagIds] = useState([]);
     const [keywords, setKeywords] = useState(null);
     const today = new Date().toISOString();
-    const [paid, setPaid] = useState("free");
+    const [isPaid, setPaid] = useState(false);
     const [price, setPrice] = useState([50, 500]);
     const [change, setChange] = useState(true);
     const [minPrice, setMinPrice] = useState(DEFAULT_MIN_PRICE);
@@ -69,7 +69,7 @@ const SearchEventFiltersProvider = ({ children }) => {
         setTags,
         setKeywords,
         today,
-        paid,
+        paid: isPaid,
         price,
         change,
         setPaid,

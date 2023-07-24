@@ -99,8 +99,11 @@ const Events = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
      * Fetcgh a page of events that match the filter options
      */
     async function fetchEvents() {
-      const data = await searchEvents(selectedTagIds, keywords, dayjs(new Date().toISOString()).format("YYYY-MM-DD HH:mm:ss"), location, 0);
-      setEvents(data);
+      const data = await searchEvents(selectedTagIds, keywords, dayjs(new Date().toISOString()).format("YYYY-MM-DD HH:mm:ss"), {minPrice: Number(minPrice), maxPrice: Number(maxPrice)}, location, 0);
+      //Set events
+      setEvents(data.events);
+      //Set total page count
+      setPageCount(data.pageCount);
     }
 
     //Fetch all possible pre-defined tags if none have been retrieved
@@ -173,6 +176,8 @@ const Events = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
   const chipSelectVenue = (venue) => {
     let newKey = chipData.length + 1;
     let temp = chipData;
+    //Don't duplicate venue listings. Limit to displaying 10 venues
+    if (!temp.find(x => x.value === venue) && temp.length <= 10)
     temp.push({
       key: newKey,
       searchCategory: "venue",
@@ -221,15 +226,8 @@ const Events = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
     return `AUD$${price}`;
   };
 
-
-  //Rendered if events exist
-  let venueFilter = <></>;
-  let eventListings = <></>;
-
-
   //Add template components to render if events exist
-  if (Array.isArray(events)) {
-    venueFilter = <RadioGroup disabled={true} defaultValue="" name="venue-radio" onChange={(event) => chipSelectVenue(event.target.value)}>
+    let venueFilter = <RadioGroup disabled={true} defaultValue="" name="venue-radio" onChange={(event) => chipSelectVenue(event.target.value)}>
     {events.map((event, i) => (
             <FormControlLabel
               key={i}
@@ -241,13 +239,12 @@ const Events = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
       }
   </RadioGroup>
 
-  eventListings = <Box className="events-result">
+  let eventListings = <Box className="events-result">
   {events.map((event, i) => (
             <EventCardHorizontal key={i} event={event} />
           ))
       }
 </Box>
-  }
 
   //HTML Template for searching events
   return (
@@ -298,16 +295,26 @@ const Events = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
                   aria-labelledby="price-radio-label"
                   name="price-radio"
                   defaultValue={paid}
-                  onChange={(event) => setPaid(event.target.value)}
+                  onChange={(event) => { 
+                    //Set price range to default
+                    if (event.target.value == true) {
+                      setMinPrice(0);setMaxPrice(200);
+                    }
+                    //Set price range to free 
+                    else {
+                      setMinPrice(0);setMaxPrice(0);
+                    }
+                    //Set paid flag
+                    setPaid(event.target.value)}}
                 >
                   <FormControlLabel
                     value="free"
-                    control={<Radio />}
+                    control={<Radio  disabled={true}/>}
                     label="Free"
                   />
                   <FormControlLabel
                     value="paid"
-                    control={<Radio />}
+                    control={<Radio  disabled={true}/>}
                     label="Paid"
                   />
                 </RadioGroup>

@@ -81,7 +81,7 @@ const Home = () => {
           }
           }    
           //Find and load the rock events
-          const rockEv = await searchEvents([rockTagId], null, null, null, 0);
+          const rockEv = await searchEvents([rockTagId], null, null, null, null, 0);
           setRockEvents(rockEv.events);        
         });
        
@@ -95,7 +95,7 @@ const Home = () => {
       }
       }
       //Find and load the rock events
-      const rockEv = await searchEvents([rockTagId], null, null, null, 0);
+      const rockEv = await searchEvents([rockTagId], null, null, null, null, 0);
       setRockEvents(rockEv.events);              
       }
 
