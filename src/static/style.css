@@ -622,12 +622,12 @@ footer {
 }
 
 .Event .ev-bookmark {
-  top: 475px;
+  top: 28rem;
   right: 5%;
 }
 
 .Event .ev-share {
-  top: 475px;
+  top: 28rem;
   right: 12%;
 }
 
@@ -1178,16 +1178,26 @@ div.lineup {
     min-height: 35vh;
   }
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 960px) {
   .Event .card-icon {
     padding: 0.5%; /* Decrease the padding on small screens */
+    margin-right: 0em;
+    float: right;
+    position: absolute;
   }
-  .Event .ev-bookmark,
-  .Event .ev-share {
-    top: auto; /* Reset the top value to let them follow the natural flow */
-    right: auto;
+  .Event .ev-bookmark {
+    top: -1.7rem; /* Reset the top value to let them follow the natural flow */
+    right: 0.5em;
     position: relative; /* Change position to relative for natural flow positioning */
     margin-top: 10px; /* Add a margin to create spacing between elements */
+    display: inline-flex;
+  }
+  .Event .ev-share {
+    top: -1.7rem; /* Reset the top value to let them follow the natural flow */
+    right: 6em;
+    position: relative; /* Change position to relative for natural flow positioning */
+    margin-top: 10px; /* Add a margin to create spacing between elements */
+    display: inline-flex;
   }
   .event-columns {
     flex-direction: column;
@@ -1207,6 +1217,38 @@ div.lineup {
     position: relative;
     z-index: 1;
     text-size-adjust: 5px;
+  }
+  .pricing td,
+  .pricing tr {
+    font-size: 7px;
+  }
+  .css-i4bv87-MuiSvgIcon-root {
+    font-size: 0.5rem;
+  }
+  .header {
+    max-height: 345px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .Event .card-icon {
+    padding: 0.5%; /* Decrease the padding on small screens */
+    margin-right: -1em;
+    float: right;
+    position: absolute;
+  }
+  .Event .ev-bookmark {
+    top: -1.7rem; /* Reset the top value to let them follow the natural flow */
+    right: 1em;
+    position: relative; /* Change position to relative for natural flow positioning */
+    margin-top: 10px; /* Add a margin to create spacing between elements */
+    display: inline-flex;
+  }
+  .Event .ev-share {
+    top: -1.7rem; /* Reset the top value to let them follow the natural flow */
+    right: 5em;
+    position: relative; /* Change position to relative for natural flow positioning */
+    margin-top: 10px; /* Add a margin to create spacing between elements */
+    display: inline-flex;
   }
 }
 
