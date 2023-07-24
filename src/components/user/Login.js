@@ -1,6 +1,6 @@
 import { FormControl, TextField, InputAdornment, Button } from "@mui/material";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import LoginIcon from "@mui/icons-material/Login";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
@@ -90,10 +90,20 @@ const Login = ({ setIsLoggedIn, setUser }) => {
           alt="Band playing music"
           className="left-img"
         ></img>
+        <div className="mobile-login-logo">
+          <img
+            src="./gigney_logo_white_square_no_bg_web.png"
+            alt="live concert"
+            className="login-logo-img"
+          />
+        </div>
       </div>
       <div className="right">
         <div className="login-logo">
-          <img src="../gigney_logo_black_square_no_bg_web.png" alt="gigney logo" />
+          <img
+            src="../gigney_logo_black_square_no_bg_web.png"
+            alt="gigney logo"
+          />
           <h1>Sign in</h1>
         </div>
         <form onSubmit={loginHandler}>

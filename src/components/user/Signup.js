@@ -80,11 +80,11 @@ function SignUp() {
         <div className="signup-right">
         {" "}
           <img src="Gigney-signup-img.png" alt="live concert" id="signup-right-img" />{" "}
-          <div id="mobile-signup-logo">
+          <div className="mobile-signup-logo">
             <img
               src="./gigney_logo_white_square_no_bg_web.png"
               alt="live concert"
-              id="signup-logo-img"
+              className="signup-logo-img"
             />
           </div>
         </div>

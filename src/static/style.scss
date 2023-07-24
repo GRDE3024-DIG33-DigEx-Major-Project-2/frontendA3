@@ -226,15 +226,11 @@ a {
   height: 100%;
 }
 
-.left {
-  background-color: $lightblue;
-}
-
 .right {
   @include flex-column(center, center);
   width: 50%;
   height: 100%;
-  gap: 10%;
+  gap: 5%;
   .login-logo {
     width: 100%;
     @include flex-column(start, center);
@@ -262,8 +258,8 @@ a {
 }
 
 .left-img {
-  height: 100%;
-  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
   object-fit: cover;
 }
 
@@ -350,7 +346,7 @@ a {
   }
 }
 
-.l-o-2{
+.l-o-2 {
   display: none;
 }
 
@@ -372,7 +368,7 @@ a {
   color: $white;
 }
 
-#mobile-signup-logo {
+.mobile-signup-logo, .mobile-login-logo {
   display: none;
 }
 
@@ -816,8 +812,6 @@ div.lineup {
   padding: 15px 0 5px 0;
 }
 
-
-
 /* HOMEPAGE */
 .home-section {
   padding-bottom: 30px;
@@ -1122,19 +1116,62 @@ div.lineup {
     height: 3em;
   }
 
-  #mobile-signup-logo {
+  .mobile-signup-logo, .mobile-login-logo {
     display: block;
     position: absolute;
     width: 50%;
     top: 15%;
     left: 25%;
 
-    #signup-logo-img {
+    .signup-logo-img, .login-logo-img {
       object-fit: cover;
       max-width: 100%;
       max-height: 100%;
       filter: brightness(0) invert(1);
     }
+  }
+
+  /* LOGIN */
+  .login-page {
+    @include flex-column(center, center);
+    gap: 0;
+    width: 100vw;
+    max-height: 110vw;
+    height: 95vh;
+    min-height: 95vh;
+  }
+
+  .left,
+  .right {
+    width: 100%;
+  }
+
+  .left{
+    height: 40%;
+  }
+
+  .right{
+    height: 60%;
+    .login-logo {
+      img {
+        display: none;
+      }
+  
+      h1 {
+        font-size: 2.5em;
+      }
+    }
+  }
+
+  .left-img {
+    filter: brightness(40%);
+  }
+
+  .login-form {
+    @include flex-column(left, left);
+    gap: 2%;
+    height: 45vh;
+    width: 80vw;
   }
 }
 
@@ -1181,14 +1218,14 @@ div.lineup {
     color: $white;
   }
 
-  //SIGNUP 
-  #mobile-signup-logo {
+  //SIGNUP
+  .mobile-signup-logo {
     width: 60%;
     top: 20%;
     left: 20%;
   }
 
-  .signup-left{
+  .signup-left {
     gap: 3%;
     padding: 0;
     h1 {
@@ -1216,7 +1253,7 @@ div.lineup {
     gap: 1%;
     padding: 8% 0;
   }
-  
+
   .signup-second-page-logo {
     img {
       width: 25vh;
@@ -1227,29 +1264,35 @@ div.lineup {
       font-size: 2em;
     }
   }
-  
+
   .signup-second-page-form {
     width: 90%;
     max-height: 100%;
     @include flex-column;
-  
+
     label {
       font-size: 1.1em;
     }
-  
+
     p {
       font-size: 1em;
     }
   }
 
-  .l-o-1{
+  .l-o-1 {
     display: none;
   }
 
-  .l-o-2{
+  .l-o-2 {
     display: initial;
   }
 
+  .right{
+    padding: 4% 0;
+    h1{
+      margin-top: -10%;
+    }
+  }
 }
 
 /* Small Phone */
@@ -1269,17 +1312,17 @@ div.lineup {
   .Event .event-card-icon {
     padding: 0.5%; /* Decrease the padding on small screens */
     float: right;
-    margin-right:0em;
+    margin-right: 0em;
     position: absolute;
   }
-  .Event .bookmark{
+  .Event .bookmark {
     top: -1.7rem; /* Reset the top value to let them follow the natural flow */
     right: 0.5em;
     position: relative; /* Change position to relative for natural flow positioning */
     margin-top: 10px; /* Add a margin to create spacing between elements */
   }
 
-  .Event .share{
+  .Event .share {
     top: -1.7rem; /* Reset the top value to let them follow the natural flow */
     right: 6em;
     position: relative; /* Change position to relative for natural flow positioning */
@@ -1324,14 +1367,14 @@ div.lineup {
     float: right;
     position: absolute;
   }
-   .bookmark {
+  .bookmark {
     top: -1.7rem; /* Reset the top value to let them follow the natural flow */
     right: 1em;
     position: relative; /* Change position to relative for natural flow positioning */
     margin-top: 10px; /* Add a margin to create spacing between elements */
     display: inline-flex;
   }
-   .share {
+  .share {
     top: -1.7rem; /* Reset the top value to let them follow the natural flow */
     right: 5em;
     position: relative; /* Change position to relative for natural flow positioning */
