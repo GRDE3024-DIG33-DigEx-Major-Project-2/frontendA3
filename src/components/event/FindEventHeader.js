@@ -16,13 +16,12 @@ import {
   Box,
 } from "@mui/material";
 
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { SearchEventFiltersContext, SearchEventsContext } from "../../props/search-events.prop";
 
 //Import endpoint handlers for events
 import { searchEvents, getAllTags } from "../../services/EventAPI";
-import { useState, useEffect } from "react";
 import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
 import SvgIcon from "@mui/material/SvgIcon";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -116,13 +115,11 @@ const FindEventHeader = () => {
     console.log(spaLocation.pathname);
 
     //Navigate to the event search component
-    if (spaLocation.pathname != "/events")
+    if (spaLocation.pathname !== "/events")
     navigate("events");
     else
     navigate();
   };
-
-
 
 
 
@@ -162,7 +159,7 @@ const FindEventHeader = () => {
             id = "date-field-search"
             className="search-form-els"
             placeholder="Date"
-            value={date}
+            value={dayjs(date)}
             onChange={(startDate) => setDate(new Date(Date.parse(startDate)))}
             slots={{
               openPickerIcon: ArrowDropDownOutlinedIcon
@@ -214,7 +211,7 @@ const FindEventHeader = () => {
               label={tag.name}
               id={tag.id}
               color="default"
-              onClick={() => chipHandler(tag.name)}
+              // onClick={() => chipHandler(tag.name)}
             />
           ))}
         </div>

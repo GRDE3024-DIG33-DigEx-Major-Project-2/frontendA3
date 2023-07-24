@@ -99,7 +99,7 @@ const Events = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
      * Fetcgh a page of events that match the filter options
      */
     async function fetchEvents() {
-      const data = await searchEvents(selectedTagIds, keywords, dayjs(new Date().toISOString()).format("YYYY-MM-DD HH:mm:ss"), {minPrice: Number(minPrice), maxPrice: Number(maxPrice)}, location, 0);
+      const data = await searchEvents(selectedTagIds, keywords, dayjs(new Date().toISOString()).format("YYYY-MM-DD HH:mm:ss"), null, {minPrice: Number(minPrice), maxPrice: Number(maxPrice)}, location, 0);
       //Set events
       setEvents(data.events);
       //Set total page count

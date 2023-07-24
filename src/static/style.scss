@@ -457,7 +457,7 @@ footer {
       height: 100%;
       width: 100%;
       padding: 5%;
-      border: solid 1px $black;
+      background-color: $white;
       div {
         padding: 1%;
       }
@@ -477,9 +477,9 @@ footer {
   }
 
   .search-filters-top {
-    border: solid 1px $black;
     width: 90%;
     padding: 3%;
+    background-color: $white;
   }
 
   .events-result {
