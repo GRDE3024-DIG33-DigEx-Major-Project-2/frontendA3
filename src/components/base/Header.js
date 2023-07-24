@@ -51,25 +51,28 @@ export default function Header({ user, isLoggedIn, setIsLoggedIn, setUser }) {
           />
         </Link>
         <div className="nav-links">
+          <Link id="nav-home-txt" to="/">
+            Home
+          </Link>
           <Link id="nav-events" to="/events">
             Search
           </Link>
-          {isLoggedIn && user.type === "guest" && (
+          {isLoggedIn && !user.organizationName && (
             <Link id="nav-profile" to="/profile">
               Profile
             </Link>
           )}
-          {isLoggedIn && user.type === "organiser" && (
+          {isLoggedIn && user.organizationName && (
             <>
+              <Link id="nav-dashboard" to="/dashboard">
+                Dashboard
+              </Link>
               <Link
                 id="nav-create-event"
                 className="bttn-style-orange"
-                to="/create-event"
+                to="/createevent"
               >
-                Create Event
-              </Link>
-              <Link id="nav-dashboard" to="/dashboard">
-                Dashboard
+                Create a new event
               </Link>
             </>
           )}
@@ -118,7 +121,6 @@ export default function Header({ user, isLoggedIn, setIsLoggedIn, setUser }) {
               anchor="right"
               open={menu}
               onClose={toggleDrawer(false)}
-              onOpen={toggleDrawer(true)}
             >
               <div className="mobile-menu-box">
                 <CloseIcon
@@ -126,7 +128,7 @@ export default function Header({ user, isLoggedIn, setIsLoggedIn, setUser }) {
                   color="primary"
                   className="close-icon-btn"
                   fontSize="2"
-                  sx={{ ml: "75%", mb: "145%" }}
+                  sx={{ ml: "75vw", mb: "80vh" }}
                   onClick={toggleDrawer(false)}
                 />
                 <div id="gigney-menu-logo">

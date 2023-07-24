@@ -49,10 +49,10 @@ const EventCard = (props) => {
         </CardContent>
       </CardActionArea>
         <div className="card-icon ev-share">
-          <ShareIcon sx={{ fontSize: 22 }} />
+          <ShareIcon sx={{ fontSize: 22, color:"black" }} />
         </div>
         <div className="card-icon ev-bookmark">
-          <BookmarkAddIcon sx={{ fontSize: 23 }} />
+          <BookmarkAddIcon sx={{ fontSize: 23, color:"black" }} />
         </div>
     </Card>
   );

@@ -1,43 +1,39 @@
-import { Box, Avatar, Button } from "@mui/material";
-import EditNote from "@mui/icons-material/EditNote";
-import {useNavigate, Link } from "react-router-dom";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import {
+  Box,
+  Avatar,
+  Button,
+  FormControl,
+  TextField,
+  InputAdornment,
+} from "@mui/material";
+import { useNavigate, Link } from "react-router-dom";
 import CreatedEventCardHorizontal from "../event/CreatedEventCardHorizontal";
-
+import LockIcon from "@mui/icons-material/Lock";
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { useState, useEffect } from "react";
+import { getAllEvents, getFirstLetters } from "../../utils/utils";
 
 const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
-  var events = [
-    {
-      name: "Event #1",
-      description: "Some event description!",
-      img: "../gigney.png",
-    },
-    {
-      name: "Event #2",
-      description: "Hello World!",
-      img: "../gigney.png",
-    },
-    {
-      name: "Event #3",
-      description: "Another one..",
-      img: "../gigney.png",
-    },
-    {
-      name: "Event #4",
-      description: "Some event description!",
-      img: "../gigney.png",
-    },
-  ];
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    async function fetchEvents() {
+      const data = await getAllEvents();
+      setEvents(data);
+    }
+
+    fetchEvents();
+  }, [setEvents]);
 
   const handleDelete = () => {
     console.log("redirecting to delete page or pop up");
   };
 
   const navigate = useNavigate();
-  
+
   const createNewEventHandler = () => {
     navigate("/createevent");
-  }
+  };
 
   return (
     <>
@@ -45,47 +41,84 @@ const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
         {isLoggedIn && (
           <>
             <div className="profile-banner">
-              <h2>Dashboard</h2>
+              <h1>Dashboard</h1>
             </div>
             <article className="personal-bio">
-              <h2>Organisation Bio</h2>
+              <h2>Organisation Info</h2>
               <Box className="profile-box prof-center">
-                <EditNote className="edit-note" />
-                <Avatar
-                  alt={user.organizationName}
-                  src="../gigney.png"
-                  className="profile-avatar"
-                />
-                <h4>{user.organizationName}</h4>
-                <p>Something here</p>
+                <Avatar className="profile-avatar">
+                  {getFirstLetters(user.organizationName)}
+                </Avatar>
+                <h3>{user.organizationName}</h3>
+                <p>Organisation description</p>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Pellentesque urna nisi, mollis consequat nisi ac, efficitur
+                  accumsan enim. Interdum et malesuada fames ac ante ipsum
+                  primis in faucibus. Vivamus rhoncus aliquam nibh egestas
+                  convallis. Aenean efficitur laoreet leo non sagittis. Proin
+                  eget diam volutpat enim volutpat interdum.
+                </p>
               </Box>
             </article>
             <article className="account-settings">
               <h2>Account settings</h2>
               <Box className="profile-box prof-left">
-                <div>
-                  <h4>Password:</h4>
-                  <p>********</p>
-                  <Button color="secondary" variant="outlined" size="small">
-                    Reset Password
+                <FormControl fullWidth>
+                  <h3>Change Password</h3>
+                  <p>Password:</p>
+                  <TextField
+                    variant="outlined"
+                    id="password"
+                    placeholder="Enter your password"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <LockOutlinedIcon color="primary" />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                  <p>Confirm Password:</p>
+                  <TextField
+                    variant="outlined"
+                    id="confirm-password"
+                    placeholder="Enter your password again"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <LockIcon color="primary" />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                  <Button
+                    variant="contained"
+                    id="save-pwd-btn"
+                    type="submit"
+                    sx={{ color: "black" }}
+                  >
+                    Save new password
                   </Button>
-                </div>
-                <div>
-                  <h4>Permissions:</h4>
-                  <p>Location</p>
-                  <Button color="secondary" variant="outlined" size="small">
-                    Revoke permissions
-                  </Button>
-                </div>
-                <Link id="delete-account-profile" to="/" onClick={handleDelete}>
-                  Delete account
-                </Link>
+                  <Link
+                    id="delete-account-profile"
+                    to="/"
+                    onClick={handleDelete}
+                  >
+                    Delete this account
+                  </Link>
+                </FormControl>
               </Box>
             </article>
             <article className="saved-events">
               <div id="saved-events-header">
                 <h2>Created Events</h2>
-                <Button variant="contained" onClick={createNewEventHandler} endIcon={<AddCircleOutlineIcon />}>Create New Event</Button>
+                <Link
+                  className="bttn-style-orange"
+                  onClick={createNewEventHandler}
+                >
+                  Create a new event
+                </Link>
               </div>
               <Box className="events-profile">
                 {events.map((event, i) => (

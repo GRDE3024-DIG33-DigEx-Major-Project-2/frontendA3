@@ -15,11 +15,14 @@ import {
   FormControl,
   Box,
 } from "@mui/material";
+
 import * as dayjs from 'dayjs';
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { SearchEventFiltersContext, SearchEventsContext } from "../../props/search-events.prop";
+
 //Import endpoint handlers for events
 import { searchEvents, getAllTags } from "../../services/EventAPI";
+import { useState, useEffect } from "react";
 import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
 import SvgIcon from "@mui/material/SvgIcon";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -33,7 +36,6 @@ import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined
  * @returns 
  */
 const FindEventHeader = () => {
-
   //Add in the search events context props
   const { events, setEvents, pageCount, setPageCount } = useContext(SearchEventsContext);
   //Search filter props
@@ -147,6 +149,7 @@ const FindEventHeader = () => {
                 );
               }}
             >
+
               <MenuItem selected value="Sydney">Sydney</MenuItem>
               <MenuItem value="Balmain">Balmain</MenuItem>
               <MenuItem value="Surry Hills">Surry Hills</MenuItem>
@@ -158,24 +161,62 @@ const FindEventHeader = () => {
           <DatePicker
             id = "date-field-search"
             className="search-form-els"
+            placeholder="Date"
+            value={date}
             onChange={(startDate) => setDate(new Date(Date.parse(startDate)))}
+            slots={{
+              openPickerIcon: ArrowDropDownOutlinedIcon
+            }}
+            slotProps={{
+              textField: {
+                InputProps: {
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <CalendarMonthIcon color="primary" />
+                    </InputAdornment>
+                  ),
+                },
+              },
+            }}
           />
-          <span>
-            <TextField
-              className="search-form-els"
-              id="events-txt-field"
-              variant="outlined"
-              label="Search artists, venues or events"
-              onChange={(keywords) => setKeywords(keywords.target.value)}
-            ></TextField>
-            <Button
-              className="search-form-els"
-              type="submit"
-              variant="contained"
-            >
-              Search
-            </Button>
-          </span>
+          <TextField
+            className="search-form-els"
+            id="events-txt-field"
+            variant="outlined"
+            placeholder="Search artists, venues or events"
+            onChange={(keywords) => setKeywords(keywords.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchOutlinedIcon color="primary" />
+                </InputAdornment>
+              ),
+            }}
+          ></TextField>
+          <Button
+            className="search-form-els"
+            id="search-form-submit-btn"
+            type="submit"
+            variant="contained"
+          >
+            Search
+          </Button>
+        </div>
+        <div className="find-event-tags">
+          {tags.map((tag, i) => (
+            <Chip
+              sx={{
+                backgroundColor: "#7759A6",
+                color: "white",
+                margin: "1%",
+              }}
+              key={i}
+              label={tag.name}
+              id={tag.id}
+              color="default"
+              onClick={() => chipHandler(tag.name)}
+            />
+          ))}
         </div>
       </form>
     </div>

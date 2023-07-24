@@ -6,7 +6,6 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import SellOutlinedIcon from '@mui/icons-material/SellOutlined';
 
 const EventCardHorizontal = (props) => {
-  console.log(props);
   const date = new Date(Date.parse(props.event.event.startDate));
   const stringDate = date.toLocaleString([], {
     year: "numeric",
@@ -56,10 +55,10 @@ const EventCardHorizontal = (props) => {
             <SellOutlinedIcon sx={{ fontSize: 15 }} /> {price}
           </p>
           <div className="card-icon ev-share-h">
-            <ShareIcon sx={{ fontSize: 23 }} />
+            <ShareIcon sx={{ fontSize: 23, color:"black" }} />
           </div>
           <div className="card-icon ev-bookmark-h">
-            <BookmarkAddIcon sx={{ fontSize: 21 }} />
+            <BookmarkAddIcon sx={{ fontSize: 21, color:"black" }} />
           </div>
         </CardContent>
       </Box>

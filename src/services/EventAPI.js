@@ -2,11 +2,8 @@
  * HTTP request handler for Event-related endpoints
  */
 
-
-
 //Import dependencies
 import axios from "axios";
-
 
 // URL FOR LOCALHOST
 const searchEventsURL = "http://localhost:3000/event/search-page";

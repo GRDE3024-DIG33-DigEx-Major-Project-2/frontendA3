@@ -11,6 +11,7 @@ $purple: #5b5be6;
 $lightpurple: #9c9ced;
 $darkblue: #3131b8;
 $offwhite: #f5f5f5;
+$border: #dfdfdf;
 
 // mixins
 @mixin flex-row($justify-content: space-around, $align-items: center) {
@@ -68,7 +69,7 @@ nav {
   }
 
   .nav-links {
-    width: 30vw;
+    width: 50vw;
     @include flex-row;
   }
 }
@@ -88,19 +89,19 @@ a {
 
 /* HEADER */
 
-.bttn-style-purple{
+.bttn-style-purple {
   border: 2px solid $purple1;
   padding: 12px 25px;
   font-weight: bold;
   color: $white;
 }
 
-.bttn-style-orange{
+.bttn-style-orange {
   border: 2px solid $orange1;
   background-color: $orange1;
   padding: 12px 25px;
   font-weight: bold;
-  color:$black;
+  color: $black;
 }
 
 #mobile-menu {
@@ -121,12 +122,12 @@ a {
   }
 }
 
-#loggedin-links-menu{
+#loggedin-links-menu {
   @include flex-column;
   height: 30%;
 }
 
-#loggedout-bttns-menu{
+#loggedout-bttns-menu {
   @include flex-column;
   height: 20%;
   width: 100%;
@@ -144,7 +145,7 @@ a {
   overflow: hidden;
   color: $white;
   padding: 5% 0 3% 0;
-  h1{
+  h1 {
     font-size: 3em;
   }
 }
@@ -181,7 +182,7 @@ a {
   max-width: 85%;
 }
 
-#search-form-submit-btn{
+#search-form-submit-btn {
   color: $black;
   background-color: $orange1;
   margin-left: -5%;
@@ -197,9 +198,19 @@ a {
   padding: 25px;
 }
 
+#location-field-search {
+  width: 22%;
+}
+#date-field-search {
+  width: 18%;
+}
+#events-txt-field {
+  width: 50%;
+}
+
 /* LOGIN PAGE */
 .login-page {
-  height: 85vh;
+  height: 90vh;
   width: 100%;
   @include flex-row;
 }
@@ -215,7 +226,7 @@ a {
 }
 
 .right {
-  @include flex-column(space-around, center);
+  @include flex-column(center, center);
   width: 50%;
   height: 100%;
   .login-logo {
@@ -231,24 +242,19 @@ a {
 .login-form {
   @include flex-column(space-around, left);
   gap: 2%;
-  height: 20%;
-  width: 80%;
+  height: 18em;
+  width: 34vw;
+
+  p {
+    font-size: 1em;
+    margin-bottom: 0;
+  }
 }
 
 .left-img {
   height: 100%;
   max-width: 100%;
   object-fit: cover;
-}
-
-.login-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: left;
-  gap: 2%;
-  height: 13em;
-  width: 34vw;
 }
 
 .forgot-btn {
@@ -265,6 +271,8 @@ a {
 
 #login-btn {
   background-color: $orange1;
+  margin: 4% 0;
+  color: $black;
 }
 
 /* SIGNUP PAGE */
@@ -310,7 +318,7 @@ a {
   font-size: 16px;
   cursor: pointer;
   background-color: $orange1;
-  color: white;
+  color:$white;
 }
 
 .signup-form {
@@ -345,11 +353,6 @@ a {
   color: $white;
   text-shadow: -1px -1px 0 $black, 1px -1px 0 $black, -1px 1px 0 $black,
     1px 1px 0 $black;
-}
-
-.css-v4u5dn-MuiInputBase-root-MuiInput-root {
-  border: 2px solid;
-  margin-bottom: 15px;
 }
 
 /*SIGNUP GUEST*/
@@ -407,15 +410,6 @@ a {
 
 .link-organizer {
   padding-top: 6%;
-}
-
-/* RESET PASSWORD */
-.reset-pwd-form {
-  @include flex-column(space-around, left);
-  gap: 2%;
-  height: 10em;
-  width: 20em;
-  margin-left: 4%;
 }
 
 /* FOOTER */
@@ -492,7 +486,7 @@ footer {
   }
 }
 
-/* PROFILE PAGE */
+/* PROFILE PAGE & ORGANIZAER DASHBOARD */
 .profile-container {
   min-height: 78vh;
   display: grid;
@@ -502,11 +496,30 @@ footer {
     "account events";
   grid-template-rows: 100px minmax(300px, auto) minmax(400px, auto);
   grid-template-columns: 30% 70%;
+  background-color: $lightgrey;
+
+  #save-pwd-btn {
+    background-color: $orange1;
+    margin: 10% 0 0 0;
+  }
+
+  h2 {
+    font-size: 1.8em;
+  }
+
+  h3 {
+    font-size: 1.5em;
+  }
 
   .profile-banner {
     grid-area: head;
     background-color: $lightblue;
     @include flex-row;
+    background: linear-gradient(90deg, $lightblue 23%, $lightorange 100%);
+    h1 {
+      color: $white;
+      font-size: 2em;
+    }
   }
   .personal-bio {
     grid-area: bio;
@@ -531,13 +544,16 @@ footer {
   }
 
   .profile-box {
-    border: solid 1px $black;
     padding: 5%;
     position: relative;
+    background-color: $white;
   }
 
   .prof-center {
     @include flex-column;
+    p {
+      text-align: center;
+    }
   }
 
   .prof-left {
@@ -549,8 +565,11 @@ footer {
   }
 
   .profile-avatar {
-    height: 150px;
-    width: 150px;
+    height: 20vw;
+    width: 20vw;
+    background-color: $lightblue;
+    font-size: 9vw;
+    font-weight: bold;
   }
 
   .edit-note {
@@ -573,12 +592,27 @@ footer {
 }
 
 /*EVENT PAGE*/
-
+/* Main image */
 .event-main-image {
   width: 100%;
   max-width: 100%;
+  height: 400px;
 }
 
+.Event .card-icon{
+  padding: 1%;
+}
+
+.Event .ev-bookmark {
+  top: 475px;
+  right: 5%;
+}
+.Event .ev-share {
+  top: 475px;
+  right: 12%;
+}
+
+/* Event columns layout */
 .event-columns {
   display: flex;
   flex-direction: row;
@@ -586,21 +620,49 @@ footer {
   width: 100%;
 }
 
-.event-column-title {
-  flex: 80%;
+/* Event column styles */
+.event-column-title,
+.about,
+.tags {
+  flex: 70%;
 }
 
-.event-column-button {
+.event-column-button{
+  flex: 20%;
+  margin: 20px;
+}
+
+.about {
+  flex: 70%;
+}
+
+.lineup {
   flex: 20%;
 }
 
-.event-tag {
-  background-color: $purple;
-  color: $white;
-  margin: 5px;
-  padding: 3px 5px;
+.artists{
+  flex: 10%;
 }
 
+.pricing
+.tags {
+  flex: 70%;
+}
+.pricing {
+  flex: 100%;
+}
+
+/* Event tags */
+.event-tag {
+  background-color: $white;
+  border: 2px solid $purple;
+  border-radius: 10px;
+  color: $purple;
+  margin: 5px;
+  padding: 5px 10px;
+}
+
+/* Buy button */
 .event-buy-button {
   margin-right: 0px;
   margin-top: 20px;
@@ -611,26 +673,132 @@ footer {
   display: inline-block;
   font-size: 16px;
   cursor: pointer;
-  background-color: $purple;
-  color: $white;
+  background-color: $orange1;
+  color: $black;
+  font-weight: bold;
 }
 
+/* Event body */
 .event-body {
   margin: 15px;
 }
 
+/* Event column detail styles */
 .event-columns-details {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
+  border-left: 2px solid $border;
+  border-right: 2px solid $border;
+  border-bottom: 2px solid $border;
+  text-align: center;
 }
+
+.event-columns-detail li{
+  padding: 10px;
+  width: 50%;
+}
+
 .event-column-detail {
-  flex: 50%;
+  flex: 49%;
+  display:table;
 }
+.event-column-detail h4{
+  padding: 10px 10px 10px 5px;
+  word-break:break-all;
+}
+/* Event logo */
 .event-logo {
   width: 90px;
   margin-top: 10px;
+}
+
+/* Headings styles for event details, organized by, lineup, and pricing */
+h2.event-details,
+h2.organised_by,
+h2.lineup,
+.pricing h2 {
+  margin-top: 30px;
+  margin-bottom: 0px;
+  position: relative;
+  z-index: 1;
+
+  &:before {
+      border-top: 2px solid $border;
+      border-left: 2px solid $border;
+      border-right: 2px solid $border;
+      content:"";
+      margin: 0 auto; /* this centers the line to the full width specified */
+      position: absolute; /* positioning must be absolute here, and relative positioning must be applied to the parent */
+      top: 50%; left: 0; right: 0; bottom: 0;
+      width: 100%;
+      z-index: -1;
+  }
+
+  span {
+    /* to hide the lines from behind the text, you have to set the background color the same as the container */
+    background: #fff;
+    padding: 0 15px;
+  }
+}
+
+/* Vertical line */
+hr.vertical {
+  height: 100px;
+  border: 1px solid $border;
+}
+
+/* Table horizontal line */
+table hr{
+  height:50px;
+  margin: 0;
+  width:0;
+}
+
+/* Event details and location styles */
+.dateandtime,
+.eventlocation {
+  text-decoration: underline;
+  color: $orange1;
+  font-weight: bold;
+  font-size: medium;
+}
+
+/* Pricing table styles */
+.pricing table{
+  width: 100%;
+  padding: 5px 0 10px 0;
+}
+.pricing td,
+.pricing th{
+  text-align: center;
+  width: 20%;
+  padding: 15px 0 0 0;
+}
+div.lineup {
+  border-left: 2px solid $border;
+  border-right: 2px solid $border;
+  border-bottom: 2px solid $border;
+  text-align: center;
+  width: 20%;
+  padding: 15px 0 5px 0;
+}
+
+/* Media Queries for responsiveness */
+/* Adjust layout for screens smaller than 768px (e.g., smartphones) */
+@media only screen and (max-width: 767px) {
+  .event-columns {
+    flex-direction: column;
+  }
+  
+  .event-columns-detail li {
+    width: 100%;
+  }
+  
+  .event-buy-button {
+    margin: 10px auto;
+  }
 }
 
 /* HOMEPAGE */
@@ -733,7 +901,7 @@ footer {
 }
 
 .ev-menu-h {
-  bottom: 11%;
+  bottom: 14.5%;
   right: 5%;
   position: absolute;
   width: 23px;
@@ -828,7 +996,7 @@ footer {
 
   nav {
     .nav-links {
-      width: 40vw;
+      width: 65vw;
     }
   }
 
@@ -837,8 +1005,18 @@ footer {
   }
 
   .find-event-search {
-    width: 90%;
-    max-width: 90%;
+    width: 90vw;
+    max-width: 90vw;
+  }
+
+  #location-field-search {
+    width: 20%;
+  }
+  #date-field-search {
+    width: 15vw;
+  }
+  #events-txt-field {
+    width: 40%;
   }
 }
 
@@ -851,16 +1029,39 @@ footer {
 
   nav {
     .nav-links {
-      width: 50vw;
+      width: 75vw;
     }
   }
 
-  .bttn-style-purple, .bttn-style-orange {
+  .bttn-style-purple,
+  .bttn-style-orange {
     padding: 8px 20px;
   }
 
   .find-event-header {
-    max-height: 58vw;
+    max-height: 60vh;
+  }
+
+  .find-event-search {
+    @include flex-column(space-between, center);
+    width: 80%;
+    min-height: 30vh;
+    max-height: 40vh;
+  }
+
+  .find-event-tags {
+    min-height: 20%;
+    height: 30%;
+  }
+
+  .search-form-els,
+  #search-form-submit-btn {
+    width: 100%;
+    margin: 0;
+  }
+
+  #location-field-search {
+    width: 100%;
   }
 }
 
@@ -882,40 +1083,55 @@ footer {
     display: block;
   }
 
-  .mobile-menu-link{
+  .mobile-menu-link {
     color: $white;
   }
 
-  .bttn-style-purple, .bttn-style-orange {
+  .bttn-style-purple,
+  .bttn-style-orange {
     width: 70%;
     text-align: center;
     font-size: 25px;
     padding: auto;
-
   }
 
   .find-event-header {
-    min-height: 60vh;
+    min-height: 70vh;
   }
 
-  .find-event-search {
-    @include flex-column(space-between, center);
-    width: 80%;
-    height: 30vh;
-  }
-
-  .search-form-els, #search-form-submit-btn{
-    width: 100%;
-    margin:0;
-  }
-
-  // FOOTER 
-  .menu-footer{
+  // FOOTER
+  .menu-footer {
     padding: 2% 1%;
     background-color: $black;
     width: 98%;
     text-align: center;
     color: $white;
   }
-
 }
+
+/* Small Phone */
+@media screen and (max-width: 380px) {
+  /* HEADER */
+  .find-event-header {
+    min-height: 85vh;
+  }
+
+  .find-event-search {
+    width: 90%;
+    min-height: 35vh;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .Event .card-icon {
+    padding: 0.5%; /* Decrease the padding on small screens */
+  }
+
+  .Event .ev-bookmark,
+  .Event .ev-share {
+    position: relative; /* Remove absolute positioning on small screens */
+    top: auto;
+    right: auto;
+    margin-top: 10px; /* Add some space between the icons and other content */
+  }
+}
+
