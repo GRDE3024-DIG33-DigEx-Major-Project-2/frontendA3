@@ -33,9 +33,6 @@ function Event() {
 
     <div className="header">
       <img className="event-main-image" alt="eventimage" src={imgUrl}></img>
-      </div>
-      <p>&nbsp;</p>
-      <div className="event-column-title">
       <div className="card-icon ev-share">
           <ShareIcon sx={{ fontSize: 22, color:"black" }} />
         </div>
