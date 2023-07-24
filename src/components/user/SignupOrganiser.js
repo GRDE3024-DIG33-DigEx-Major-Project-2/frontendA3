@@ -11,6 +11,11 @@ import Grid from "@mui/material/Grid";
 import axios from "axios";
 
 function SignUpOrganiser() {
+  // URL FOR LIVE BACKEND
+  const baseURL = "https://a2.gigney.ryanriddiford.com/";
+  // URL FOR LOCALHOST
+  // const baseURL = "http://localhost:3000/" 
+  
   const [organizationName, setOrganizationName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
@@ -40,11 +45,7 @@ function SignUpOrganiser() {
     if (password !== confirmPassword) {
       alert("Passwords must match");
     } else {
-      // URL FOR DEPLOYED VERSION
-      // const searchEventsURL = "https://gigney.ryanriddiford.com/user/register";
-
-      // URL FOR LOCALHOST
-      const registerUrl = "http://localhost:3000/user/register";
+      const registerUrl = baseURL + "user/register";
 
       const requestBody = {
         userType: "organizer",

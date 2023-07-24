@@ -5,9 +5,13 @@
 //Import dependencies
 import axios from "axios";
 
+// URL FOR LIVE BACKEND
+const baseURL = "https://a2.gigney.ryanriddiford.com/"
 // URL FOR LOCALHOST
-const searchEventsURL = "http://localhost:3000/event/search-page";
-const getAllTagsUrl = "http://localhost:3000/event/tags"
+// const baseURL = "http://localhost:3000/"
+
+const searchEventsURL = baseURL + "event/search-page";
+const getAllTagsUrl =  baseURL + "event/tags"
 
 /**
  * Get a page of events from api endpoint

@@ -258,8 +258,8 @@ a {
 }
 
 .left-img {
-  max-height: 100%;
-  width: 100%;
+  height: 100%;
+  max-width: 100%;
   object-fit: cover;
 }
 
@@ -1165,7 +1165,9 @@ div.lineup {
 
   .left-img {
     filter: brightness(40%);
+    width: 100%;
   }
+  
 
   .login-form {
     @include flex-column(left, left);

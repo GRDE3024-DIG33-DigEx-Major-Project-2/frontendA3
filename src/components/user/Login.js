@@ -1,22 +1,22 @@
 import { FormControl, TextField, InputAdornment, Button } from "@mui/material";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import LoginIcon from "@mui/icons-material/Login";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 const Login = ({ setIsLoggedIn, setUser }) => {
+  // URL FOR LIVE BACKEND
+  const baseURL = "https://a2.gigney.ryanriddiford.com/";
+  // URL FOR LOCALHOST
+  // const baseURL = "http://localhost:3000/"
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(null);
   const navigate = useNavigate();
 
-  // URL FOR DEPLOYED VERSION
-  // const loginUrl = "https://gigney.ryanriddiford.com/auth/login";
-
-  // URL FOR LOCALHOST
-  const loginUrl = "http://localhost:3000/auth/login";
+  const loginUrl = baseURL + "auth/login";
 
   const loginHandler = async (event) => {
     event.preventDefault();
