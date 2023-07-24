@@ -1,74 +1,161 @@
+/**
+ * Homepage component
+ */
+
+//Import dependencies
 import FindEventHeader from "../event/FindEventHeader";
 import EventCard from "../event/EventCard";
-import { getAllEvents } from "../../utils/utils";
-import { useEffect, useState } from "react";
+//Import endpoint handlers for events
+import { searchEvents, getAllTags } from "../../services/EventAPI";
+import { useEffect, useState, useContext } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { SearchEventFiltersContext } from "../../props/search-events.prop";
 
+
+/**
+ * Builds and renders the homepage component
+ * @returns Homepage component render
+ */
 const Home = () => {
-  const [events, setEvents] = useState([]);
+
+  //Events to display on homepage carousels
   const [rockEvents, setRockEvents] = useState([]);
+  const [allEvents, setAllEvents] = useState([]);
+  //Search event filter props
+  const {
+    location,
+    date,
+    tags,
+    keywords,
+    setLocation,
+    setDate,
+    setTags,
+    setKeywords,
+    today,
+    paid,
+    price,
+    change,
+    setPaid,
+    setPrice,
+    setChange,
+    minPrice,
+    maxPrice,
+    setMinPrice,
+    setMaxPrice,
+    selectedTagIds,
+    setSelectedTagIds,
+  } = useContext(SearchEventFiltersContext);
 
+  /**
+   * On startup hook, fetch api data
+   */
   useEffect(() => {
-    async function fetchAllEvents() {
-      const allEv = await getAllEvents();
-      setEvents(allEv);
+
+    /**
+     * Find a page of events with no filtering applied
+     */
+    async function fetchUnfilteredEventPage() {
+      const allEv = (await searchEvents([], null, null, null, 0));
+      setAllEvents(allEv.events);
     }
 
+
+    /**
+     * Find a page of events that are tagged as Rock events
+     */
     async function fetchRockEvents() {
-      const rockEv = await getAllEvents("9a58b4a6-af1d-4102-b074-6cc5f1fda00e");
-      setRockEvents(rockEv);
+
+      //The id of the rock tag to filter with
+      let rockTagId;
+
+      //Fetch all possible pre-defined tags if none have been retrieved
+      if (tags.length == 0) {
+        await getAllTags()
+        .then(async (data) => {
+           setTags(data);
+          for (let tag of data) {
+                  if (tag.name == "Rock") {
+            rockTagId = tag.id;
+            break;
+          }
+          }    
+          //Find and load the rock events
+          const rockEv = await searchEvents([rockTagId], null, null, null, null, 0);
+          setRockEvents(rockEv.events);        
+        });
+       
+      }
+      //Tags already fetched, find the Rock tag id
+      else {
+      for (let tag of tags) {
+              if (tag.name == "Rock") {
+        rockTagId = tag.id;
+        break;
+      }
+      }
+      //Find and load the rock events
+      const rockEv = await searchEvents([rockTagId], null, null, null, null, 0);
+      setRockEvents(rockEv.events);              
+      }
+
     }
 
-    fetchAllEvents();
+    //Fetch the events to display on the homepage
+    fetchUnfilteredEventPage();
     fetchRockEvents();
-  }, [setEvents, setRockEvents]);
+  }, [setAllEvents, setRockEvents]);
 
-  return (
-    <section className="home-section">
-      <FindEventHeader />
-      <div className="home-row">
-        <h1>Music events nearby</h1>
-        <Swiper
-          className="event-carousel"
-          slidesPerView="1"
-          spaceBetween="5"
-          speed="500"
-          cssMode="true"
-          breakpoints={{
-            744: { slidesPerView: 2 },
-            1100: { slidesPerView: 3 },
-            1460: { slidesPerView: 4 },
-          }}
-        >
-          {events.map((event, i) => (
-            <SwiperSlide key={i}>
-              <EventCard event={event} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-      <div className="home-row">
-        <h1>Rock music events</h1>
-        <Swiper
-          className="event-carousel"
-          slidesPerView="1"
-          spaceBetween="5"
-          speed="500"
-          cssMode="true"
-          breakpoints={{
-            744: { slidesPerView: 2 },
-            1100: { slidesPerView: 3 },
-            1460: { slidesPerView: 4 },
-          }}
-        >
-          {rockEvents.map((event, i) => (
-            <SwiperSlide key={i}>
-              <EventCard event={event} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+
+
+  //Homepage template components for event display
+   let rockEventsView = <>
+    <div className="home-row">
+    <h1>Rock music events</h1>
+    <Swiper
+      className="event-carousel"
+      slidesPerView="1"
+      spaceBetween="5"
+      speed="500"
+      cssMode="true"
+      breakpoints={{
+        744: { slidesPerView: 2 },
+        1100: { slidesPerView: 3 },
+        1460: { slidesPerView: 4 },
+      }}
+    >
+      {rockEvents.map((event, i) => (
+        <SwiperSlide key={i}>
+          <EventCard event={event} />
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  </div>
+    </>;
+
+let nearbyEventsView = <><div className="home-row">
+<h1>Music events nearby</h1>
+<Swiper
+  className="event-carousel"
+  slidesPerView="1"
+  spaceBetween="5"
+  speed="500"
+  cssMode="true"
+  breakpoints={{
+    744: { slidesPerView: 2 },
+    1100: { slidesPerView: 3 },
+    1460: { slidesPerView: 4 },
+  }}
+>
+  {allEvents.map((event, i) => (
+    <SwiperSlide key={i}>
+      <EventCard event={event} />
+    </SwiperSlide>
+  ))}
+</Swiper>
+</div></>;
+
+let allEventsView = <>
       <div className="home-row">
         <h1>All events</h1>
         <Swiper
@@ -83,15 +170,26 @@ const Home = () => {
             1460: { slidesPerView: 4 },
           }}
         >
-          {events.map((event, i) => (
+          {allEvents.map((event, i) => (
             <SwiperSlide key={i}>
               <EventCard event={event} />
             </SwiperSlide>
           ))}
         </Swiper>
-      </div>
+      </div></>;
+
+
+//The html homepage template
+  return (
+    <section className="home-section">
+      <FindEventHeader />
+            {nearbyEventsView}
+            {rockEventsView}
+            {allEventsView}
     </section>
   );
 };
 
+
+//Export the homepage component
 export default Home;

@@ -1,4 +1,11 @@
+/**
+ * Main event search filter component that handles location, date, and keywords
+ */
+
+
+//Import dependencies
 import { DatePicker } from "@mui/x-date-pickers";
+import { useState, useEffect, useContext } from "react";
 import {
   MenuItem,
   Select,
@@ -8,7 +15,13 @@ import {
   FormControl,
   Box,
 } from "@mui/material";
-import { getAllTags } from "../../utils/utils";
+
+import * as dayjs from 'dayjs';
+import { useNavigate, Link, useLocation } from "react-router-dom";
+import { SearchEventFiltersContext, SearchEventsContext } from "../../props/search-events.prop";
+
+//Import endpoint handlers for events
+import { searchEvents, getAllTags } from "../../services/EventAPI";
 import { useState, useEffect } from "react";
 import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
 import SvgIcon from "@mui/material/SvgIcon";
@@ -16,32 +29,104 @@ import InputAdornment from "@mui/material/InputAdornment";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
-import dayjs from 'dayjs';
 
+
+/**
+ * React component for main event filter UI
+ * @returns 
+ */
 const FindEventHeader = () => {
-  const [location, setLocation] = useState("Sydney");
-  const [date, setDate] = useState(dayjs());
-  const [genre, setGenre] = useState("country");
-  const [tags, setTags] = useState([]);
+  //Add in the search events context props
+  const { events, setEvents, pageCount, setPageCount } = useContext(SearchEventsContext);
+  //Search filter props
+  const {
+    location,
+    date,
+    tags,
+    keywords,
+    setLocation,
+    setDate,
+    setTags,
+    setKeywords,
+    today,
+    paid,
+    price,
+    change,
+    setPaid,
+    setPrice,
+    setChange,
+    minPrice,
+    maxPrice,
+    setMinPrice,
+    setMaxPrice,
+    selectedTagIds,
+    setSelectedTagIds,
+  } = useContext(SearchEventFiltersContext);
 
+  //React navigator
+  const navigate = useNavigate();
+
+  //Location specifier
+  const spaLocation = useLocation();
+
+
+  /**
+   * Fetch api data on load
+   */
   useEffect(() => {
+
+    /**
+     * Get all pre-defined tags/genres
+     */
     async function fetchTags() {
       const tags = await getAllTags();
       setTags(tags);
     }
 
+    //Get tags
     fetchTags();
   }, [setTags]);
 
-  const searchHandler = () => {
+  /**
+   * Search for first page of filtered events
+   */
+  const searchHandler = async (event) => {
+
+    //Prevent default submit form behaviour
+    event.preventDefault();
+
+    //Format date for db storage
+    let stringDate = dayjs(date.toISOString()).format("YYYY-MM-DD HH:mm:ss");
+
     console.log("Search event fired");
-    console.log(location, date, genre);
+    console.log(selectedTagIds, keywords, stringDate, location, 0);
+
+    //Make request for filtered events
+    let searchResult = await searchEvents(selectedTagIds, keywords, stringDate, location, {minPrice: Number(minPrice), maxPrice: Number(maxPrice)}, 0);
+
+    console.log("After search result found");
+    console.log(searchResult);
+    console.log("Page Count: "+ pageCount);
+
+    //Set state props of events and page count
+    setEvents(searchResult.events);
+    setPageCount(searchResult.pageCount);
+
+
+    console.log(spaLocation.pathname);
+
+    //Navigate to the event search component
+    if (spaLocation.pathname != "/events")
+    navigate("events");
+    else
+    navigate();
   };
 
-  const chipHandler = (genre) => {
-    setGenre(genre);
-  };
 
+
+
+
+  //The HTML template
   return (
     <div className="find-event-header">
       <h1 className="find-event-header-text">Find an event</h1>
@@ -64,7 +149,8 @@ const FindEventHeader = () => {
                 );
               }}
             >
-              <MenuItem value="Sydney">Sydney</MenuItem>
+
+              <MenuItem selected value="Sydney">Sydney</MenuItem>
               <MenuItem value="Balmain">Balmain</MenuItem>
               <MenuItem value="Surry Hills">Surry Hills</MenuItem>
               <MenuItem value="Parramatta">Parramatta</MenuItem>
@@ -77,7 +163,7 @@ const FindEventHeader = () => {
             className="search-form-els"
             placeholder="Date"
             value={date}
-            onChange={(newValue) => setDate(newValue)}
+            onChange={(startDate) => setDate(new Date(Date.parse(startDate)))}
             slots={{
               openPickerIcon: ArrowDropDownOutlinedIcon
             }}
@@ -98,13 +184,14 @@ const FindEventHeader = () => {
             id="events-txt-field"
             variant="outlined"
             placeholder="Search artists, venues or events"
+            onChange={(keywords) => setKeywords(keywords.target.value)}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
                   <SearchOutlinedIcon color="primary" />
                 </InputAdornment>
               ),
-            }}Ï
+            }}
           ></TextField>
           <Button
             className="search-form-els"
@@ -136,4 +223,5 @@ const FindEventHeader = () => {
   );
 };
 
+//Export the main event filter UI
 export default FindEventHeader;

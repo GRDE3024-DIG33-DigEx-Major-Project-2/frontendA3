@@ -1,3 +1,9 @@
+/**
+ * Main search component for events
+ */
+
+
+//Import dependencies
 import {
   Box,
   FormControl,
@@ -14,14 +20,56 @@ import FindEventHeader from "./FindEventHeader";
 import EventCardHorizontal from "./EventCardHorizontal";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getAllEvents, getAllTags, getTomorrowISODate } from "../../utils/utils";
+//Import endpoint handlers for events
+import { searchEvents, getAllTags } from "../../services/EventAPI";
+import { getTomorrowISODate } from "../../utils/utils";
+import { useContext } from "react";
+//Import search event props
+import { SearchEventsContext, SearchEventFiltersContext } from "../../props/search-events.prop";
+import * as dayjs from 'dayjs';
 
-const Events = () => {
-  const today = new Date().toISOString();
+/**
+ * The event search component
+ * @param {*} param0 
+ * @returns The event search component
+ */
+const Events = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
 
-  const [paid, setPaid] = useState("free");
-  const [price, setPrice] = useState([50, 500]);
-  const [change, setChange] = useState(true);
+  /**
+   * Prop context for search event data
+   */
+  const { events, setEvents, pageCount, setPageCount } = useContext(SearchEventsContext);
+  /**
+   * Prop context for search event filters
+   */
+  const {
+    location,
+    date,
+    tags,
+    keywords,
+    setLocation,
+    setDate,
+    setTags,
+    setKeywords,
+    today,
+    paid,
+    price,
+    change,
+    setPaid,
+    setPrice,
+    setChange,
+    minPrice,
+    maxPrice,
+    setMinPrice,
+    setMaxPrice,
+    selectedTagIds,
+    setSelectedTagIds,
+  } = useContext(SearchEventFiltersContext);
+
+
+  /**
+   * Pre-made filters
+   */
   const [chipData, setChipData] = useState([
     { key: 0, searchCategory: "venue", label: "Arena51", value: "Arena51" },
     { key: 1, searchCategory: "date", label: "Today", value: { today } },
@@ -32,24 +80,53 @@ const Events = () => {
       value: "9a58b4a6-af1d-4102-b074-6cc5f1fda00e",
     },
   ]);
-  const [events, setEvents] = useState([]);
-  const [tags, setTags] = useState([]);
 
+
+  /**
+   * React hook that is used for fetching data on load
+   */
   useEffect(() => {
+
+    /**
+     * Find all pre-defined tag/genre options
+     */
     async function fetchTags() {
       const tags = await getAllTags();
       setTags(tags);
     }
 
+    /**
+     * Fetcgh a page of events that match the filter options
+     */
     async function fetchEvents() {
-      const data = await getAllEvents();
-      setEvents(data);
+      const data = await searchEvents(selectedTagIds, keywords, dayjs(new Date().toISOString()).format("YYYY-MM-DD HH:mm:ss"), {minPrice: Number(minPrice), maxPrice: Number(maxPrice)}, location, 0);
+      //Set events
+      setEvents(data.events);
+      //Set total page count
+      setPageCount(data.pageCount);
     }
 
+    //Fetch all possible pre-defined tags if none have been retrieved
+    if (tags.length == 0)
     fetchTags();
-    fetchEvents();
+    
+    //No events have been retrieved -- fetching events
+    if (events.length == 0) {
+      console.log("No events have been retrieved -- fetching events");
+      fetchEvents();
+    } 
+    //Events have already been retrieved
+    else {
+      console.log("Events have already been retrieved");
+    }
+
   }, [setTags, setEvents]);
 
+
+  /**
+   * Handles new tag selection display chip
+   * @param {*} genre 
+   */
   const chipSelect = (genre) => {
     let newKey = chipData.length + 1;
     let temp = chipData;
@@ -63,6 +140,11 @@ const Events = () => {
     setChange(!change);
   };
 
+
+  /**
+   * Selects the event start-date filter display chip
+   * @param {*} value 
+   */
   const chipSelectDate = (value) => {
     let newKey = chipData.length + 1;
     let temp = chipData;
@@ -86,9 +168,16 @@ const Events = () => {
     setChange(!change);
   };
 
+
+  /**
+   * Selects the venue filter display chip
+   * @param {*} venue 
+   */
   const chipSelectVenue = (venue) => {
     let newKey = chipData.length + 1;
     let temp = chipData;
+    //Don't duplicate venue listings. Limit to displaying 10 venues
+    if (!temp.find(x => x.value === venue) && temp.length <= 10)
     temp.push({
       key: newKey,
       searchCategory: "venue",
@@ -99,6 +188,11 @@ const Events = () => {
     setChange(!change);
   };
 
+  /**
+   * Removes selected filter option
+   * @param {*} chipToDelete 
+   * @returns 
+   */
   const handleDelete = (chipToDelete) => () => {
     setChipData((chips) =>
       chips.filter((chip) => chip.key !== chipToDelete.key)
@@ -106,19 +200,53 @@ const Events = () => {
     setChange(!change);
   };
 
+  /**
+   * Clear search filters
+   */
   const clearFilters = () => {
     setChipData([]);
     setChange(!change);
   };
 
+  /**
+   * Sets the new price filter
+   * @param {*} event 
+   * @param {*} newPrice 
+   */
   const handlePriceChange = (event, newPrice) => {
     setPrice(newPrice);
   };
 
+  /**
+   * Formats the display for price in AUD
+   * @param {*} price 
+   * @returns 
+   */
   const valueLabelFormat = (price) => {
     return `AUD$${price}`;
   };
 
+  //Add template components to render if events exist
+    let venueFilter = <RadioGroup disabled={true} defaultValue="" name="venue-radio" onChange={(event) => chipSelectVenue(event.target.value)}>
+    {events.map((event, i) => (
+            <FormControlLabel
+              key={i}
+              value={event.event.venueName}
+              control={<Radio />}
+              label={event.event.venueName}
+            />
+          ))
+      }
+  </RadioGroup>
+
+  let eventListings = <Box className="events-result">
+  {events.map((event, i) => (
+            <EventCardHorizontal key={i} event={event} />
+          ))
+      }
+</Box>
+
+  //HTML Template for searching events
   return (
     <section className="home-section">
       <FindEventHeader />
@@ -139,22 +267,22 @@ const Events = () => {
                   onChange={(event) => chipSelectDate(event.target.value)}
                 >
                   <FormControlLabel
-                    value="Today"
+                    value="Today" disabled={true}
                     control={<Radio />}
                     label="Today"
                   />
                   <FormControlLabel
-                    value="Tomorrow"
+                    value="Tomorrow" disabled={true}
                     control={<Radio />}
                     label="Tomorrow"
                   />
                   <FormControlLabel
-                    value="Weekend"
+                    value="Weekend" disabled={true}
                     control={<Radio />}
                     label="This weekend"
                   />
                   <FormControlLabel
-                    value="select-date"
+                    value="select-date" disabled={true}
                     control={<Radio />}
                     label="Select a date"
                   />
@@ -167,16 +295,26 @@ const Events = () => {
                   aria-labelledby="price-radio-label"
                   name="price-radio"
                   defaultValue={paid}
-                  onChange={(event) => setPaid(event.target.value)}
+                  onChange={(event) => { 
+                    //Set price range to default
+                    if (event.target.value == true) {
+                      setMinPrice(0);setMaxPrice(200);
+                    }
+                    //Set price range to free 
+                    else {
+                      setMinPrice(0);setMaxPrice(0);
+                    }
+                    //Set paid flag
+                    setPaid(event.target.value)}}
                 >
                   <FormControlLabel
                     value="free"
-                    control={<Radio />}
+                    control={<Radio  disabled={true}/>}
                     label="Free"
                   />
                   <FormControlLabel
                     value="paid"
-                    control={<Radio />}
+                    control={<Radio  disabled={true}/>}
                     label="Paid"
                   />
                 </RadioGroup>
@@ -234,20 +372,7 @@ const Events = () => {
               </div>
               <div>
                 <h2>Venue</h2>
-                <RadioGroup
-                  defaultValue=""
-                  name="venue-radio"
-                  onChange={(event) => chipSelectVenue(event.target.value)}
-                >
-                  {events.map((event, i) => (
-                    <FormControlLabel
-                      key={i}
-                      value={event.event.venueName}
-                      control={<Radio />}
-                      label={event.event.venueName}
-                    />
-                  ))}
-                </RadioGroup>
+                        {venueFilter}
                 <Link>View more</Link>
               </div>
             </Stack>
@@ -275,11 +400,7 @@ const Events = () => {
             ))}
             <Link onClick={clearFilters}>Clear all filters</Link>
           </Stack>
-          <Box className="events-result">
-            {events.map((event, i) => (
-              <EventCardHorizontal key={i} event={event} />
-            ))}
-          </Box>
+                  {eventListings}
         </div>
       </article>
     </section>
