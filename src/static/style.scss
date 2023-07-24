@@ -174,7 +174,7 @@ a {
 .find-event-tags {
   margin: auto;
   text-align: center;
-  @include flex-row;
+  @include flex-row(center, center);
   flex-wrap: wrap;
   width: 90%;
   font-weight: 600;
@@ -194,8 +194,7 @@ a {
   width: 10%;
 }
 
-.find-event-search,
-.find-event-tags {
+.find-event-search {
   display: flex;
   flex-direction: row;
   justify-content: space-around;

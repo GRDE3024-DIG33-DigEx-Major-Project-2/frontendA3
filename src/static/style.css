@@ -147,7 +147,7 @@ a {
   text-align: center;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   width: 90%;
@@ -168,8 +168,7 @@ a {
   width: 10%;
 }
 
-.find-event-search,
-.find-event-tags {
+.find-event-search {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
