@@ -617,16 +617,24 @@ footer {
   max-height: 400px;
 }
 
-.Event .card-icon {
+.event-card-icon {
   padding: 1%;
+  background-color: #f58146;
+  color: #ffffff;
+  width: 23px;
+  height: 23px;
+  padding: 2%;
+  border-radius: 50%;
+  text-align: center;
+  position: absolute;
 }
 
-.Event .ev-bookmark {
+.Event .bookmark {
   top: 28rem;
   right: 5%;
 }
 
-.Event .ev-share {
+.Event .share {
   top: 28rem;
   right: 12%;
 }
@@ -760,7 +768,7 @@ h2.organised_by span,
 h2.lineup span,
 .pricing h2 span {
   /* to hide the lines from behind the text, you have to set the background color the same as the container */
-  background: #fff;
+  background: #ffffff;
   padding: 0 15px;
 }
 
@@ -1178,16 +1186,25 @@ div.lineup {
     min-height: 35vh;
   }
 }
-@media only screen and (max-width: 768px) {
-  .Event .card-icon {
+@media only screen and (max-width: 960px) {
+  .Event .event-card-icon {
     padding: 0.5%; /* Decrease the padding on small screens */
+    float: right;
+    margin-right: 0em;
+    position: absolute;
   }
-  .Event .ev-bookmark,
-  .Event .ev-share {
+  .Event .bookmark {
+    top: -1.7rem; /* Reset the top value to let them follow the natural flow */
+    right: 0.5em;
+    position: relative; /* Change position to relative for natural flow positioning */
+    margin-top: 10px; /* Add a margin to create spacing between elements */
+  }
+  .Event .share {
     top: -1.7rem; /* Reset the top value to let them follow the natural flow */
     right: 6em;
     position: relative; /* Change position to relative for natural flow positioning */
     margin-top: 10px; /* Add a margin to create spacing between elements */
+    display: inline-flex;
   }
   .event-columns {
     flex-direction: column;
@@ -1220,20 +1237,20 @@ div.lineup {
   }
 }
 @media only screen and (max-width: 480px) {
-  .Event .card-icon {
+  .event-card-icon {
     padding: 0.5%; /* Decrease the padding on small screens */
     margin-right: -1em;
     float: right;
     position: absolute;
   }
-  .Event .ev-bookmark {
+  .bookmark {
     top: -1.7rem; /* Reset the top value to let them follow the natural flow */
     right: 1em;
     position: relative; /* Change position to relative for natural flow positioning */
     margin-top: 10px; /* Add a margin to create spacing between elements */
     display: inline-flex;
   }
-  .Event .ev-share {
+  .share {
     top: -1.7rem; /* Reset the top value to let them follow the natural flow */
     right: 5em;
     position: relative; /* Change position to relative for natural flow positioning */
