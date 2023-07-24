@@ -7,7 +7,6 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import LockIcon from "@mui/icons-material/Lock";
-import LoginIcon from "@mui/icons-material/Login";
 import Grid from "@mui/material/Grid";
 import axios from "axios";
 import { DatePicker } from "@mui/x-date-pickers";
@@ -24,6 +23,19 @@ function SignUpGuest() {
   const [confirmPassword, setPasswordConfirmation] = useState("");
   const [terms, setTerms] = useState("");
   const [privacy, setPrivacy] = useState("");
+  const pplabel = (
+    <span>
+      I accept Gigney's&nbsp;
+      <Link to="../privacy-policy">Privacy Policy</Link>
+    </span>
+  );
+
+  const tclabel = (
+    <span>
+      I agree to Gigney's&nbsp;
+      <Link to="../terms-of-use">Terms of Use</Link>
+    </span>
+  );
 
   const navigate = useNavigate();
 
@@ -74,7 +86,7 @@ function SignUpGuest() {
         <form className="signup-second-page-form" onSubmit={signupHandler}>
           <FormControl fullWidth>
             <Grid container columnSpacing={5}>
-              <Grid container item xs={6} direction="column">
+              <Grid container item xs={12} sm={6} direction="column">
                 <p>First name:</p>
                 <TextField
                   sx={{ marginBottom: "1%" }}
@@ -147,7 +159,7 @@ function SignUpGuest() {
                   }}
                 />
               </Grid>{" "}
-              <Grid container item xs={6} direction="column">
+              <Grid container item xs={12} sm={6} direction="column">
                 <p>Password:</p>
                 <TextField
                   sx={{ marginBottom: "1%" }}
@@ -189,7 +201,7 @@ function SignUpGuest() {
                 <FormControlLabel
                   required
                   control={<Checkbox />}
-                  label="I accept Gigney's terms of use"
+                  label={tclabel}
                   value={terms}
                   onChange={(event) => setTerms(event.target.value)}
                 />
@@ -197,7 +209,7 @@ function SignUpGuest() {
                   sx={{ marginBottom: "2vh" }}
                   required
                   control={<Checkbox />}
-                  label="I accept Gigney's privacy policy"
+                  label={pplabel}
                   value={privacy}
                   onChange={(event) => setPrivacy(event.target.value)}
                 />

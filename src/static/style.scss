@@ -350,6 +350,10 @@ a {
   }
 }
 
+.l-o-2{
+  display: none;
+}
+
 .dropdown-icon {
   margin-right: 2%;
 }
@@ -1155,7 +1159,7 @@ div.lineup {
   }
 
   .find-event-header {
-    min-height: 70vh;
+    min-height: 73vh;
   }
 
   // FOOTER
@@ -1192,7 +1196,48 @@ div.lineup {
 
   footer {
     font-size: 12px;
-    padding: 5% 0;
+    padding: 5% 1%;
+  }
+
+  .signup-second-page {
+    min-height: 100%;
+    height: 130%;
+    max-height: 170%;
+    gap: 1%;
+    padding: 8% 0;
+  }
+  
+  .signup-second-page-logo {
+    img {
+      width: 25vh;
+      margin: 2% 0;
+    }
+    h1 {
+      margin: 2% 0;
+      font-size: 2em;
+    }
+  }
+  
+  .signup-second-page-form {
+    width: 90%;
+    max-height: 100%;
+    @include flex-column;
+  
+    label {
+      font-size: 1.1em;
+    }
+  
+    p {
+      font-size: 1em;
+    }
+  }
+
+  .l-o-1{
+    display: none;
+  }
+
+  .l-o-2{
+    display: initial;
   }
 }
 

@@ -132,7 +132,7 @@ export default function Header({ user, isLoggedIn, setIsLoggedIn, setUser }) {
                   onClick={toggleDrawer(false)}
                 />
                 <div id="gigney-menu-logo">
-                  <img src="../gigney-logo-vertical.png" alt="gigney logo" />
+                  <img src="../gigney_logo_white_square_no_bg_web.png" alt="gigney logo" />
                 </div>
                 <h1>Menu</h1>
 

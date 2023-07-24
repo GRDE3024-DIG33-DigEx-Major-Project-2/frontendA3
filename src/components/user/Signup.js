@@ -66,9 +66,13 @@ function SignUp() {
                 Continue
               </Button>
               <p>&nbsp;</p>
-              <Link to="../Login" className="login-divert">
-                Already have an account? Login instead
+              <span className="login-link">
+              Already have an account?
+              <Link to="../Login">
+                 Login
               </Link>
+              instead
+            </span>
             </div>
           </FormControl>
         </div>

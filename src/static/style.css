@@ -343,6 +343,10 @@ a {
   font-size: 1.1em;
 }
 
+.l-o-2 {
+  display: none;
+}
+
 .dropdown-icon {
   margin-right: 2%;
 }
@@ -1134,7 +1138,7 @@ div.lineup {
     padding: auto;
   }
   .find-event-header {
-    min-height: 70vh;
+    min-height: 73vh;
   }
   .menu-footer {
     padding: 2% 1%;
@@ -1164,7 +1168,42 @@ div.lineup {
   }
   footer {
     font-size: 12px;
-    padding: 5% 0;
+    padding: 5% 1%;
+  }
+  .signup-second-page {
+    min-height: 100%;
+    height: 130%;
+    max-height: 170%;
+    gap: 1%;
+    padding: 8% 0;
+  }
+  .signup-second-page-logo img {
+    width: 25vh;
+    margin: 2% 0;
+  }
+  .signup-second-page-logo h1 {
+    margin: 2% 0;
+    font-size: 2em;
+  }
+  .signup-second-page-form {
+    width: 90%;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .signup-second-page-form label {
+    font-size: 1.1em;
+  }
+  .signup-second-page-form p {
+    font-size: 1em;
+  }
+  .l-o-1 {
+    display: none;
+  }
+  .l-o-2 {
+    display: initial;
   }
 }
 /* Small Phone */

@@ -7,7 +7,6 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import LockIcon from "@mui/icons-material/Lock";
-import LoginIcon from "@mui/icons-material/Login";
 import Grid from "@mui/material/Grid";
 import axios from "axios";
 
@@ -19,6 +18,19 @@ function SignUpOrganiser() {
   const [confirmPassword, setPasswordConfirmation] = useState("");
   const [terms, setTerms] = useState("");
   const [privacy, setPrivacy] = useState("");
+  const pplabel = (
+    <span>
+      I accept Gigney's&nbsp;
+      <Link to="../privacy-policy">Privacy Policy</Link>
+    </span>
+  );
+
+  const tclabel = (
+    <span>
+      I agree to Gigney's&nbsp;
+      <Link to="../terms-of-use">Terms of Use</Link>
+    </span>
+  );
 
   const navigate = useNavigate();
 
@@ -68,8 +80,8 @@ function SignUpOrganiser() {
         </div>
         <form className="signup-second-page-form" onSubmit={signupHandler}>
           <FormControl fullWidth>
-            <Grid container spacing={5}>
-              <Grid container item xs={6} direction="column">
+            <Grid container columnSpacing={{ xs: 5, sm: 2 }}>
+              <Grid container item xs={12} sm={6} direction="column">
                 <p>Organisation name:</p>
                 <TextField
                   sx={{ marginBottom: "1%" }}
@@ -120,15 +132,13 @@ function SignUpOrganiser() {
                   }}
                   variant="outlined"
                 />
-                <span className="link-organizer">
+                <span className="link-organizer l-o-1">
                   Already signed up?
-                  <Link to="../login">
-                    Login
-                  </Link>
+                  <Link to="../login">Login</Link>
                   instead
                 </span>
               </Grid>{" "}
-              <Grid container item xs={6} direction="column">
+              <Grid container item xs={12} sm={6} direction="column">
                 <p>Password:</p>
                 <TextField
                   sx={{ marginBottom: "1%" }}
@@ -170,7 +180,7 @@ function SignUpOrganiser() {
                 <FormControlLabel
                   required
                   control={<Checkbox />}
-                  label="I accept Gigney's terms of use"
+                  label={tclabel}
                   value={terms}
                   onChange={(event) => setTerms(event.target.value)}
                 />
@@ -178,7 +188,7 @@ function SignUpOrganiser() {
                   sx={{ marginBottom: "2vh" }}
                   required
                   control={<Checkbox />}
-                  label="I accept Gigney's privacy policy"
+                  label={pplabel}
                   value={privacy}
                   onChange={(event) => setPrivacy(event.target.value)}
                 />
@@ -192,6 +202,11 @@ function SignUpOrganiser() {
                   Sign up
                 </Button>
               </Grid>
+              <span className="link-organizer l-o-2">
+                Already signed up?
+                <Link to="../login">Login</Link>
+                instead
+              </span>
             </Grid>
           </FormControl>
         </form>
