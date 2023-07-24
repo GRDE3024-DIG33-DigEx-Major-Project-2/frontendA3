@@ -609,8 +609,7 @@ footer {
 /* Main image */
 .event-main-image {
   width: 100%;
-  max-width: 100%;
-  height: 400px;
+  max-height: 400px;
 }
 
 .Event .card-icon {
@@ -647,10 +646,6 @@ footer {
   margin: 20px;
 }
 
-.about {
-  flex: 70%;
-}
-
 .lineup {
   flex: 20%;
 }
@@ -659,11 +654,8 @@ footer {
   flex: 10%;
 }
 
-.pricing .tags {
-  flex: 70%;
-}
-
-.pricing {
+.pricing,
+.header {
   flex: 100%;
 }
 
@@ -811,19 +803,6 @@ div.lineup {
   padding: 15px 0 5px 0;
 }
 
-/* Media Queries for responsiveness */
-/* Adjust layout for screens smaller than 768px (e.g., smartphones) */
-@media only screen and (max-width: 767px) {
-  .event-columns {
-    flex-direction: column;
-  }
-  .event-columns-detail li {
-    width: 100%;
-  }
-  .event-buy-button {
-    margin: 10px auto;
-  }
-}
 /* HOMEPAGE */
 .home-section {
   padding-bottom: 30px;
@@ -1122,16 +1101,35 @@ div.lineup {
     min-height: 35vh;
   }
 }
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 768px) {
   .Event .card-icon {
     padding: 0.5%; /* Decrease the padding on small screens */
   }
   .Event .ev-bookmark,
   .Event .ev-share {
-    position: relative; /* Remove absolute positioning on small screens */
-    top: auto;
+    top: auto; /* Reset the top value to let them follow the natural flow */
     right: auto;
-    margin-top: 10px; /* Add some space between the icons and other content */
+    position: relative; /* Change position to relative for natural flow positioning */
+    margin-top: 10px; /* Add a margin to create spacing between elements */
+  }
+  .event-columns {
+    flex-direction: column;
+  }
+  .event-columns-detail li {
+    width: 100%;
+  }
+  .event-buy-button {
+    margin: 10px auto;
+  }
+  h2.event-details,
+  h2.organised_by,
+  h2.lineup,
+  .pricing h2 {
+    margin-top: 30px;
+    margin-bottom: 0px;
+    position: relative;
+    z-index: 1;
+    text-size-adjust: 5px;
   }
 }
 

@@ -30,7 +30,11 @@ function Event() {
 
   return (
     <div className="Event">
+    <div className="event-column-title">
+    <div className="header">
       <img className="event-main-image" alt="eventimage" src={imgUrl}></img>
+      </div>
+        </div>
       <div className="card-icon ev-share">
           <ShareIcon sx={{ fontSize: 22, color:"black" }} />
         </div>
