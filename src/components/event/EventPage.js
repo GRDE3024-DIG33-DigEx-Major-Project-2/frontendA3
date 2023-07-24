@@ -30,16 +30,18 @@ function Event() {
 
   return (
     <div className="Event">
-    <div className="event-column-title">
+
     <div className="header">
       <img className="event-main-image" alt="eventimage" src={imgUrl}></img>
       </div>
-        </div>
+      <p>&nbsp;</p>
+      <div className="event-column-title">
       <div className="card-icon ev-share">
           <ShareIcon sx={{ fontSize: 22, color:"black" }} />
         </div>
         <div className="card-icon ev-bookmark">
           <BookmarkAddIcon sx={{ fontSize: 23, color:"black" }} />
+        </div>
         </div>
       <div className="event-body">
         <div className="event-columns">

@@ -623,11 +623,11 @@ footer {
 }
 
 .Event .ev-bookmark {
-  top: 475px;
+  top: 460px;
   right: 5%;
 }
 .Event .ev-share {
-  top: 475px;
+  top: 460px;
   right: 12%;
 }
 
@@ -1124,6 +1124,9 @@ div.lineup {
 @media only screen and (max-width: 768px) {
   .Event .card-icon {
     padding: 0.5%; /* Decrease the padding on small screens */
+    margin-right: 10px;
+    float: right;
+    position: absolute;
   }
 
   .Event .ev-bookmark,
@@ -1132,6 +1135,7 @@ div.lineup {
     right: auto;
     position: relative; /* Change position to relative for natural flow positioning */
     margin-top: 10px; /* Add a margin to create spacing between elements */
+    display:inline-flex;
   }
   .event-columns {
     flex-direction: column;
@@ -1156,4 +1160,14 @@ h2.lineup,
   text-size-adjust: 5px;
 }
 
+.pricing td,
+.pricing tr{
+  font-size: 7px;
+}
+.css-i4bv87-MuiSvgIcon-root{
+  font-size:0.5rem;
+}
+.header{
+  max-height:345px;
+}
 }
