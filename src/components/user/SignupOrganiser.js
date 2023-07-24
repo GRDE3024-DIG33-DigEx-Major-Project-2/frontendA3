@@ -60,99 +60,112 @@ function SignUpOrganiser() {
     <>
       <div className="signup-second-page">
         <div className="signup-second-page-logo">
-          <img src="../gigney-logo-white.jpg" alt="gigney logo white" />
+          <img
+            src="../gigney_logo_black_square_no_bg_web.png"
+            alt="gigney logo"
+          />
           <h1>Create an account</h1>
         </div>
         <form className="signup-second-page-form" onSubmit={signupHandler}>
           <FormControl fullWidth>
-            <Grid container spacing={4} paddingBottom="15px">
+            <Grid container spacing={5}>
               <Grid container item xs={6} direction="column">
+                <p>Organisation name:</p>
                 <TextField
+                  sx={{ marginBottom: "1%" }}
                   value={organizationName}
                   required
                   onChange={(event) => setOrganizationName(event.target.value)}
                   id="input-with-icon-textfield"
-                  label="Organization Name"
+                  placeholder="Enter your organisation's name"
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <AccountCircle />
+                        <AccountCircle color="primary" />
                       </InputAdornment>
                     ),
                   }}
-                  variant="standard"
+                  variant="outlined"
                 />
+                <p>Email:</p>
                 <TextField
+                  sx={{ marginBottom: "1%" }}
                   value={email}
                   required
                   onChange={(event) => setEmail(event.target.value)}
                   id="email"
-                  label="Email"
+                  placeholder="Enter your email address"
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <ContactMailIcon />
+                        <ContactMailIcon color="primary" />
                       </InputAdornment>
                     ),
                   }}
-                  variant="standard"
+                  variant="outlined"
                 />
+                <p>Phone number:</p>
                 <TextField
                   value={phoneNumber}
                   required
                   onChange={(event) => setPhoneNumber(event.target.value)}
                   id="phone-number"
-                  label="Phone Number"
+                  placeholder="Enter your contact number"
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <ContactMailIcon />
+                        <ContactMailIcon color="primary" />
                       </InputAdornment>
                     ),
                   }}
-                  variant="standard"
+                  variant="outlined"
                 />
-                <div className="link-organizer">
-                  Already have an account?
-                  <Link to="../Login" className="login-link">
-                    Login instead
+                <span className="link-organizer">
+                  Already signed up?
+                  <Link to="../login">
+                    Login
                   </Link>
-                </div>
+                  instead
+                </span>
               </Grid>{" "}
               <Grid container item xs={6} direction="column">
+                <p>Password:</p>
                 <TextField
+                  sx={{ marginBottom: "1%" }}
                   value={password}
                   required
                   onChange={(event) => setPassword(event.target.value)}
                   id="password"
-                  label="Password"
+                  placeholder="Enter a new password"
                   type="password"
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <LockIcon />
+                        <LockIcon color="primary" />
                       </InputAdornment>
                     ),
                   }}
-                  variant="standard"
+                  variant="outlined"
                 />
+                <p>Confirm Password:</p>
                 <TextField
+                  sx={{ marginBottom: "2vh" }}
                   value={confirmPassword}
                   required
                   onChange={(event) =>
                     setPasswordConfirmation(event.target.value)
                   }
                   id="confirm-password"
-                  label="Confirm Password"
+                  placeholder="Enter your password again"
                   type="password"
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <LockIcon />
+                        <LockIcon color="primary" />
                       </InputAdornment>
                     ),
                   }}
-                  variant="standard"
+                  variant="outlined"
                 />
                 <FormControlLabel
                   required
@@ -162,6 +175,7 @@ function SignUpOrganiser() {
                   onChange={(event) => setTerms(event.target.value)}
                 />
                 <FormControlLabel
+                  sx={{ marginBottom: "2vh" }}
                   required
                   control={<Checkbox />}
                   label="I accept Gigney's privacy policy"
@@ -169,13 +183,13 @@ function SignUpOrganiser() {
                   onChange={(event) => setPrivacy(event.target.value)}
                 />
                 <Button
+                  fullWidth
                   variant="contained"
                   id="login-btn"
                   className="signup-submit"
                   type="submit"
-                  startIcon={<LoginIcon />}
                 >
-                  Submit
+                  Sign up
                 </Button>
               </Grid>
             </Grid>

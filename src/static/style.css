@@ -366,26 +366,32 @@ a {
 .signup-second-page {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: start;
   align-items: center;
   width: 100%;
-  height: 95vh;
+  height: 110vh;
+  gap: 10%;
+  padding: 5% 0 0 0;
 }
 
 .signup-second-page-logo {
   width: 100%;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 .signup-second-page-logo img {
   width: 30vh;
 }
 .signup-second-page-logo h1 {
-  margin: 0;
+  margin: 2% 0 0 0;
+  font-size: 3em;
 }
 
 .signup-second-page-form {
   width: 90%;
-  max-height: 50%;
+  max-height: 60%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -394,20 +400,23 @@ a {
 .signup-second-page-form label {
   font-size: 1.1em;
 }
-
-.guest {
-  color: #ffffff;
-  text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
+.signup-second-page-form p {
+  font-size: 1em;
 }
 
 .signup-submit {
   width: 90%;
 }
 
-.login-link {
+.login-link, .link-organizer {
+  text-align: center;
+  width: 100%;
+}
+.login-link a, .link-organizer a {
   text-decoration: underline;
   color: #f58146;
   font-weight: bold;
+  margin: 0 0.5%;
 }
 
 /*SIGNUP ORGANISER*/

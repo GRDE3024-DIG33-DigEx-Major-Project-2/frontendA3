@@ -10,12 +10,16 @@ import LockIcon from "@mui/icons-material/Lock";
 import LoginIcon from "@mui/icons-material/Login";
 import Grid from "@mui/material/Grid";
 import axios from "axios";
+import { DatePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
 
 function SignUpGuest() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [dob, setDob] = useState("");
+  const [dob, setDob] = useState(dayjs());
   const [password, setPassword] = useState("");
   const [confirmPassword, setPasswordConfirmation] = useState("");
   const [terms, setTerms] = useState("");
@@ -38,7 +42,7 @@ function SignUpGuest() {
         userType: "attendee",
         firstName: firstName,
         lastName: lastName,
-        dob: dob,
+        dob: dob.format("YYYY-MM-DD"),
         email: email,
         password: password,
       };
@@ -61,109 +65,126 @@ function SignUpGuest() {
     <>
       <div className="signup-second-page">
         <div className="signup-second-page-logo">
-          <img src="../gigney-logo-white.jpg" alt="gigney logo white" />
+          <img
+            src="../gigney_logo_black_square_no_bg_web.png"
+            alt="gigney logo"
+          />
           <h1>Create an account</h1>
         </div>
         <form className="signup-second-page-form" onSubmit={signupHandler}>
           <FormControl fullWidth>
-            <Grid container spacing={4}>
+            <Grid container columnSpacing={5}>
               <Grid container item xs={6} direction="column">
+                <p>First name:</p>
                 <TextField
+                  sx={{ marginBottom: "1%" }}
                   value={firstName}
                   required
                   onChange={(event) => setFirstName(event.target.value)}
                   id="input-with-icon-textfield"
-                  label="First Name:"
+                  placeholder="Enter your first name:"
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <AccountCircle />
+                        <AccountCircle color="primary" />
                       </InputAdornment>
                     ),
                   }}
-                  variant="standard"
+                  variant="outlined"
                 />
+                <p>Last name:</p>
                 <TextField
+                  sx={{ marginBottom: "1%" }}
                   value={lastName}
                   required
                   onChange={(event) => setLastName(event.target.value)}
                   id="input-with-icon-textfield-1"
-                  label="Last Name:"
+                  placeholder="Enter your last name:"
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <AccountCircle />
+                        <AccountCircle color="primary" />
                       </InputAdornment>
                     ),
                   }}
-                  variant="standard"
+                  variant="outlined"
                 />
+                <p>Email:</p>
                 <TextField
+                  sx={{ marginBottom: "1%" }}
                   value={email}
                   required
                   onChange={(event) => setEmail(event.target.value)}
                   id="email"
-                  label="Email:"
+                  placeholder="Enter your email address"
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <ContactMailIcon />
+                        <ContactMailIcon color="primary" />
                       </InputAdornment>
                     ),
                   }}
-                  variant="standard"
+                  variant="outlined"
                 />
-                <TextField
+                <p>Date:</p>
+                <DatePicker
+                  sx={{ marginBottom: "5%" }}
+                  onChange={(newDob) => setDob(newDob)}
                   value={dob}
-                  required
-                  onChange={(event) => setDob(event.target.value)}
-                  id="input-with-icon-textfield-2"
-                  label="Date of Birth:"
-                  type="Date"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <AccountCircle />
-                      </InputAdornment>
-                    ),
+                  slots={{
+                    openPickerIcon: ArrowDropDownOutlinedIcon,
                   }}
-                  variant="standard"
+                  slotProps={{
+                    textField: {
+                      InputProps: {
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <CalendarMonthIcon color="primary" />
+                          </InputAdornment>
+                        ),
+                      },
+                    },
+                  }}
                 />
               </Grid>{" "}
               <Grid container item xs={6} direction="column">
+                <p>Password:</p>
                 <TextField
+                  sx={{ marginBottom: "1%" }}
                   value={password}
                   required
                   onChange={(event) => setPassword(event.target.value)}
                   id="password"
-                  label="Password:"
+                  placeholder="Enter a new password"
                   type="password"
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <LockIcon />
+                        <LockIcon color="primary" />
                       </InputAdornment>
                     ),
                   }}
-                  variant="standard"
+                  variant="outlined"
                 />
+                <p>Confirm Password:</p>
                 <TextField
+                  sx={{ marginBottom: "2vh" }}
                   value={confirmPassword}
                   required
                   onChange={(event) =>
                     setPasswordConfirmation(event.target.value)
                   }
                   id="confirm-password"
-                  label="Confirm Password:"
+                  placeholder="Enter your password again"
                   type="password"
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <LockIcon />
+                        <LockIcon color="primary" />
                       </InputAdornment>
                     ),
                   }}
-                  variant="standard"
+                  variant="outlined"
                 />
                 <FormControlLabel
                   required
@@ -173,28 +194,31 @@ function SignUpGuest() {
                   onChange={(event) => setTerms(event.target.value)}
                 />
                 <FormControlLabel
+                  sx={{ marginBottom: "2vh" }}
                   required
                   control={<Checkbox />}
                   label="I accept Gigney's privacy policy"
                   value={privacy}
                   onChange={(event) => setPrivacy(event.target.value)}
                 />
-
                 <Button
+                  fullWidth
                   variant="contained"
                   id="login-btn"
                   className="signup-submit"
                   type="submit"
-                  startIcon={<LoginIcon />}
                 >
                   Submit
                 </Button>
               </Grid>
             </Grid>
-
-            <Link to="../Login" className="login-link">
-              Already have an account? Login instead
-            </Link>
+            <span className="login-link">
+              Already have an account?
+              <Link to="../Login">
+                 Login
+              </Link>
+              instead
+            </span>
           </FormControl>
         </form>
       </div>
