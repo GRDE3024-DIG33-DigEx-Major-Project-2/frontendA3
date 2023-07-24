@@ -25,53 +25,64 @@ function SignUp() {
       <div className="signup">
         <div className="signup-left">
           <div className="signup-logo">
-            <img src="../gigney_logo_black_square_no_bg_web.png" alt="gigney logo" />
+            <img
+              src="../gigney_logo_black_square_no_bg_web.png"
+              alt="gigney logo"
+            />
             <h1>Create an account</h1>
           </div>
-            <FormControl onSubmit={handleChange} className="signup-form">
-              <InputLabel id="demo-simple-select-label">
-                What would you like to do on this site?
-              </InputLabel>
-              <Select
-                fullWidth
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={accountType}
-                onChange={(event) => setAccountType(event.target.value)}
-              >
-                <MenuItem id="guest" value={"guest"}>
-                  <LocationOnIcon color="primary" className="dropdown-icon" />
-                  Search for events
-                </MenuItem>
-                <MenuItem id="organiser" value={"organiser"}>
-                  <AddCircleOutlineRoundedIcon
-                    color="primary"
-                    className="dropdown-icon"
-                  />
-                  Create an event
-                </MenuItem>
-              </Select>
+          <FormControl onSubmit={handleChange} className="signup-form">
+            <InputLabel id="demo-simple-select-label">
+              What would you like to do on this site?
+            </InputLabel>
+            <Select
+              fullWidth
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={accountType}
+              onChange={(event) => setAccountType(event.target.value)}
+            >
+              <MenuItem id="guest" value={"guest"}>
+                <LocationOnIcon color="primary" className="dropdown-icon" />
+                Search for events
+              </MenuItem>
+              <MenuItem id="organiser" value={"organiser"}>
+                <AddCircleOutlineRoundedIcon
+                  color="primary"
+                  className="dropdown-icon"
+                />
+                Create an event
+              </MenuItem>
+            </Select>
             <div className="signup-next-button">
               <Button
-                sx={{color:"black", backgroundColor:"#f58146"}}
+                sx={{ color: "black", backgroundColor: "#f58146" }}
                 className="input-btn"
                 id="next-button"
                 type="submit"
                 onClick={handleClick}
                 variant="contained"
-              >Continue
+              >
+                Continue
               </Button>
               <p>&nbsp;</p>
               <Link to="../Login" className="login-divert">
                 Already have an account? Login instead
               </Link>
             </div>
-            </FormControl>
+          </FormControl>
         </div>
 
         <div className="signup-right">
-          {" "}
-          <img src="Gigney-signup-img.png" alt="live concert" />{" "}
+        {" "}
+          <img src="Gigney-signup-img.png" alt="live concert" id="signup-right-img" />{" "}
+          <div id="mobile-signup-logo">
+            <img
+              src="./gigney_logo_white_square_no_bg_web.png"
+              alt="live concert"
+              id="signup-logo-img"
+            />
+          </div>
         </div>
       </div>
     </>
