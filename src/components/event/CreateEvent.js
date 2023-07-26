@@ -7,36 +7,25 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
-import { useState, Component } from "react";
-import ReactDOM from "react-dom/client";
-import { useNavigate, Link } from "react-router-dom";
-import { FormControl, TextField, InputAdornment, Hidden } from "@mui/material";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import ContactMailIcon from "@mui/icons-material/ContactMail";
-import LockIcon from "@mui/icons-material/Lock";
-import LoginIcon from "@mui/icons-material/Login";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { FormControl, TextField, InputAdornment } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Select from "@mui/material/Select";
-import Input from "@mui/base/Input";
 import Chip from "@mui/material/Chip";
 import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import { useTheme } from "@mui/material/styles";
-import { Create, Height } from "@mui/icons-material";
-import event from "./EventPage.js";
 import { Suspense } from "react";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { StaticTimePicker } from "@mui/x-date-pickers/StaticTimePicker";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { renderTimeViewClock } from "@mui/x-date-pickers/timeViewRenderers";
+import { Checkbox } from "@mui/material";
+import { getAllTags } from "../../utils/utils";
 
 const steps = [
   "Basic Information",
@@ -48,19 +37,14 @@ const steps = [
 ];
 
 function CreateEvent() {
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set());
-
+  const [activeStep, setActiveStep] = useState(0);
+  const [skipped, setSkipped] = useState(new Set());
   const [eventName, setEventName] = useState("");
-  const [eventOrganiser, setEventOrganiser] = useState("");
-  const [description, setDescription] = useState("");
-  const [tags, setTags] = useState("");
   const [artistName, setArtistName] = useState("");
   const [artistName2, setArtistName2] = useState("");
   const [artistName3, setArtistName3] = useState("");
   const [artistName4, setArtistName4] = useState("");
   const [eventSummary, setEventSummary] = useState("");
-  const [eventURL, setEventURL] = useState("");
   const [venueName, setVenueName] = useState("");
   const [venueOrganiser, setVenueOrganiser] = useState("");
   const [eventAddress1, setEventAddress1] = useState("");
@@ -69,18 +53,63 @@ function CreateEvent() {
   const [eventCountry, setEventCountry] = useState("");
   const [eventState, setEventState] = useState("");
   const [eventPostCode, setEventPostCode] = useState("");
-  const [eventStartDate, setEventStartDate] = React.useState(null);
-  const [eventEndDate, setEventEndDate] = React.useState(null);
-  const [eventStartTime, setEventStartTime] = React.useState(null);
-  const [eventEndTime, setEventEndTime] = React.useState(null);
+  const [eventStartDate, setEventStartDate] = useState(null);
+  const [eventEndDate, setEventEndDate] = useState(null);
+  const [eventStartTime, setEventStartTime] = useState(null);
+  const [eventEndTime, setEventEndTime] = useState(null);
   const [eventTimezone, setEventTimezone] = useState("");
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     eventFree: false,
     eventPaid: false,
   });
   const [eventTierName, setEventTierName] = useState("");
   const [eventPrice, setEventPrice] = useState("");
   const [selectedImage, setSelectedImage] = useState();
+
+  const navigate = useNavigate();
+
+  //** FIRST SCREEN - BASIC INFO **//
+  const [eventOrganiser, setEventOrganiser] = useState("");
+  const [description, setDescription] = useState("");
+  const [tags, setTags] = useState([]);
+  const [availableTags, setAvailableTags] = useState([]);
+  const [eventURL, setEventURL] = useState("");
+
+  /**
+   * Fetch api data on load
+   */
+  useEffect(() => {
+    /**
+     * Get all pre-defined tags/genres
+     */
+    async function fetchTags() {
+      const tags = await getAllTags();
+      setAvailableTags(tags);
+    }
+
+    //Get tags
+    fetchTags();
+  }, [setAvailableTags]);
+
+  // select keywords styling
+  const ITEM_HEIGHT = 48;
+  const ITEM_PADDING_TOP = -55;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 250,
+      },
+    },
+  };
+
+  // select tags handler
+  const selectTags = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setTags(typeof value === "string" ? value.split(",") : value);
+  };
 
   const isStepOptional = (step) => {
     return step === "";
@@ -128,8 +157,6 @@ function CreateEvent() {
     setActiveStep(0);
   };
 
-  const navigate = useNavigate();
-
   const submitEvent = () => {
     navigate("/dashboard");
     console.log(
@@ -148,29 +175,6 @@ function CreateEvent() {
     console.log(eventName, eventOrganiser, description, tags);
   };
 
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
-  };
-
-  function getStyles(name, personName, theme) {
-    return {
-      fontWeight:
-        personName.indexOf(name) === -1
-          ? theme.typography.fontWeightRegular
-          : theme.typography.fontWeightMedium,
-    };
-  }
-
-  const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
-
   const deleteEvent = () => {
     navigate("/dashboard");
   };
@@ -179,31 +183,8 @@ function CreateEvent() {
     navigate("/dashboard");
   };
 
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
-
-  const names = [
-    "Pop",
-    "Punk",
-    "Country",
-    "Electronic",
-    "18+",
-    "EDM",
-    "Heavy Metal",
-    "Indoors",
-    "Outdoors",
-    "Smoking Allowed",
-  ];
-
-  const arrayDataItems = names.map((name) => (
-    <span className="event-tag">{name}</span>
+  const arrayDataItems = availableTags.map((tag) => (
+    <span className="event-tag">{tag.name}</span>
   ));
 
   const imageChange = (e) => {
@@ -252,7 +233,7 @@ function CreateEvent() {
           })}
         </Stepper>
         {activeStep === steps.length ? (
-          <React.Fragment>
+          <>
             <Typography sx={{ mt: 2, mb: 1 }}>
               <h2>Event preview</h2>
               <div className="Event">
@@ -339,11 +320,12 @@ function CreateEvent() {
               <Button onClick={handleReset}>Edit</Button>
               <Button onClick={submitEvent}>Publish</Button>
             </Box>
-          </React.Fragment>
+          </>
         ) : (
-          <React.Fragment>
+          <>
             <div id="create-event-screen">
               {(() => {
+                // FIRST SCREEN - BASIC INFO
                 if (activeStep === 0) {
                   return (
                     <>
@@ -354,6 +336,7 @@ function CreateEvent() {
                             <FormControl fullWidth>
                               <Grid container spacing={2} paddingBottom="15px">
                                 <Grid container item xs={6} direction="column">
+                                  <p>Event Name:</p>
                                   <TextField
                                     fullWidth
                                     value={eventName}
@@ -361,12 +344,13 @@ function CreateEvent() {
                                     onChange={(event) =>
                                       setEventName(event.target.value)
                                     }
-                                    id="input-with-icon-textfield"
-                                    label="Event Name"
-                                    variant="standard"
+                                    id="create-event-name"
+                                    placeholder="Enter the event name"
+                                    variant="outlined"
                                   />
                                 </Grid>
                                 <Grid container item xs={6} direction="column">
+                                  <p>Event Organiser:</p>
                                   <TextField
                                     fullWidth
                                     value={eventOrganiser}
@@ -374,12 +358,13 @@ function CreateEvent() {
                                     onChange={(event) =>
                                       setEventOrganiser(event.target.value)
                                     }
-                                    id="input-with-icon-textfield"
-                                    label="Organiser"
-                                    variant="standard"
+                                    id="create-event-organiser"
+                                    placeholder="Enter the event organiser"
+                                    variant="outlined"
                                   />
                                 </Grid>
                                 <Grid container item l={12} direction="row">
+                                  <p>Event description:</p>
                                   <TextField
                                     fullWidth
                                     value={description}
@@ -387,27 +372,23 @@ function CreateEvent() {
                                     onChange={(event) =>
                                       setDescription(event.target.value)
                                     }
-                                    label="Description"
+                                    placeholder="Enter a description for the event"
                                     multiline
-                                    id="standard-multiline-static"
-                                    variant="standard"
+                                    id="create-event-description"
+                                    variant="outlined"
                                     rows={8}
                                   />
                                 </Grid>{" "}
                                 <Grid container item xs={12} direction="column">
+                                  <p>Keywords</p>
                                   <Select
                                     fullWidth
-                                    labelId="demo-multiple-chip-label"
-                                    id="demo-multiple-chip"
+                                    id="create-event-multiple-tags"
                                     multiple
-                                    label="Tags"
-                                    value={personName}
-                                    onChange={handleChange}
+                                    value={tags}
+                                    onChange={selectTags}
                                     input={
-                                      <OutlinedInput
-                                        id="select-multiple-chip"
-                                        label="Tags"
-                                      />
+                                      <OutlinedInput id="select-multiple-chip" />
                                     }
                                     renderValue={(selected) => (
                                       <Box
@@ -418,26 +399,39 @@ function CreateEvent() {
                                         }}
                                       >
                                         {selected.map((value) => (
-                                          <Chip key={value} label={value} />
+                                          <Chip
+                                            key={value}
+                                            sx={{
+                                              backgroundColor: "#7759A6",
+                                              color: "white",
+                                            }}
+                                            label={value}
+                                          />
                                         ))}
                                       </Box>
                                     )}
                                     MenuProps={MenuProps}
                                   >
-                                    {names.map((name) => (
-                                      <MenuItem
-                                        key={name}
-                                        value={name}
-                                        style={getStyles(
-                                          name,
-                                          personName,
-                                          theme
-                                        )}
-                                      >
-                                        {name}
+                                    {availableTags.map((tag) => (
+                                      <MenuItem key={tag.id} value={tag.name}>
+                                        {tag.name}
                                       </MenuItem>
                                     ))}
                                   </Select>
+                                </Grid>
+                                <Grid container item xs={6} direction="column">
+                                  <p>Event purchase URL:</p>
+                                  <TextField
+                                    fullWidth
+                                    value={eventURL}
+                                    required
+                                    onChange={(event) =>
+                                      setEventURL(event.target.value)
+                                    }
+                                    placeholder="Enter a URL for ticket purchasing"
+                                    id="create-event-eventURL"
+                                    variant="outlined"
+                                  />
                                 </Grid>
                               </Grid>
                             </FormControl>
@@ -945,30 +939,75 @@ function CreateEvent() {
                 }
               })()}
             </div>
-            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-              <Button
-                color="inherit"
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                sx={{ mr: 1 }}
-              >
-                Back
-              </Button>
-              <Button onClick={deleteEvent}>Discard Event</Button>
-              <Box sx={{ flex: "1 1 auto" }} />
-              {isStepOptional(activeStep) && (
-                <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                  Skip
+            <Box sx={{ margin: "1% 2%" }} id="create-ev-bttns">
+              <div id="create-ev-bttns-left">
+                <Button
+                  id="disable-ev-btn"
+                  className={activeStep === 0 ? "hide" : "show"}
+                  variant="contained"
+                  disabled={activeStep === 0}
+                  onClick={handleBack}
+                >
+                  Go back a step
                 </Button>
-              )}
-              <Button onClick={saveExit}>Save & Exit</Button>
-              <Button onClick={handleNext}>
-                {activeStep === steps.length - 1
-                  ? "Save & Preview"
-                  : "Save & Continue"}
-              </Button>
+                <Button
+                  id="discard-ev-btn"
+                  sx={{
+                    color: "#7759A6",
+                    backgroundColor: "#ffffff",
+                    border: "solid 2px #7759A6",
+                  }}
+                  variant="contained"
+                  onClick={deleteEvent}
+                >
+                  Discard event
+                </Button>
+                {isStepOptional(activeStep) && (
+                  <Button
+                    id="skip-ev-btn"
+                    sx={{
+                      color: "black",
+                      backgroundColor: "#f58146",
+                      border: "solid 2px #f58146",
+                    }}
+                    variant="contained"
+                    onClick={handleSkip}
+                  >
+                    Skip
+                  </Button>
+                )}
+              </div>
+              <div id="create-ev-bttns-right">
+                <Button
+                id="save-exit-ev-btn"
+                  sx={{
+                    color: "#7759A6",
+                    backgroundColor: "#ffffff",
+                    border: "solid 2px #7759A6",
+                  }}
+                  variant="contained"
+                  className="input-btn"
+                  onClick={saveExit}
+                >
+                  Save & Exit
+                </Button>
+                <Button
+                  id="save-cont-ev-btn"
+                  sx={{
+                    color: "black",
+                    backgroundColor: "#f58146",
+                    border: "solid 2px #f58146",
+                  }}
+                  variant="contained"
+                  onClick={handleNext}
+                >
+                  {activeStep === steps.length - 1
+                    ? "Save & Preview"
+                    : "Save & Continue"}
+                </Button>
+              </div>
             </Box>
-          </React.Fragment>
+          </>
         )}
       </Box>
     </div>

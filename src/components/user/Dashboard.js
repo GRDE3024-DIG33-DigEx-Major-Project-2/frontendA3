@@ -29,12 +29,6 @@ const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
     console.log("redirecting to delete page or pop up");
   };
 
-  const navigate = useNavigate();
-
-  const createNewEventHandler = () => {
-    navigate("/createevent");
-  };
-
   return (
     <>
       <div className="profile-container">
@@ -115,7 +109,7 @@ const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
                 <h2>Created Events</h2>
                 <Link
                   className="bttn-style-orange"
-                  onClick={createNewEventHandler}
+                  to="/createevent"
                 >
                   Create a new event
                 </Link>

@@ -367,7 +367,8 @@ a {
   color: $white;
 }
 
-.mobile-signup-logo, .mobile-login-logo {
+.mobile-signup-logo,
+.mobile-login-logo {
   display: none;
 }
 
@@ -938,15 +939,49 @@ div.lineup {
 }
 
 #create-event-screen {
-  height: 60vh;
   max-width: 100%;
   min-height: 65vh;
+  max-height: 90vh;
   background-color: $white;
   padding: 2%;
   margin: 2%;
+  h2 {
+    font-size: 2em;
+  }
 }
-#create-event-screen h2 {
-  font-size: 2em;
+
+#create-ev-bttns {
+  @include flex-row(space-between, center);
+  div{
+    width: 30%;
+    gap: 5%;
+  }
+}
+
+#create-ev-bttns-left{
+  @include flex-row(left, center);
+}
+
+#create-ev-bttns-right{
+  @include flex-row(right, center);
+}
+
+#save-cont-ev-btn, #skip-ev-btn, #disable-ev-btn, #disable-ev-btn-show {
+  background-color: $orange1;
+  color: $black;
+}
+
+.show{
+  display: initial;
+}
+
+.hide{
+  display: none;
+}
+
+#discard-ev-btn, #save-exit-ev-btn {
+  background-color: $white;
+  color: $purple1;
 }
 
 .create-event-header {
@@ -1115,14 +1150,16 @@ div.lineup {
     height: 3em;
   }
 
-  .mobile-signup-logo, .mobile-login-logo {
+  .mobile-signup-logo,
+  .mobile-login-logo {
     display: block;
     position: absolute;
     width: 50%;
     top: 15%;
     left: 25%;
 
-    .signup-logo-img, .login-logo-img {
+    .signup-logo-img,
+    .login-logo-img {
       object-fit: cover;
       max-width: 100%;
       max-height: 100%;
@@ -1145,17 +1182,17 @@ div.lineup {
     width: 100%;
   }
 
-  .left{
+  .left {
     height: 40%;
   }
 
-  .right{
+  .right {
     height: 60%;
     .login-logo {
       img {
         display: none;
       }
-  
+
       h1 {
         font-size: 2.5em;
       }
@@ -1166,7 +1203,6 @@ div.lineup {
     filter: brightness(40%);
     width: 100%;
   }
-  
 
   .login-form {
     @include flex-column(left, left);
@@ -1288,9 +1324,9 @@ div.lineup {
     display: initial;
   }
 
-  .right{
+  .right {
     padding: 4% 0;
-    h1{
+    h1 {
       margin-top: -10%;
     }
   }
