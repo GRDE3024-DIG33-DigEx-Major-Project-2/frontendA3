@@ -1,12 +1,9 @@
 // we can use this file for shared global scope functions
 import axios from "axios";
+import { baseURL } from "../props/API_URLS";
 
-// URL FOR DEPLOYED VERSION
-// const searchEventsURL = "https://gigney.ryanriddiford.com/event/search-page";
-
-// URL FOR LOCALHOST
-const searchEventsURL = "http://localhost:3000/event/search-page";
-const getAllTagsUrl = "http://localhost:3000/event/tags"
+const searchEventsURL = baseURL + "event/search-page";
+const getAllTagsUrl = baseURL + "event/tags"
 
 // Get all events from endpoint - can specify genre
 export const getAllEvents = async function (tagId) {

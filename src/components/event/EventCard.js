@@ -34,15 +34,15 @@ const EventCard = (props) => {
     }
 
   return (
-    <Card className="event-card">
-      <CardActionArea onClick={cardRedirect}>
+    <Card className="event-card" >
+      <CardActionArea onClick={cardRedirect} sx={{height: "100%"}}>
         <CardMedia
+          className="event-card-media"
           component="img"
-          height="140"
           image= {imgUrl}
           alt={props.event.event.title}
         />
-        <CardContent>
+        <CardContent sx={{minHeight:"50%"}}>
           <h3 className="card-name">{props.event.event.title}</h3>
           <p className="card-date"><CalendarTodayIcon sx={{ fontSize: 15}}/>  {stringDate}</p>
           <p className="card-location"><LocationOnOutlinedIcon sx={{ fontSize: 15}}/>  {props.event.event.venueName}</p>
