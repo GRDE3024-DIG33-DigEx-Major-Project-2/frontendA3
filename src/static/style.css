@@ -979,22 +979,59 @@ div.lineup {
   align-items: center;
 }
 
-#save-cont-ev-btn, #skip-ev-btn, #disable-ev-btn, #disable-ev-btn-show {
+#save-cont-ev-btn,
+#skip-ev-btn,
+#disable-ev-btn,
+#disable-ev-btn-show,
+#hide,
+#show {
   background-color: #f58146;
   color: #000000;
+  border: solid 2px #f58146;
 }
 
-.show {
+#show {
   display: initial;
 }
 
-.hide {
+#hide {
   display: none;
 }
 
-#discard-ev-btn, #save-exit-ev-btn {
+#save-exit-ev-btn {
   background-color: #ffffff;
   color: #7759a6;
+  border: solid 2px #7759a6;
+}
+
+#stepper-box {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 4%;
+  position: relative;
+}
+
+.MuiLinearProgress-root {
+  width: 100% !important;
+  height: 15px !important;
+  background-color: #ffffff !important;
+  border: solid 1px #000000;
+}
+
+.MuiMobileStepper-root {
+  padding: 0 0 0 0 !important;
+}
+
+#discard-ev-btn {
+  position: absolute;
+  right: 2%;
+  color: #f58146;
+  text-decoration: none;
+  font-size: 1.2em;
 }
 
 .create-event-header {

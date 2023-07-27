@@ -1,15 +1,17 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FormControl, TextField, InputAdornment } from "@mui/material";
+import {
+  FormControl,
+  TextField,
+  InputAdornment,
+  MobileStepper,
+} from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Select from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
@@ -26,15 +28,7 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { renderTimeViewClock } from "@mui/x-date-pickers/timeViewRenderers";
 import { Checkbox } from "@mui/material";
 import { getAllTags } from "../../utils/utils";
-
-const steps = [
-  "Basic Information",
-  "Artists and Summary",
-  "Location",
-  "Date and Time",
-  "Pricing",
-  "Event Media",
-];
+import { Link } from "@mui/material";
 
 function CreateEvent() {
   const [activeStep, setActiveStep] = useState(0);
@@ -120,7 +114,7 @@ function CreateEvent() {
   };
 
   const handleNext = (e) => {
-    if (activeStep === steps.length - 1 && !selectedImage) {
+    if (activeStep === 5 && !selectedImage) {
       alert("Please upload an image to proceed");
     } else {
       let newSkipped = skipped;
@@ -213,26 +207,24 @@ function CreateEvent() {
         <h1>Create an event</h1>
       </div>
       <Box className="create-event-stepper" sx={{ width: "100%" }}>
-        <Stepper activeStep={activeStep}>
-          {steps.map((label, index) => {
-            const stepProps = {};
-            const labelProps = {};
-            if (isStepOptional(index)) {
-              labelProps.optional = (
-                <Typography variant="caption">Optional</Typography>
-              );
-            }
-            if (isStepSkipped(index)) {
-              stepProps.completed = false;
-            }
-            return (
-              <Step key={label} {...stepProps}>
-                <StepLabel {...labelProps}>{label}</StepLabel>
-              </Step>
-            );
-          })}
-        </Stepper>
-        {activeStep === steps.length ? (
+        <div id="stepper-box">
+          <span>
+            <h2>
+              {"Step " + parseInt(parseInt(activeStep) + parseInt(1)) + " of 6"}
+            </h2>
+          </span>
+          <MobileStepper
+            variant="progress"
+            steps={6}
+            position="static"
+            activeStep={activeStep}
+            sx={{ width: "30%" }}
+          />
+          <Link id="discard-ev-btn" onClick={deleteEvent}>
+            Discard event
+          </Link>
+        </div>
+        {activeStep === 6 ? (
           <>
             <Typography sx={{ mt: 2, mb: 1 }}>
               <h2>Event preview</h2>
@@ -942,34 +934,16 @@ function CreateEvent() {
             <Box sx={{ margin: "1% 2%" }} id="create-ev-bttns">
               <div id="create-ev-bttns-left">
                 <Button
-                  id="disable-ev-btn"
-                  className={activeStep === 0 ? "hide" : "show"}
+                  id={activeStep === 0 ? "hide" : "show"}
                   variant="contained"
                   disabled={activeStep === 0}
                   onClick={handleBack}
                 >
                   Go back a step
                 </Button>
-                <Button
-                  id="discard-ev-btn"
-                  sx={{
-                    color: "#7759A6",
-                    backgroundColor: "#ffffff",
-                    border: "solid 2px #7759A6",
-                  }}
-                  variant="contained"
-                  onClick={deleteEvent}
-                >
-                  Discard event
-                </Button>
                 {isStepOptional(activeStep) && (
                   <Button
                     id="skip-ev-btn"
-                    sx={{
-                      color: "black",
-                      backgroundColor: "#f58146",
-                      border: "solid 2px #f58146",
-                    }}
                     variant="contained"
                     onClick={handleSkip}
                   >
@@ -979,12 +953,7 @@ function CreateEvent() {
               </div>
               <div id="create-ev-bttns-right">
                 <Button
-                id="save-exit-ev-btn"
-                  sx={{
-                    color: "#7759A6",
-                    backgroundColor: "#ffffff",
-                    border: "solid 2px #7759A6",
-                  }}
+                  id="save-exit-ev-btn"
                   variant="contained"
                   className="input-btn"
                   onClick={saveExit}
@@ -993,17 +962,10 @@ function CreateEvent() {
                 </Button>
                 <Button
                   id="save-cont-ev-btn"
-                  sx={{
-                    color: "black",
-                    backgroundColor: "#f58146",
-                    border: "solid 2px #f58146",
-                  }}
                   variant="contained"
                   onClick={handleNext}
                 >
-                  {activeStep === steps.length - 1
-                    ? "Save & Preview"
-                    : "Save & Continue"}
+                  {activeStep === 5 ? "Save & Preview" : "Save & Continue"}
                 </Button>
               </div>
             </Box>

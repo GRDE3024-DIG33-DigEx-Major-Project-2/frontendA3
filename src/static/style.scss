@@ -952,36 +952,71 @@ div.lineup {
 
 #create-ev-bttns {
   @include flex-row(space-between, center);
-  div{
+  div {
     width: 30%;
     gap: 5%;
   }
 }
 
-#create-ev-bttns-left{
+#create-ev-bttns-left {
   @include flex-row(left, center);
 }
 
-#create-ev-bttns-right{
+#create-ev-bttns-right {
   @include flex-row(right, center);
 }
 
-#save-cont-ev-btn, #skip-ev-btn, #disable-ev-btn, #disable-ev-btn-show {
+#save-cont-ev-btn,
+#skip-ev-btn,
+#disable-ev-btn,
+#disable-ev-btn-show,
+#hide,
+#show {
   background-color: $orange1;
   color: $black;
+  border: solid 2px $orange1;
 }
 
-.show{
+#show {
   display: initial;
 }
 
-.hide{
+#hide {
   display: none;
 }
 
-#discard-ev-btn, #save-exit-ev-btn {
+#save-exit-ev-btn {
   background-color: $white;
   color: $purple1;
+  border: solid 2px $purple1;
+}
+
+#stepper-box {
+  width: 100%;
+  height: 10%;
+  @include flex-row(center, center);
+  gap: 4%;
+  position: relative;
+}
+
+.MuiLinearProgress-root {
+  width: 100% !important;
+  height: 15px !important;
+  background-color: $white !important;
+  border: solid 1px $black;
+}
+
+.MuiMobileStepper-root {
+  padding:0 0 0 0 !important;
+}
+
+#discard-ev-btn {
+  position: absolute;
+  right:2%;
+  color: $orange1;
+  text-decoration: none;
+  font-size: 1.2em;
+  
 }
 
 .create-event-header {
