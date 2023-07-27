@@ -36,7 +36,7 @@ $border: #dfdfdf;
 }
 
 @mixin interaction-expand-on-hover() {
-  transform: scale(1.1);
+  transform: scale(1.05);
   cursor: pointer;
 }
 
@@ -57,6 +57,11 @@ header {
   a {
     color: $white;
   }
+}
+
+a:hover {
+  cursor: pointer;
+  @include interaction-expand-on-hover();
 }
 
 nav {
@@ -969,9 +974,7 @@ div.lineup {
 #save-cont-ev-btn,
 #skip-ev-btn,
 #disable-ev-btn,
-#disable-ev-btn-show,
-#hide,
-#show {
+#disable-ev-btn-show {
   background-color: $orange1;
   color: $black;
   border: solid 2px $orange1;
@@ -985,7 +988,9 @@ div.lineup {
   display: none;
 }
 
-#save-exit-ev-btn {
+#save-exit-ev-btn,
+#hide,
+#show {
   background-color: $white;
   color: $purple1;
   border: solid 2px $purple1;
@@ -1007,16 +1012,15 @@ div.lineup {
 }
 
 .MuiMobileStepper-root {
-  padding:0 0 0 0 !important;
+  padding: 0 0 0 0 !important;
 }
 
 #discard-ev-btn {
   position: absolute;
-  right:2%;
-  color: $orange1;
-  text-decoration: none;
+  right: 2%;
   font-size: 1.2em;
-  
+  text-decoration: underline;
+  color: $orange1;
 }
 
 .create-event-header {
@@ -1039,24 +1043,24 @@ div.lineup {
   max-width: 94%;
 }
 
-.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
-  color: $darkblue !important;
+.add-artist-fab, .remove-artist-fab {
+  width: 25px !important;
+  height: 25px !important;
+  min-height: 25px !important;
+  background-color: $white !important;
+  border: solid 2px $orange1 !important;
 }
 
-.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
-  color: $lightpurple !important;
+.fab-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 7%;
+  padding-bottom: 0.07%;
 }
 
-.css-14lo706 {
-  overflow: visible !important;
-}
-
-.css-14lo706 > span {
-  opacity: 100 !important;
-}
-
-.css-14lo706 {
-  padding-bottom: 10px;
+.add-artist-fab:hover, .remove-artist-fab:hover{
+  @include interaction-expand-on-hover();
 }
 
 .preview-image {

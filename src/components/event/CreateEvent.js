@@ -221,7 +221,7 @@ function CreateEvent() {
             sx={{ width: "30%" }}
           />
           <Link id="discard-ev-btn" onClick={deleteEvent}>
-            Discard event
+            Discard this event
           </Link>
         </div>
         {activeStep === 6 ? (
@@ -435,13 +435,15 @@ function CreateEvent() {
                 } else if (activeStep === 1) {
                   return (
                     <>
+                      {/* PAGE 2 - ARTISTS AND SUMMARY */}
                       <h2>Artists and summary</h2>
                       <div className="">
                         <Box alignItems="center" justifyContent="center">
                           <form onSubmit={signupHandler}>
                             <FormControl fullWidth>
-                              <Grid container spacing={3} paddingBottom="15px">
+                              <Grid container spacing={2} paddingBottom="15px">
                                 <Grid container item xs={5} direction="column">
+                                  <p>Artist name:</p>
                                   <TextField
                                     fullWidth
                                     value={artistName}
@@ -449,11 +451,35 @@ function CreateEvent() {
                                     onChange={(event) =>
                                       setArtistName(event.target.value)
                                     }
-                                    id="input-with-icon-textfield"
-                                    label="Artist Name"
-                                    variant="standard"
-                                    placeholder="add artists name"
-                                  />{" "}
+                                    id="create-event-an1"
+                                    placeholder="Enter an artist's name"
+                                    variant="outlined"
+                                  />
+                                </Grid>
+                                <Grid
+                                  container
+                                  item
+                                  xs={1}
+                                  direction="column"
+                                  className="fab-container"
+                                >
+                                  <Fab
+                                    className="add-artist-fab"
+                                    id="add-artist-1"
+                                    aria-label="Add"
+                                  >
+                                    <AddIcon sx={{ color: "#f58146" }} />
+                                  </Fab>
+                                  <Fab
+                                    className="remove-artist-fab"
+                                    id="remove-artist-1"
+                                    aria-label="Remove"
+                                  >
+                                    <RemoveIcon sx={{ color: "#f58146" }} />
+                                  </Fab>
+                                </Grid>
+                                <Grid container item xs={5} direction="column">
+                                  <p>Artist name:</p>
                                   <TextField
                                     fullWidth
                                     value={artistName2}
@@ -461,10 +487,35 @@ function CreateEvent() {
                                     onChange={(event) =>
                                       setArtistName2(event.target.value)
                                     }
-                                    id="input-with-icon-textfield"
-                                    className="Artist2"
-                                    variant="standard"
-                                  />{" "}
+                                    id="create-event-an2"
+                                    placeholder="Enter an artist's name"
+                                    variant="outlined"
+                                  />
+                                </Grid>
+                                <Grid
+                                  container
+                                  item
+                                  xs={1}
+                                  direction="column"
+                                  className="fab-container"
+                                >
+                                  <Fab
+                                    className="add-artist-fab"
+                                    id="add-artist-2"
+                                    aria-label="Add"
+                                  >
+                                    <AddIcon sx={{ color: "#f58146" }} />
+                                  </Fab>
+                                  <Fab
+                                    className="remove-artist-fab"
+                                    id="remove-artist-2"
+                                    aria-label="Remove"
+                                  >
+                                    <RemoveIcon sx={{ color: "#f58146" }} />
+                                  </Fab>
+                                </Grid>
+                                <Grid container item xs={5} direction="column">
+                                  <p>Artist name:</p>
                                   <TextField
                                     fullWidth
                                     value={artistName3}
@@ -472,10 +523,35 @@ function CreateEvent() {
                                     onChange={(event) =>
                                       setArtistName3(event.target.value)
                                     }
-                                    id="input-with-icon-textfield"
-                                    className="Artist3"
-                                    variant="standard"
+                                    id="create-event-an3"
+                                    placeholder="Enter an artist's name"
+                                    variant="outlined"
                                   />
+                                </Grid>
+                                <Grid
+                                  container
+                                  item
+                                  xs={1}
+                                  direction="column"
+                                  className="fab-container"
+                                >
+                                  <Fab
+                                    className="add-artist-fab"
+                                    id="add-artist-3"
+                                    aria-label="Add"
+                                  >
+                                    <AddIcon sx={{ color: "#f58146" }} />
+                                  </Fab>
+                                  <Fab
+                                    className="remove-artist-fab"
+                                    id="remove-artist-3"
+                                    aria-label="Remove"
+                                  >
+                                    <RemoveIcon sx={{ color: "#f58146" }} />
+                                  </Fab>
+                                </Grid>
+                                <Grid container item xs={5} direction="column">
+                                  <p>Artist name:</p>
                                   <TextField
                                     fullWidth
                                     value={artistName4}
@@ -483,58 +559,35 @@ function CreateEvent() {
                                     onChange={(event) =>
                                       setArtistName4(event.target.value)
                                     }
-                                    id="input-with-icon-textfield"
-                                    variant="standard"
-                                    className="Artist4"
-                                  />{" "}
+                                    id="create-event-an4"
+                                    placeholder="Enter an artist's name"
+                                    variant="outlined"
+                                  />
                                 </Grid>
-                                <Grid container item xs={1} direction="column">
+                                <Grid
+                                  container
+                                  item
+                                  xs={1}
+                                  direction="column"
+                                  className="fab-container"
+                                >
                                   <Fab
-                                    size="small"
-                                    id="add-artist-1"
-                                    color="primary"
-                                    aria-label="add"
+                                    className="add-artist-fab"
+                                    id="add-artist-4"
+                                    aria-label="Add"
                                   >
-                                    <AddIcon />
+                                    <AddIcon sx={{ color: "#f58146" }} />
                                   </Fab>
-                                  <div className="">
-                                    <Fab
-                                      size="small"
-                                      id="add-artist-2"
-                                      color="primary"
-                                      aria-label="Add"
-                                    >
-                                      <AddIcon />
-                                    </Fab>
-                                    <Fab
-                                      size="small"
-                                      id="remove-artist-2"
-                                      color="primary"
-                                      aria-label="remove"
-                                    >
-                                      <RemoveIcon />
-                                    </Fab>
-                                  </div>
-                                  <div>
-                                    <Fab
-                                      size="small"
-                                      id="add-artist-3"
-                                      color="primary"
-                                      aria-label="Add"
-                                    >
-                                      <AddIcon />
-                                    </Fab>
-                                    <Fab
-                                      size="small"
-                                      id="remove-artist-3"
-                                      color="primary"
-                                      aria-label="remove"
-                                    >
-                                      <RemoveIcon />
-                                    </Fab>
-                                  </div>
+                                  <Fab
+                                    className="remove-artist-fab"
+                                    id="remove-artist-4"
+                                    aria-label="Remove"
+                                  >
+                                    <RemoveIcon sx={{ color: "#f58146" }} />
+                                  </Fab>
                                 </Grid>
-                                <Grid container item xs={4} direction="row">
+                                <Grid container item xs={11} direction="row">
+                                  <p>Event summary:</p>
                                   <TextField
                                     fullWidth
                                     value={eventSummary}
@@ -542,24 +595,10 @@ function CreateEvent() {
                                     onChange={(event) =>
                                       setEventSummary(event.target.value)
                                     }
-                                    label="Event summary"
                                     multiline
-                                    id="standard-multiline-static"
-                                    variant="standard"
-                                    rows={12}
-                                  />
-
-                                  <TextField
-                                    fullWidth
-                                    sx={{ marginTop: 10 }}
-                                    value={eventURL}
-                                    required
-                                    onChange={(event) =>
-                                      setEventURL(event.target.value)
-                                    }
-                                    id="input-with-icon-textfield"
-                                    label="Ticket purchase URL"
-                                    variant="standard"
+                                    id="create-ev-summary"
+                                    variant="outlined"
+                                    rows={5}
                                   />
                                 </Grid>
                               </Grid>
