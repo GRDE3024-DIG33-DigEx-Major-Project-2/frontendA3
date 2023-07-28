@@ -6,10 +6,7 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 const Login = ({ setIsLoggedIn, setUser }) => {
-  // URL FOR LIVE BACKEND
-  const baseURL = "https://a2.gigney.ryanriddiford.com/";
-  // URL FOR LOCALHOST
-  // const baseURL = "http://localhost:3000/"
+  const baseURL = process.env.REACT_APP_BASEURL;
   
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

@@ -11,10 +11,7 @@ import Grid from "@mui/material/Grid";
 import axios from "axios";
 
 function SignUpOrganiser() {
-  // URL FOR LIVE BACKEND
-  const baseURL = "https://a2.gigney.ryanriddiford.com/";
-  // URL FOR LOCALHOST
-  // const baseURL = "http://localhost:3000/" 
+  const baseURL = process.env.REACT_APP_BASEURL;
   
   const [organizationName, setOrganizationName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");

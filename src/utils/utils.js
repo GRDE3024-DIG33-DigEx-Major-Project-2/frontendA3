@@ -1,6 +1,6 @@
 // we can use this file for shared global scope functions
 import axios from "axios";
-import { baseURL } from "../props/API_URLS";
+const baseURL = process.env.REACT_APP_BASEURL;
 
 const searchEventsURL = baseURL + "event/search-page";
 const getAllTagsUrl = baseURL + "event/tags"

@@ -951,7 +951,7 @@ div.lineup {
 #create-event-screen {
   max-width: 100%;
   min-height: 65vh;
-  max-height: 90vh;
+  max-height: 850px;
   background-color: #ffffff;
   padding: 2%;
   margin: 2%;
@@ -1080,6 +1080,14 @@ div.lineup {
 .add-artist-fab:hover, .remove-artist-fab:hover {
   transform: scale(1.05);
   cursor: pointer;
+}
+
+.create-event-location-div {
+  height: 1000px;
+}
+
+.map-container {
+  height: 400px;
 }
 
 .preview-image {

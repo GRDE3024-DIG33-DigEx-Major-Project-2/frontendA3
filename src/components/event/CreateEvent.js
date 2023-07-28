@@ -29,24 +29,11 @@ import { renderTimeViewClock } from "@mui/x-date-pickers/timeViewRenderers";
 import { Checkbox } from "@mui/material";
 import { getAllTags } from "../../utils/utils";
 import { Link } from "@mui/material";
+import CreateEventMap from "../mapbox/CreateEventMap";
 
 function CreateEvent() {
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set());
-  const [eventName, setEventName] = useState("");
-  const [artistName, setArtistName] = useState("");
-  const [artistName2, setArtistName2] = useState("");
-  const [artistName3, setArtistName3] = useState("");
-  const [artistName4, setArtistName4] = useState("");
-  const [eventSummary, setEventSummary] = useState("");
-  const [venueName, setVenueName] = useState("");
-  const [venueOrganiser, setVenueOrganiser] = useState("");
-  const [eventAddress1, setEventAddress1] = useState("");
-  const [eventAddress2, setEventAddress2] = useState("");
-  const [eventCity, setEventCity] = useState("");
-  const [eventCountry, setEventCountry] = useState("");
-  const [eventState, setEventState] = useState("");
-  const [eventPostCode, setEventPostCode] = useState("");
   const [eventStartDate, setEventStartDate] = useState(null);
   const [eventEndDate, setEventEndDate] = useState(null);
   const [eventStartTime, setEventStartTime] = useState(null);
@@ -63,11 +50,27 @@ function CreateEvent() {
   const navigate = useNavigate();
 
   //** FIRST SCREEN - BASIC INFO **//
+  const [eventName, setEventName] = useState("");
   const [eventOrganiser, setEventOrganiser] = useState("");
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState([]);
   const [availableTags, setAvailableTags] = useState([]);
   const [eventURL, setEventURL] = useState("");
+  // ** SECOND SCREEN - ARTISTS AND SUMMARY ** //
+  const [artistName, setArtistName] = useState("");
+  const [artistName2, setArtistName2] = useState("");
+  const [artistName3, setArtistName3] = useState("");
+  const [artistName4, setArtistName4] = useState("");
+  const [eventSummary, setEventSummary] = useState("");
+  // ** THIRD SCREEN - LOCATION ** //
+  const [venueName, setVenueName] = useState("");
+  const [suburb, setSuburb] = useState("");
+  const [eventAddress1, setEventAddress1] = useState("");
+  const [eventAddress2, setEventAddress2] = useState("");
+  const [eventCity, setEventCity] = useState("");
+  const [eventCountry, setEventCountry] = useState("");
+  const [eventState, setEventState] = useState("");
+  const [eventPostCode, setEventPostCode] = useState("");
 
   /**
    * Fetch api data on load
@@ -322,7 +325,7 @@ function CreateEvent() {
                   return (
                     <>
                       <h2>Basic Information</h2>
-                      <div className="">
+                      <div className="basic-information">
                         <Box alignItems="center" justifyContent="center">
                           <form onSubmit={signupHandler}>
                             <FormControl fullWidth>
@@ -437,7 +440,7 @@ function CreateEvent() {
                     <>
                       {/* PAGE 2 - ARTISTS AND SUMMARY */}
                       <h2>Artists and summary</h2>
-                      <div className="">
+                      <div className="artist-and-summary">
                         <Box alignItems="center" justifyContent="center">
                           <form onSubmit={signupHandler}>
                             <FormControl fullWidth>
@@ -611,13 +614,15 @@ function CreateEvent() {
                 } else if (activeStep === 2) {
                   return (
                     <>
+                      {/* PAGE 3 - LOCATION */}
                       <h2>Location</h2>
-                      <div className="">
+                      <div className="create-event-location-div">
                         <Box alignItems="center" justifyContent="center">
-                          <form onSubmit={signupHandler}>
-                            <FormControl fullWidth>
-                              <Grid container spacing={2} paddingBottom="15px">
+                          <form onSubmit={signupHandler} className="create-event-location-box">
+                            <FormControl fullWidth >
+                              <Grid container spacing={2} paddingBottom="15px" >
                                 <Grid container item xs={6} direction="column">
+                                  <p>Venue name:</p>
                                   <TextField
                                     fullWidth
                                     value={venueName}
@@ -625,102 +630,168 @@ function CreateEvent() {
                                     onChange={(event) =>
                                       setVenueName(event.target.value)
                                     }
-                                    id="input-with-icon-textfield"
-                                    label="Venue Name"
-                                    variant="standard"
+                                    id="create-event-venue-name"
+                                    placeholder="Enter the name of the venue"
+                                    variant="outlined"
                                   />
                                 </Grid>
                                 <Grid container item xs={6} direction="column">
+                                  <p>Venue location:</p>
                                   <TextField
                                     fullWidth
-                                    value={venueOrganiser}
+                                    value={suburb}
                                     required
                                     onChange={(event) =>
-                                      setVenueOrganiser(event.target.value)
+                                      setSuburb(event.target.value)
                                     }
-                                    id="input-with-icon-textfield"
-                                    label="Organiser"
-                                    variant="standard"
+                                    id="create-event-venue-suburb"
+                                    placeholder="Enter the suburb of the venue"
+                                    variant="outlined"
                                   />
                                 </Grid>
-
-                                <Grid container item xs={6} direction="column">
-                                  <Grid container item l={48} direction="row">
-                                    <h5>Street Address</h5>
+                              </Grid>
+                              <CreateEventMap />
+                              <Grid container spacing={2} paddingBottom="15px">
+                                <Grid
+                                  container
+                                  item
+                                  xs={6}
+                                  direction="column"
+                                  sx={{ height: "300px" }}
+                                >
+                                  <Grid container item xs={1} direction="row">
+                                    <p>Street Address</p>
                                   </Grid>
-
-                                  <TextField
-                                    fullWidth
-                                    value={eventAddress1}
-                                    required
-                                    onChange={(event) =>
-                                      setEventAddress1(event.target.value)
-                                    }
-                                    id="input-with-icon-textfield"
-                                    label="Address 1"
-                                    variant="standard"
-                                  />
-                                  <TextField
-                                    fullWidth
-                                    value={eventCity}
-                                    required
-                                    onChange={(event) =>
-                                      setEventCity(event.target.value)
-                                    }
-                                    id="input-with-icon-textfield"
-                                    label="City"
-                                    variant="standard"
-                                  />
-                                  <TextField
-                                    fullWidth
-                                    value={eventCountry}
-                                    required
-                                    onChange={(event) =>
-                                      setEventCountry(event.target.value)
-                                    }
-                                    id="input-with-icon-textfield"
-                                    label="Country"
-                                    variant="standard"
-                                  />
-                                </Grid>
-                                <Grid container item xs={6} direction="column">
-                                  <Grid container item l={48} direction="row">
-                                    <h5>&nbsp;</h5>
-                                  </Grid>
-
-                                  <TextField
-                                    fullWidth
-                                    value={eventAddress2}
-                                    required
-                                    onChange={(event) =>
-                                      setEventAddress2(event.target.value)
-                                    }
-                                    id="input-with-icon-textfield"
-                                    label="Address 2"
-                                    variant="standard"
-                                  />
-                                  <Grid container item s={2} direction="row">
+                                  <Grid
+                                    container
+                                    item
+                                    xs={3}
+                                    direction="column"
+                                  >
                                     <TextField
-                                      value={eventState}
+                                      fullWidth
+                                      value={eventAddress1}
                                       required
                                       onChange={(event) =>
-                                        setEventState(event.target.value)
+                                        setEventAddress1(event.target.value)
                                       }
-                                      id="input-with-icon-textfield"
-                                      label="State"
-                                      variant="standard"
-                                    />{" "}
-                                    <p>&nbsp;</p>
-                                    <TextField
-                                      value={eventPostCode}
-                                      required
-                                      onChange={(event) =>
-                                        setEventPostCode(event.target.value)
-                                      }
-                                      id="input-with-icon-textfield"
-                                      label="Post Code"
-                                      variant="standard"
+                                      id="create-event-address1"
+                                      placeholder="Address line 1"
+                                      variant="outlined"
                                     />
+                                  </Grid>
+                                  <Grid
+                                    container
+                                    item
+                                    xs={3}
+                                    direction="column"
+                                  >
+                                    <TextField
+                                      fullWidth
+                                      value={eventCity}
+                                      required
+                                      onChange={(event) =>
+                                        setEventCity(event.target.value)
+                                      }
+                                      id="create-event-city"
+                                      placeholder="City"
+                                      variant="outlined"
+                                    />
+                                  </Grid>
+                                  <Grid
+                                    container
+                                    item
+                                    xs={3}
+                                    direction="column"
+                                  >
+                                    <TextField
+                                      fullWidth
+                                      value={eventCountry}
+                                      required
+                                      onChange={(event) =>
+                                        setEventCountry(event.target.value)
+                                      }
+                                      id="create-event-country"
+                                      placeholder="Country"
+                                      variant="outlined"
+                                    />
+                                  </Grid>
+                                </Grid>
+                                <Grid
+                                  container
+                                  item
+                                  xs={6}
+                                  direction="column"
+                                  sx={{ height: "300px" }}
+                                >
+                                  <Grid container item xs={1} direction="row">
+                                    <p>&nbsp;</p>
+                                  </Grid>
+                                  <Grid
+                                    container
+                                    item
+                                    xs={3}
+                                    direction="column"
+                                  >
+                                    <TextField
+                                      fullWidth
+                                      value={eventAddress2}
+                                      required
+                                      onChange={(event) =>
+                                        setEventAddress2(event.target.value)
+                                      }
+                                      id="create-event-address2"
+                                      placeholder="Address line 2"
+                                      variant="outlined"
+                                    />
+                                  </Grid>
+                                  <Grid
+                                    container
+                                    item
+                                    xs={3}
+                                    direction="row"
+                                    fullWidth
+                                  >
+                                    <Grid
+                                      container
+                                      item
+                                      xs={5}
+                                      direction="column"
+                                    >
+                                      <TextField
+                                        value={eventState}
+                                        required
+                                        onChange={(event) =>
+                                          setEventState(event.target.value)
+                                        }
+                                        id="create-event-state"
+                                        placeholder="State or territory"
+                                        variant="outlined"
+                                      />
+                                    </Grid>
+                                    <Grid
+                                      container
+                                      item
+                                      xs={2}
+                                      direction="column"
+                                    />
+                                    <Grid
+                                      container
+                                      item
+                                      xs={5}
+                                      direction="column"
+                                    >
+                                      <TextField
+                                        value={eventPostCode}
+                                        required
+                                        onChange={(event) =>
+                                          setEventPostCode(event.target.value)
+                                        }
+                                        id="create-event-postcode"
+                                        placeholder="Postcode"
+                                        variant="outlined"
+                                      />
+                                    </Grid>
                                   </Grid>
                                 </Grid>
                               </Grid>

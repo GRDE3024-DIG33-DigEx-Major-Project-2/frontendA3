@@ -15,10 +15,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
 
 function SignUpGuest() {
-  // URL FOR LIVE BACKEND
-  const baseURL = "https://a2.gigney.ryanriddiford.com/";
-  // URL FOR LOCALHOST
-  // const baseURL = "http://localhost:3000/"
+  const baseURL = process.env.REACT_APP_BASEURL;
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");

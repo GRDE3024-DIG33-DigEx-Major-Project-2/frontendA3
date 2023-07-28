@@ -6,7 +6,7 @@ import {
   TextField,
   InputAdornment,
 } from "@mui/material";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CreatedEventCardHorizontal from "../event/CreatedEventCardHorizontal";
 import LockIcon from "@mui/icons-material/Lock";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
