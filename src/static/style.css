@@ -1367,6 +1367,7 @@ div.lineup {
   }
 }
 @media only screen and (max-width: 960px) {
+  /*EVENTS PAGE*/
   .Event .event-card-icon {
     padding: 0.5%; /* Decrease the padding on small screens */
     float: right;
@@ -1415,8 +1416,40 @@ div.lineup {
   .header {
     max-height: 345px;
   }
+  /*PROFILE PAGE*/
+  .profile-container {
+    grid-template-areas: "head head" "bio bio" "account account" "events events";
+    grid-template-rows: 100px auto auto auto;
+    grid-template-columns: 100%;
+  }
+  .profile-box {
+    padding: 2%;
+  }
+  .profile-avatar {
+    height: 15vw;
+    width: 15vw;
+    font-size: 6vw;
+  }
+  .profile-banner h1 {
+    font-size: 1.5em;
+  }
+  h2 {
+    font-size: 1.5em;
+  }
+  h3 {
+    font-size: 1.2em;
+  }
+  .profile-container h3 {
+    font-size: 1em;
+  }
+  .css-1sx3qbl-MuiSvgIcon-root,
+  .css-pnaxc6-MuiSvgIcon-root {
+    font-size: 0.7em;
+    padding-bottom: 2px;
+  }
 }
 @media only screen and (max-width: 480px) {
+  /*EVENTS PAGE*/
   .event-card-icon {
     padding: 0.5%; /* Decrease the padding on small screens */
     margin-right: -1em;
@@ -1436,6 +1469,77 @@ div.lineup {
     position: relative; /* Change position to relative for natural flow positioning */
     margin-top: 10px; /* Add a margin to create spacing between elements */
     display: inline-flex;
+  }
+}
+@media only screen and (max-width: 640px) {
+  /*PROFILE PAGE*/
+  .profile-container {
+    grid-template-areas: "head" "bio" "account" "events";
+    grid-template-rows: 100px auto auto auto;
+    grid-template-columns: 100%;
+  }
+  .profile-box {
+    padding: 2%;
+  }
+  .profile-avatar {
+    height: 12vw;
+    width: 12vw;
+    font-size: 5vw;
+  }
+  .profile-banner h1 {
+    font-size: 1.2em;
+  }
+  h2 {
+    font-size: 1.3em;
+  }
+  h3 {
+    font-size: 1em;
+  }
+  .css-o69gx8-MuiCardMedia-root {
+    width: 10em !important;
+    height: 7em !important;
+  }
+  .profile-container h3 {
+    font-size: 0.7em;
+  }
+  p {
+    font-size: 0.4em;
+  }
+  .card-name {
+    margin-top: 0px;
+    margin-bottom: 5px;
+  }
+  .horizontal-card-box {
+    width: 130%;
+    position: relative;
+    padding-left: 3%;
+    padding-bottom: 3%;
+  }
+  .ev-share-h {
+    bottom: 5%;
+    right: 5%;
+  }
+  .ev-share-h {
+    bottom: 5%;
+    right: 5%;
+  }
+  .card-icon {
+    width: 15px;
+    height: 15px;
+    padding: 0.5%;
+  }
+  .ev-bookmark-h {
+    bottom: 5%;
+    right: 20%;
+  }
+  .card-icon svg {
+    font-size: 0.7em;
+    padding-bottom: 2px;
+  }
+  .card-date svg,
+  .card-location svg,
+  .card-price svg {
+    font-size: 1.3em;
   }
 }
 
