@@ -1601,4 +1601,27 @@ p {
   font-size: 1.3em;
 }
 
+/*DASHBOARD*/
+.bttn.style-orange {
+  width: 45%;
+  text-align: center;
+  font-size: 18px;
+  padding: auto;
+}
+
+.profile-container .saved-events #saved-events-header {
+  display: flex;
+  flex-direction: column;
+}
+
+.ev-menu-h{
+ height: 13px; 
+}
+
+.ev-menu-h svg{
+  font-size: 1.6em;
+  width: 1.5em;
+  height: 1em;
+}
+
 }
