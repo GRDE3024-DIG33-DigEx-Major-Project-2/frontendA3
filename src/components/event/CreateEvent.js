@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   FormControl,
@@ -30,6 +30,7 @@ import { Checkbox } from "@mui/material";
 import { getAllTags } from "../../utils/utils";
 import { Link } from "@mui/material";
 import CreateEventMap from "../mapbox/CreateEventMap";
+import { forwardGeocoding } from "../../services/Geocoding";
 
 function CreateEvent() {
   const [activeStep, setActiveStep] = useState(0);
@@ -71,6 +72,9 @@ function CreateEvent() {
   const [eventCountry, setEventCountry] = useState("");
   const [eventState, setEventState] = useState("");
   const [eventPostCode, setEventPostCode] = useState("");
+  const [lat, setLat] = useState(-33.86);
+  const [lng, setLng] = useState(151.2);
+  const [mapKey, setMapKey] = useState(1);
 
   /**
    * Fetch api data on load
@@ -87,6 +91,27 @@ function CreateEvent() {
     //Get tags
     fetchTags();
   }, [setAvailableTags]);
+
+  useEffect(() => {
+    /** Update map location as address is typed in*/
+    async function fetchCoordinates() {
+      let address = eventAddress1 + eventAddress2 + "," + suburb + "," + eventCity + "," + eventState + "," + eventPostCode;
+      if(suburb !== ""){ address += ("," + suburb)}
+      if(eventCity !== ""){ address += ("," + eventCity)}
+      if(eventState !== ""){ address += ("," + eventState)}
+      if(eventPostCode !== ""){ address += ("," + eventPostCode)}
+      if(eventCountry !== ""){ address += ("," + eventCountry)}
+
+      let result = await forwardGeocoding(address);
+      console.log("HI", result[0], result[1])
+      setLat(result[0]);
+      setLng(result[1]);
+      setMapKey(result[0]+result[1]);  
+    }
+
+    fetchCoordinates();
+
+  }, [eventState, eventPostCode]);
 
   // select keywords styling
   const ITEM_HEIGHT = 48;
@@ -624,7 +649,6 @@ function CreateEvent() {
                                 <Grid container item xs={6} direction="column">
                                   <p>Venue name:</p>
                                   <TextField
-                                    fullWidth
                                     value={venueName}
                                     required
                                     onChange={(event) =>
@@ -638,7 +662,6 @@ function CreateEvent() {
                                 <Grid container item xs={6} direction="column">
                                   <p>Venue location:</p>
                                   <TextField
-                                    fullWidth
                                     value={suburb}
                                     required
                                     onChange={(event) =>
@@ -650,7 +673,7 @@ function CreateEvent() {
                                   />
                                 </Grid>
                               </Grid>
-                              <CreateEventMap />
+                              <CreateEventMap lat={lat} lng={lng} key={mapKey} />
                               <Grid container spacing={2} paddingBottom="15px">
                                 <Grid
                                   container
@@ -669,7 +692,6 @@ function CreateEvent() {
                                     direction="column"
                                   >
                                     <TextField
-                                      fullWidth
                                       value={eventAddress1}
                                       required
                                       onChange={(event) =>
@@ -687,7 +709,6 @@ function CreateEvent() {
                                     direction="column"
                                   >
                                     <TextField
-                                      fullWidth
                                       value={eventCity}
                                       required
                                       onChange={(event) =>
@@ -705,7 +726,6 @@ function CreateEvent() {
                                     direction="column"
                                   >
                                     <TextField
-                                      fullWidth
                                       value={eventCountry}
                                       required
                                       onChange={(event) =>
@@ -734,7 +754,6 @@ function CreateEvent() {
                                     direction="column"
                                   >
                                     <TextField
-                                      fullWidth
                                       value={eventAddress2}
                                       required
                                       onChange={(event) =>
@@ -750,7 +769,6 @@ function CreateEvent() {
                                     item
                                     xs={3}
                                     direction="row"
-                                    fullWidth
                                   >
                                     <Grid
                                       container
