@@ -32,16 +32,13 @@ import CreateEventMap from "../mapbox/CreateEventMap";
 import { forwardGeocoding } from "../../services/Geocoding";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
-import { Divider } from "@mui/material";
 
 function CreateEvent() {
   const [activeStep, setActiveStep] = useState(0);
-  const [skipped, setSkipped] = useState(new Set());
   const [state, setState] = useState({
     eventFree: false,
     eventPaid: false,
   });
-  const [selectedImage, setSelectedImage] = useState();
 
   const navigate = useNavigate();
 
@@ -78,12 +75,15 @@ function CreateEvent() {
   const [eventEndTime, setEventEndTime] = useState(null);
   const [eventTimezone, setEventTimezone] = useState("AEST");
   // ** FIFTH SCREEN - PRICE **//
+  const { eventFree, eventPaid } = state;
   const eventTierName1 = "General Admission";
   const [eventPrice1, setEventPrice1] = useState(parseFloat(0.0).toFixed(2));
   const [eventTierName2, setEventTierName2] = useState("");
   const [eventPrice2, setEventPrice2] = useState(parseFloat(0.0).toFixed(2));
   const [eventTierName3, setEventTierName3] = useState("");
   const [eventPrice3, setEventPrice3] = useState(parseFloat(0.0).toFixed(2));
+  // ** SIXTH SCREEN - MEDIA **//
+  const [selectedImage, setSelectedImage] = useState();
 
   /**
    * Fetch api data on load
@@ -161,46 +161,16 @@ function CreateEvent() {
     setTags(typeof value === "string" ? value.split(",") : value);
   };
 
-  const isStepOptional = (step) => {
-    return step === "";
-  };
-
-  const isStepSkipped = (step) => {
-    return skipped.has(step);
-  };
-
   const handleNext = (e) => {
     if (activeStep === 5 && !selectedImage) {
       alert("Please upload an image to proceed");
     } else {
-      let newSkipped = skipped;
-      if (isStepSkipped(activeStep)) {
-        newSkipped = new Set(newSkipped.values());
-        newSkipped.delete(activeStep);
-      }
-
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
-      setSkipped(newSkipped);
     }
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleSkip = () => {
-    if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
-      throw new Error("You can't skip a step that isn't optional.");
-    }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
-    });
   };
 
   const handleReset = () => {
@@ -248,8 +218,6 @@ function CreateEvent() {
     setSelectedImage();
   };
 
-  const { eventFree, eventPaid } = state;
-
   const handleChecked = (event) => {
     setState({
       ...state,
@@ -266,12 +234,12 @@ function CreateEvent() {
         <div id="stepper-box">
           <span>
             <h2>
-              {"Step " + parseInt(parseInt(activeStep) + parseInt(1)) + " of 6"}
+              {"Step " + parseInt(parseInt(activeStep) + parseInt(1)) + " of 7"}
             </h2>
           </span>
           <MobileStepper
             variant="progress"
-            steps={6}
+            steps={7}
             position="static"
             activeStep={activeStep}
             sx={{ width: "30%" }}
@@ -1000,7 +968,7 @@ function CreateEvent() {
                     <>
                       {/* PAGE 5 - PRICING */}
                       <h2>Pricing</h2>
-                      <div className="">
+                      <div className="create-event-pricing">
                         <Box alignItems="center" justifyContent="center">
                           <form onSubmit={signupHandler}>
                             <FormControl fullWidth>
@@ -1195,8 +1163,9 @@ function CreateEvent() {
                 } else if (activeStep === 5) {
                   return (
                     <>
-                      <h2>Upload Media</h2>
-                      <div className="">
+                      {/* PAGE 6 - EVENT MEDIA */}
+                      <h2>Event media</h2>
+                      <div className="create-event-media">
                         <Box alignItems="center" justifyContent="center">
                           <form onSubmit={signupHandler}>
                             <FormControl fullWidth>
@@ -1209,15 +1178,25 @@ function CreateEvent() {
                                   paddingBottom="15px"
                                   direction="row"
                                 >
-                                  <div>
-                                    {" "}
-                                    <input
-                                      accept="image/*"
-                                      type="file"
-                                      onChange={imageChange}
-                                    />
-                                    {selectedImage && (
-                                      <div>
+                                  {!selectedImage && (
+                                    <div className="create-ev-img-box">
+                                      {" "}
+                                      <label>
+                                        <input
+                                          id="create-ev-img-input"
+                                          accept="image/*"
+                                          type="file"
+                                          onChange={imageChange}
+                                        />
+                                        <Link color="#f58146">
+                                          Upload image
+                                        </Link>
+                                      </label>
+                                    </div>
+                                  )}
+                                  {selectedImage && (
+                                    <>
+                                      <div className="create-ev-img-box">
                                         <img
                                           src={URL.createObjectURL(
                                             selectedImage
@@ -1226,12 +1205,17 @@ function CreateEvent() {
                                           alt="Thumb"
                                           className="preview-image"
                                         />
-                                        <Button onClick={removeSelectedImage}>
-                                          Remove This Image
-                                        </Button>
                                       </div>
-                                    )}
-                                  </div>
+                                      <div id="remove-img-box">
+                                        <Link
+                                          color="#f58146"
+                                          onClick={removeSelectedImage}
+                                        >
+                                          Remove This Image
+                                        </Link>
+                                      </div>
+                                    </>
+                                  )}
                                 </Grid>
                               </Grid>
                             </FormControl>
@@ -1255,15 +1239,6 @@ function CreateEvent() {
                 >
                   Go back a step
                 </Button>
-                {isStepOptional(activeStep) && (
-                  <Button
-                    id="skip-ev-btn"
-                    variant="contained"
-                    onClick={handleSkip}
-                  >
-                    Skip
-                  </Button>
-                )}
               </div>
               <div id="create-ev-bttns-right">
                 <Button

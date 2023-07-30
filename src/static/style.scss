@@ -1083,6 +1083,28 @@ div.lineup {
   height: 400px;
 }
 
+.create-ev-img-box {
+  width: 100%;
+  height: 60vh;
+  background-color: $lightgrey;
+  @include flex-row(center, center);
+  img{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+#create-ev-img-input{
+  display: none;
+}
+
+#remove-img-box{
+  width: 100%;
+  padding: 1.5% 0 0;
+  @include flex-row(flex-end, center);
+}
+
 .preview-image {
   height: 300px;
   width: 100%;
