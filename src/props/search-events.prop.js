@@ -44,15 +44,21 @@ const SearchEventFiltersProvider = ({ children }) => {
 
     //Filter form fields as props
     const [location, setLocation] = useState(null);
-    const [date, setDate] = useState(new Date());
+    //const [date, setDate] = useState(new Date());
+    const [minDate, setMinDate] = useState(null);
+    const [maxDate, setMaxDate] = useState(null);
     const [selectedTagIds, setSelectedTagIds] = useState([]);
     const [keywords, setKeywords] = useState(null);
-    const today = new Date().toISOString();
+    //const today = new Date().toISOString();
     const [isPaid, setPaid] = useState(false);
     const [price, setPrice] = useState([50, 500]);
     const [change, setChange] = useState(true);
     const [minPrice, setMinPrice] = useState(DEFAULT_MIN_PRICE);
     const [maxPrice, setMaxPrice] = useState(DEFAULT_MAX_PRICE);
+
+
+    //Preset date filter options
+
     
 
     //All tag options
@@ -61,11 +67,17 @@ const SearchEventFiltersProvider = ({ children }) => {
     //Filter-related props
     const props = {
         location,
-        date,
         tags,
         keywords,
         setLocation,
-        setDate,
+
+        //date,
+        //setDate,
+        minDate,
+        setMinDate,
+        maxDate,
+        setMaxDate,
+        
         setTags,
         setKeywords,
         today,

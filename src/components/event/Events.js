@@ -39,19 +39,64 @@ const Events = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
    * Prop context for search event data
    */
   const { events, setEvents, pageCount, setPageCount } = useContext(SearchEventsContext);
+
+
+  const presetDateRanges = {
+    today: {
+      minDate: new Date(),
+      maxDate: new Date().setHours(23, 59, 59, 999),
+    },
+    tomorrow: {
+      minDate: () => {
+        let tomorrowDate = new Date().setDate(new Date() + 1);
+        tomorrowDate.setHours(0,0,0,0);
+        return tomorrowDate;
+      },
+      maxDate: () => {
+        let tomorrowDate = new Date().setDate(new Date() + 1);
+        tomorrowDate.setHours(23, 59, 59, 999);
+        return tomorrowDate;
+      },
+    },
+    weekend: {
+      minDate: () => {
+        const currDate = new Date();
+        const dayOfWeek = currDate.getDay();
+        const daysUntilNextSaturday = (6 - dayOfWeek + 7) % 7;
+        const nextSaturday = new Date(currDate);
+        nextSaturday.setDate(currDate.getDate() + daysUntilNextSaturday);
+        nextSaturday.setHours(0,0,0,0);
+        return nextSaturday;
+      },
+      maxDate: () => {
+        const currDate = new Date();
+        const dayOfWeek = currDate.getDay();
+        const daysUntilNextSunday = (7 - dayOfWeek + 7) % 7;
+        const nextSaturday = new Date(currDate);
+        nextSaturday.setDate(currDate.getDate() + daysUntilNextSunday);
+        nextSaturday.setHours(23, 59, 59, 999);
+        return nextSaturday;
+      },
+    }
+  };
+
+
   /**
    * Prop context for search event filters
    */
   const {
     location,
-    date,
+    //date,
     tags,
     keywords,
     setLocation,
-    setDate,
+    minDate,
+    maxDate,
+    setMinDate,
+    setMaxDate,
     setTags,
     setKeywords,
-    today,
+    //today,
     paid,
     price,
     change,
@@ -267,22 +312,22 @@ const Events = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
                   onChange={(event) => chipSelectDate(event.target.value)}
                 >
                   <FormControlLabel
-                    value="Today" disabled={true}
+                    value={presetDateRanges.today}
                     control={<Radio />}
                     label="Today"
                   />
                   <FormControlLabel
-                    value="Tomorrow" disabled={true}
+                    value={presetDateRanges.tomorrow}
                     control={<Radio />}
                     label="Tomorrow"
                   />
                   <FormControlLabel
-                    value="Weekend" disabled={true}
+                    value={presetDateRanges.weekend}
                     control={<Radio />}
                     label="This weekend"
                   />
                   <FormControlLabel
-                    value="select-date" disabled={true}
+                    value="select-date"
                     control={<Radio />}
                     label="Select a date"
                   />

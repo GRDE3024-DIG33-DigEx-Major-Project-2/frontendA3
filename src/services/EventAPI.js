@@ -13,16 +13,17 @@ const getAllTagsUrl =  baseURL + "event/tags"
  * Get a page of events from api endpoint
  * @param {*} tagIds 
  * @param {*} keywords Keywords that match 
- * @param {*} startDate The starting date of the event
+ * @param {*} minDate The minimum date for an event
+ * @param {*} maxDate The maximum date for an event
  * @param {*} city The city the event is in
  * @param {*} priceRange Object that contains minPrice and maxPrice
  * @param {*} page The page of event matches requested
  * @returns Array of events and number of pages that match the filter options
  */
-export const searchEvents = async function (tagIds, keywords, startDate, city, priceRange, page) {
+export const searchEvents = async function (tagIds, keywords, minDate, maxDate, city, priceRange, page) {
 
   console.log("Inside Search Events");
-  console.log(tagIds, keywords, startDate, city, page);
+  console.log(tagIds, keywords, minDate, maxDate, city, page);
 
   //The array of events to return
   let events = [];
@@ -33,9 +34,9 @@ export const searchEvents = async function (tagIds, keywords, startDate, city, p
   let requestBody = {
     tags: tagIds,
     keywords: keywords,
-    startDate: startDate,
+    minDate: minDate,
     city: city,
-    //priceRange: priceRange,
+    priceRange: priceRange,
     page: page | 0
   };
 
@@ -52,7 +53,13 @@ export const searchEvents = async function (tagIds, keywords, startDate, city, p
       pageCount = response.data.pageCount;
     })
     .catch((error) => {
-      console.log(error);
+      if (error.status == 403) {
+        console.log("Access token invalid");
+        //TODO refresh token here and try again. Else throw another error
+      }
+      else {
+        console.log(error);
+      }
     });
 
 
