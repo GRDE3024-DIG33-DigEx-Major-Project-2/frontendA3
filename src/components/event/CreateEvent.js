@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   FormControl,
@@ -23,29 +23,24 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { renderTimeViewClock } from "@mui/x-date-pickers/timeViewRenderers";
 import { Checkbox } from "@mui/material";
-import { getAllTags } from "../../utils/utils";
+import { getAllTags, getAustralianTimezones } from "../../utils/utils";
 import { Link } from "@mui/material";
 import CreateEventMap from "../mapbox/CreateEventMap";
 import { forwardGeocoding } from "../../services/Geocoding";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
+import { Divider } from "@mui/material";
 
 function CreateEvent() {
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set());
-  const [eventStartDate, setEventStartDate] = useState(null);
-  const [eventEndDate, setEventEndDate] = useState(null);
-  const [eventStartTime, setEventStartTime] = useState(null);
-  const [eventEndTime, setEventEndTime] = useState(null);
-  const [eventTimezone, setEventTimezone] = useState("");
   const [state, setState] = useState({
     eventFree: false,
     eventPaid: false,
   });
-  const [eventTierName, setEventTierName] = useState("");
-  const [eventPrice, setEventPrice] = useState("");
   const [selectedImage, setSelectedImage] = useState();
 
   const navigate = useNavigate();
@@ -75,6 +70,20 @@ function CreateEvent() {
   const [lat, setLat] = useState(-33.86);
   const [lng, setLng] = useState(151.2);
   const [mapKey, setMapKey] = useState(1);
+  // ** FOURTH SCREEN - DATE AND TIME ** //
+  const timezones = getAustralianTimezones();
+  const [eventStartDate, setEventStartDate] = useState(null);
+  const [eventEndDate, setEventEndDate] = useState(null);
+  const [eventStartTime, setEventStartTime] = useState(null);
+  const [eventEndTime, setEventEndTime] = useState(null);
+  const [eventTimezone, setEventTimezone] = useState("AEST");
+  // ** FIFTH SCREEN - PRICE **//
+  const eventTierName1 = "General Admission";
+  const [eventPrice1, setEventPrice1] = useState(parseFloat(0.0).toFixed(2));
+  const [eventTierName2, setEventTierName2] = useState("");
+  const [eventPrice2, setEventPrice2] = useState(parseFloat(0.0).toFixed(2));
+  const [eventTierName3, setEventTierName3] = useState("");
+  const [eventPrice3, setEventPrice3] = useState(parseFloat(0.0).toFixed(2));
 
   /**
    * Fetch api data on load
@@ -95,22 +104,41 @@ function CreateEvent() {
   useEffect(() => {
     /** Update map location as address is typed in*/
     async function fetchCoordinates() {
-      let address = eventAddress1 + eventAddress2 + "," + suburb + "," + eventCity + "," + eventState + "," + eventPostCode;
-      if(suburb !== ""){ address += ("," + suburb)}
-      if(eventCity !== ""){ address += ("," + eventCity)}
-      if(eventState !== ""){ address += ("," + eventState)}
-      if(eventPostCode !== ""){ address += ("," + eventPostCode)}
-      if(eventCountry !== ""){ address += ("," + eventCountry)}
+      let address =
+        eventAddress1 +
+        eventAddress2 +
+        "," +
+        suburb +
+        "," +
+        eventCity +
+        "," +
+        eventState +
+        "," +
+        eventPostCode;
+      if (suburb !== "") {
+        address += "," + suburb;
+      }
+      if (eventCity !== "") {
+        address += "," + eventCity;
+      }
+      if (eventState !== "") {
+        address += "," + eventState;
+      }
+      if (eventPostCode !== "") {
+        address += "," + eventPostCode;
+      }
+      if (eventCountry !== "") {
+        address += "," + eventCountry;
+      }
 
       let result = await forwardGeocoding(address);
-      console.log("HI", result[0], result[1])
+      console.log("HI", result[0], result[1]);
       setLat(result[0]);
       setLng(result[1]);
-      setMapKey(result[0]+result[1]);  
+      setMapKey(result[0] + result[1]);
     }
 
     fetchCoordinates();
-
   }, [eventState, eventPostCode]);
 
   // select keywords styling
@@ -643,9 +671,12 @@ function CreateEvent() {
                       <h2>Location</h2>
                       <div className="create-event-location-div">
                         <Box alignItems="center" justifyContent="center">
-                          <form onSubmit={signupHandler} className="create-event-location-box">
-                            <FormControl fullWidth >
-                              <Grid container spacing={2} paddingBottom="15px" >
+                          <form
+                            onSubmit={signupHandler}
+                            className="create-event-location-box"
+                          >
+                            <FormControl fullWidth>
+                              <Grid container spacing={2} paddingBottom="15px">
                                 <Grid container item xs={6} direction="column">
                                   <p>Venue name:</p>
                                   <TextField
@@ -673,7 +704,11 @@ function CreateEvent() {
                                   />
                                 </Grid>
                               </Grid>
-                              <CreateEventMap lat={lat} lng={lng} key={mapKey} />
+                              <CreateEventMap
+                                lat={lat}
+                                lng={lng}
+                                key={mapKey}
+                              />
                               <Grid container spacing={2} paddingBottom="15px">
                                 <Grid
                                   container
@@ -764,12 +799,7 @@ function CreateEvent() {
                                       variant="outlined"
                                     />
                                   </Grid>
-                                  <Grid
-                                    container
-                                    item
-                                    xs={3}
-                                    direction="row"
-                                  >
+                                  <Grid container item xs={3} direction="row">
                                     <Grid
                                       container
                                       item
@@ -822,8 +852,9 @@ function CreateEvent() {
                 } else if (activeStep === 3) {
                   return (
                     <>
+                      {/* PAGE 4 - DATE AND TIME */}
                       <h2>Date and Time</h2>
-                      <div className="">
+                      <div className="create-event-date-time">
                         <Box alignItems="center" justifyContent="center">
                           <form onSubmit={signupHandler}>
                             <FormControl fullWidth>
@@ -836,91 +867,125 @@ function CreateEvent() {
                                   components={["DatePicker"]}
                                   fullWidth
                                 >
+                                  <p>Event start date:</p>
                                   <LocalizationProvider
                                     dateAdapter={AdapterDayjs}
                                   >
                                     <DatePicker
-                                      fullWidth
+                                      id="start-date-field-create-event"
+                                      className="search-form-els"
+                                      placeholder="Event Start Date"
                                       value={eventStartDate}
                                       onChange={(newValue) =>
                                         setEventStartDate(newValue)
                                       }
-                                      id="input-with-icon-textfield"
-                                      label="Event Start Date"
-                                      variant="standard"
-                                      type="date"
+                                      slots={{
+                                        openPickerIcon:
+                                          ArrowDropDownOutlinedIcon,
+                                      }}
+                                      slotProps={{
+                                        textField: {
+                                          placeholder: "Select a starting date",
+                                          InputProps: {
+                                            startAdornment: (
+                                              <InputAdornment position="start">
+                                                <CalendarMonthIcon color="primary" />
+                                              </InputAdornment>
+                                            ),
+                                          },
+                                        },
+                                      }}
                                     />
                                   </LocalizationProvider>
+                                  <p>Event end date:</p>
                                   <LocalizationProvider
                                     dateAdapter={AdapterDayjs}
                                   >
                                     <DatePicker
-                                      fullWidth
+                                      id="start-date-field-create-event"
+                                      className="search-form-els"
+                                      placeholder="Event End Date"
                                       value={eventEndDate}
                                       onChange={(newValue) =>
                                         setEventEndDate(newValue)
                                       }
-                                      id="input-with-icon-textfield"
-                                      label="Event End Date"
-                                      variant="standard"
-                                      type="date"
+                                      slots={{
+                                        openPickerIcon:
+                                          ArrowDropDownOutlinedIcon,
+                                      }}
+                                      slotProps={{
+                                        textField: {
+                                          placeholder: "Select an ending date",
+                                          InputProps: {
+                                            startAdornment: (
+                                              <InputAdornment position="start">
+                                                <CalendarMonthIcon color="primary" />
+                                              </InputAdornment>
+                                            ),
+                                          },
+                                        },
+                                      }}
                                     />
                                   </LocalizationProvider>
-
+                                  <p>Time Zone:</p>
                                   <Select
-                                    labelId="demo-simple-select-label"
                                     value={eventTimezone}
-                                    id="demo-simple-select"
-                                    label="Timezone"
+                                    sx={{ color: "#4B7CBE" }}
+                                    id="create-event-time-zone"
+                                    placeholder="Timezone"
                                     onChange={(event) =>
                                       setEventTimezone(event.target.value)
                                     }
                                   >
-                                    <MenuItem value={"AEST"}>AEST</MenuItem>
-                                    <MenuItem value={"UTC"}>UTC</MenuItem>
-                                    <MenuItem value={"GMT"}>GMT</MenuItem>
+                                    {timezones.map((time, i) => (
+                                      <MenuItem value={time.value}>
+                                        {time.label}
+                                      </MenuItem>
+                                    ))}
                                   </Select>
                                 </Grid>
-
                                 <Grid container item xs={6} direction="column">
+                                  <p>Event start time:</p>
                                   <LocalizationProvider
                                     dateAdapter={AdapterDayjs}
                                   >
-                                    <DemoContainer components={["TimePicker"]}>
-                                      <TimePicker
-                                        label="With Time Clock"
-                                        defaultValue={dayjs("2022-04-17T15:30")}
-                                        value={eventStartTime}
-                                        onChange={(newValue) =>
-                                          setEventStartTime(newValue)
-                                        }
-                                        viewRenderers={{
-                                          hours: renderTimeViewClock,
-                                          minutes: renderTimeViewClock,
-                                          seconds: renderTimeViewClock,
-                                        }}
-                                      />
-                                    </DemoContainer>
+                                    <TimePicker
+                                      value={eventStartTime}
+                                      onChange={(newValue) =>
+                                        setEventStartTime(newValue)
+                                      }
+                                      viewRenderers={{
+                                        hours: renderTimeViewClock,
+                                        minutes: renderTimeViewClock,
+                                        seconds: renderTimeViewClock,
+                                      }}
+                                      slotProps={{
+                                        textField: {
+                                          placeholder: "Select a starting time",
+                                        },
+                                      }}
+                                    />
                                   </LocalizationProvider>
-
+                                  <p>Event end time:</p>
                                   <LocalizationProvider
                                     dateAdapter={AdapterDayjs}
                                   >
-                                    <DemoContainer components={["TimePicker"]}>
-                                      <TimePicker
-                                        label="With Time Clock"
-                                        value={eventEndTime}
-                                        onChange={(newValue) =>
-                                          setEventEndTime(newValue)
-                                        }
-                                        defaultValue={dayjs("2022-04-17T19:30")}
-                                        viewRenderers={{
-                                          hours: renderTimeViewClock,
-                                          minutes: renderTimeViewClock,
-                                          seconds: renderTimeViewClock,
-                                        }}
-                                      />
-                                    </DemoContainer>
+                                    <TimePicker
+                                      value={eventEndTime}
+                                      onChange={(newValue) =>
+                                        setEventEndTime(newValue)
+                                      }
+                                      viewRenderers={{
+                                        hours: renderTimeViewClock,
+                                        minutes: renderTimeViewClock,
+                                        seconds: renderTimeViewClock,
+                                      }}
+                                      slotProps={{
+                                        textField: {
+                                          placeholder: "Select an ending time",
+                                        },
+                                      }}
+                                    />
                                   </LocalizationProvider>
                                 </Grid>
                               </Grid>
@@ -933,6 +998,7 @@ function CreateEvent() {
                 } else if (activeStep === 4) {
                   return (
                     <>
+                      {/* PAGE 5 - PRICING */}
                       <h2>Pricing</h2>
                       <div className="">
                         <Box alignItems="center" justifyContent="center">
@@ -947,57 +1013,177 @@ function CreateEvent() {
                                   paddingBottom="15px"
                                   direction="row"
                                 >
-                                  <p>Free</p>{" "}
                                   <Checkbox
                                     checked={eventFree}
                                     onChange={handleChecked}
                                     name="eventFree"
                                     label="Free"
-                                    inputProps={{ "aria-label": "controlled" }}
+                                    inputProps={{
+                                      "aria-label": "controlled",
+                                    }}
                                   />
-                                  <p>Paid</p>
+                                  <p>Free</p>{" "}
                                   <Checkbox
                                     checked={eventPaid}
                                     onChange={handleChecked}
                                     name="eventPaid"
                                     label="paid"
-                                    inputProps={{ "aria-label": "controlled" }}
+                                    inputProps={{
+                                      "aria-label": "controlled",
+                                    }}
+                                  />
+                                  <p>Paid</p>
+                                </Grid>
+                                <Grid container item xs={6} direction="column">
+                                  <p>Ticket type:</p>
+                                  <TextField
+                                    value={eventTierName1}
+                                    required
+                                    id="create-event-ticker-tier1"
+                                    placeholder="Enter the ticket tier name"
+                                    variant="outlined"
+                                    inputProps={{ readonly: true }}
                                   />
                                 </Grid>
                                 <Grid container item xs={6} direction="column">
-                                  <Select
-                                    labelId="demo-simple-select-label"
-                                    value={eventTierName}
-                                    id="demo-simple-select"
-                                    label="Tier name"
-                                    onChange={(event) =>
-                                      setEventTierName(event.target.value)
-                                    }
-                                  >
-                                    <MenuItem value={"General"}>
-                                      General Admission
-                                    </MenuItem>
-                                    <MenuItem value={"VIP"}>VIP</MenuItem>
-                                    <MenuItem value={"Gold"}>
-                                      Gold Package
-                                    </MenuItem>
-                                  </Select>
-                                </Grid>
-                                <Grid container item xs={6} direction="column">
+                                  <p>Ticket price:</p>
                                   <OutlinedInput
-                                    label="Price"
-                                    type="number"
-                                    value={eventPrice}
+                                    type="money"
+                                    value={parseFloat(eventPrice1).toFixed(2)}
                                     onChange={(event) =>
-                                      setEventPrice(event.target.value)
+                                      setEventPrice1(event.target.value)
                                     }
                                     startAdornment={
                                       <InputAdornment position="start">
-                                        $
+                                        AUD$
                                       </InputAdornment>
                                     }
-                                    id="outlined-adornment-amount"
+                                    id="create-event-ticker-price1"
                                   />
+                                </Grid>
+                                <Grid
+                                  container
+                                  item
+                                  xs={12}
+                                  direction="row"
+                                  className="fab-container-tickets"
+                                >
+                                  <Fab
+                                    className="add-ticket-fab"
+                                    id="add-ticket-1"
+                                    aria-label="Add"
+                                  >
+                                    <AddIcon sx={{ color: "#f58146" }} />
+                                  </Fab>
+                                  <Fab
+                                    className="remove-ticket-fab"
+                                    id="remove-ticket-1"
+                                    aria-label="Remove"
+                                  >
+                                    <RemoveIcon sx={{ color: "#f58146" }} />
+                                  </Fab>
+                                </Grid>
+                                <Grid container item xs={6} direction="column">
+                                  <p>Ticket type:</p>
+                                  <TextField
+                                    value={eventTierName2}
+                                    required
+                                    onChange={(event) =>
+                                      setEventTierName2(event.target.value)
+                                    }
+                                    id="create-event-ticker-tier2"
+                                    placeholder="Enter the ticket tier name"
+                                    variant="outlined"
+                                  />
+                                </Grid>
+                                <Grid container item xs={6} direction="column">
+                                  <p>Ticket price:</p>
+                                  <OutlinedInput
+                                    type="money"
+                                    value={parseFloat(eventPrice2).toFixed(2)}
+                                    onChange={(event) =>
+                                      setEventPrice2(event.target.value)
+                                    }
+                                    startAdornment={
+                                      <InputAdornment position="start">
+                                        AUD$
+                                      </InputAdornment>
+                                    }
+                                    id="create-event-ticker-price2"
+                                  />
+                                </Grid>
+                                <Grid
+                                  container
+                                  item
+                                  xs={12}
+                                  direction="row"
+                                  className="fab-container-tickets"
+                                >
+                                  <Fab
+                                    className="add-ticket-fab"
+                                    id="add-ticket-2"
+                                    aria-label="Add"
+                                  >
+                                    <AddIcon sx={{ color: "#f58146" }} />
+                                  </Fab>
+                                  <Fab
+                                    className="remove-ticket-fab"
+                                    id="remove-ticket-2"
+                                    aria-label="Remove"
+                                  >
+                                    <RemoveIcon sx={{ color: "#f58146" }} />
+                                  </Fab>
+                                </Grid>
+                                <Grid container item xs={6} direction="column">
+                                  <p>Ticket type:</p>
+                                  <TextField
+                                    value={eventTierName3}
+                                    required
+                                    onChange={(event) =>
+                                      setEventTierName3(event.target.value)
+                                    }
+                                    id="create-event-ticker-tier3"
+                                    placeholder="Enter the ticket tier name"
+                                    variant="outlined"
+                                  />
+                                </Grid>
+                                <Grid container item xs={6} direction="column">
+                                  <p>Ticket price:</p>
+                                  <OutlinedInput
+                                    type="money"
+                                    value={parseFloat(eventPrice3).toFixed(2)}
+                                    onChange={(event) =>
+                                      setEventPrice3(event.target.value)
+                                    }
+                                    startAdornment={
+                                      <InputAdornment position="start">
+                                        AUD$
+                                      </InputAdornment>
+                                    }
+                                    id="create-event-ticker-price3"
+                                  />
+                                </Grid>
+                                <Grid
+                                  container
+                                  item
+                                  xs={12}
+                                  direction="row"
+                                  className="fab-container-tickets"
+                                >
+                                  <Fab
+                                    className="add-ticket-fab"
+                                    id="add-ticket-3"
+                                    aria-label="Add"
+                                  >
+                                    <AddIcon sx={{ color: "#f58146" }} />
+                                  </Fab>
+                                  <Fab
+                                    className="remove-ticket-fab"
+                                    id="remove-ticket-3"
+                                    aria-label="Remove"
+                                  >
+                                    <RemoveIcon sx={{ color: "#f58146" }} />
+                                  </Fab>
                                 </Grid>
                               </Grid>
                             </FormControl>
