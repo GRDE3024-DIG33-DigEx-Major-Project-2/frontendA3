@@ -3,14 +3,14 @@
  */
 
 //Import dependencies
-import FindEventHeader from "../event/FindEventHeader";
+import FindEventHeader from "../event/search/filters/FindEventHeader";
 import EventCard from "../event/EventCard";
 //Import endpoint handlers for events
 import { searchEvents, getAllTags } from "../../services/EventAPI";
 import { useEffect, useState, useContext } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { SearchEventFiltersContext } from "../../props/search-events.prop";
+import { SearchEventsContext } from "../../props/search-events.prop";
 
 
 /**
@@ -22,30 +22,15 @@ const Home = () => {
   //Events to display on homepage carousels
   const [rockEvents, setRockEvents] = useState([]);
   const [allEvents, setAllEvents] = useState([]);
-  //Search event filter props
-  const {
-    location,
-    date,
-    tags,
-    keywords,
-    setLocation,
-    setDate,
-    setTags,
-    setKeywords,
-    today,
-    paid,
-    price,
-    change,
-    setPaid,
-    setPrice,
-    setChange,
-    minPrice,
-    maxPrice,
-    setMinPrice,
-    setMaxPrice,
-    selectedTagIds,
-    setSelectedTagIds,
-  } = useContext(SearchEventFiltersContext);
+
+  /**
+   * Prop context for search event data
+   */
+  const { 
+    events, 
+    pageCount,
+    tags
+  } = useContext(SearchEventsContext);
 
   /**
    * On startup hook, fetch api data
@@ -70,10 +55,10 @@ const Home = () => {
       let rockTagId;
 
       //Fetch all possible pre-defined tags if none have been retrieved
-      if (tags.length == 0) {
+      if (tags.get.length == 0) {
         await getAllTags()
         .then(async (data) => {
-           setTags(data);
+           tags.set(data);
           for (let tag of data) {
                   if (tag.name == "Rock") {
             rockTagId = tag.id;
@@ -88,7 +73,7 @@ const Home = () => {
       }
       //Tags already fetched, find the Rock tag id
       else {
-      for (let tag of tags) {
+      for (let tag of tags.get) {
               if (tag.name == "Rock") {
         rockTagId = tag.id;
         break;

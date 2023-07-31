@@ -27,7 +27,7 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { renderTimeViewClock } from "@mui/x-date-pickers/timeViewRenderers";
 import { Checkbox } from "@mui/material";
-import { getAllTags } from "../../utils/utils";
+import { getAllTags } from "../../services/EventAPI";
 import { Link } from "@mui/material";
 import CreateEventMap from "../mapbox/CreateEventMap";
 import { forwardGeocoding } from "../../services/Geocoding";

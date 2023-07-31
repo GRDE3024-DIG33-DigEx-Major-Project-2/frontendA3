@@ -9,7 +9,7 @@ import Login from "./user/Login.js";
 import Signup from "./user/Signup.js";
 import About from "./base/About.js";
 import ResetPassword from "./user/ResetPassword.js";
-import Events from "./event/Events";
+import EventSearch from "./event/search/EventSearch";
 import TermsOfUse from "./base/TermsOfUse";
 import PrivacyPolicy from "./base/PrivacyPolicy";
 import EventPage from "./event/EventPage.js";
@@ -38,27 +38,31 @@ function App() {
   return (
     <div className="App">
       <Header user={user} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setUser={setUser} />
+
       <SearchEventsProvider>
         <SearchEventFiltersProvider>
-      <Routes>
+          <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="events" element={<Events />} />        
-        <Route path="about" element={<About />} />
-        <Route path="login" element={<Login setIsLoggedIn={setIsLoggedIn} setUser={setUser} />} />
-        <Route path="signup" element={<Signup />} />
-        <Route path="reset-password" element={<ResetPassword />} />
-        <Route path="profile" element={<Profile isLoggedIn={isLoggedIn} user={user} setIsLoggedIn={setIsLoggedIn} setUser={setUser} />} />
-        <Route path="dashboard" element={<Dashboard isLoggedIn={isLoggedIn} user={user} setIsLoggedIn={setIsLoggedIn} setUser={setUser} />} />
-        <Route path="/terms-of-use" element={<TermsOfUse />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/event" element={<EventPage />} />
-        <Route path="/signupguest" element={<SignUpGuest />} />
-        <Route path="/signuporganiser" element={<SignUpOrganiser />} />
-        <Route path="/createevent" element={<CreateEvent />} />
-        <Route path="*" element={<h1 className="not-found">Page Not Found</h1>} />
-      </Routes>          
+            <Route path="events" element={<EventSearch />} />
+            <Route path="profile" element={<Profile isLoggedIn={isLoggedIn} user={user} setIsLoggedIn={setIsLoggedIn} setUser={setUser} />} />
+            <Route path="dashboard" element={<Dashboard isLoggedIn={isLoggedIn} user={user} setIsLoggedIn={setIsLoggedIn} setUser={setUser} />} />
+            <Route path="about" element={<About />} />
+            <Route path="login" element={<Login setIsLoggedIn={setIsLoggedIn} setUser={setUser} />} />
+            <Route path="signup" element={<Signup />} />
+            <Route path="reset-password" element={<ResetPassword />} />
+            <Route path="/terms-of-use" element={<TermsOfUse />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/event" element={<EventPage />} />
+            <Route path="/signupguest" element={<SignUpGuest />} />
+            <Route path="/signuporganiser" element={<SignUpOrganiser />} />
+            <Route path="/createevent" element={<CreateEvent />} />
+            <Route path="*" element={<h1 className="not-found">Page Not Found</h1>} />
+          </Routes>
         </SearchEventFiltersProvider>
       </SearchEventsProvider>
+
+
+
 
 
 

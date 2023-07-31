@@ -18,8 +18,8 @@ const Profile = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
 
   useEffect(() => {
     async function fetchEvents() {
-      const data = await getAllEvents();
-      setEvents(data);
+      //const data = await getAllEvents();
+      //setEvents(data);
     }
 
     fetchEvents();
