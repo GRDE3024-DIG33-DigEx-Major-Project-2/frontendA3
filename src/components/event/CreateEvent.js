@@ -1,7 +1,6 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import { useState, useEffect } from "react";
@@ -11,13 +10,15 @@ import {
   TextField,
   InputAdornment,
   MobileStepper,
+  Stack,
+  Divider,
+  Avatar,
 } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Select from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import MenuItem from "@mui/material/MenuItem";
-import { Suspense } from "react";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -26,12 +27,19 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { renderTimeViewClock } from "@mui/x-date-pickers/timeViewRenderers";
 import { Checkbox } from "@mui/material";
-import { getAllTags, getAustralianTimezones } from "../../utils/utils";
+import {
+  getAllTags,
+  getAustralianTimezones,
+  getFirstLetters,
+} from "../../utils/utils";
 import { Link } from "@mui/material";
 import CreateEventMap from "../mapbox/CreateEventMap";
 import { forwardGeocoding } from "../../services/Geocoding";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
+import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import LocalActivityOutlinedIcon from "@mui/icons-material/LocalActivityOutlined";
 
 function CreateEvent() {
   const [activeStep, setActiveStep] = useState(0);
@@ -69,10 +77,10 @@ function CreateEvent() {
   const [mapKey, setMapKey] = useState(1);
   // ** FOURTH SCREEN - DATE AND TIME ** //
   const timezones = getAustralianTimezones();
-  const [eventStartDate, setEventStartDate] = useState(null);
-  const [eventEndDate, setEventEndDate] = useState(null);
-  const [eventStartTime, setEventStartTime] = useState(null);
-  const [eventEndTime, setEventEndTime] = useState(null);
+  const [eventStartDate, setEventStartDate] = useState("");
+  const [eventEndDate, setEventEndDate] = useState("");
+  const [eventStartTime, setEventStartTime] = useState("");
+  const [eventEndTime, setEventEndTime] = useState("");
   const [eventTimezone, setEventTimezone] = useState("AEST");
   // ** FIFTH SCREEN - PRICE **//
   const { eventFree, eventPaid } = state;
@@ -82,6 +90,8 @@ function CreateEvent() {
   const [eventPrice2, setEventPrice2] = useState(parseFloat(0.0).toFixed(2));
   const [eventTierName3, setEventTierName3] = useState("");
   const [eventPrice3, setEventPrice3] = useState(parseFloat(0.0).toFixed(2));
+  const [eventTierName4, setEventTierName4] = useState("");
+  const [eventPrice4, setEventPrice4] = useState(parseFloat(0.0).toFixed(2));
   // ** SIXTH SCREEN - MEDIA **//
   const [selectedImage, setSelectedImage] = useState();
 
@@ -159,6 +169,7 @@ function CreateEvent() {
       target: { value },
     } = event;
     setTags(typeof value === "string" ? value.split(",") : value);
+    console.log(tags);
   };
 
   const handleNext = (e) => {
@@ -173,8 +184,8 @@ function CreateEvent() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
+  const handleSave = () => {
+    console.log("TO DO SAVE");
   };
 
   const submitEvent = () => {
@@ -193,6 +204,7 @@ function CreateEvent() {
   const signupHandler = async (event) => {
     event.preventDefault();
     console.log(eventName, eventOrganiser, description, tags);
+    console.log(eventStartDate, eventEndDate, eventStartTime, eventEndTime);
   };
 
   const deleteEvent = () => {
@@ -202,10 +214,6 @@ function CreateEvent() {
   const saveExit = () => {
     navigate("/dashboard");
   };
-
-  const arrayDataItems = availableTags.map((tag) => (
-    <span className="event-tag">{tag.name}</span>
-  ));
 
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -249,97 +257,181 @@ function CreateEvent() {
           </Link>
         </div>
         {activeStep === 6 ? (
-          <>
-            <Typography sx={{ mt: 2, mb: 1 }}>
-              <h2>Event preview</h2>
-              <div className="Event">
+          <div className="event-preview-screen">
+            <div className="event-preview">
+              <h1>Event preview</h1>
+              <div className="event-main-image">
                 <img
-                  className="event-main-image"
-                  alt="eventimage"
+                  alt="event image"
                   src={URL.createObjectURL(selectedImage)}
-                ></img>
-                <div className="event-body">
-                  <div className="event-columns">
-                    <div className="event-column-title">
-                      <h1 className="event-title">{eventName}</h1>
-                    </div>
-                    <div className="event-column-button">
-                      <button className="event-buy-button">Buy Tickets</button>
-                    </div>
-                    <div className="event-column-title">
-                      <h2 className="event-title">When and where</h2>
-                      <div className="event-columns-details">
-                        <div className="event-column-detail">
-                          <h4>Date & Time</h4>
-                          <p>
-                            {eventStartDate} - {eventEndDate}
-                          </p>
-                          <p>
-                            {eventStartTime} - {eventEndTime}
-                          </p>
-                        </div>
-                        <div className="event-column-detail">
-                          <h4>Location</h4>
-                          <p>
-                            {eventAddress1}, {eventCity}, {eventCountry},{" "}
-                            {eventPostCode}{" "}
-                          </p>
-                        </div>
+                />
+              </div>
+              <div className="prev-event-body">
+                <div className="event-prev-first-row">
+                  <h1 className="event-title">{eventName}</h1>
+                  <button className="event-buy-button">Buy Tickets</button>
+                </div>
+                <div className="event-prev-second-row">
+                  <div className="when-where-box outlined">
+                    <h2 className="event-prev-title">When and where</h2>
+                    <Stack
+                      spacing={2}
+                      direction="row"
+                      className="horizontal-stack"
+                      divider={<Divider orientation="vertical" flexItem />}
+                    >
+                      <div className="prev-date-time">
+                        <span className="icon-title">
+                          <CalendarTodayOutlinedIcon
+                            sx={{ color: "#4B7CBE" }}
+                          />
+                          <h3>Date and time</h3>
+                        </span>
+                        <p className="strong-string-prev">
+                          {eventStartDate.toDateString()}{" "}
+                          {eventStartTime.toLocaleString("en-US", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}{" "}
+                          - {eventEndDate.toDateString()}{" "}
+                          {eventEndTime.toLocaleString("en-US", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </p>
                       </div>
-                    </div>
-                    <div className="event-column-button">
-                      <h2>Organised By</h2>
-                      <div className="event-columns-details">
-                        <div className="event-column-detail">
-                          <img
-                            className="event-logo"
-                            src="https://www.frontiertouring.com/files/web_images/logo-frontier_footer.png"
-                            alt="artist"
-                          ></img>
-                        </div>
-                        <div className="event-column-detail">
-                          <p>{eventOrganiser}</p>
-                        </div>
+                      <div className="prev-location">
+                        <span className="icon-title">
+                          <LocationOnOutlinedIcon sx={{ color: "#4B7CBE" }} />
+                          <h3>Location</h3>
+                        </span>
+                        <p className="strong-string-prev">
+                          {venueName}, {eventAddress1}
+                          {eventAddress2}, {suburb}, {eventPostCode},{" "}
+                          {eventCity} {eventCountry}
+                        </p>
                       </div>
-                    </div>
-                    <p>&nbsp;</p>
-                    <div>
-                      <h2>About this event</h2>
-                      <p>{eventSummary}</p>
-                    </div>
-                    <div>
-                      <h3>Tags</h3>
-                      {arrayDataItems}
-                    </div>
+                    </Stack>
                   </div>
-                  <p>&nbsp;</p>
-                  <div className="event-columns">
-                    <div className="event-column-title">
-                      <h1 className="event-title">&nbsp;</h1>
-                    </div>
-                    <div className="event-column-button">
-                      <button className="event-buy-button">Buy Tickets</button>
-                    </div>
+                  <div className="organiser-box outlined">
+                    <h2 className="event-prev-title">Organiser</h2>
+                    <Avatar id="event-avatar">
+                      {getFirstLetters(eventOrganiser)}
+                    </Avatar>
+                    <h2>{eventOrganiser}</h2>
                   </div>
                 </div>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
+                <div className="event-prev-third-row">
+                  <div className="pricing-box outlined">
+                    <h2 className="event-prev-title-2">Pricing</h2>
+                    <Stack
+                      spacing={2}
+                      direction="row"
+                      className="horizontal-stack"
+                      divider={<Divider orientation="vertical" flexItem />}
+                    >
+                      <div className="event-prev-price">
+                        <span className="icon-title">
+                          <LocalActivityOutlinedIcon
+                            sx={{ color: "#4B7CBE" }}
+                          />
+                          <h3>{eventTierName1}</h3>
+                        </span>
+                        <p>$ {eventPrice1}</p>
+                      </div>
+                      {eventTierName2 && (
+                        <div className="event-prev-price">
+                          <span className="icon-title">
+                            <LocalActivityOutlinedIcon
+                              sx={{ color: "#4B7CBE" }}
+                            />
+                            <h3>{eventTierName2}</h3>
+                          </span>
+                          <p>$ {eventPrice2}</p>
+                        </div>
+                      )}
+                      {eventTierName3 && (
+                        <div className="event-prev-price">
+                          <span className="icon-title">
+                            <LocalActivityOutlinedIcon
+                              sx={{ color: "#4B7CBE" }}
+                            />
+                            <h3>{eventTierName3}</h3>
+                          </span>
+                          <p>$ {eventPrice3}</p>
+                        </div>
+                      )}
+                      {eventTierName4 && (
+                        <div className="event-prev-price">
+                          <span className="icon-title">
+                            <LocalActivityOutlinedIcon
+                              sx={{ color: "#4B7CBE" }}
+                            />
+                            <h3>{eventTierName4}</h3>
+                          </span>
+                          <p>$ {eventPrice4}</p>
+                        </div>
+                      )}
+                    </Stack>
+                  </div>
+                </div>
+                <div className="event-prev-fourth-row">
+                  <div className="create-prev-about">
+                    <h2>About this event</h2>
+                    <p>{description}</p>
+                  </div>
+                  <div className="create-prev-lineup outlined">
+                    <h2 className="event-prev-title">Artist line-up</h2>
+                    <ul>
+                      <li>{artistName}</li>
+                      {artistName2 && (
+                        <>
+                          <li>{artistName2}</li>
+                        </>
+                      )}
+                      {artistName3 && (
+                        <>
+                          <li>{artistName3}</li>
+                        </>
+                      )}
+                      {artistName4 && (
+                        <>
+                          <li>{artistName4}</li>
+                        </>
+                      )}
+                    </ul>
+                  </div>
+                </div>
+                <div className="event-prev-fifth-row">
+                  <div className="event-prev-tags">
+                    <h2>Tags</h2>
+                    <div>
+                      {tags.map((tag, i) => (
+                        <Chip
+                          sx={{
+                            backgroundColor: "white",
+                            color: "#7759a6",
+                            border: "solid 1px #7759a6",
+                            margin: "0 1%",
+                          }}
+                          key={i}
+                          label={tag}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  <button className="event-buy-button">Buy Tickets</button>
+                </div>
               </div>
-            </Typography>
-            <>
-              <event>
-                <Suspense fallback={<div>Loading...</div>}></Suspense>
-              </event>
-            </>
-            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-              <Box sx={{ flex: "1 1 auto" }} />
-              <Button onClick={handleReset}>Edit</Button>
-              <Button onClick={submitEvent}>Publish</Button>
-            </Box>
-          </>
+            </div>
+            <div className="event-prev-end-bttns">
+              <Button id="save-ex-ev-btn" variant="contained" onClick={handleSave}>Save and exit</Button>
+              <Button id="save-publish-ev-btn" variant="contained" onClick={submitEvent}>Save and publish</Button>
+            </div>
+          </div>
         ) : (
           <>
-            <div id="create-event-screen">
+            <div className="create-event-screen">
               {(() => {
                 // FIRST SCREEN - BASIC INFO
                 if (activeStep === 0) {
@@ -845,7 +937,9 @@ function CreateEvent() {
                                       placeholder="Event Start Date"
                                       value={eventStartDate}
                                       onChange={(newValue) =>
-                                        setEventStartDate(newValue)
+                                        setEventStartDate(
+                                          new Date(Date.parse(newValue))
+                                        )
                                       }
                                       slots={{
                                         openPickerIcon:
@@ -875,7 +969,9 @@ function CreateEvent() {
                                       placeholder="Event End Date"
                                       value={eventEndDate}
                                       onChange={(newValue) =>
-                                        setEventEndDate(newValue)
+                                        setEventEndDate(
+                                          new Date(Date.parse(newValue))
+                                        )
                                       }
                                       slots={{
                                         openPickerIcon:
@@ -920,7 +1016,9 @@ function CreateEvent() {
                                     <TimePicker
                                       value={eventStartTime}
                                       onChange={(newValue) =>
-                                        setEventStartTime(newValue)
+                                        setEventStartTime(
+                                          new Date(Date.parse(newValue))
+                                        )
                                       }
                                       viewRenderers={{
                                         hours: renderTimeViewClock,
@@ -941,7 +1039,9 @@ function CreateEvent() {
                                     <TimePicker
                                       value={eventEndTime}
                                       onChange={(newValue) =>
-                                        setEventEndTime(newValue)
+                                        setEventEndTime(
+                                          new Date(Date.parse(newValue))
+                                        )
                                       }
                                       viewRenderers={{
                                         hours: renderTimeViewClock,
@@ -1007,7 +1107,7 @@ function CreateEvent() {
                                   <TextField
                                     value={eventTierName1}
                                     required
-                                    id="create-event-ticker-tier1"
+                                    id="create-event-ticket-tier1"
                                     placeholder="Enter the ticket tier name"
                                     variant="outlined"
                                     inputProps={{ readonly: true }}
@@ -1015,18 +1115,13 @@ function CreateEvent() {
                                 </Grid>
                                 <Grid container item xs={6} direction="column">
                                   <p>Ticket price:</p>
-                                  <OutlinedInput
-                                    type="money"
+                                  <TextField
+                                    variant="outlined"
                                     value={parseFloat(eventPrice1).toFixed(2)}
                                     onChange={(event) =>
                                       setEventPrice1(event.target.value)
                                     }
-                                    startAdornment={
-                                      <InputAdornment position="start">
-                                        AUD$
-                                      </InputAdornment>
-                                    }
-                                    id="create-event-ticker-price1"
+                                    id="create-event-ticket-price1"
                                   />
                                 </Grid>
                                 <Grid
@@ -1066,18 +1161,13 @@ function CreateEvent() {
                                 </Grid>
                                 <Grid container item xs={6} direction="column">
                                   <p>Ticket price:</p>
-                                  <OutlinedInput
-                                    type="money"
+                                  <TextField
+                                    variant="outlined"
                                     value={parseFloat(eventPrice2).toFixed(2)}
                                     onChange={(event) =>
                                       setEventPrice2(event.target.value)
                                     }
-                                    startAdornment={
-                                      <InputAdornment position="start">
-                                        AUD$
-                                      </InputAdornment>
-                                    }
-                                    id="create-event-ticker-price2"
+                                    id="create-event-ticket-price2"
                                   />
                                 </Grid>
                                 <Grid
@@ -1110,25 +1200,20 @@ function CreateEvent() {
                                     onChange={(event) =>
                                       setEventTierName3(event.target.value)
                                     }
-                                    id="create-event-ticker-tier3"
+                                    id="create-event-ticket-tier3"
                                     placeholder="Enter the ticket tier name"
                                     variant="outlined"
                                   />
                                 </Grid>
                                 <Grid container item xs={6} direction="column">
                                   <p>Ticket price:</p>
-                                  <OutlinedInput
-                                    type="money"
+                                  <TextField
+                                    variant="outlined"
                                     value={parseFloat(eventPrice3).toFixed(2)}
                                     onChange={(event) =>
                                       setEventPrice3(event.target.value)
                                     }
-                                    startAdornment={
-                                      <InputAdornment position="start">
-                                        AUD$
-                                      </InputAdornment>
-                                    }
-                                    id="create-event-ticker-price3"
+                                    id="create-event-ticket-price3"
                                   />
                                 </Grid>
                                 <Grid
@@ -1148,6 +1233,52 @@ function CreateEvent() {
                                   <Fab
                                     className="remove-ticket-fab"
                                     id="remove-ticket-3"
+                                    aria-label="Remove"
+                                  >
+                                    <RemoveIcon sx={{ color: "#f58146" }} />
+                                  </Fab>
+                                </Grid>
+                                <Grid container item xs={6} direction="column">
+                                  <p>Ticket type:</p>
+                                  <TextField
+                                    value={eventTierName4}
+                                    required
+                                    onChange={(event) =>
+                                      setEventTierName4(event.target.value)
+                                    }
+                                    id="create-event-ticket-tier4"
+                                    placeholder="Enter the ticket tier name"
+                                    variant="outlined"
+                                  />
+                                </Grid>
+                                <Grid container item xs={6} direction="column">
+                                  <p>Ticket price:</p>
+                                  <TextField
+                                    variant="outlined"
+                                    value={eventPrice4}
+                                    onChange={(event) =>
+                                      setEventPrice4(event.target.value)
+                                    }
+                                    id="create-event-ticket-price4"
+                                  />
+                                </Grid>
+                                <Grid
+                                  container
+                                  item
+                                  xs={12}
+                                  direction="row"
+                                  className="fab-container-tickets"
+                                >
+                                  <Fab
+                                    className="add-ticket-fab"
+                                    id="add-ticket-4"
+                                    aria-label="Add"
+                                  >
+                                    <AddIcon sx={{ color: "#f58146" }} />
+                                  </Fab>
+                                  <Fab
+                                    className="remove-ticket-fab"
+                                    id="remove-ticket-4"
                                     aria-label="Remove"
                                   >
                                     <RemoveIcon sx={{ color: "#f58146" }} />

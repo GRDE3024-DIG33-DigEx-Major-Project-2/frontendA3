@@ -948,7 +948,7 @@ div.lineup {
   padding-bottom: 1%;
 }
 
-#create-event-screen {
+.create-event-screen {
   max-width: 100%;
   min-height: 65vh;
   max-height: 850px;
@@ -956,7 +956,7 @@ div.lineup {
   padding: 2%;
   margin: 2%;
 }
-#create-event-screen h2 {
+.create-event-screen h2 {
   font-size: 2em;
 }
 
@@ -988,7 +988,8 @@ div.lineup {
 #save-cont-ev-btn,
 #skip-ev-btn,
 #disable-ev-btn,
-#disable-ev-btn-show {
+#disable-ev-btn-show,
+#save-publish-ev-btn {
   background-color: #f58146;
   color: #000000;
   border: solid 2px #f58146;
@@ -1003,6 +1004,7 @@ div.lineup {
 }
 
 #save-exit-ev-btn,
+#save-ex-ev-btn,
 #hide,
 #show {
   background-color: #ffffff;
@@ -1131,9 +1133,217 @@ div.lineup {
   align-items: center;
 }
 
-.preview-image {
-  height: 300px;
+.prev-event-body {
+  display: block;
+}
+
+.event-preview-screen {
+  max-height: fit-content;
+  height: fit-content;
+  min-height: 1600px;
+  padding: 2% 1%;
+}
+
+.event-preview {
+  background-color: #ffffff;
+  padding: 1% 2%;
+  height: 90%;
+}
+
+.event-main-image {
+  height: 400px;
+  min-height: 400px;
   width: 100%;
+}
+.event-main-image img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.event-prev-first-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 120px;
+  width: 100%;
+}
+.event-prev-first-row button:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+.event-prev-first-row h1 {
+  font-size: 36px;
+}
+
+.outlined {
+  border: solid 1px #e6e2e2;
+  position: relative;
+  margin-top: 5%;
+}
+
+.icon-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2%;
+}
+
+.horizontal-stack {
+  height: 80%;
+  width: 100%;
+  padding: 3% 0%;
+}
+
+.prev-date-time {
+  width: 40%;
+  padding: 0 4%;
+}
+
+.prev-location {
+  width: 60%;
+  padding: 0 3%;
+}
+
+.event-prev-title {
+  position: absolute;
+  background-color: #ffffff;
+  top: -18%;
+  left: 4%;
+  width: fit-content;
+  height: fit-content;
+}
+
+.event-prev-title-2 {
+  position: absolute;
+  background-color: #ffffff;
+  top: -22%;
+  left: 3%;
+  width: fit-content;
+  height: fit-content;
+}
+
+.event-prev-second-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 200px;
+  gap: 3%;
+}
+.event-prev-second-row .when-where-box {
+  width: 68%;
+  height: 100%;
+}
+.event-prev-second-row .organiser-box {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 2%;
+  gap: 7%;
+}
+
+.strong-string-prev {
+  font-size: 16px;
+  padding-left: 11%;
+  color: #f58146;
+  font-weight: 500;
+}
+
+#event-avatar {
+  font-size: 30px;
+  height: 100px;
+  width: 100px;
+  background-color: #4d7bbe;
+}
+
+.event-prev-third-row {
+  width: 100%;
+  height: 180px;
+}
+
+.pricing-box {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.event-prev-price {
+  width: 25%;
+  max-width: 50%;
+  padding: 1% 3%;
+}
+.event-prev-price p {
+  font-size: 15px;
+  padding: 0 10%;
+}
+
+.event-prev-fourth-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: fit-content;
+  height: 200px;
+  max-height: fit-content;
+  margin: 2% 0;
+}
+.event-prev-fourth-row p {
+  font-size: 15px;
+}
+
+.create-prev-about {
+  width: 75%;
+  height: 100%;
+  padding-right: 5%;
+}
+
+.create-prev-lineup {
+  width: 25%;
+  height: 100%;
+}
+.create-prev-lineup ul {
+  margin-top: 10%;
+}
+.create-prev-lineup ul li {
+  margin-top: 5%;
+}
+
+.event-prev-fifth-row {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.event-prev-tags div {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2%;
+}
+
+.event-prev-end-bttns {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 2%;
+  height: 100px;
 }
 
 /* CONTENT PAGES */

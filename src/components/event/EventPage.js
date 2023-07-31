@@ -5,6 +5,7 @@ import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 import ShareIcon from "@mui/icons-material/Share";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 
+
 function Event() {
   const location = useLocation();
   const event = location.state.event;
