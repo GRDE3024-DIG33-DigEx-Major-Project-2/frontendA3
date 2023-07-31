@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
 import '../static/style.css';
 import Home from "./base/Home.js";
 import Header from "./base/Header.js";
@@ -24,31 +23,20 @@ import { SearchEventsProvider, SearchEventFiltersProvider } from "../props/searc
 
 function App() {
 
-  const [isLoggedIn, setIsLoggedIn] = useState();
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    if (user) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
-  }, [isLoggedIn, setIsLoggedIn, user]);
-
   return (
     <div className="App">
-      <Header user={user} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setUser={setUser} />
+      <Header />
       <SearchEventsProvider>
         <SearchEventFiltersProvider>
       <Routes>
             <Route path="/" element={<Home />} />
             <Route path="events" element={<Events />} />        
         <Route path="about" element={<About />} />
-        <Route path="login" element={<Login setIsLoggedIn={setIsLoggedIn} setUser={setUser} />} />
+        <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
         <Route path="reset-password" element={<ResetPassword />} />
-        <Route path="profile" element={<Profile isLoggedIn={isLoggedIn} user={user} setIsLoggedIn={setIsLoggedIn} setUser={setUser} />} />
-        <Route path="dashboard" element={<Dashboard isLoggedIn={isLoggedIn} user={user} setIsLoggedIn={setIsLoggedIn} setUser={setUser} />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="dashboard" element={<Dashboard />} />
         <Route path="/terms-of-use" element={<TermsOfUse />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/event" element={<EventPage />} />
@@ -59,10 +47,6 @@ function App() {
       </Routes>          
         </SearchEventFiltersProvider>
       </SearchEventsProvider>
-
-
-
-
 
       <Footer />
     </div>

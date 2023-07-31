@@ -12,9 +12,12 @@ import { useState, useEffect } from "react";
 import { getAllEvents, getFirstLetters } from "../../utils/utils";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import LockIcon from "@mui/icons-material/Lock";
+import { getAccessToken, getUser } from "../../utils/localStorage";
 
-const Profile = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
+const Profile = () => {
   const [events, setEvents] = useState([]);
+  const token = getAccessToken();
+  const user = getUser();
 
   useEffect(() => {
     async function fetchEvents() {
@@ -32,7 +35,7 @@ const Profile = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
   return (
     <>
       <div className="profile-container">
-        {isLoggedIn && (
+        {user && (
           <>
             <div className="profile-banner">
               <h1>My Profile</h1>
@@ -106,7 +109,7 @@ const Profile = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
             </article>
           </>
         )}
-        {!isLoggedIn && (
+        {!user && (
           <>
             <h1>You must login to view this page.</h1>
           </>
