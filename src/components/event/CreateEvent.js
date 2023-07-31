@@ -40,6 +40,8 @@ import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import LocalActivityOutlinedIcon from "@mui/icons-material/LocalActivityOutlined";
+import ShareIcon from "@mui/icons-material/Share";
+import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 
 function CreateEvent() {
   const [activeStep, setActiveStep] = useState(0);
@@ -259,6 +261,12 @@ function CreateEvent() {
         {activeStep === 6 ? (
           <div className="event-preview-screen">
             <div className="event-preview">
+              <div className="event-prev-card-icon-share">
+                <ShareIcon sx={{ fontSize: 22, color: "black" }} />
+              </div>
+              <div className="event-prev-card-icon-bookmark">
+                <BookmarkAddIcon sx={{ fontSize: 23, color: "black" }} />
+              </div>
               <h1>Event preview</h1>
               <div className="event-main-image">
                 <img
@@ -425,8 +433,20 @@ function CreateEvent() {
               </div>
             </div>
             <div className="event-prev-end-bttns">
-              <Button id="save-ex-ev-btn" variant="contained" onClick={handleSave}>Save and exit</Button>
-              <Button id="save-publish-ev-btn" variant="contained" onClick={submitEvent}>Save and publish</Button>
+              <Button
+                id="save-ex-ev-btn"
+                variant="contained"
+                onClick={handleSave}
+              >
+                Save and exit
+              </Button>
+              <Button
+                id="save-publish-ev-btn"
+                variant="contained"
+                onClick={submitEvent}
+              >
+                Save and publish
+              </Button>
             </div>
           </div>
         ) : (
