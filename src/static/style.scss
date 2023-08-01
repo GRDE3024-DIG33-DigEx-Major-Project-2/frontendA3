@@ -1035,9 +1035,44 @@ div.lineup {
   background: linear-gradient(90deg, $lightblue 23%, $lightorange 100%);
 }
 .create-event-header h1 {
-  font-size: 2.7em;
+  font-size: 6em;
   color: $white;
   text-shadow: rgb(40, 39, 39) 1px 1px 4px;
+}
+.create-event-screen h2{
+  font-size: 3em;
+}
+
+.css-12z1287-MuiGrid-root p,
+.css-1f064cs-MuiGrid-root p,
+.css-1qeq9aw-MuiGrid-root p{
+  font-size: 18px;
+}
+
+#create-event-name{
+  font-size: 9em;
+}
+
+#create-event-description{
+  font-size: 1.5em;
+  padding: 13px;
+}
+
+.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root{
+  height: 50px;
+}
+
+.css-suj22h-MuiChip-root {
+  font-size: 1.5rem;
+  height: 30px;
+}
+
+.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root {
+  font-size: 1rem;
+}
+
+.css-sghohy-MuiButtonBase-root-MuiButton-root {
+  font-size: 2rem;
 }
 
 .create-event-stepper {
@@ -1500,6 +1535,7 @@ div.lineup {
     height: 45vh;
     width: 80vw;
   }
+
 }
 
 /* Phone */
@@ -1728,6 +1764,69 @@ div.lineup {
     font-size: 0.7em;
     padding-bottom: 2px;
   }
+/*CREATE EVENTS PAGE*/
+
+.create-event-header h1 {
+  font-size: 2.2em;
+}
+
+#save-exit-ev-btn {
+  width: 11em;
+  height: 4em;
+  text-align: center;
+  font-size: 0.8em;
+}
+
+#save-cont-ev-btn {
+  width: 13em;
+  height: 4em;
+  text-align: center;
+  font-size: 0.8em;
+}
+#create-ev-bttns-right {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#create-ev-bttns div {
+  width: 50%;
+  gap: 5%;
+}
+
+#stepper-box{
+  justify-content: left;
+  gap: 5%;
+}
+
+#stepper-box h2{
+  padding-left: 10px;
+}
+.create-event-screen h2 {
+  text-align: center;
+}
+
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+  font-size: 5em;
+}
+
+.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
+  height: 25px;
+}
+
+.css-suj22h-MuiChip-root {
+  height: 18px;
+}
+
+.css-6od3lo-MuiChip-label {
+  padding-left: 10px;
+  padding-right: 9px;
+  height: 10px;
+  font-size: 0.8em;
+  padding-top: 8px;
+}
+
 }
 
 @media only screen and (max-width: 480px) {
@@ -1752,6 +1851,84 @@ div.lineup {
     margin-top: 10px; /* Add a margin to create spacing between elements */
     display: inline-flex;
   }
+
+  /*CREATE EVENTS PAGE*/
+  #save-exit-ev-btn {
+    padding: 7px 6px;
+  }
+  
+  #save-cont-ev-btn {
+    padding: 7px 5px;
+  }
+  
+  #stepper-box h2{
+    font-size: 0.8em;
+    padding-left: 1em;
+  }
+  #stepper-box{
+    justify-content: left;
+  }
+  #discard-ev-btn {
+    right: 4%;
+    font-size: 1em;
+}
+.create-event-screen h2 {
+  text-align: center;
+  margin-top: 12px;
+  margin-bottom: 12px;
+
+}
+
+.css-12z1287-MuiGrid-root p,
+.css-1f064cs-MuiGrid-root p,
+.css-1qeq9aw-MuiGrid-root p{
+  font-size: 0.8em;
+}
+
+#create-event-description{
+  font-size: 1em;
+  padding: 7.5px 8px;
+}
+
+#create-event-name,
+#create-event-organiser,
+#create-event-eventURL{
+  font-size: 3.8em;
+  padding: 7.5px 8px;
+}
+
+.css-8ewcdo-MuiInputBase-root-MuiOutlinedInput-root {
+  padding: 7.5px 7px;
+  font-size: 0.8rem;
+}
+
+.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
+  font-size: 0.1rem;
+}
+.css-sghohy-MuiButtonBase-root-MuiButton-root {
+  font-size: 0.5em;
+}
+
+.create-event-header {
+  height: 26vh;
+}
+.create-event-header h1 {
+  font-size: 2.2em;
+}
+
+.css-17clsp4-MuiPaper-root-MuiMobileStepper-root {
+  width: 44%;
+}
+
+.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root {
+  font-size: 0.6rem;
+  min-height: 30px;
+}
+
+.css-yi3mkw {
+  flex-wrap: nowrap;
+}
+
 }
 @media only screen and (max-width: 640px) {
   /*PROFILE PAGE*/
@@ -1865,4 +2042,5 @@ div.lineup {
     width: 1.5em;
     height: 1em;
   }
+
 }
