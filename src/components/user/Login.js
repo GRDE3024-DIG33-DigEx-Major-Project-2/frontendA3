@@ -4,7 +4,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import { setUserSession } from "../../utils/localStorage";
+import { setAccessToken, setUserSession } from "../../utils/localStorage";
+import { accessToken } from "mapbox-gl";
 
 const Login = () => {
   const baseURL = process.env.REACT_APP_BASEURL;
@@ -71,6 +72,8 @@ const Login = () => {
 
           // set user
           setUserSession(user);
+          console.log(response.data.accessToken);
+          setAccessToken(response.data.accessToken);
           // navigate to profile or dashboard
           navigate(destinationPage);
         })
