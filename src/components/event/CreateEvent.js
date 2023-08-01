@@ -200,7 +200,7 @@ function CreateEvent() {
     // TODO - add tickets, image and artist info
     // ASK RYAN TO ADD A distinct city and suburb field to match frontend
 
-    const formData = {
+    const event = {
       title: eventName,
       venueName: venueName,
       description: description,
@@ -212,7 +212,35 @@ function CreateEvent() {
       region: eventState,
       postcode: eventPostCode,
       country: eventCountry,
+      isFree: eventFree,
       purchaseUrl: eventURL
+    }
+
+    let acts = [];
+    acts.push({name: artistName});
+    if (artistName2 !== "") acts.push({name: artistName2});
+    if (artistName3 !== "") acts.push({name: artistName3});
+    if (artistName4 !== "") acts.push({name: artistName4});
+
+    let ticketTypes = [];
+    ticketTypes.push({name: eventTierName1, price: eventPrice1});
+    if (eventTierName2 !== "") ticketTypes.push({name: eventTierName2, price: eventPrice2});
+    if (eventTierName3 !== "") ticketTypes.push({name: eventTierName3, price: eventPrice3});
+    if (eventTierName4 !== "") ticketTypes.push({name: eventTierName4, price: eventPrice4});
+
+    let formattedTags = [];
+    tags.forEach(tag => {
+      let formattedTag = tag.split(",");
+      formattedTags.push({id:formattedTag[1], name:formattedTag[0]});
+    })
+
+
+    const formData = {
+      event: event,
+      acts: acts,
+      ticketTypes: ticketTypes,
+      tags: formattedTags,
+      'event-img': selectedImage
     }
 
     console.log(formData);
@@ -249,10 +277,22 @@ function CreateEvent() {
   };
 
   const handleChecked = (event) => {
-    setState({
-      ...state,
-      [event.target.name]: event.target.checked,
-    });
+    if(event.target.name === "eventFree"){
+      setState({
+        ...state,
+        "eventFree": true,
+        "eventFalse": false
+      });
+    }
+
+    if(event.target.name === "eventPaid"){
+      setState({
+        ...state,
+        "eventFree": false,
+        "eventFalse": true
+      });
+    }
+
   };
 
   return (
@@ -444,7 +484,7 @@ function CreateEvent() {
                             margin: "0 1%",
                           }}
                           key={i}
-                          label={tag}
+                          label={tag.split(",")[0]}
                         />
                       ))}
                     </div>
@@ -554,7 +594,7 @@ function CreateEvent() {
                                               backgroundColor: "#7759A6",
                                               color: "white",
                                             }}
-                                            label={value}
+                                            label={value.split(",")[0]}
                                           />
                                         ))}
                                       </Box>
@@ -562,7 +602,7 @@ function CreateEvent() {
                                     MenuProps={MenuProps}
                                   >
                                     {availableTags.map((tag) => (
-                                      <MenuItem key={tag.id} value={tag.name}>
+                                      <MenuItem key={tag.id} value={tag.name + "," + tag.id}>
                                         {tag.name}
                                       </MenuItem>
                                     ))}
@@ -1152,6 +1192,7 @@ function CreateEvent() {
                                     placeholder="Enter the ticket tier name"
                                     variant="outlined"
                                     inputProps={{ readonly: true }}
+                                    disabled = {eventFree}
                                   />
                                 </Grid>
                                 <Grid container item xs={6} direction="column">
@@ -1163,6 +1204,7 @@ function CreateEvent() {
                                       setEventPrice1(event.target.value)
                                     }
                                     id="create-event-ticket-price1"
+                                    disabled = {eventFree}
                                   />
                                 </Grid>
                                 <Grid
@@ -1198,6 +1240,7 @@ function CreateEvent() {
                                     id="create-event-ticker-tier2"
                                     placeholder="Enter the ticket tier name"
                                     variant="outlined"
+                                    disabled = {eventFree}
                                   />
                                 </Grid>
                                 <Grid container item xs={6} direction="column">
@@ -1209,6 +1252,7 @@ function CreateEvent() {
                                       setEventPrice2(event.target.value)
                                     }
                                     id="create-event-ticket-price2"
+                                    disabled = {eventFree}
                                   />
                                 </Grid>
                                 <Grid
@@ -1244,6 +1288,7 @@ function CreateEvent() {
                                     id="create-event-ticket-tier3"
                                     placeholder="Enter the ticket tier name"
                                     variant="outlined"
+                                    disabled = {eventFree}
                                   />
                                 </Grid>
                                 <Grid container item xs={6} direction="column">
@@ -1255,6 +1300,7 @@ function CreateEvent() {
                                       setEventPrice3(event.target.value)
                                     }
                                     id="create-event-ticket-price3"
+                                    disabled = {eventFree}
                                   />
                                 </Grid>
                                 <Grid
@@ -1290,6 +1336,7 @@ function CreateEvent() {
                                     id="create-event-ticket-tier4"
                                     placeholder="Enter the ticket tier name"
                                     variant="outlined"
+                                    disabled = {eventFree}
                                   />
                                 </Grid>
                                 <Grid container item xs={6} direction="column">
@@ -1301,6 +1348,7 @@ function CreateEvent() {
                                       setEventPrice4(event.target.value)
                                     }
                                     id="create-event-ticket-price4"
+                                    disabled = {eventFree}
                                   />
                                 </Grid>
                                 <Grid
