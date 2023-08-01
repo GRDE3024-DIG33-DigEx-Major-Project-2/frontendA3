@@ -5,6 +5,7 @@
 //Import dependencies
 import { AUTH_ENDPOINTS, EVENT_ENDPOINTS, BASE_URL } from "../utils/constants.util";
 import axios from "axios";
+import { getAccessToken } from "../utils/localStorage";
 const baseURL = process.env.REACT_APP_BASEURL;
 
 const searchEventsURL = baseURL + "event/search-page";
@@ -98,7 +99,7 @@ export const createEvent = async function (formData) {
     //Set to multipart/form-data
     headers: {
       'Content-Type': 'multipart/form-data',
-      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      Authorization: `Bearer ${getAccessToken()}`,
     },
   };
 

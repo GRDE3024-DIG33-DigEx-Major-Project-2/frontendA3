@@ -234,13 +234,12 @@ function CreateEvent() {
       formattedTags.push({id:formattedTag[1], name:formattedTag[0]});
     })
 
-
     const formData = {
       event: event,
       acts: acts,
       ticketTypes: ticketTypes,
       tags: formattedTags,
-      'event-img': selectedImage
+      // 'event-img': selectedImage
     }
 
     console.log(formData);
@@ -281,7 +280,7 @@ function CreateEvent() {
       setState({
         ...state,
         "eventFree": true,
-        "eventFalse": false
+        "eventPaid": false
       });
     }
 
@@ -289,7 +288,7 @@ function CreateEvent() {
       setState({
         ...state,
         "eventFree": false,
-        "eventFalse": true
+        "eventPaid": true
       });
     }
 
