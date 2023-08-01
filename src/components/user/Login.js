@@ -4,9 +4,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import { setAccessToken, setUserSession } from "../../utils/localStorage";
+import { setUserSession } from "../../utils/localStorage";
 
-const Login = ({ setIsLoggedIn, setUser }) => {
+const Login = () => {
   const baseURL = process.env.REACT_APP_BASEURL;
 
   const [email, setEmail] = useState("");
@@ -69,13 +69,8 @@ const Login = ({ setIsLoggedIn, setUser }) => {
             destinationPage = "../profile";
           }
 
-          // set access token in local storage
-          setAccessToken(response.data.accessToken);
           // set user
           setUserSession(user);
-          setUser(user);
-          // set logged in to true
-          setIsLoggedIn(true);
           // navigate to profile or dashboard
           navigate(destinationPage);
         })

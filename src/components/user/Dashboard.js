@@ -12,11 +12,10 @@ import LockIcon from "@mui/icons-material/Lock";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useState, useEffect } from "react";
 import { getAllEvents, getFirstLetters } from "../../utils/utils";
-import { getAccessToken, getUser } from "../../utils/localStorage";
+import { getUser } from "../../utils/localStorage";
 
 const Dashboard = () => {
   const [events, setEvents] = useState([]);
-  const token = getAccessToken();
   const user = getUser();
 
   useEffect(() => {

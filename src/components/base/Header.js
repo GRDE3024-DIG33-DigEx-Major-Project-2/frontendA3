@@ -5,12 +5,11 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/styles";
-import { resetTokenSession, resetUserSession, getAccessToken, getUser } from "../../utils/localStorage";
+import { resetUserSession, getUser } from "../../utils/localStorage";
 
 export default function Header() {
   const [menu, setMenu] = useState(false);
   const year = new Date().getFullYear();
-  const token = getAccessToken();
   const user = getUser();
 
   const theme = createTheme({
@@ -29,7 +28,6 @@ export default function Header() {
     toggleDrawer(false);
     // delete data from local storage
     resetUserSession();
-    resetTokenSession()
   };
 
   // only for mobile menu

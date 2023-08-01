@@ -3,6 +3,7 @@
  */
 
 //Import dependencies
+import { AUTH_ENDPOINTS, EVENT_ENDPOINTS, BASE_URL } from "../utils/constants.util";
 import axios from "axios";
 const baseURL = process.env.REACT_APP_BASEURL;
 
@@ -78,4 +79,79 @@ export const getAllTags = async function () {
     });
 
   return tags;
+};
+
+//TODO FINISH REFRESH TOKEN IMPLEMENTATION
+/**
+ * Create event via API POST request
+ * Check api-docs for more info
+ * You may have to do extra logic for req.body.filename if it isn't handled before. Get the filename minus the extension
+ * @param {*} formData Formdata from form which contains all the event request body data you would require
+ * @returns Event creation result
+ */
+export const createEvent = async function (formData) {
+
+  console.log("Inside createEvent");
+
+  //Event Create request options
+  const createEventOptions = {
+    //Set to multipart/form-data
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+  };
+
+
+  //Perform first event create request
+  let response = await axios
+    .post(EVENT_ENDPOINTS.createEventUrl, formData, createEventOptions);
+
+  console.log("Performed first event create request");
+
+  //Refresh tokens in case of expired access token (should be equal to 403, but it catches all non-201 statuses)
+  if (response.status != 201) {
+    console.log("Initial event create failed. Attempting token refresh");
+    //Perform refresh token request
+    let refreshResponse = await axios
+      .get(AUTH_ENDPOINTS.refreshTokenUrl);
+
+    //Token refresh successful! Retry previous request
+    if (refreshResponse.status == 201) {
+
+      console.log("Token refresh successful!", refreshResponse.data);
+      //Set the accessToken
+      localStorage.setItem("accessToken", refreshResponse.data.accessToken);
+      //You will also receive the user data @ refreshResponse.data.user TODO REMOVE THIS COMMENT
+
+      //Retry event create
+      response = await axios
+        .post(EVENT_ENDPOINTS.createEventUrl, formData, createEventOptions);
+
+      console.log("Retried initial event request");
+
+      //Event retry failed -- Throw error or log user out?
+      if (response.status != 201) {
+        //TODO
+        console.log("Event retry failed");
+        console.log(response);
+      }
+    }
+    //Refresh token failed -- Throw error or log user out?
+    else {
+      //TODO
+      console.log("Refresh token failed");
+      console.log(response);
+      //Checking old accessToken
+      console.log(localStorage.getItem("accessToken"));
+    }
+  }
+
+  console.log("Create Event Success!");
+  console.log(response.data);
+
+  //Return object containing API response data 
+  //event obj, eventImg obj, obj arrays etc... Optional data might be null (eventImg and possibly arrays for example)
+  return response.data;
+
 };

@@ -42,10 +42,10 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import LocalActivityOutlinedIcon from "@mui/icons-material/LocalActivityOutlined";
 import ShareIcon from "@mui/icons-material/Share";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
-import { getAccessToken, getUser } from "../../utils/localStorage";
+import { getUser } from "../../utils/localStorage";
+import { createEvent } from "../../services/EventAPI";
 
 function CreateEvent() {
-  const token = getAccessToken();
   const user = getUser();
   const [activeStep, setActiveStep] = useState(0);
   const [state, setState] = useState({
@@ -193,17 +193,34 @@ function CreateEvent() {
     console.log("TO DO SAVE");
   };
 
-  const submitEvent = () => {
+  const submitEvent = async () => {
+
+    // TODO - merge start date and time into single field
+    // TODO - add isFree field 
+    // TODO - add tickets, image and artist info
+    // ASK RYAN TO ADD A distinct city and suburb field to match frontend
+
+    const formData = {
+      title: eventName,
+      venueName: venueName,
+      description: description,
+      summary: eventSummary,
+      startDate: eventStartDate.toISOString(),
+      endDate: eventEndDate.toISOString(),
+      address: eventAddress1 + " " + eventAddress2,
+      city: suburb,
+      region: eventState,
+      postcode: eventPostCode,
+      country: eventCountry,
+      purchaseUrl: eventURL
+    }
+
+    console.log(formData);
+
+    await createEvent(formData);
+
     navigate("/dashboard");
-    console.log(
-      eventName,
-      eventOrganiser,
-      description,
-      tags,
-      artistName,
-      eventSummary,
-      eventURL
-    );
+
   };
 
   const signupHandler = async (event) => {
