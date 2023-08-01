@@ -3,26 +3,36 @@
  */
 
 //Import dependencies
-import { AUTH_ENDPOINTS, EVENT_ENDPOINTS, BASE_URL } from "../utils/constants.util";
+import {
+  AUTH_ENDPOINTS,
+  EVENT_ENDPOINTS,
+  BASE_URL,
+} from "../utils/constants.util";
 import axios from "axios";
 import { getAccessToken } from "../utils/localStorage";
 const baseURL = process.env.REACT_APP_BASEURL;
 
 const searchEventsURL = baseURL + "event/search-page";
-const getAllTagsUrl =  baseURL + "event/tags"
+const getAllTagsUrl = baseURL + "event/tags";
 
 /**
  * Get a page of events from api endpoint
- * @param {*} tagIds 
- * @param {*} keywords Keywords that match 
+ * @param {*} tagIds
+ * @param {*} keywords Keywords that match
  * @param {*} startDate The starting date of the event
  * @param {*} city The city the event is in
  * @param {*} priceRange Object that contains minPrice and maxPrice
  * @param {*} page The page of event matches requested
  * @returns Array of events and number of pages that match the filter options
  */
-export const searchEvents = async function (tagIds, keywords, startDate, city, priceRange, page) {
-
+export const searchEvents = async function (
+  tagIds,
+  keywords,
+  startDate,
+  city,
+  priceRange,
+  page
+) {
   console.log("Inside Search Events");
   console.log(tagIds, keywords, startDate, city, page);
 
@@ -38,7 +48,7 @@ export const searchEvents = async function (tagIds, keywords, startDate, city, p
     startDate: startDate,
     city: city,
     //priceRange: priceRange,
-    page: page | 0
+    page: page | 0,
   };
 
   console.log("Request body test");
@@ -57,11 +67,9 @@ export const searchEvents = async function (tagIds, keywords, startDate, city, p
       console.log(error);
     });
 
-
   //Return object containing API response data
   return { events: events, pageCount: pageCount };
 };
-
 
 /**
  * Find all tags in the database
@@ -82,6 +90,53 @@ export const getAllTags = async function () {
   return tags;
 };
 
+/**
+ * Get a page of favourited events from api endpoint
+ * @param {*} page
+ * @returns Array of events and number of pages that match the filter options
+ */
+export const searchOwnedEvents = async function (page) {
+  console.log("Inside Owned Favourites");
+  console.log(page);
+
+  const options = {
+    headers: {
+      Authorization: `Bearer ${getAccessToken()}`,
+    },
+  };
+
+  //The array of events to return
+  let events = [];
+  //The total number of event pages that match the filter options
+  let pageCount = 0;
+
+  //Set request body values
+  let requestBody = {
+    page: page | 0,
+  };
+
+  console.log("Request body test");
+  console.log(requestBody);
+
+  //Get the array of events and the page number
+  await axios
+    .post(EVENT_ENDPOINTS.searchOwnedEventsUrl, requestBody, options)
+    .then((response) => {
+      console.log("Search Owned Test...");
+      console.log(response.data);
+      events = response.data.events;
+      pageCount = response.data.pageCount;
+    })
+    .catch((error) => {
+      console.log("Error while searching");
+      console.log(error.status);
+      console.log(error);
+    });
+
+  //Return object containing API response data
+  return { events: events, pageCount: pageCount };
+};
+
 //TODO FINISH REFRESH TOKEN IMPLEMENTATION
 /**
  * Create event via API POST request
@@ -91,22 +146,23 @@ export const getAllTags = async function () {
  * @returns Event creation result
  */
 export const createEvent = async function (formData) {
-
   console.log("Inside createEvent");
 
   //Event Create request options
   const createEventOptions = {
     //Set to multipart/form-data
     headers: {
-      'Content-Type': 'multipart/form-data',
+      "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${getAccessToken()}`,
     },
   };
 
-
   //Perform first event create request
-  let response = await axios
-    .post(EVENT_ENDPOINTS.createEventUrl, formData, createEventOptions);
+  let response = await axios.post(
+    EVENT_ENDPOINTS.createEventUrl,
+    formData,
+    createEventOptions
+  );
 
   console.log("Performed first event create request");
 
@@ -114,20 +170,21 @@ export const createEvent = async function (formData) {
   if (response.status != 201) {
     console.log("Initial event create failed. Attempting token refresh");
     //Perform refresh token request
-    let refreshResponse = await axios
-      .get(AUTH_ENDPOINTS.refreshTokenUrl);
+    let refreshResponse = await axios.get(AUTH_ENDPOINTS.refreshTokenUrl);
 
     //Token refresh successful! Retry previous request
     if (refreshResponse.status == 201) {
-
       console.log("Token refresh successful!", refreshResponse.data);
       //Set the accessToken
       localStorage.setItem("accessToken", refreshResponse.data.accessToken);
       //You will also receive the user data @ refreshResponse.data.user TODO REMOVE THIS COMMENT
 
       //Retry event create
-      response = await axios
-        .post(EVENT_ENDPOINTS.createEventUrl, formData, createEventOptions);
+      response = await axios.post(
+        EVENT_ENDPOINTS.createEventUrl,
+        formData,
+        createEventOptions
+      );
 
       console.log("Retried initial event request");
 
@@ -151,8 +208,7 @@ export const createEvent = async function (formData) {
   console.log("Create Event Success!");
   console.log(response.data);
 
-  //Return object containing API response data 
+  //Return object containing API response data
   //event obj, eventImg obj, obj arrays etc... Optional data might be null (eventImg and possibly arrays for example)
   return response.data;
-
 };

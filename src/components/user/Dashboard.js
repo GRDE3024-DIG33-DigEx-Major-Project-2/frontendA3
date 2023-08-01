@@ -13,6 +13,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useState, useEffect } from "react";
 import { getAllEvents, getFirstLetters } from "../../utils/utils";
 import { getUser } from "../../utils/localStorage";
+import { searchOwnedEvents } from "../../services/EventAPI";
 
 const Dashboard = () => {
   const [events, setEvents] = useState([]);
@@ -20,8 +21,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     async function fetchEvents() {
-      const data = await getAllEvents();
-      setEvents(data);
+      const data = await searchOwnedEvents(0);
+      setEvents(data.events);
     }
 
     fetchEvents();
