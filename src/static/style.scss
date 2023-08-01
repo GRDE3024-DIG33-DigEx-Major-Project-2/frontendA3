@@ -946,7 +946,7 @@ div.lineup {
 .create-event-screen {
   max-width: 100%;
   min-height: 65vh;
-  max-height: 850px;
+  max-height: 1000px;
   background-color: $white;
   padding: 2%;
   margin: 2%;
@@ -1035,7 +1035,7 @@ div.lineup {
   background: linear-gradient(90deg, $lightblue 23%, $lightorange 100%);
 }
 .create-event-header h1 {
-  font-size: 6em;
+  font-size: 3em;
   color: $white;
   text-shadow: rgb(40, 39, 39) 1px 1px 4px;
 }
@@ -1047,10 +1047,6 @@ div.lineup {
 .css-1f064cs-MuiGrid-root p,
 .css-1qeq9aw-MuiGrid-root p{
   font-size: 18px;
-}
-
-#create-event-name{
-  font-size: 9em;
 }
 
 #create-event-description{

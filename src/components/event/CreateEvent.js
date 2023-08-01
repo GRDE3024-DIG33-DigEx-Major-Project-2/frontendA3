@@ -207,8 +207,9 @@ function CreateEvent() {
       summary: eventSummary,
       startDate: eventStartDate.toISOString(),
       endDate: eventEndDate.toISOString(),
+      suburb: suburb,
       address: eventAddress1 + " " + eventAddress2,
-      city: suburb,
+      city: eventCity,
       region: eventState,
       postcode: eventPostCode,
       country: eventCountry,
@@ -239,7 +240,8 @@ function CreateEvent() {
       acts: acts,
       ticketTypes: ticketTypes,
       tags: formattedTags,
-      // 'event-img': selectedImage
+      filename: selectedImage.name.split(".")[0],
+      'event-img': selectedImage
     }
 
     console.log(formData);
