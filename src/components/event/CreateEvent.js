@@ -42,8 +42,11 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import LocalActivityOutlinedIcon from "@mui/icons-material/LocalActivityOutlined";
 import ShareIcon from "@mui/icons-material/Share";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
+import { getAccessToken, getUser } from "../../utils/localStorage";
 
 function CreateEvent() {
+  const token = getAccessToken();
+  const user = getUser();
   const [activeStep, setActiveStep] = useState(0);
   const [state, setState] = useState({
     eventFree: false,
@@ -258,6 +261,7 @@ function CreateEvent() {
             Discard this event
           </Link>
         </div>
+        {/* event preview */}
         {activeStep === 6 ? (
           <div className="event-preview-screen">
             <div className="event-preview">
