@@ -889,14 +889,22 @@ div.lineup {
   position: absolute;
 }
 
-.ev-share {
+#ev-share {
   top: 51.5%;
   right: 20%;
 }
 
-.ev-bookmark {
+#ev-bookmark {
   top: 51.5%;
   right: 5%;
+}
+
+#bookmark-show {
+  display: initial;
+}
+
+#bookmark-hide {
+  display: none;
 }
 
 .horizontal-card-box {

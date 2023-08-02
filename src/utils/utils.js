@@ -3,22 +3,22 @@ import axios from "axios";
 const baseURL = process.env.REACT_APP_BASEURL;
 
 const searchEventsURL = baseURL + "event/search-page";
-const getAllTagsUrl = baseURL + "event/tags"
+const getAllTagsUrl = baseURL + "event/tags";
 
 // Get all events from endpoint - can specify genre
 export const getAllEvents = async function (tagId) {
   let events = [];
-  let requestBody = {}
+  let requestBody = {};
 
-  if (tagId){
+  if (tagId) {
     requestBody = {
       page: 0,
-      tags: [tagId]
+      tags: [tagId],
     };
   } else {
     requestBody = {
       page: 0,
-      tags: []
+      tags: [],
     };
   }
 
@@ -49,7 +49,6 @@ export const getAllTags = async function () {
   return tags;
 };
 
-
 // convert ISO date to locale date time
 export const getDateTimeString = async function (ISOdate) {
   const date = new Date(Date.parse(ISOdate));
@@ -69,31 +68,59 @@ export const getDateTimeString = async function (ISOdate) {
 export const getTomorrowISODate = () => {
   let today = new Date();
   let tomorrow = new Date(today);
-  tomorrow.setDate(today.getDate()+1);
+  tomorrow.setDate(today.getDate() + 1);
   return tomorrow.toISOString();
-}
+};
 
 // get first letter of organisation's or customer's name
 export const getFirstLetters = (name) => {
-  if(name.includes(" ")){
+  if (name.includes(" ")) {
     let split = name.split(" ");
     let a = split[0].charAt(0);
     let b = split[1].charAt(0);
 
-    return a+b;
+    return a + b;
   } else {
     return name.charAt(0);
   }
-}
+};
 
 // Get australia time zones
 export const getAustralianTimezones = () => {
   let timezones = [];
-  timezones.push({value: "AWST", label:"(UTC+8:00) Perth"});
-  timezones.push({value: "ACWST", label:"(UTC+8:45) Eucla"});
-  timezones.push({value: "ACST", label:"(UTC+9:30) Adelaide"});
-  timezones.push({value: "AEST", label:"(UTC+10:00) Sydney, Melbourne, Brisbane"});
-  timezones.push({value: "LHST", label:"(UTC+10:30) Lord Howe Island"});
+  timezones.push({ value: "AWST", label: "(UTC+8:00) Perth" });
+  timezones.push({ value: "ACWST", label: "(UTC+8:45) Eucla" });
+  timezones.push({ value: "ACST", label: "(UTC+9:30) Adelaide" });
+  timezones.push({
+    value: "AEST",
+    label: "(UTC+10:00) Sydney, Melbourne, Brisbane",
+  });
+  timezones.push({ value: "LHST", label: "(UTC+10:30) Lord Howe Island" });
 
   return timezones;
-}
+};
+
+// get date range for event cards
+export const getDateRangeString = (startDate, endDate) => {
+  const dateOptions = { year: "numeric", month: "long", day: "numeric" };
+  const currentStartDate = new Date(Date.parse(startDate));
+  const currentEndDate = new Date(Date.parse(endDate));
+
+  if (currentStartDate.getDate() === currentEndDate.getDate() && currentStartDate.getMonth() === currentEndDate.getMonth()) {
+    return currentStartDate.toLocaleDateString("en-AU", dateOptions);
+  }
+
+  if (currentStartDate.getMonth() === currentEndDate.getMonth()) {
+    return (
+      currentStartDate.getDate() +
+      " - " +
+      currentEndDate.toLocaleDateString("en-AU", dateOptions)
+    );
+  }
+
+  return (
+    currentStartDate.toLocaleDateString("en-AU", dateOptions) +
+    " - " +
+    currentEndDate.toLocaleDateString("en-AU", dateOptions)
+  );
+};
