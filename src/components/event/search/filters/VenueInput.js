@@ -8,6 +8,7 @@ import {
   FormControlLabel,
   Radio,
   RadioGroup,
+  Button,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
@@ -16,6 +17,7 @@ import { SearchEventsContext, SearchEventFiltersContext } from "../../../../prop
 
 
 const VenueInput = () => {
+
 
 
   /**
@@ -36,6 +38,12 @@ const VenueInput = () => {
   } = useContext(SearchEventFiltersContext);
 
 
+  
+const uniqueVenues = new Set();
+events.get.forEach((event) => uniqueVenues.add(event.event.venueName));
+const uniqueVenueNames = Array.from(uniqueVenues);
+
+
   /**
    * Selects the venue filter display chip
    * @param {*} venue 
@@ -43,14 +51,15 @@ const VenueInput = () => {
   const chipSelectVenue = (venue) => {
     let newKey = chipData.get.length + 1;
     let temp = chipData.get;
-    //Don't duplicate venue listings. Limit to displaying 10 venues
-    if (!temp.find(x => x.value === venue) && temp.length <= 10)
+    //Don't duplicate venue listings.
+    if (!temp.find(x => x.value === venue)) {
       temp.push({
         key: newKey,
         searchCategory: "venue",
         label: venue,
         value: venue,
-      });
+      });   
+    }
     //Set chip data
     chipData.set(temp);
     //Flag the filter options as having changed
@@ -59,23 +68,39 @@ const VenueInput = () => {
 
 
 
+  //TODO
+  const loadMoreVenues = (event) => {
+    console.log("TODO LOAD MORE VENUES");
+  };
+
+
+
   //The HTML template
   return (
-    <div>
-      <h2>Venue</h2>
-      <RadioGroup disabled={true} defaultValue="" name="venue-radio" onChange={(event) => chipSelectVenue(event.target.value)}>
-        {events.get.map((event, i) => (
-          <FormControlLabel
-            key={i}
-            value={event.event.venueName}
-            control={<Radio />}
-            label={event.event.venueName}
-          />
-        ))
-        }
-      </RadioGroup>
-      <Link>View more</Link>
-    </div>
+<div>
+  <h2>Venue</h2>
+  {events.get.length === 0 ? (
+    <p>No Venues Found</p>
+  ) : (
+    <>
+<RadioGroup
+      defaultValue="No Venues Found"
+      name="venue-radio"
+      onChange={(event) => chipSelectVenue(event.target.value)}
+    >
+      {uniqueVenueNames.map((venueName, i) => (
+        <FormControlLabel
+          key={i}
+          value={venueName}
+          control={<Radio />}
+          label={venueName}
+        />
+      ))}
+    </RadioGroup>
+    <Button onClick={loadMoreVenues}>View more</Button>    
+    </>
+  )}
+</div>
 
   );
 };

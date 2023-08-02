@@ -96,7 +96,7 @@ const FindEventHeader = () => {
     event.preventDefault();
 
     console.log("Search event fired");
-    //console.log(tagSelection.get, keywords.get, dateRange.minDate.get, dateRange.maxDate.get, location.get, 0);
+    console.log(tagSelection.get, keywords.get, dateRange.minDate.get, dateRange.maxDate.get, location.get, 0);
     console.log(priceRange.minPrice.get);
     console.log(priceRange.maxPrice.get);
 

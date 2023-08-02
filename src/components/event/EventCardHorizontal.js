@@ -1,11 +1,21 @@
-import { Card, CardContent, CardMedia, Box } from "@mui/material";
+import { Card, CardContent, CardMedia, CardActionArea, Box } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import SellOutlinedIcon from '@mui/icons-material/SellOutlined';
+import { useNavigate } from "react-router-dom";
 
 const EventCardHorizontal = (props) => {
+
+
+  const navigate = useNavigate();
+    
+  const cardRedirect = ()=> {
+    navigate("/event", {state:{event:props.event}});
+  }
+
+
   const date = new Date(Date.parse(props.event.event.startDate));
   const stringDate = date.toLocaleString([], {
     year: "numeric",
@@ -34,6 +44,7 @@ const EventCardHorizontal = (props) => {
   }
 
   return (
+    <CardActionArea onClick={cardRedirect} sx={{height: "100%"}}>
     <Card className="horizontal-card">
       <CardMedia
         component="img"
@@ -63,6 +74,8 @@ const EventCardHorizontal = (props) => {
         </CardContent>
       </Box>
     </Card>
+    </CardActionArea>
+
   );
 };
 

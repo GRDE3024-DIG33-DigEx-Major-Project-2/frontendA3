@@ -38,19 +38,37 @@ export const HeaderSelectedTags = () => {
     } = useContext(SearchEventFiltersContext);
 
 
+
+
+
     /**
-     * Handles new tag selection display chip
+     * Handles tag selection display chip
      * @param {*} genre 
      */
-    const chipGenreSelect = (genre) => {
+    const toggleGenreChip = (genre) => {
         let newKey = chipData.get.length + 1;
         let temp = chipData.get;
+
+        //Select tag
+        if (!temp.find(x => x.value === genre.id)) {
+             console.log("SELECTING TAG");
         temp.push({
             key: newKey,
             searchCategory: "genre",
             label: genre.name,
             value: genre.id,
-        });
+        });  
+        tagSelection.set([...tagSelection.get, genre.id]);        
+        }
+        //Deselect tag
+        else if (temp.find(x => x.value === genre.id)) {
+            console.log("DESELECTING TAG");
+            temp = temp.filter((tag) => tag.value !== genre.id);
+            if (Array.isArray(tagSelection.get))
+            tagSelection.set(tagSelection.get.filter((tagId) => tagId !== genre.id));
+            else
+            tagSelection.set([genre.id]); 
+        }
         chipData.set(temp);
         change.set(!change.get);
     };
@@ -63,7 +81,7 @@ export const HeaderSelectedTags = () => {
           {tags.get.map((tag, i) => (
             <Chip
               sx={{
-                backgroundColor: "#7759A6",
+                backgroundColor: chipData.get.find(x => x.value === tag.id) ? "#FF9800" : "#7759A6",
                 color: "white",
                 margin: "1%",
               }}
@@ -71,7 +89,7 @@ export const HeaderSelectedTags = () => {
               label={tag.name}
               id={tag.id}
               color="default"
-              //onClick={() => chipHandler(tag.name)}
+              onClick={() => toggleGenreChip(tag)}
             />
           ))}
         </div>  
@@ -87,7 +105,6 @@ export const HeaderSelectedTags = () => {
  * @returns 
  */
 export const SearchSelectedTags = () => {
-
 
     /**
      * Get all tags found in db
@@ -107,18 +124,38 @@ export const SearchSelectedTags = () => {
 
 
     /**
-     * Handles new tag selection display chip
+     * Handles tag selection display chip
      * @param {*} genre 
      */
-    const chipGenreSelect = (genre) => {
+    const toggleGenreChip = (genre) => {
         let newKey = chipData.get.length + 1;
         let temp = chipData.get;
+
+        // console.clear();
+        // console.log("TOGGLING CHIP");
+        // console.log(genre);
+        // console.log(tagSelection.get);
+
+        //Select tag
+        if (!temp.find(x => x.value === genre.id)) {
+             console.log("SELECTING TAG");
         temp.push({
             key: newKey,
             searchCategory: "genre",
             label: genre.name,
             value: genre.id,
-        });
+        });  
+        tagSelection.set([...tagSelection.get, genre.id]);        
+        }
+        //Deselect tag
+        else if (temp.find(x => x.value === genre.id)) {
+            console.log("DESELECTING TAG");
+            temp = temp.filter((tag) => tag.value !== genre.id);
+            if (Array.isArray(tagSelection.get))
+            tagSelection.set(tagSelection.get.filter((tagId) => tagId !== genre.id));
+            else
+            tagSelection.set([genre.id]); 
+        }
         chipData.set(temp);
         change.set(!change.get);
     };
@@ -135,19 +172,19 @@ export const SearchSelectedTags = () => {
                         <Chip
                             sx={{
                                 width: 1,
-                                backgroundColor: "#7759A6",
+                                backgroundColor: chipData.get.find(x => x.value === tag.id) ? "#FF9800" : "#7759A6",
                                 color: "white",
                                 margin: "4%",
                             }}
                             label={tag.name}
                             id={tag.id}
                             color="default"
-                            onClick={() => chipGenreSelect(tag)}
+                            onClick={() => toggleGenreChip(tag)}
                         />
                     </Grid>
                 ))}
             </Grid>
-            <Link id="view-more-tags">View more</Link>
+            {/* <Link id="view-more-tags">View more</Link> */}
         </div>
     );
 };

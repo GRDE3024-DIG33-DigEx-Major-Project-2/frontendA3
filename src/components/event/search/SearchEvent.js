@@ -146,6 +146,21 @@ let newArr = [...events.get, ...searchResult.events]
    * Clear search filters
    */
   const clearFilters = () => {
+
+    //TODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODO
+
+    //CLEAR DATE RADIO BUTTONS
+
+
+    //CLEAR DATE CALENDAR
+
+    //CLEAR TICKET PRICE RANGE
+
+    //CLEAR TAGS
+
+    //CLEAR VENUES
+
+
     chipData.set([]);
     change.set(!change.get);
   };
@@ -274,7 +289,8 @@ let newArr = [...events.get, ...searchResult.events]
                 onDelete={handleDelete(data)}
               />
             ))}
-            <Link onClick={clearFilters}>Clear all filters</Link>
+            {chipData.get < 1 ? null : <><Link onClick={clearFilters}>Clear all filters</Link></>}
+            
           </Stack>
           {eventListings}
         </div>
