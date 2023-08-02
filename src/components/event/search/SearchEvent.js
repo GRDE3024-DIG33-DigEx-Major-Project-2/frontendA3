@@ -12,6 +12,7 @@ import {
   RadioGroup,
   Slider,
   Stack,
+  Button,
   Chip,
   Divider,
   Grid,
@@ -32,7 +33,7 @@ import DateRangePicker from "./filters/DateRangePicker";
 import VenueInput from "./filters/VenueInput";
 import DateRadioBtns from "./filters/DateRadioButtons";
 import TicketPriceRange from "./filters/TicketPriceRange";
-import {SearchSelectedTags} from "./filters/TagSelection";
+import { SearchSelectedTags } from "./filters/TagSelection";
 
 /**
  * The event search component
@@ -40,6 +41,8 @@ import {SearchSelectedTags} from "./filters/TagSelection";
  * @returns The event search component
  */
 const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
+
+
 
   /**
    * Prop context for search event data
@@ -67,6 +70,105 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
 
 
   /**
+   * Load more events
+   * @param {*} event 
+   */
+  const loadMoreHandler = async (event) => {
+
+    //Prevent default submit form behaviour
+    event.preventDefault();
+
+    console.log("Search event load more fired");
+
+    //Increment to next page
+    currPage.set(currPage.get++);
+
+    //Make request for filtered events
+    let searchResult = await searchEvents(
+      tagSelection.get, 
+      keywords, 
+      dateRange.minDate.get,
+      dateRange.maxDate.get, 
+      location.get, 
+      {minPrice: Number(priceRange.minPrice.get), 
+        maxPrice: Number(priceRange.maxPrice.get)}, 
+        currPage.get
+        );
+
+    console.log("After search result found");
+    console.log(searchResult);
+    console.log("Page Count: "+ pageCount.get);
+
+    let currEvents = events.get;
+
+    console.log("Curr Events " + currEvents);
+    console.log("New Events " + searchResult.events);
+    pageCount.set(searchResult.pageCount);
+let newArr = [...events.get, ...searchResult.events]
+    //Set state props of events and page count
+    events.set(newArr);
+    pageCount.set(searchResult.pageCount);
+
+    console.log("NUM RENDERED EVENTS: ", events.get);
+  }
+
+
+
+
+  /**
+   * Scroll to top of page
+   * @param {*} event 
+   */
+  const scrollToTop = async (event) => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
+
+  
+
+
+  /**
+   * Removes selected filter option
+   * @param {*} chipToDelete 
+   * @returns 
+   */
+  const handleDelete = (chipToDelete) => () => {
+    chipData.set((chips) =>
+      chips.filter((chip) => chip.key !== chipToDelete.key)
+    );
+    change.set(!change.get);
+  };
+
+  /**
+   * Clear search filters
+   */
+  const clearFilters = () => {
+    chipData.set([]);
+    change.set(!change.get);
+  };
+
+
+  /**
+   * Event listing display container
+   */
+  let eventListings = <>
+    <Box className="events-result">
+        {events.get.map((event, i) => (
+          <EventCardHorizontal key={i} event={event} />
+        ))
+        }
+        {((currPage.get + 1) == pageCount.get) || (currPage.get == 0 && pageCount.get == 0) ? null : <>
+        <Button id="load-more-events-btn" onClick={loadMoreHandler}>Load More</Button>
+        <Button id="back-to-top-btn" onClick={scrollToTop}>Back To Top</Button>
+        </>}
+      </Box>  
+      </>;
+
+
+  /**
    * React hook that is used for fetching data on load
    */
   useEffect(() => {
@@ -89,18 +191,21 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
 
         console.log(isoDates);
 
-        // const data = await searchEvents(
-        //   tagSelection.get,
-        //   keywords.get,
-        //   isoDates.minDate,
-        //   isoDates.maxDate,
-        //   location.get,
-        //   { minPrice: Number(priceRange.minPrice.get), maxPrice: Number(priceRange.maxPrice.get) },
-        //   0);
-        // //Set events
-        // events.set(data.events);
-        // //Set total page count
-        // pageCount.set(data.pageCount);
+        currPage.set(0);
+
+
+        const data = await searchEvents(
+          tagSelection.get,
+          keywords.get,
+          isoDates.minDate,
+          isoDates.maxDate,
+          location.get,
+          { minPrice: Number(priceRange.minPrice.get), maxPrice: Number(priceRange.maxPrice.get) },
+          currPage.get);
+        //Set events
+        events.set(data.events);
+        //Set total page count
+        pageCount.set(data.pageCount);
 
       }
       catch (error) {
@@ -125,34 +230,9 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
   }, [tags.set, events.set]);
 
 
-  /**
-   * Removes selected filter option
-   * @param {*} chipToDelete 
-   * @returns 
-   */
-  const handleDelete = (chipToDelete) => () => {
-    chipData.set((chips) =>
-      chips.filter((chip) => chip.key !== chipToDelete.key)
-    );
-    change.set(!change.get);
-  };
-
-  /**
-   * Clear search filters
-   */
-  const clearFilters = () => {
-    chipData.set([]);
-    change.set(!change.get);
-  };
 
 
 
-  let eventListings = <Box className="events-result">
-    {events.get.map((event, i) => (
-      <EventCardHorizontal key={i} event={event} />
-    ))
-    }
-  </Box>
 
   //HTML Template for searching events
   return (

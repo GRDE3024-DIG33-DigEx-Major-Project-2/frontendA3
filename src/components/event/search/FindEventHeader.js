@@ -89,12 +89,8 @@ const FindEventHeader = () => {
    */
   const searchHandler = async (event) => {
 
-    // console.clear();
-    // console.log("Today: ", getTodayISODates());
-    // console.log("Tomorrow: ", getTomorrowISODates());
-    // console.log("Weekend: ", getWeekendISODates());
-
-
+    //Reset currPage to 0
+    currPage.set(0);
 
     //Prevent default submit form behaviour
     event.preventDefault();
@@ -113,18 +109,19 @@ const FindEventHeader = () => {
       location.get, 
       {minPrice: Number(priceRange.minPrice.get), 
         maxPrice: Number(priceRange.maxPrice.get)}, 
-        0
+        currPage.get
         );
 
-    console.log("After search result found");
-    console.log(searchResult);
-    console.log("Page Count: "+ pageCount.get);
+
 
     //Set state props of events and page count
     events.set(searchResult.events);
     pageCount.set(searchResult.pageCount);
 
-
+    console.log("After search result found");
+    console.log(searchResult);
+    console.log("Page Count: "+ pageCount.get);
+    
     console.log(spaLocation.pathname);
 
     //Navigate to the event search component

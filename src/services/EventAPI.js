@@ -26,11 +26,17 @@ export const searchEvents = async function (tagIds, keywords, minDate, maxDate, 
 
   let priceSetting = null;
 
-  if (priceRange.minPrice != null && priceRange.maxPrice != null)
+  if (priceRange != null) {
+  if (priceRange.minPrice != null 
+    && priceRange.maxPrice != null
+    && priceRange.minPrice != 0
+    && priceRange.maxPrice != 0)
   priceSetting = {
     minPrice: priceRange.minPrice,
     maxPrice: priceRange.maxPrice
-  };
+  };    
+  }
+
 
   //Set empty keywords string to null
   if (keywords == "")

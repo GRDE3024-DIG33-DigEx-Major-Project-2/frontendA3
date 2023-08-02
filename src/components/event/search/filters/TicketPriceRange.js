@@ -139,7 +139,7 @@ import { Link } from "react-router-dom";
         }
         //Set price range to free 
         else {
-          priceRange.minPrice.set(null); priceRange.maxPrice.set(null);
+          priceRange.minPrice.set(0); priceRange.maxPrice.set(0);
         }
         //Set paid flag
         setIsFree(event.target.value)
