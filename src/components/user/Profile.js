@@ -9,10 +9,11 @@ import {
 import { Link } from "react-router-dom";
 import EventCardHorizontal from "../event/EventCardHorizontal";
 import { useState, useEffect } from "react";
-import { getAllEvents, getFirstLetters } from "../../utils/utils";
+import { getFirstLetters } from "../../utils/utils";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import LockIcon from "@mui/icons-material/Lock";
 import { getUser } from "../../utils/localStorage";
+import { searchFavourites } from "../../services/EventAPI";
 
 const Profile = () => {
   const [events, setEvents] = useState([]);
@@ -20,8 +21,8 @@ const Profile = () => {
 
   useEffect(() => {
     async function fetchEvents() {
-      const data = await getAllEvents();
-      setEvents(data);
+      const data = await searchFavourites(0);
+      setEvents(data.events);
     }
 
     fetchEvents();
@@ -101,9 +102,10 @@ const Profile = () => {
             <article className="saved-events">
               <h2>Saved Events</h2>
               <Box className="events-profile">
-                {events.map((event, i) => (
+                {events.length !== 0 && events.map((event, i) => (
                   <EventCardHorizontal key={i} event={event} />
                 ))}
+                {events.length === 0 && <><h2>You have not yet saved any events.</h2></>}
               </Box>
             </article>
           </>

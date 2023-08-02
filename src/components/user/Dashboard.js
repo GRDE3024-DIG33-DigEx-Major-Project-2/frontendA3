@@ -11,7 +11,7 @@ import CreatedEventCardHorizontal from "../event/CreatedEventCardHorizontal";
 import LockIcon from "@mui/icons-material/Lock";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useState, useEffect } from "react";
-import { getAllEvents, getFirstLetters } from "../../utils/utils";
+import { getFirstLetters } from "../../utils/utils";
 import { getUser } from "../../utils/localStorage";
 import { searchOwnedEvents } from "../../services/EventAPI";
 
@@ -117,9 +117,10 @@ const Dashboard = () => {
                 </Link>
               </div>
               <Box className="events-profile">
-                {events.map((event, i) => (
+                {events.length !== 0 && events.map((event, i) => (
                   <CreatedEventCardHorizontal key={i} event={event} />
                 ))}
+                {events.length === 0 && <><h2>You have not yet created any events.</h2></>}
               </Box>
             </article>
           </>

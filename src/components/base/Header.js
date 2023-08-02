@@ -1,16 +1,21 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Drawer, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/styles";
-import { resetUserSession, getUser } from "../../utils/localStorage";
+import { resetUserSession, resetTokenSession, getUser } from "../../utils/localStorage";
 
-export default function Header() {
+export default function Header({ isLoggedIn, setIsLoggedIn }) {
   const [menu, setMenu] = useState(false);
   const year = new Date().getFullYear();
   const user = getUser();
+
+  useEffect(() => {
+    if(user) setIsLoggedIn(true);
+    else setIsLoggedIn(false);
+  }, [user]);
 
   const theme = createTheme({
     palette: {
@@ -28,6 +33,9 @@ export default function Header() {
     toggleDrawer(false);
     // delete data from local storage
     resetUserSession();
+    resetTokenSession();
+    // change user and logged in state
+    setIsLoggedIn(false);
   };
 
   // only for mobile menu
@@ -60,12 +68,12 @@ export default function Header() {
           <Link id="nav-events" to="/events">
             Search
           </Link>
-          {user && !user.organizationName && (
+          {isLoggedIn && !user.organizationName && (
             <Link id="nav-profile" to="/profile">
               Profile
             </Link>
           )}
-          {user && user.organizationName && (
+          {isLoggedIn && user.organizationName && (
             <>
               <Link id="nav-dashboard" to="/dashboard">
                 Dashboard
@@ -79,7 +87,7 @@ export default function Header() {
               </Link>
             </>
           )}
-          {!user && (
+          {!isLoggedIn && (
             <>
               <Link id="nav-signup" className="bttn-style-purple" to="/signup">
                 Signup
@@ -89,7 +97,7 @@ export default function Header() {
               </Link>
             </>
           )}
-          {user && (
+          {isLoggedIn && (
             <Link
               id="nav-logout"
               className="bttn-style-purple"
@@ -139,7 +147,7 @@ export default function Header() {
                 </div>
                 <h1>Menu</h1>
 
-                {user && (
+                {isLoggedIn && (
                   <>
                     <div id="loggedin-links-menu">
                       <Link
@@ -173,7 +181,7 @@ export default function Header() {
                     </Link>
                   </>
                 )}
-                {!user && (
+                {!isLoggedIn && (
                   <div id="loggedout-bttns-menu">
                     <Link
                       id="nav-signup"

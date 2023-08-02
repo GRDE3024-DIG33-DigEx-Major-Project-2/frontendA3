@@ -17,22 +17,26 @@ import SignUpOrganiser from "./user/SignupOrganiser";
 import Dashboard from "./user/Dashboard";
 import CreateEvent from "./event/CreateEvent.js";
 import "../static/fonts.css";
+import { getUser } from "../utils/localStorage";
+import { useState, useEffect } from "react";
 
 //Import prop context providers
 import { SearchEventsProvider, SearchEventFiltersProvider } from "../props/search-events.prop";
 
 function App() {
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <div className="App">
-      <Header />
+      <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <SearchEventsProvider>
         <SearchEventFiltersProvider>
       <Routes>
             <Route path="/" element={<Home />} />
             <Route path="events" element={<Events />} />        
         <Route path="about" element={<About />} />
-        <Route path="login" element={<Login />} />
+        <Route path="login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="signup" element={<Signup />} />
         <Route path="reset-password" element={<ResetPassword />} />
         <Route path="profile" element={<Profile />} />

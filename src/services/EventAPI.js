@@ -201,7 +201,7 @@ export const createEvent = async function (formData) {
       console.log("Refresh token failed");
       console.log(response);
       //Checking old accessToken
-      console.log(localStorage.getItem("accessToken"));
+      console.log(getAccessToken());
     }
   }
 
@@ -211,4 +211,52 @@ export const createEvent = async function (formData) {
   //Return object containing API response data
   //event obj, eventImg obj, obj arrays etc... Optional data might be null (eventImg and possibly arrays for example)
   return response.data;
+};
+
+//TODO REFRESH TOKEN IMPLEMENTATION
+/**
+ * Get a page of favourited events from api endpoint
+ * @param {*} page
+ * @returns Array of events and number of pages that match the filter options
+ */
+export const searchFavourites = async function (page) {
+  console.log("Inside Search Favourites");
+  console.log(page);
+
+  const options = {
+    headers: {
+      Authorization: `Bearer ${getAccessToken()}`,
+    },
+  };
+
+  //The array of events to return
+  let events = [];
+  //The total number of event pages that match the filter options
+  let pageCount = 0;
+
+  //Set request body values
+  let requestBody = {
+    page: page | 0,
+  };
+
+  console.log("Request body test");
+  console.log(requestBody);
+
+  //Get the array of events and the page number
+  await axios
+    .post(EVENT_ENDPOINTS.searchFavouritesUrl, requestBody, options)
+    .then((response) => {
+      console.log("Search Favourites Test...");
+      console.log(response.data);
+      events = response.data.events;
+      pageCount = response.data.pageCount;
+    })
+    .catch((error) => {
+      console.log("Error while searching");
+      console.log(error.status);
+      console.log(error);
+    });
+
+  //Return object containing API response data
+  return { events: events, pageCount: pageCount };
 };

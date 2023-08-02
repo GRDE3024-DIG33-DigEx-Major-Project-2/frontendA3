@@ -5,9 +5,8 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { setAccessToken, setUserSession } from "../../utils/localStorage";
-import { accessToken } from "mapbox-gl";
 
-const Login = () => {
+const Login = ({setIsLoggedIn}) => {
   const baseURL = process.env.REACT_APP_BASEURL;
 
   const [email, setEmail] = useState("");
@@ -74,6 +73,7 @@ const Login = () => {
           setUserSession(user);
           console.log(response.data.accessToken);
           setAccessToken(response.data.accessToken);
+          setIsLoggedIn(true);
           // navigate to profile or dashboard
           navigate(destinationPage);
         })
