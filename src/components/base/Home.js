@@ -10,6 +10,8 @@ import { searchEvents, getAllTags } from "../../services/EventAPI";
 import { useEffect, useState, useContext } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import "swiper/css/navigation";
 import { SearchEventsContext } from "../../props/search-events.prop";
 
 
@@ -98,11 +100,13 @@ const Home = () => {
     <div className="home-row">
     <h1>Rock music events</h1>
     <Swiper
+    modules={[Navigation, Pagination, Scrollbar, A11y]}
       className="event-carousel"
       slidesPerView="1"
       spaceBetween="5"
       speed="500"
       cssMode="true"
+      navigation
       breakpoints={{
         744: { slidesPerView: 2 },
         1100: { slidesPerView: 3 },
@@ -121,11 +125,15 @@ const Home = () => {
 let nearbyEventsView = <><div className="home-row">
 <h1>Music events nearby</h1>
 <Swiper
+modules={[Navigation, Pagination, Scrollbar, A11y]}
   className="event-carousel"
   slidesPerView="1"
   spaceBetween="5"
   speed="500"
   cssMode="true"
+  navigation
+  onSwiper={(swiper) => console.log(swiper)}
+  onSlideChange={() => console.log('slide change')}
   breakpoints={{
     744: { slidesPerView: 2 },
     1100: { slidesPerView: 3 },
@@ -144,11 +152,13 @@ let allEventsView = <>
       <div className="home-row">
         <h1>All events</h1>
         <Swiper
+        modules={[Navigation, Pagination, Scrollbar, A11y]}
           className="event-carousel"
           slidesPerView="1"
           spaceBetween="5"
           speed="500"
           cssMode="true"
+          navigation
           breakpoints={{
             744: { slidesPerView: 2 },
             1100: { slidesPerView: 3 },
