@@ -15,19 +15,20 @@ import {
   Box,
 } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
-import { SearchEventFiltersContext, SearchEventsContext } from "../../../../props/search-events.prop";
+import { SearchEventFiltersContext, SearchEventsContext } from "../../../props/search-events.prop";
 //MUI imports
 import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
 import SvgIcon from "@mui/material/SvgIcon";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 //Import endpoint handlers for events
-import { searchEvents, getAllTags } from "../../../../services/EventAPI";
+import { searchEvents, getAllTags } from "../../../services/EventAPI";
 //Import JSX components
-import DateRangePicker from "./DateRangePicker";
-import ByLocation from "./ByLocation";
-import ByKeywords from "./ByKeywords";
-import {HeaderSelectedTags} from "./TagSelection";
+import DateRangePicker from "./filters/DateRangePicker";
+import ByLocation from "./filters/ByLocation";
+import ByKeywords from "./filters/ByKeywords";
+import {HeaderSelectedTags} from "./filters/TagSelection";
+import { getTodayISODates, getTomorrowISODates, getWeekendISODates } from "../../../utils/utils";
 
 
 /**
@@ -53,7 +54,6 @@ const FindEventHeader = () => {
     location,
     dateRange,
     priceRange,
-    isFree,
     change,
     tagSelection,
     chipData,
@@ -89,11 +89,20 @@ const FindEventHeader = () => {
    */
   const searchHandler = async (event) => {
 
+    // console.clear();
+    // console.log("Today: ", getTodayISODates());
+    // console.log("Tomorrow: ", getTomorrowISODates());
+    // console.log("Weekend: ", getWeekendISODates());
+
+
+
     //Prevent default submit form behaviour
     event.preventDefault();
 
     console.log("Search event fired");
-    console.log(tagSelection.get, keywords.get, dateRange.minDate.get, dateRange.maxDate.get, location.get, 0);
+    //console.log(tagSelection.get, keywords.get, dateRange.minDate.get, dateRange.maxDate.get, location.get, 0);
+    console.log(priceRange.minPrice.get);
+    console.log(priceRange.maxPrice.get);
 
     //Make request for filtered events
     let searchResult = await searchEvents(

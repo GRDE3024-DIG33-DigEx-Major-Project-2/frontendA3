@@ -10,7 +10,7 @@ import {
   RadioGroup,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { getTodayISODates, getTomorrowISODates, getWeekendISODates } from "../../../../utils/utils";
+import { getTodayISODates, getTomorrowISODates, getWeekendISODates, getThisWeekISODates, getThisMonthsISODates } from "../../../../utils/utils";
 import { useContext } from "react";
 //Import search event props
 import { SearchEventsContext, SearchEventFiltersContext } from "../../../../props/search-events.prop";
@@ -44,7 +44,7 @@ const DateRadioBtns = () => {
    * @param {*} value 
    */
   const chipSelectDate = (value) => {
-
+    console.clear();
     //Filter chip key
     let newKey = chipData.get.length + 1;
     //Filter chips
@@ -55,17 +55,30 @@ const DateRadioBtns = () => {
 
     //Get ISO range for today
     if (value === "Today") {
+      console.log("Getting Today's date range");
       tempDateRange = getTodayISODates();
     }
     //Get ISO range for tomorrow
     else if (value === "Tomorrow") {
+      console.log("Getting Tomorrow's date range");
       tempDateRange = getTomorrowISODates();
     }
     //Get ISO range for this weekend
     else if (value === "Weekend") {
+      console.log("Getting Weekend's date range");
       tempDateRange = getWeekendISODates();
     }
-
+    //Get ISO range for this week
+    else if (value === "Week") {
+      console.log("Getting this Week's date range");
+      tempDateRange = getThisWeekISODates();
+    }
+    //Get ISO range for this month 
+    else if (value === "Month") {
+      console.log("Getting this Month's date range");
+      tempDateRange = getThisMonthsISODates();
+    }
+    console.log("Result: ", tempDateRange);
     //Add chip to temp filter chips
     temp.push({
       //Set key
@@ -115,13 +128,17 @@ const DateRadioBtns = () => {
           label="This weekend"
         />
         <FormControlLabel
-          value="select-date"
+          value="Week"
           control={<Radio />}
-          label="Select a date"
-          disabled={true}
+          label="This week"
+        />
+        <FormControlLabel
+          value="Month"
+          control={<Radio />}
+          label="This month"
         />
       </RadioGroup>
-      <Link>View more</Link>
+      {/* <Link>View more</Link> */}
     </div>
   );
 };

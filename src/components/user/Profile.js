@@ -9,21 +9,41 @@ import {
 import { Link } from "react-router-dom";
 import EventCardHorizontal from "../event/EventCardHorizontal";
 import { useState, useEffect } from "react";
-import { getAllEvents, getFirstLetters } from "../../utils/utils";
+import {  getFirstLetters } from "../../utils/utils";
+//Search for favourited events
+import {searchFavourites} from "../../services/EventAPI";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import LockIcon from "@mui/icons-material/Lock";
+import { useContext } from "react";
+//Import search event props
+import { SearchEventsContext, SearchEventFiltersContext } from "../../props/search-events.prop";
+
 
 const Profile = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
-  const [events, setEvents] = useState([]);
+
+
+  const [favouritedEvents, setFavouritedEvents] = useState([]);
+
+  
+    /**
+   * Prop context for search event data
+   */
+    const {
+      events,
+      pageCount,
+      tags
+    } = useContext(SearchEventsContext);
+  
 
   useEffect(() => {
     async function fetchEvents() {
-      //const data = await getAllEvents();
-      //setEvents(data);
+      const data = await searchFavourites();
+      console.log("Favourited events search results: ", data);
+      setFavouritedEvents(data.events);
     }
 
     fetchEvents();
-  }, [setEvents]);
+  }, [setFavouritedEvents]);
 
   const handleDelete = () => {
     console.log("redirecting to delete page or pop up");
@@ -99,7 +119,7 @@ const Profile = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
             <article className="saved-events">
               <h2>Saved Events</h2>
               <Box className="events-profile">
-                {events.map((event, i) => (
+                {events.get.map((event, i) => (
                   <EventCardHorizontal key={i} event={event} />
                 ))}
               </Box>

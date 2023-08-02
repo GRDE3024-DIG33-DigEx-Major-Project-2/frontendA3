@@ -11,23 +11,52 @@ import CreatedEventCardHorizontal from "../event/CreatedEventCardHorizontal";
 import LockIcon from "@mui/icons-material/Lock";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useState, useEffect } from "react";
-import { getAllEvents, getFirstLetters } from "../../utils/utils";
+import { getFirstLetters } from "../../utils/utils";
+//Search for owned events
+import {searchOwnedEvents, createEvent} from "../../services/EventAPI";
+// import { useContext } from "react";
+// //Import search event props
+// import { SearchEventsContext, SearchEventFiltersContext } from "../../props/search-events.prop";
 
 const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
-  const [events, setEvents] = useState([]);
+
+
+  const [ownedEvents, setOwnedEvents] = useState([]);
+
+
+
+//   const testCreate = async () => {
+// console.log("ABOUT TO TEST CREATE");
+//       const testCreate = await createEvent(null);
+//       console.log(testCreate);    
+//   }
+
+
 
   useEffect(() => {
     async function fetchEvents() {
-     // const data = await getAllEvents();
-     // setEvents(data);
+      const data = await searchOwnedEvents();
+      console.log("Owned events search results: ", data);
+      setOwnedEvents(data.events);
     }
 
     fetchEvents();
-  }, [setEvents]);
+  }, [setOwnedEvents]);
 
   const handleDelete = () => {
     console.log("redirecting to delete page or pop up");
   };
+
+// return (<>
+// <Button onclick={testCreate}
+//                   variant="contained"
+//                   id="save-pwd-btn"
+//                   type="submit"
+//                   >
+//                     TEST CREATE</Button>
+//   <button onClick={testCreate}>Test Create</button>
+// </>
+// );
 
   return (
     <>
@@ -52,7 +81,7 @@ const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
                   primis in faucibus. Vivamus rhoncus aliquam nibh egestas
                   convallis. Aenean efficitur laoreet leo non sagittis. Proin
                   eget diam volutpat enim volutpat interdum.
-                </p>
+                </p>                  
               </Box>
             </article>
             <article className="account-settings">
@@ -86,6 +115,7 @@ const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
                       ),
                     }}
                   />
+
                   <Button
                     variant="contained"
                     id="save-pwd-btn"
@@ -115,10 +145,11 @@ const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
                 </Link>
               </div>
               <Box className="events-profile">
-                {events.map((event, i) => (
+                {ownedEvents.map((event, i) => (
                   <CreatedEventCardHorizontal key={i} event={event} />
                 ))}
               </Box>
+              
             </article>
           </>
         )}

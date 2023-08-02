@@ -82,13 +82,13 @@ export const getTomorrowISODates = () => {
 
   //Set minimum date iso
   minDate = new Date();
-  minDate.setDate(new Date() + 1);
-  minDate.setHours(minTimeField);
+  minDate.setDate(minDate.getDate() + 1);
+  minDate.setHours(minTimeField, minTimeField, minTimeField);
   minIso = dayjs(minDate.toISOString()).format(isoFormat);
 
   //Set maximum date iso
   maxDate = new Date();
-  maxDate.setDate(new Date() + 1);
+  maxDate.setDate(maxDate.getDate() + 1);
   maxDate.setHours(maxHour, maxMin, maxSec, maxMs);
   maxIso = dayjs(maxDate.toISOString()).format(isoFormat);
 
@@ -125,7 +125,7 @@ export const getWeekendISODates = () => {
     //Find ISO string of earliest Saturday datetime
     minDate = new Date(currDate);
     minDate.setDate(currDate.getDate() + daysTilSaturday);
-    minDate.setHours(minTimeField);
+    minDate.setHours(minTimeField, minTimeField, minTimeField);
     //Find ISO string of latest Sunday datetime
     maxDate = new Date(currDate);
     maxDate.setDate(currDate.getDate() + daysTilSunday);
@@ -135,7 +135,7 @@ export const getWeekendISODates = () => {
   else if (currDay == 6) {
     //Find minimum date iso string
     minDate = new Date();
-    minDate.setHours(minTimeField);
+    minDate.setHours(minTimeField, minTimeField, minTimeField);
     //Find maximum date iso string
     maxDate = new Date(currDate.getDate() + 1);
     maxDate.setHours(maxHour, maxMin, maxSec, maxMs);
@@ -144,7 +144,7 @@ export const getWeekendISODates = () => {
   else if (currDay == 0) {
     //Find minimum date
     minDate = new Date();
-    minDate.setHours(minTimeField);
+    minDate.setHours(minTimeField, minTimeField, minTimeField);
     //Find maximum date
     maxDate = new Date();
     maxDate.setHours(maxHour, maxMin, maxSec, maxMs);
@@ -165,6 +165,70 @@ export const getWeekendISODates = () => {
     maxDate: maxIso
   }
 }
+
+
+
+/**
+ * Get this week's remaining time ISO date range
+ * @returns Object containing minDate and maxDate iso strings
+ */
+export const getThisWeekISODates = () => {
+  //Min and max date objs
+  let minDate;
+  let maxDate;
+  //Min and max date iso strings
+  let minIso;
+  let maxIso;
+
+  //Assign current datetime as ISO String
+  const currDate = new Date();
+  //Get current day (0 is sunday...6 is Saturday)
+  const currDay = currDate.getDay();
+  const remainingDays = 6 - currDay;
+
+  minDate = new Date();
+  maxDate = new Date(currDate.getTime() + (remainingDays + 1) * 24 * 60 * 60 * 1000);
+
+  //Date range iso strings
+  minIso = dayjs(minDate.toISOString()).format(isoFormat);
+  maxIso = dayjs(maxDate.toISOString()).format(isoFormat);
+
+  //Return date range ISO strings
+  return {
+    minDate: minIso,
+    maxDate: maxIso
+  }
+}
+
+
+/**
+ * Get this month's remaining time ISO date range
+ * @returns Object containing minDate and maxDate iso strings
+ */
+export const getThisMonthsISODates = () => {
+
+  //Min and max date iso strings
+  let minIso;
+  let maxIso;
+
+  //Calculate start and end datetime of remaining month
+  const now = new Date();
+  const lastDayOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+  const remainingTime = lastDayOfMonth.getTime() - now.getTime();
+  const endOfMonth = new Date(now.getTime() + remainingTime);
+
+  //Date range iso strings
+  minIso = dayjs(now.toISOString()).format(isoFormat);
+  maxIso = dayjs(endOfMonth.toISOString()).format(isoFormat);
+
+  //Return date range ISO strings
+  return {
+    minDate: minIso,
+    maxDate: maxIso
+  }
+}
+
+
 
 
 /**

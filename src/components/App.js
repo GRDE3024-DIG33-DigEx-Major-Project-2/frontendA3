@@ -9,7 +9,7 @@ import Login from "./user/Login.js";
 import Signup from "./user/Signup.js";
 import About from "./base/About.js";
 import ResetPassword from "./user/ResetPassword.js";
-import EventSearch from "./event/search/EventSearch";
+import SearchEvent from "./event/search/SearchEvent";
 import TermsOfUse from "./base/TermsOfUse";
 import PrivacyPolicy from "./base/PrivacyPolicy";
 import EventPage from "./event/EventPage.js";
@@ -43,7 +43,7 @@ function App() {
         <SearchEventFiltersProvider>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="events" element={<EventSearch />} />
+            <Route path="events" element={<SearchEvent />} />
             <Route path="profile" element={<Profile isLoggedIn={isLoggedIn} user={user} setIsLoggedIn={setIsLoggedIn} setUser={setUser} />} />
             <Route path="dashboard" element={<Dashboard isLoggedIn={isLoggedIn} user={user} setIsLoggedIn={setIsLoggedIn} setUser={setUser} />} />
             <Route path="about" element={<About />} />

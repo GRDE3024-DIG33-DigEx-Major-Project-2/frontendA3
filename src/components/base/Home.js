@@ -3,7 +3,7 @@
  */
 
 //Import dependencies
-import FindEventHeader from "../event/search/filters/FindEventHeader";
+import FindEventHeader from "../event/search/FindEventHeader";
 import EventCard from "../event/EventCard";
 //Import endpoint handlers for events
 import { searchEvents, getAllTags } from "../../services/EventAPI";
@@ -41,7 +41,7 @@ const Home = () => {
      * Find a page of events with no filtering applied
      */
     async function fetchUnfilteredEventPage() {
-      const allEv = (await searchEvents([], null, null, null, 0));
+      const allEv = (await searchEvents([], null, null, null, null, null, 0));
       setAllEvents(allEv.events);
     }
 
@@ -66,7 +66,7 @@ const Home = () => {
           }
           }    
           //Find and load the rock events
-          const rockEv = await searchEvents([rockTagId], null, null, null, null, 0);
+          const rockEv = await searchEvents([rockTagId], null, null, null, null, null, 0);
           setRockEvents(rockEv.events);        
         });
        

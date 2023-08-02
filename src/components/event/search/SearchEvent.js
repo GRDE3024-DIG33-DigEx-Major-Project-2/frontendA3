@@ -16,7 +16,7 @@ import {
   Divider,
   Grid,
 } from "@mui/material";
-import FindEventHeader from "./filters/FindEventHeader";
+import FindEventHeader from "./FindEventHeader";
 import EventCardHorizontal from "../EventCardHorizontal";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -39,7 +39,7 @@ import {SearchSelectedTags} from "./filters/TagSelection";
  * @param {*} param0 
  * @returns The event search component
  */
-const EventSearch = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
+const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
 
   /**
    * Prop context for search event data
@@ -86,25 +86,25 @@ const EventSearch = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
 
       try {
         let isoDates = getTodayISODates();
-        const minDate = dayjs(isoDates.minDate).format("YYYY-MM-DD HH:MM:SS:mm");
-        const maxDate = dayjs(isoDates.maxDate).format("YYYY-MM-DD HH:MM:SS:mm");
 
-        const data = await searchEvents(
-          tagSelection.get,
-          keywords.get,
-          minDate,
-          maxDate,
-          location.get,
-          { minPrice: Number(priceRange.minPrice.get), maxPrice: Number(priceRange.maxPrice.get) },
-          0);
-        //Set events
-        events.set(data.events);
-        //Set total page count
-        pageCount.set(data.pageCount);
+        console.log(isoDates);
+
+        // const data = await searchEvents(
+        //   tagSelection.get,
+        //   keywords.get,
+        //   isoDates.minDate,
+        //   isoDates.maxDate,
+        //   location.get,
+        //   { minPrice: Number(priceRange.minPrice.get), maxPrice: Number(priceRange.maxPrice.get) },
+        //   0);
+        // //Set events
+        // events.set(data.events);
+        // //Set total page count
+        // pageCount.set(data.pageCount);
 
       }
       catch (error) {
-        console.log("Error in search event input");
+        //console.log("Error in search event input");
       }
     }
 
@@ -203,4 +203,4 @@ const EventSearch = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
   );
 };
 
-export default EventSearch;
+export default SearchEvent;

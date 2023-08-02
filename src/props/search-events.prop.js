@@ -56,6 +56,8 @@ const SearchEventFiltersContext = createContext();
 //Create the provider
 const SearchEventFiltersProvider = ({ children }) => {
 
+
+
     //Default range for ticket price filter
     const DEFAULT_MIN_PRICE = 1;
     const DEFAULT_MAX_PRICE = 200;
@@ -75,14 +77,15 @@ const SearchEventFiltersProvider = ({ children }) => {
         //   },    
     ]
 
-
+//console.clear();
+//console.log("DEFAULT DATE RANGE: ", DEFAULT_DATE_RANGE);
 
 //Filter form fields as props
 const [location, setLocation] = useState(null);
 const [minDate, setMinDate] = useState(DEFAULT_DATE_RANGE.minDate);
 const [maxDate, setMaxDate] = useState(DEFAULT_DATE_RANGE.maxDate);
 const [selectedTagIds, setSelectedTagIds] = useState([]);
-const [keywords, setKeywords] = useState(null);
+const [keywords, setKeywords] = useState("");
 const [isFree, setIsFree] = useState(DEFAULT_ISFREE);
 const [change, setChange] = useState(true);
 const [minPrice, setMinPrice] = useState(DEFAULT_MIN_PRICE);

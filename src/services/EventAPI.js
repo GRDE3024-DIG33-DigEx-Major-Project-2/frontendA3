@@ -24,6 +24,19 @@ export const searchEvents = async function (tagIds, keywords, minDate, maxDate, 
   console.log("Inside Search Events");
   console.log(tagIds, keywords, minDate, maxDate, city, page);
 
+  let priceSetting = null;
+
+  if (priceRange.minPrice != null && priceRange.maxPrice != null)
+  priceSetting = {
+    minPrice: priceRange.minPrice,
+    maxPrice: priceRange.maxPrice
+  };
+
+  //Set empty keywords string to null
+  if (keywords == "")
+  keywords = null;
+
+
   //The array of events to return
   let events = [];
   //The total number of event pages that match the filter options
@@ -36,13 +49,14 @@ export const searchEvents = async function (tagIds, keywords, minDate, maxDate, 
     minDate: minDate,
     maxDate: maxDate,
     city: city,
-    priceRange: priceRange,
+    priceRange: priceSetting,
     page: page | 0
   };
 
   console.log("Request body test");
   console.log(requestBody);
 
+  try {
   //Get the array of events and the page number
   await axios
     .post(EVENT_ENDPOINTS.searchEventsUrl, requestBody)
@@ -51,13 +65,24 @@ export const searchEvents = async function (tagIds, keywords, minDate, maxDate, 
       console.log(response.data);
       events = response.data.events;
       pageCount = response.data.pageCount;
-    })
-    .catch((error) => {
-      console.log("Error while searching");
-      console.log(error.status);
-      console.log(error);
-    });
+    });  
+  }
+  catch(error) {
 
+    //console.clear();
+    console.log(tagIds, keywords, minDate, maxDate, city, page);
+    console.log("An error occured while searching events!");
+
+      //Request body is invalid!
+  if (error.response.status == 422) {
+console.log("Request body is invalid!");
+console.log(error.response.data.errors);
+
+//TODO ADJUST THIS PART TO MEET YOUR NEEDS
+return { events: events, pageCount: pageCount };
+//return response.data.errors;
+  }
+  }
 
   //Return object containing API response data
   return { events: events, pageCount: pageCount };
@@ -175,6 +200,12 @@ export const createEvent = async function (formData) {
 
   console.log("Inside createEvent");
 
+
+  //let testData = new FormData();
+
+  //testData.append("event");
+
+
   //Event Create request options
   const createEventOptions = {
     //Set to multipart/form-data
@@ -184,13 +215,36 @@ export const createEvent = async function (formData) {
     },
   };
 
+  let response;
 
+//console.log(testData);
+//console.log(`Bearer ${localStorage.getItem('accessToken')}`);
 
   //Perform first event create request
-  let response = await axios
-    .post(EVENT_ENDPOINTS.createEventUrl, formData, createEventOptions);
+  try {
+      response = await axios
+    .post(EVENT_ENDPOINTS.createEventUrl, formData, createEventOptions);    
+  }
+  catch(error) {
+    console.log("An error occured while creating event!");
+      //Request body is invalid!
+  if (error.response.status == 422) {
+console.log("Request body is invalid!");
+console.log(error.response.data.errors);
+
+//TODO ADJUST THIS PART TO MEET YOUR NEEDS
+return;
+//return response.data.errors;
+  }
+  }
+
+
 
   console.log("Performed first event create request");
+
+
+
+
 
   //Refresh tokens in case of expired access token (should be equal to 403, but it catches all non-201 statuses)
   if (response.status != 201) {

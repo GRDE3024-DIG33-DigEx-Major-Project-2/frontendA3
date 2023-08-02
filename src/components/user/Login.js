@@ -34,7 +34,8 @@ const Login = ({ setIsLoggedIn, setUser }) => {
         .post(loginUrl, loginBody)
         .then((response) => {
           setMessage("Login Succesful");
-
+          //TODO REMOVE LOCALSTORAGE USE
+localStorage.setItem("accessToken", response.data.accessToken);
           if (response.data.user.organizationName) {
             user = {
               type: response.data.user.userType,
@@ -47,7 +48,7 @@ const Login = ({ setIsLoggedIn, setUser }) => {
               phoneNumber: response.data.user.phoneNumber,
               organizationName: response.data.user.organizationName,
             };
-
+            
             destinationPage = "../dashboard";
           } else {
             user = {
