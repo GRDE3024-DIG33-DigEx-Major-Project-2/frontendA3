@@ -53,6 +53,10 @@ function CreateEvent() {
     eventPaid: false,
   });
 
+  // button colors
+  const lightGrey = "#8e8d8d";
+  const orange = "#f58146";
+
   const navigate = useNavigate();
 
   //** FIRST SCREEN - BASIC INFO **//
@@ -68,6 +72,7 @@ function CreateEvent() {
   const [artistName3, setArtistName3] = useState("");
   const [artistName4, setArtistName4] = useState("");
   const [eventSummary, setEventSummary] = useState("");
+
   // ** THIRD SCREEN - LOCATION ** //
   const [venueName, setVenueName] = useState("");
   const [suburb, setSuburb] = useState("");
@@ -99,6 +104,7 @@ function CreateEvent() {
   const [eventPrice4, setEventPrice4] = useState(parseFloat(0.0).toFixed(2));
   // ** SIXTH SCREEN - MEDIA **//
   const [selectedImage, setSelectedImage] = useState();
+
 
   /**
    * Fetch api data on load
@@ -679,18 +685,18 @@ function CreateEvent() {
                                   className="fab-container"
                                 >
                                   <Fab
-                                    className="add-artist-fab"
+                                    className="add-artist-fab-disabled"
                                     id="add-artist-1"
                                     aria-label="Add"
                                   >
-                                    <AddIcon sx={{ color: "#f58146" }} />
+                                    <AddIcon sx={{ color: lightGrey }} />
                                   </Fab>
                                   <Fab
-                                    className="remove-artist-fab"
+                                    className="remove-artist-fab-disabled"
                                     id="remove-artist-1"
                                     aria-label="Remove"
                                   >
-                                    <RemoveIcon sx={{ color: "#f58146" }} />
+                                    <RemoveIcon sx={{ color: lightGrey }} />
                                   </Fab>
                                 </Grid>
                                 <Grid container item xs={5} direction="column">
@@ -754,6 +760,7 @@ function CreateEvent() {
                                     className="add-artist-fab"
                                     id="add-artist-3"
                                     aria-label="Add"
+                                    // onClick={setEnableArtist3(true)}
                                   >
                                     <AddIcon sx={{ color: "#f58146" }} />
                                   </Fab>
@@ -761,6 +768,7 @@ function CreateEvent() {
                                     className="remove-artist-fab"
                                     id="remove-artist-3"
                                     aria-label="Remove"
+                                    // onClick={setEnableArtist3(false)}
                                   >
                                     <RemoveIcon sx={{ color: "#f58146" }} />
                                   </Fab>
@@ -790,6 +798,7 @@ function CreateEvent() {
                                     className="add-artist-fab"
                                     id="add-artist-4"
                                     aria-label="Add"
+                                    // onClick={setEnableArtist4(true)}
                                   >
                                     <AddIcon sx={{ color: "#f58146" }} />
                                   </Fab>
@@ -797,6 +806,7 @@ function CreateEvent() {
                                     className="remove-artist-fab"
                                     id="remove-artist-4"
                                     aria-label="Remove"
+                                    // onClick={setEnableArtist4(false)}
                                   >
                                     <RemoveIcon sx={{ color: "#f58146" }} />
                                   </Fab>

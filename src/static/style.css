@@ -868,12 +868,14 @@ div.lineup {
   margin: 2%;
 }
 
-.card-icon:hover, .card-icon-selected:hover {
+.card-icon:hover,
+.card-icon-selected:hover {
   transform: scale(1.1);
   cursor: pointer;
 }
 
-.card-icon, .card-icon-selected {
+.card-icon,
+.card-icon-selected {
   padding: 2%;
   border-radius: 50%;
   text-align: center;
@@ -938,6 +940,7 @@ div.lineup {
 .horizontal-card .MuiCardMedia-root {
   width: 45% !important;
   min-width: 45%;
+  height: 100% !important;
 }
 
 .ev-share-h {
@@ -1133,12 +1136,24 @@ div.lineup {
   border: solid 2px #f58146 !important;
 }
 
+.remove-artist-fab-disabled,
+.add-artist-fab-disabled,
+.add-ticket-disabled,
+.remove-ticket-fab-disabled {
+  width: 20px !important;
+  height: 20px !important;
+  min-height: 20px !important;
+  background-color: #e6e2e2 !important;
+  border: solid 2px #8e8d8d !important;
+  cursor: default !important;
+}
+
 .fab-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   gap: 7%;
-  padding-bottom: 0.5%;
+  padding-bottom: 0.2%;
 }
 
 .fab-container-tickets {
@@ -1196,7 +1211,8 @@ div.lineup {
   display: block;
 }
 
-.event-prev-card-icon-share, .event-prev-card-icon-bookmark {
+.event-prev-card-icon-share,
+.event-prev-card-icon-bookmark {
   border-radius: 50%;
   background-color: #f58146;
   width: 50px;
@@ -1926,6 +1942,9 @@ div.lineup {
   .profile-container {
     grid-template-areas: "head" "bio" "account" "events";
   }
+  .profile-container .events-profile {
+    height: auto;
+  }
   .profile-box {
     padding: 2%;
   }
@@ -1958,7 +1977,10 @@ div.lineup {
     margin-bottom: 5px;
   }
   .horizontal-card {
-    height: 100px;
+    margin-bottom: 0;
+    margin-top: 5%;
+    height: 150px;
+    min-height: 150px;
   }
   .horizontal-card-box {
     width: 130%;

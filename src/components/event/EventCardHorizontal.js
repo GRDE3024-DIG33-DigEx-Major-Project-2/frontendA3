@@ -29,7 +29,6 @@ const EventCardHorizontal = (props) => {
     <Card className="horizontal-card">
       <CardMedia
         component="img"
-        height="200"
         image={imgUrl}
         alt={props.event.event.title}
       />

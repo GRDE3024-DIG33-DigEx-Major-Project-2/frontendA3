@@ -1,5 +1,6 @@
 // colors
 $black: #000000;
+$darkgrey: #8e8d8d;
 $white: #ffffff;
 $lightgrey: #e6e2e2;
 $blue: #4b7cbe;
@@ -866,26 +867,28 @@ div.lineup {
   margin: 2%;
 }
 
-.card-icon:hover, .card-icon-selected:hover {
+.card-icon:hover,
+.card-icon-selected:hover {
   transform: scale(1.1);
   cursor: pointer;
 }
 
-.card-icon, .card-icon-selected {
+.card-icon,
+.card-icon-selected {
   padding: 2%;
   border-radius: 50%;
   text-align: center;
   position: absolute;
 }
 
-.card-icon{
+.card-icon {
   background-color: $orange1;
   color: $white;
   width: 23px;
   height: 23px;
 }
 
-.card-icon-selected{
+.card-icon-selected {
   background-color: $white;
   color: $orange1;
   border: solid 3px $orange1;
@@ -908,11 +911,11 @@ div.lineup {
   right: 5%;
 }
 
-#bookmark-show{
+#bookmark-show {
   display: initial;
 }
 
-#bookmark-hide{
+#bookmark-hide {
   display: none;
 }
 
@@ -933,9 +936,10 @@ div.lineup {
   align-items: left;
   margin-bottom: 3%;
 
-  .MuiCardMedia-root{
+  .MuiCardMedia-root {
     width: 45% !important;
     min-width: 45%;
+    height: 100% !important;
   }
 }
 
@@ -1070,22 +1074,22 @@ div.lineup {
   color: $white;
   text-shadow: rgb(40, 39, 39) 1px 1px 4px;
 }
-.create-event-screen h2{
+.create-event-screen h2 {
   font-size: 3em;
 }
 
 .css-12z1287-MuiGrid-root p,
 .css-1f064cs-MuiGrid-root p,
-.css-1qeq9aw-MuiGrid-root p{
+.css-1qeq9aw-MuiGrid-root p {
   font-size: 18px;
 }
 
-#create-event-description{
+#create-event-description {
   font-size: 1.5em;
   padding: 13px;
 }
 
-.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root{
+.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
   height: 50px;
 }
 
@@ -1118,12 +1122,24 @@ div.lineup {
   border: solid 2px $orange1 !important;
 }
 
+.remove-artist-fab-disabled,
+.add-artist-fab-disabled,
+.add-ticket-disabled,
+.remove-ticket-fab-disabled {
+  width: 20px !important;
+  height: 20px !important;
+  min-height: 20px !important;
+  background-color: $lightgrey !important;
+  border: solid 2px $darkgrey !important;
+  cursor: default !important;
+}
+
 .fab-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   gap: 7%;
-  padding-bottom: 0.5%;
+  padding-bottom: 0.2%;
 }
 
 .fab-container-tickets {
@@ -1175,12 +1191,13 @@ div.lineup {
   display: block;
 }
 
-.event-prev-card-icon-share, .event-prev-card-icon-bookmark{
+.event-prev-card-icon-share,
+.event-prev-card-icon-bookmark {
   border-radius: 50%;
   background-color: $orange1;
   width: 50px;
   height: 50px;
-  @include flex-row(center, center)
+  @include flex-row(center, center);
 }
 
 .event-prev-card-icon-share {
@@ -1198,7 +1215,7 @@ div.lineup {
 .event-preview-screen {
   max-height: fit-content;
   height: fit-content;
-  min-height:  1600px;
+  min-height: 1600px;
   padding: 2% 1%;
 }
 
@@ -1293,7 +1310,7 @@ div.lineup {
     height: 100%;
     @include flex-row(flex-start, center);
     padding-left: 2%;
-    gap: 7%;;
+    gap: 7%;
   }
 }
 
@@ -1304,78 +1321,78 @@ div.lineup {
   font-weight: 500;
 }
 
-#event-avatar{
+#event-avatar {
   font-size: 30px;
   height: 100px;
   width: 100px;
   background-color: $lightblue;
 }
 
-.event-prev-third-row{
+.event-prev-third-row {
   width: 100%;
-  height:180px;
+  height: 180px;
 }
 
-.pricing-box{
+.pricing-box {
   height: 100%;
   width: 100%;
-  @include flex-row(center, center)
+  @include flex-row(center, center);
 }
 
-.event-prev-price{
+.event-prev-price {
   width: 25%;
   max-width: 50%;
   padding: 1% 3%;
-  p{
+  p {
     font-size: 15px;
     padding: 0 10%;
   }
 }
 
-.event-prev-fourth-row{
+.event-prev-fourth-row {
   @include flex-row(space-between, center);
   width: 100%;
   min-height: fit-content;
   height: 200px;
   max-height: fit-content;
   margin: 2% 0;
-  p{
+  p {
     font-size: 15px;
   }
 }
 
-.create-prev-about{
+.create-prev-about {
   width: 75%;
   height: 100%;
   padding-right: 5%;
 }
 
-.create-prev-lineup{
+.create-prev-lineup {
   width: 25%;
   height: 100%;
-  ul{
+  ul {
     margin-top: 10%;
-    li{
+    li {
       margin-top: 5%;
     }
   }
 }
 
-.event-prev-fifth-row{
+.event-prev-fifth-row {
   width: 100%;
   height: 200px;
   @include flex-row(space-between, center);
 }
 
-.event-prev-tags{
-  div{
+.event-prev-tags {
+  div {
     width: 100%;
     @include flex-row(flex-start, center);
     gap: 2%;
   }
 }
 
-.event-prev-end-bttns{
+.event-prev-end-bttns {
   @include flex-row(flex-end, center);
   gap: 2%;
   height: 100px;
@@ -1562,7 +1579,6 @@ div.lineup {
     height: 45vh;
     width: 80vw;
   }
-
 }
 
 /* Phone */
@@ -1791,69 +1807,68 @@ div.lineup {
     font-size: 0.7em;
     padding-bottom: 2px;
   }
-/*CREATE EVENTS PAGE*/
+  /*CREATE EVENTS PAGE*/
 
-.create-event-header h1 {
-  font-size: 2.2em;
-}
+  .create-event-header h1 {
+    font-size: 2.2em;
+  }
 
-#save-exit-ev-btn {
-  width: 11em;
-  height: 4em;
-  text-align: center;
-  font-size: 0.8em;
-}
+  #save-exit-ev-btn {
+    width: 11em;
+    height: 4em;
+    text-align: center;
+    font-size: 0.8em;
+  }
 
-#save-cont-ev-btn {
-  width: 13em;
-  height: 4em;
-  text-align: center;
-  font-size: 0.8em;
-}
-#create-ev-bttns-right {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
+  #save-cont-ev-btn {
+    width: 13em;
+    height: 4em;
+    text-align: center;
+    font-size: 0.8em;
+  }
+  #create-ev-bttns-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
 
-#create-ev-bttns div {
-  width: 50%;
-  gap: 5%;
-}
+  #create-ev-bttns div {
+    width: 50%;
+    gap: 5%;
+  }
 
-#stepper-box{
-  justify-content: left;
-  gap: 5%;
-}
+  #stepper-box {
+    justify-content: left;
+    gap: 5%;
+  }
 
-#stepper-box h2{
-  padding-left: 10px;
-}
-.create-event-screen h2 {
-  text-align: center;
-}
+  #stepper-box h2 {
+    padding-left: 10px;
+  }
+  .create-event-screen h2 {
+    text-align: center;
+  }
 
-.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
-  font-size: 5em;
-}
+  .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+    font-size: 5em;
+  }
 
-.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
-  height: 25px;
-}
+  .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
+    height: 25px;
+  }
 
-.css-suj22h-MuiChip-root {
-  height: 18px;
-}
+  .css-suj22h-MuiChip-root {
+    height: 18px;
+  }
 
-.css-6od3lo-MuiChip-label {
-  padding-left: 10px;
-  padding-right: 9px;
-  height: 10px;
-  font-size: 0.8em;
-  padding-top: 8px;
-}
-
+  .css-6od3lo-MuiChip-label {
+    padding-left: 10px;
+    padding-right: 9px;
+    height: 10px;
+    font-size: 0.8em;
+    padding-top: 8px;
+  }
 }
 
 @media only screen and (max-width: 480px) {
@@ -1883,79 +1898,77 @@ div.lineup {
   #save-exit-ev-btn {
     padding: 7px 6px;
   }
-  
+
   #save-cont-ev-btn {
     padding: 7px 5px;
   }
-  
-  #stepper-box h2{
+
+  #stepper-box h2 {
     font-size: 0.8em;
     padding-left: 1em;
   }
-  #stepper-box{
+  #stepper-box {
     justify-content: left;
   }
   #discard-ev-btn {
     right: 4%;
     font-size: 1em;
-}
-.create-event-screen h2 {
-  text-align: center;
-  margin-top: 12px;
-  margin-bottom: 12px;
+  }
+  .create-event-screen h2 {
+    text-align: center;
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
 
-}
+  .css-12z1287-MuiGrid-root p,
+  .css-1f064cs-MuiGrid-root p,
+  .css-1qeq9aw-MuiGrid-root p {
+    font-size: 0.8em;
+  }
 
-.css-12z1287-MuiGrid-root p,
-.css-1f064cs-MuiGrid-root p,
-.css-1qeq9aw-MuiGrid-root p{
-  font-size: 0.8em;
-}
+  #create-event-description {
+    font-size: 1em;
+    padding: 7.5px 8px;
+  }
 
-#create-event-description{
-  font-size: 1em;
-  padding: 7.5px 8px;
-}
+  #create-event-name,
+  #create-event-organiser,
+  #create-event-eventURL {
+    font-size: 3.8em;
+    padding: 7.5px 8px;
+  }
 
-#create-event-name,
-#create-event-organiser,
-#create-event-eventURL{
-  font-size: 3.8em;
-  padding: 7.5px 8px;
-}
+  .css-8ewcdo-MuiInputBase-root-MuiOutlinedInput-root {
+    padding: 7.5px 7px;
+    font-size: 0.8rem;
+  }
 
-.css-8ewcdo-MuiInputBase-root-MuiOutlinedInput-root {
-  padding: 7.5px 7px;
-  font-size: 0.8rem;
-}
+  .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
+    font-size: 0.1rem;
+  }
+  .css-sghohy-MuiButtonBase-root-MuiButton-root {
+    font-size: 0.5em;
+  }
 
-.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
-  font-size: 0.1rem;
-}
-.css-sghohy-MuiButtonBase-root-MuiButton-root {
-  font-size: 0.5em;
-}
+  .create-event-header {
+    height: 26vh;
+  }
+  .create-event-header h1 {
+    font-size: 2.2em;
+  }
 
-.create-event-header {
-  height: 26vh;
-}
-.create-event-header h1 {
-  font-size: 2.2em;
-}
+  .css-17clsp4-MuiPaper-root-MuiMobileStepper-root {
+    width: 44%;
+  }
 
-.css-17clsp4-MuiPaper-root-MuiMobileStepper-root {
-  width: 44%;
-}
+  .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root {
+    font-size: 0.6rem;
+    min-height: 30px;
+  }
 
-.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root {
-  font-size: 0.6rem;
-  min-height: 30px;
-}
-
-.css-yi3mkw {
-  flex-wrap: nowrap;
-}
-
+  .css-yi3mkw {
+    flex-wrap: nowrap;
+  }
 }
 @media only screen and (max-width: 640px) {
   /*PROFILE PAGE*/
@@ -1965,6 +1978,9 @@ div.lineup {
       "bio"
       "account"
       "events";
+    .events-profile {
+      height: auto;
+    }
   }
 
   .profile-box {
@@ -2007,8 +2023,11 @@ div.lineup {
     margin-bottom: 5px;
   }
 
-  .horizontal-card{
-    height: 100px;
+  .horizontal-card {
+    margin-bottom: 0;
+    margin-top: 5%;
+    height: 150px;
+    min-height: 150px;
   }
 
   .horizontal-card-box {
@@ -2068,5 +2087,4 @@ div.lineup {
     width: 1.5em;
     height: 1em;
   }
-
 }
