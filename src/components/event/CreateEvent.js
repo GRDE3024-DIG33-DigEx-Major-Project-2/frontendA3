@@ -72,7 +72,9 @@ function CreateEvent() {
   const [artistName3, setArtistName3] = useState("");
   const [artistName4, setArtistName4] = useState("");
   const [eventSummary, setEventSummary] = useState("");
-
+  const [enableArtist2, setEnableArtist2] = useState(false);
+  const [enableArtist3, setEnableArtist3] = useState(false);
+  const [enableArtist4, setEnableArtist4] = useState(false);
   // ** THIRD SCREEN - LOCATION ** //
   const [venueName, setVenueName] = useState("");
   const [suburb, setSuburb] = useState("");
@@ -87,10 +89,10 @@ function CreateEvent() {
   const [mapKey, setMapKey] = useState(1);
   // ** FOURTH SCREEN - DATE AND TIME ** //
   const timezones = getAustralianTimezones();
-  const [eventStartDate, setEventStartDate] = useState("");
-  const [eventEndDate, setEventEndDate] = useState("");
-  const [eventStartTime, setEventStartTime] = useState("");
-  const [eventEndTime, setEventEndTime] = useState("");
+  const [eventStartDate, setEventStartDate] = useState(null);
+  const [eventEndDate, setEventEndDate] = useState(null);
+  const [eventStartTime, setEventStartTime] = useState(null);
+  const [eventEndTime, setEventEndTime] = useState(null);
   const [eventTimezone, setEventTimezone] = useState("AEST");
   // ** FIFTH SCREEN - PRICE **//
   const { eventFree, eventPaid } = state;
@@ -105,6 +107,19 @@ function CreateEvent() {
   // ** SIXTH SCREEN - MEDIA **//
   const [selectedImage, setSelectedImage] = useState();
 
+  // functions to enable/disable artist form fields
+  const handleDisable2 = () => {
+    if (enableArtist2) setEnableArtist2(false);
+    if (!enableArtist2) setEnableArtist2(true);
+  };
+  const handleDisable3 = () => {
+    if (enableArtist3) setEnableArtist3(false);
+    if (!enableArtist3) setEnableArtist3(true);
+  };
+  const handleDisable4 = () => {
+    if (enableArtist4) setEnableArtist4(false);
+    if (!enableArtist4) setEnableArtist4(true);
+  };
 
   /**
    * Fetch api data on load
@@ -664,7 +679,9 @@ function CreateEvent() {
                             <FormControl fullWidth>
                               <Grid container spacing={2} paddingBottom="15px">
                                 <Grid container item xs={5} direction="column">
-                                  <p>Artist name:</p>
+                                  <p className="form-label-active">
+                                    Artist name:
+                                  </p>
                                   <TextField
                                     fullWidth
                                     value={artistName}
@@ -688,19 +705,29 @@ function CreateEvent() {
                                     className="add-artist-fab-disabled"
                                     id="add-artist-1"
                                     aria-label="Add"
+                                    disabled="true"
                                   >
-                                    <AddIcon sx={{ color: lightGrey }} />
+                                    <AddIcon />
                                   </Fab>
                                   <Fab
                                     className="remove-artist-fab-disabled"
                                     id="remove-artist-1"
                                     aria-label="Remove"
+                                    disabled="true"
                                   >
-                                    <RemoveIcon sx={{ color: lightGrey }} />
+                                    <RemoveIcon />
                                   </Fab>
                                 </Grid>
                                 <Grid container item xs={5} direction="column">
-                                  <p>Artist name:</p>
+                                  <p
+                                    className={
+                                      enableArtist2
+                                        ? "form-label-active"
+                                        : "form-label-disabled"
+                                    }
+                                  >
+                                    Artist name:
+                                  </p>
                                   <TextField
                                     fullWidth
                                     value={artistName2}
@@ -711,6 +738,7 @@ function CreateEvent() {
                                     id="create-event-an2"
                                     placeholder="Enter an artist's name"
                                     variant="outlined"
+                                    disabled={!enableArtist2}
                                   />
                                 </Grid>
                                 <Grid
@@ -721,22 +749,42 @@ function CreateEvent() {
                                   className="fab-container"
                                 >
                                   <Fab
-                                    className="add-artist-fab"
+                                    className={
+                                      !enableArtist2
+                                        ? "add-artist-fab"
+                                        : "add-artist-fab-disabled"
+                                    }
                                     id="add-artist-2"
                                     aria-label="Add"
+                                    onClick={handleDisable2}
+                                    disabled={enableArtist2}
                                   >
-                                    <AddIcon sx={{ color: "#f58146" }} />
+                                    <AddIcon />
                                   </Fab>
                                   <Fab
-                                    className="remove-artist-fab"
+                                    className={
+                                      enableArtist2
+                                        ? "remove-artist-fab"
+                                        : "remove-artist-fab-disabled"
+                                    }
                                     id="remove-artist-2"
                                     aria-label="Remove"
+                                    onClick={handleDisable2}
+                                    disabled={!enableArtist2}
                                   >
-                                    <RemoveIcon sx={{ color: "#f58146" }} />
+                                    <RemoveIcon />
                                   </Fab>
                                 </Grid>
                                 <Grid container item xs={5} direction="column">
-                                  <p>Artist name:</p>
+                                  <p
+                                    className={
+                                      enableArtist3
+                                        ? "form-label-active"
+                                        : "form-label-disabled"
+                                    }
+                                  >
+                                    Artist name:
+                                  </p>
                                   <TextField
                                     fullWidth
                                     value={artistName3}
@@ -747,6 +795,7 @@ function CreateEvent() {
                                     id="create-event-an3"
                                     placeholder="Enter an artist's name"
                                     variant="outlined"
+                                    disabled={!enableArtist3}
                                   />
                                 </Grid>
                                 <Grid
@@ -757,24 +806,42 @@ function CreateEvent() {
                                   className="fab-container"
                                 >
                                   <Fab
-                                    className="add-artist-fab"
+                                    className={
+                                      !enableArtist3
+                                        ? "add-artist-fab"
+                                        : "add-artist-fab-disabled"
+                                    }
                                     id="add-artist-3"
                                     aria-label="Add"
-                                    // onClick={setEnableArtist3(true)}
+                                    onClick={handleDisable3}
+                                    disabled={enableArtist3}
                                   >
-                                    <AddIcon sx={{ color: "#f58146" }} />
+                                    <AddIcon />
                                   </Fab>
                                   <Fab
-                                    className="remove-artist-fab"
+                                    className={
+                                      enableArtist3
+                                        ? "remove-artist-fab"
+                                        : "remove-artist-fab-disabled"
+                                    }
                                     id="remove-artist-3"
                                     aria-label="Remove"
-                                    // onClick={setEnableArtist3(false)}
+                                    onClick={handleDisable3}
+                                    disabled={!enableArtist3}
                                   >
-                                    <RemoveIcon sx={{ color: "#f58146" }} />
+                                    <RemoveIcon />
                                   </Fab>
                                 </Grid>
                                 <Grid container item xs={5} direction="column">
-                                  <p>Artist name:</p>
+                                  <p
+                                    className={
+                                      enableArtist4
+                                        ? "form-label-active"
+                                        : "form-label-disabled"
+                                    }
+                                  >
+                                    Artist name:
+                                  </p>
                                   <TextField
                                     fullWidth
                                     value={artistName4}
@@ -785,6 +852,7 @@ function CreateEvent() {
                                     id="create-event-an4"
                                     placeholder="Enter an artist's name"
                                     variant="outlined"
+                                    disabled={!enableArtist4}
                                   />
                                 </Grid>
                                 <Grid
@@ -795,20 +863,30 @@ function CreateEvent() {
                                   className="fab-container"
                                 >
                                   <Fab
-                                    className="add-artist-fab"
+                                    className={
+                                      !enableArtist4
+                                        ? "add-artist-fab"
+                                        : "add-artist-fab-disabled"
+                                    }
                                     id="add-artist-4"
                                     aria-label="Add"
-                                    // onClick={setEnableArtist4(true)}
+                                    onClick={handleDisable4}
+                                    disabled={enableArtist4}
                                   >
-                                    <AddIcon sx={{ color: "#f58146" }} />
+                                    <AddIcon />
                                   </Fab>
                                   <Fab
-                                    className="remove-artist-fab"
+                                    className={
+                                      enableArtist4
+                                        ? "remove-artist-fab"
+                                        : "remove-artist-fab-disabled"
+                                    }
                                     id="remove-artist-4"
                                     aria-label="Remove"
-                                    // onClick={setEnableArtist4(false)}
+                                    onClick={handleDisable4}
+                                    disabled={!enableArtist4}
                                   >
-                                    <RemoveIcon sx={{ color: "#f58146" }} />
+                                    <RemoveIcon />
                                   </Fab>
                                 </Grid>
                                 <Grid container item xs={11} direction="row">
@@ -1044,7 +1122,7 @@ function CreateEvent() {
                                       id="start-date-field-create-event"
                                       className="search-form-els"
                                       placeholder="Event Start Date"
-                                      value={eventStartDate}
+                                      value={eventStartDate ? dayjs(eventStartDate) : null}
                                       onChange={(newValue) =>
                                         setEventStartDate(
                                           new Date(Date.parse(newValue))
@@ -1076,7 +1154,7 @@ function CreateEvent() {
                                       id="start-date-field-create-event"
                                       className="search-form-els"
                                       placeholder="Event End Date"
-                                      value={eventEndDate}
+                                      value={eventEndDate ? dayjs(eventEndDate) : null}
                                       onChange={(newValue) =>
                                         setEventEndDate(
                                           new Date(Date.parse(newValue))
@@ -1123,7 +1201,7 @@ function CreateEvent() {
                                     dateAdapter={AdapterDayjs}
                                   >
                                     <TimePicker
-                                      value={eventStartTime}
+                                      value={eventStartTime ? dayjs(eventStartTime) : null}
                                       onChange={(newValue) =>
                                         setEventStartTime(
                                           new Date(Date.parse(newValue))
@@ -1146,7 +1224,7 @@ function CreateEvent() {
                                     dateAdapter={AdapterDayjs}
                                   >
                                     <TimePicker
-                                      value={eventEndTime}
+                                      value={eventEndTime ? dayjs(eventEndTime) : null}
                                       onChange={(newValue) =>
                                         setEventEndTime(
                                           new Date(Date.parse(newValue))

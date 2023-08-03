@@ -976,6 +976,10 @@ div.lineup {
 #create-event-main {
   background-color: $offwhite;
   padding-bottom: 1%;
+
+  p{
+    font-size: 16px;
+  }
 }
 
 .create-event-screen {
@@ -1111,6 +1115,14 @@ div.lineup {
   max-width: 94%;
 }
 
+.form-label-disabled{
+  color: $darkgrey;
+}
+
+.form-label-active{
+  color: $black;
+}
+
 .add-artist-fab,
 .remove-artist-fab,
 .add-ticket-fab,
@@ -1120,6 +1132,9 @@ div.lineup {
   min-height: 20px !important;
   background-color: $white !important;
   border: solid 2px $orange1 !important;
+  .MuiSvgIcon-root{
+    color: $orange1 !important;
+  }
 }
 
 .remove-artist-fab-disabled,
@@ -1132,6 +1147,10 @@ div.lineup {
   background-color: $lightgrey !important;
   border: solid 2px $darkgrey !important;
   cursor: default !important;
+
+  .MuiSvgIcon-root{
+    color: $darkgrey !important;
+  }
 }
 
 .fab-container {

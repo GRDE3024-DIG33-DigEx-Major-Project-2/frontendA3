@@ -977,6 +977,9 @@ div.lineup {
   background-color: #f5f5f5;
   padding-bottom: 1%;
 }
+#create-event-main p {
+  font-size: 16px;
+}
 
 .create-event-screen {
   max-width: 100%;
@@ -1125,6 +1128,14 @@ div.lineup {
   max-width: 94%;
 }
 
+.form-label-disabled {
+  color: #8e8d8d;
+}
+
+.form-label-active {
+  color: #000000;
+}
+
 .add-artist-fab,
 .remove-artist-fab,
 .add-ticket-fab,
@@ -1134,6 +1145,12 @@ div.lineup {
   min-height: 20px !important;
   background-color: #ffffff !important;
   border: solid 2px #f58146 !important;
+}
+.add-artist-fab .MuiSvgIcon-root,
+.remove-artist-fab .MuiSvgIcon-root,
+.add-ticket-fab .MuiSvgIcon-root,
+.remove-ticket-fab .MuiSvgIcon-root {
+  color: #f58146 !important;
 }
 
 .remove-artist-fab-disabled,
@@ -1146,6 +1163,12 @@ div.lineup {
   background-color: #e6e2e2 !important;
   border: solid 2px #8e8d8d !important;
   cursor: default !important;
+}
+.remove-artist-fab-disabled .MuiSvgIcon-root,
+.add-artist-fab-disabled .MuiSvgIcon-root,
+.add-ticket-disabled .MuiSvgIcon-root,
+.remove-ticket-fab-disabled .MuiSvgIcon-root {
+  color: #8e8d8d !important;
 }
 
 .fab-container {
