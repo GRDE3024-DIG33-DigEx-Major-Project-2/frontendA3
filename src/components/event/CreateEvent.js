@@ -50,12 +50,8 @@ function CreateEvent() {
   const [activeStep, setActiveStep] = useState(0);
   const [state, setState] = useState({
     eventFree: false,
-    eventPaid: false,
+    eventPaid: true,
   });
-
-  // button colors
-  const lightGrey = "#8e8d8d";
-  const orange = "#f58146";
 
   const navigate = useNavigate();
 
@@ -104,6 +100,9 @@ function CreateEvent() {
   const [eventPrice3, setEventPrice3] = useState(parseFloat(0.0).toFixed(2));
   const [eventTierName4, setEventTierName4] = useState("");
   const [eventPrice4, setEventPrice4] = useState(parseFloat(0.0).toFixed(2));
+  const [enableTicket2, setEnableTicket2] = useState(false);
+  const [enableTicket3, setEnableTicket3] = useState(false);
+  const [enableTicket4, setEnableTicket4] = useState(false);
   // ** SIXTH SCREEN - MEDIA **//
   const [selectedImage, setSelectedImage] = useState();
 
@@ -119,6 +118,20 @@ function CreateEvent() {
   const handleDisable4 = () => {
     if (enableArtist4) setEnableArtist4(false);
     if (!enableArtist4) setEnableArtist4(true);
+  };
+
+  // functions to enable/disable price form fields
+  const handleTicketDisable2 = () => {
+    if (enableTicket2) setEnableTicket2(false);
+    if (!enableTicket2) setEnableTicket2(true);
+  };
+  const handleTicketDisable3 = () => {
+    if (enableTicket3) setEnableTicket3(false);
+    if (!enableTicket3) setEnableTicket3(true);
+  };
+  const handleTicketDisable4 = () => {
+    if (enableTicket4) setEnableTicket4(false);
+    if (!enableTicket4) setEnableTicket4(true);
   };
 
   /**
@@ -1122,7 +1135,11 @@ function CreateEvent() {
                                       id="start-date-field-create-event"
                                       className="search-form-els"
                                       placeholder="Event Start Date"
-                                      value={eventStartDate ? dayjs(eventStartDate) : null}
+                                      value={
+                                        eventStartDate
+                                          ? dayjs(eventStartDate)
+                                          : null
+                                      }
                                       onChange={(newValue) =>
                                         setEventStartDate(
                                           new Date(Date.parse(newValue))
@@ -1154,7 +1171,11 @@ function CreateEvent() {
                                       id="start-date-field-create-event"
                                       className="search-form-els"
                                       placeholder="Event End Date"
-                                      value={eventEndDate ? dayjs(eventEndDate) : null}
+                                      value={
+                                        eventEndDate
+                                          ? dayjs(eventEndDate)
+                                          : null
+                                      }
                                       onChange={(newValue) =>
                                         setEventEndDate(
                                           new Date(Date.parse(newValue))
@@ -1201,7 +1222,11 @@ function CreateEvent() {
                                     dateAdapter={AdapterDayjs}
                                   >
                                     <TimePicker
-                                      value={eventStartTime ? dayjs(eventStartTime) : null}
+                                      value={
+                                        eventStartTime
+                                          ? dayjs(eventStartTime)
+                                          : null
+                                      }
                                       onChange={(newValue) =>
                                         setEventStartTime(
                                           new Date(Date.parse(newValue))
@@ -1224,7 +1249,11 @@ function CreateEvent() {
                                     dateAdapter={AdapterDayjs}
                                   >
                                     <TimePicker
-                                      value={eventEndTime ? dayjs(eventEndTime) : null}
+                                      value={
+                                        eventEndTime
+                                          ? dayjs(eventEndTime)
+                                          : null
+                                      }
                                       onChange={(newValue) =>
                                         setEventEndTime(
                                           new Date(Date.parse(newValue))
@@ -1290,7 +1319,15 @@ function CreateEvent() {
                                   <p>Paid</p>
                                 </Grid>
                                 <Grid container item xs={6} direction="column">
-                                  <p>Ticket type:</p>
+                                  <p
+                                    className={
+                                      !eventFree
+                                        ? "form-label-active"
+                                        : "form-label-disabled"
+                                    }
+                                  >
+                                    Ticket type:
+                                  </p>
                                   <TextField
                                     value={eventTierName1}
                                     required
@@ -1302,7 +1339,15 @@ function CreateEvent() {
                                   />
                                 </Grid>
                                 <Grid container item xs={6} direction="column">
-                                  <p>Ticket price:</p>
+                                  <p
+                                    className={
+                                      !eventFree
+                                        ? "form-label-active"
+                                        : "form-label-disabled"
+                                    }
+                                  >
+                                    Ticket price:
+                                  </p>
                                   <TextField
                                     variant="outlined"
                                     value={parseFloat(eventPrice1).toFixed(2)}
@@ -1321,22 +1366,32 @@ function CreateEvent() {
                                   className="fab-container-tickets"
                                 >
                                   <Fab
-                                    className="add-ticket-fab"
+                                    className="add-ticket-fab-disabled"
                                     id="add-ticket-1"
                                     aria-label="Add"
+                                    disabled={true}
                                   >
-                                    <AddIcon sx={{ color: "#f58146" }} />
+                                    <AddIcon />
                                   </Fab>
                                   <Fab
-                                    className="remove-ticket-fab"
+                                    className="remove-ticket-fab-disabled"
                                     id="remove-ticket-1"
                                     aria-label="Remove"
+                                    disabled={true}
                                   >
-                                    <RemoveIcon sx={{ color: "#f58146" }} />
+                                    <RemoveIcon />
                                   </Fab>
                                 </Grid>
                                 <Grid container item xs={6} direction="column">
-                                  <p>Ticket type:</p>
+                                  <p
+                                    className={
+                                      enableTicket2 || !eventFree
+                                        ? "form-label-active"
+                                        : "form-label-disabled"
+                                    }
+                                  >
+                                    Ticket type:
+                                  </p>
                                   <TextField
                                     value={eventTierName2}
                                     required
@@ -1346,11 +1401,19 @@ function CreateEvent() {
                                     id="create-event-ticker-tier2"
                                     placeholder="Enter the ticket tier name"
                                     variant="outlined"
-                                    disabled={eventFree}
+                                    disabled={eventFree || !enableTicket2}
                                   />
                                 </Grid>
                                 <Grid container item xs={6} direction="column">
-                                  <p>Ticket price:</p>
+                                  <p
+                                    className={
+                                      enableTicket2 || !eventFree
+                                        ? "form-label-active"
+                                        : "form-label-disabled"
+                                    }
+                                  >
+                                    Ticket price:
+                                  </p>
                                   <TextField
                                     variant="outlined"
                                     value={parseFloat(eventPrice2).toFixed(2)}
@@ -1358,7 +1421,7 @@ function CreateEvent() {
                                       setEventPrice2(event.target.value)
                                     }
                                     id="create-event-ticket-price2"
-                                    disabled={eventFree}
+                                    disabled={eventFree || !enableTicket2}
                                   />
                                 </Grid>
                                 <Grid
@@ -1369,22 +1432,43 @@ function CreateEvent() {
                                   className="fab-container-tickets"
                                 >
                                   <Fab
-                                    className="add-ticket-fab"
+                                    className={
+                                      !(eventFree || enableTicket2)
+                                        ? "add-ticket-fab"
+                                        : "add-ticket-fab-disabled"
+                                    }
+                                    onClick={handleTicketDisable2}
                                     id="add-ticket-2"
                                     aria-label="Add"
+                                    disabled={eventFree || enableTicket2}
                                   >
-                                    <AddIcon sx={{ color: "#f58146" }} />
+                                    <AddIcon />
                                   </Fab>
                                   <Fab
-                                    className="remove-ticket-fab"
+                                    className={
+                                      enableTicket2 ||
+                                      (!eventFree && enableTicket2)
+                                        ? "remove-ticket-fab"
+                                        : "remove-ticket-fab-disabled"
+                                    }
+                                    onClick={handleTicketDisable2}
                                     id="remove-ticket-2"
                                     aria-label="Remove"
+                                    disabled={eventFree || !enableTicket2}
                                   >
-                                    <RemoveIcon sx={{ color: "#f58146" }} />
+                                    <RemoveIcon />
                                   </Fab>
                                 </Grid>
                                 <Grid container item xs={6} direction="column">
-                                  <p>Ticket type:</p>
+                                  <p
+                                    className={
+                                      enableTicket3 || !eventFree
+                                        ? "form-label-active"
+                                        : "form-label-disabled"
+                                    }
+                                  >
+                                    Ticket type:
+                                  </p>
                                   <TextField
                                     value={eventTierName3}
                                     required
@@ -1394,11 +1478,19 @@ function CreateEvent() {
                                     id="create-event-ticket-tier3"
                                     placeholder="Enter the ticket tier name"
                                     variant="outlined"
-                                    disabled={eventFree}
+                                    disabled={eventFree || !enableTicket3}
                                   />
                                 </Grid>
                                 <Grid container item xs={6} direction="column">
-                                  <p>Ticket price:</p>
+                                  <p
+                                    className={
+                                      enableTicket3 || !eventFree
+                                        ? "form-label-active"
+                                        : "form-label-disabled"
+                                    }
+                                  >
+                                    Ticket price:
+                                  </p>
                                   <TextField
                                     variant="outlined"
                                     value={parseFloat(eventPrice3).toFixed(2)}
@@ -1406,7 +1498,7 @@ function CreateEvent() {
                                       setEventPrice3(event.target.value)
                                     }
                                     id="create-event-ticket-price3"
-                                    disabled={eventFree}
+                                    disabled={eventFree || !enableTicket3}
                                   />
                                 </Grid>
                                 <Grid
@@ -1417,22 +1509,43 @@ function CreateEvent() {
                                   className="fab-container-tickets"
                                 >
                                   <Fab
-                                    className="add-ticket-fab"
+                                    className={
+                                      !(eventFree || enableTicket3)
+                                        ? "add-ticket-fab"
+                                        : "add-ticket-fab-disabled"
+                                    }
+                                    onClick={handleTicketDisable3}
                                     id="add-ticket-3"
                                     aria-label="Add"
+                                    disabled={eventFree || enableTicket3}
                                   >
-                                    <AddIcon sx={{ color: "#f58146" }} />
+                                    <AddIcon />
                                   </Fab>
                                   <Fab
-                                    className="remove-ticket-fab"
+                                    className={
+                                      enableTicket3 ||
+                                      (!eventFree && enableTicket3)
+                                        ? "remove-ticket-fab"
+                                        : "remove-ticket-fab-disabled"
+                                    }
+                                    onClick={handleTicketDisable3}
                                     id="remove-ticket-3"
                                     aria-label="Remove"
+                                    disabled={eventFree || !enableTicket3}
                                   >
-                                    <RemoveIcon sx={{ color: "#f58146" }} />
+                                    <RemoveIcon />
                                   </Fab>
                                 </Grid>
                                 <Grid container item xs={6} direction="column">
-                                  <p>Ticket type:</p>
+                                  <p
+                                    className={
+                                      enableTicket4 || !eventFree
+                                        ? "form-label-active"
+                                        : "form-label-disabled"
+                                    }
+                                  >
+                                    Ticket type:
+                                  </p>
                                   <TextField
                                     value={eventTierName4}
                                     required
@@ -1442,11 +1555,19 @@ function CreateEvent() {
                                     id="create-event-ticket-tier4"
                                     placeholder="Enter the ticket tier name"
                                     variant="outlined"
-                                    disabled={eventFree}
+                                    disabled={eventFree || !enableTicket4}
                                   />
                                 </Grid>
                                 <Grid container item xs={6} direction="column">
-                                  <p>Ticket price:</p>
+                                  <p
+                                    className={
+                                      enableTicket4 || !eventFree
+                                        ? "form-label-active"
+                                        : "form-label-disabled"
+                                    }
+                                  >
+                                    Ticket price:
+                                  </p>
                                   <TextField
                                     variant="outlined"
                                     value={eventPrice4}
@@ -1454,7 +1575,7 @@ function CreateEvent() {
                                       setEventPrice4(event.target.value)
                                     }
                                     id="create-event-ticket-price4"
-                                    disabled={eventFree}
+                                    disabled={eventFree || !enableTicket4}
                                   />
                                 </Grid>
                                 <Grid
@@ -1465,18 +1586,31 @@ function CreateEvent() {
                                   className="fab-container-tickets"
                                 >
                                   <Fab
-                                    className="add-ticket-fab"
+                                    className={
+                                      !(eventFree || enableTicket4)
+                                        ? "add-ticket-fab"
+                                        : "add-ticket-fab-disabled"
+                                    }
+                                    onClick={handleTicketDisable4}
                                     id="add-ticket-4"
                                     aria-label="Add"
+                                    disabled={eventFree || enableTicket4}
                                   >
-                                    <AddIcon sx={{ color: "#f58146" }} />
+                                    <AddIcon />
                                   </Fab>
                                   <Fab
-                                    className="remove-ticket-fab"
+                                    className={
+                                      enableTicket4 ||
+                                      (!eventFree && enableTicket4)
+                                        ? "remove-ticket-fab"
+                                        : "remove-ticket-fab-disabled"
+                                    }
+                                    onClick={handleTicketDisable4}
                                     id="remove-ticket-4"
                                     aria-label="Remove"
+                                    disabled={eventFree || !enableTicket4}
                                   >
-                                    <RemoveIcon sx={{ color: "#f58146" }} />
+                                    <RemoveIcon />
                                   </Fab>
                                 </Grid>
                               </Grid>
