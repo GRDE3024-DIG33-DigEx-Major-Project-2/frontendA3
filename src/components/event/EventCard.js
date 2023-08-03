@@ -87,7 +87,7 @@ const EventCard = (props) => {
       <Tooltip
         title={!favourite ? "Add to favourites" : "Remove from favourites"}
       >
-        <div id="ev-bookmark" className="card-icon" onClick={handleFavourite}>
+        <div id={favourite ? 'ev-bookmark-selected' : 'ev-bookmark'} className={favourite ? 'card-icon-selected' : 'card-icon'} onClick={handleFavourite}>
           <BookmarkBorderOutlinedIcon
             id={favourite ? "bookmark-hide" : "bookmark-show"}
             sx={{ fontSize: 23, color: "black" }}

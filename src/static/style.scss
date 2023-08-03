@@ -868,20 +868,31 @@ div.lineup {
   margin: 2%;
 }
 
-.card-icon:hover {
+.card-icon:hover, .card-icon-selected:hover {
   transform: scale(1.1);
   cursor: pointer;
 }
 
-.card-icon {
-  background-color: $orange1;
-  color: $white;
-  width: 23px;
-  height: 23px;
+.card-icon, .card-icon-selected {
   padding: 2%;
   border-radius: 50%;
   text-align: center;
   position: absolute;
+}
+
+.card-icon{
+  background-color: $orange1;
+  color: $white;
+  width: 23px;
+  height: 23px;
+}
+
+.card-icon-selected{
+  background-color: $white;
+  color: $orange1;
+  border: solid 3px $orange1;
+  width: 21.5px;
+  height: 21.5px;
 }
 
 #ev-share {
@@ -891,6 +902,11 @@ div.lineup {
 
 #ev-bookmark {
   top: 51.5%;
+  right: 5%;
+}
+
+#ev-bookmark-selected {
+  top: 51%;
   right: 5%;
 }
 

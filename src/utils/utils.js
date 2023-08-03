@@ -106,7 +106,10 @@ export const getDateRangeString = (startDate, endDate) => {
   const currentStartDate = new Date(Date.parse(startDate));
   const currentEndDate = new Date(Date.parse(endDate));
 
-  if (currentStartDate.getDate() === currentEndDate.getDate() && currentStartDate.getMonth() === currentEndDate.getMonth()) {
+  if (
+    currentStartDate.getDate() === currentEndDate.getDate() &&
+    currentStartDate.getMonth() === currentEndDate.getMonth()
+  ) {
     return currentStartDate.toLocaleDateString("en-AU", dateOptions);
   }
 
@@ -123,4 +126,21 @@ export const getDateRangeString = (startDate, endDate) => {
     " - " +
     currentEndDate.toLocaleDateString("en-AU", dateOptions)
   );
+};
+
+// get price range for event cards
+export const getPriceRangeString = (tickets) => {
+  if (tickets.length === 0) return "No price data";
+  if (tickets.length === 1) return "$" + tickets[0].price;
+
+  let max = parseFloat(tickets[0].price);
+  let min = parseFloat(tickets[0].price);
+
+  tickets.forEach((ticket) => {
+    let currentPrice = parseFloat(ticket.price);
+    if (currentPrice < min) min = currentPrice;
+    if (currentPrice > max) max = currentPrice;
+  });
+
+  return "$" + min.toFixed(2) + " - " + "$" + max.toFixed(2);
 };
