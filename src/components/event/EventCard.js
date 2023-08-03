@@ -12,11 +12,20 @@ import { useNavigate } from "react-router-dom";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import { getDateRangeString } from "../../utils/utils";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { toggleFavourite, isFavourite } from "../../services/EventAPI";
 
 const EventCard = (props) => {
   const navigate = useNavigate();
   const [favourite, setFavourite] = useState(false);
+
+  useEffect(() => {
+    async function setIsFavourite() {
+      const isFav = await isFavourite(props.event.event.id);
+      setFavourite(isFav);
+    }
+    setIsFavourite();
+  }, [setFavourite]);
 
   // on load, check if the event is already in the favourite list
 
@@ -28,12 +37,12 @@ const EventCard = (props) => {
     if (favourite) {
       console.log("removing from favourite events");
       setFavourite(false);
-      // some logic to remove from backend too
     } else {
       console.log("adding to favourite events");
       setFavourite(true);
-      // some logic to add to backend too
     }
+    // favourite/unfavourite event using backend api
+    toggleFavourite(props.event.event.id);
   };
 
   const stringDate = getDateRangeString(
@@ -71,11 +80,13 @@ const EventCard = (props) => {
         </CardContent>
       </CardActionArea>
       <Tooltip title="Share this event">
-      <div id="ev-share" className="card-icon">
-        <ShareIcon sx={{ fontSize: 22, color: "black" }} />
-      </div>
+        <div id="ev-share" className="card-icon">
+          <ShareIcon sx={{ fontSize: 22, color: "black" }} />
+        </div>
       </Tooltip>
-      <Tooltip title={!favourite ? "Add to favourites" : "Remove from favourites"}>
+      <Tooltip
+        title={!favourite ? "Add to favourites" : "Remove from favourites"}
+      >
         <div id="ev-bookmark" className="card-icon" onClick={handleFavourite}>
           <BookmarkBorderOutlinedIcon
             id={favourite ? "bookmark-hide" : "bookmark-show"}

@@ -220,8 +220,8 @@ export const createEvent = async function (formData) {
  * @returns Array of events and number of pages that match the filter options
  */
 export const searchFavourites = async function (page) {
-  console.log("Inside Search Favourites");
-  console.log(page);
+  // console.log("Inside Search Favourites");
+  // console.log(page);
 
   const options = {
     headers: {
@@ -239,15 +239,15 @@ export const searchFavourites = async function (page) {
     page: page | 0,
   };
 
-  console.log("Request body test");
-  console.log(requestBody);
+  // console.log("Request body test");
+  // console.log(requestBody);
 
   //Get the array of events and the page number
   await axios
     .post(EVENT_ENDPOINTS.searchFavouritesUrl, requestBody, options)
     .then((response) => {
-      console.log("Search Favourites Test...");
-      console.log(response.data);
+      // console.log("Search Favourites Test...");
+      // console.log(response.data);
       events = response.data.events;
       pageCount = response.data.pageCount;
     })
@@ -259,4 +259,51 @@ export const searchFavourites = async function (page) {
 
   //Return object containing API response data
   return { events: events, pageCount: pageCount };
+};
+
+/** Toggles an event as favourited/unfavourited for an Attendee
+ * @param {*} eventId
+ */
+
+export const toggleFavourite = async function (eventId) {
+  const options = {
+    headers: {
+      Authorization: `Bearer ${getAccessToken()}`,
+    },
+  };
+
+  const requestBody = {
+    eventId: eventId,
+  };
+
+  await axios
+    .post(EVENT_ENDPOINTS.toggleFavouriteUrl + `/${eventId}`, options)
+    .then((response) => {
+      console.log(response.data);
+      console.log("Event favourited toggled!");
+      return response;
+    })
+    .catch((error) => {
+      console.log(error);
+      return;
+    });
+};
+
+/** Checks if an event has already been added to favourites by a user
+ * @param {*} eventId
+ */
+
+export const isFavourite = async function (events, eventId) {
+  // get list of favourited events
+  const favouritedEvents = await searchFavourites(0);
+
+  // check if the eventId is in the list
+  if (favouritedEvents.events) {
+    favouritedEvents.events.forEach((event) => {
+      if (event.id === eventId) return true;
+    });
+  }
+
+  // else return false
+  return false;
 };
