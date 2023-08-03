@@ -515,11 +515,11 @@ footer {
 
 /* PROFILE PAGE & ORGANIZAER DASHBOARD */
 .profile-container {
-  min-height: 78vh;
-  max-height: fit-content;
+  min-height: 1000px;
+  max-height: 2500px;
   display: grid;
   grid-template-areas: "head head" "bio events" "account events";
-  grid-template-rows: 100px minmax(300px, fit-content) minmax(400px, fit-content);
+  grid-template-rows: 100px fit-content(300px) fit-content(400px);
   grid-template-columns: 30% 70%;
   background-color: #e6e2e2;
 }
@@ -608,13 +608,8 @@ footer {
   transform: scale(1.1);
 }
 .profile-container .events-profile {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  height: 90%;
+  height: 100%;
   width: 100%;
-  gap: 2%;
 }
 
 /*EVENT PAGE*/
@@ -932,11 +927,17 @@ div.lineup {
 .horizontal-card {
   position: relative;
   width: 100%;
-  height: 250px;
+  height: 220px;
+  min-height: 220px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: left;
+  margin-bottom: 3%;
+}
+.horizontal-card .MuiCardMedia-root {
+  width: 45% !important;
+  min-width: 45%;
 }
 
 .ev-share-h {
