@@ -68,6 +68,21 @@ const uniqueVenueNames = Array.from(uniqueVenues);
 
 
 
+
+  const toggleVenueFilter = (event) => {
+    //IF SELECTING
+    if (event.) {
+
+    }
+    //IF DESELECTING
+    else if () {
+
+    }
+
+  }
+
+
+
   //TODO
   const loadMoreVenues = (event) => {
     console.log("TODO LOAD MORE VENUES");
