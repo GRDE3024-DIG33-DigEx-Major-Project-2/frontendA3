@@ -34,7 +34,7 @@ function App() {
         <SearchEventFiltersProvider>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="events" element={<Events />} />        
+            <Route path="events" element={<SearchEvent />} />        
         <Route path="about" element={<About />} />
         <Route path="login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="signup" element={<Signup />} />

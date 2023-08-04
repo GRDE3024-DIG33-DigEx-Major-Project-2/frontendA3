@@ -11,7 +11,6 @@ import {
 import axios from "axios";
 import { getAccessToken } from "../utils/localStorage";
 import axiosRetry from 'axios-retry';
-import { AUTH_ENDPOINTS, EVENT_ENDPOINTS, BASE_URL } from "../utils/constants.util";
 
 
 /**
@@ -408,7 +407,7 @@ export const toggleFavourite = async function (eventId) {
   };
 
   await axios
-    .post(EVENT_ENDPOINTS.toggleFavouriteUrl + `/${eventId}`, options)
+    .post(EVENT_ENDPOINTS.toggleFavouriteUrl, requestBody, options)
     .then((response) => {
       console.log(response.data);
       console.log("Event favourited toggled!");

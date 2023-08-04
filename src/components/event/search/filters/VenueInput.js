@@ -70,14 +70,14 @@ const uniqueVenueNames = Array.from(uniqueVenues);
 
 
   const toggleVenueFilter = (event) => {
-    //IF SELECTING
-    if (event.) {
+    // //IF SELECTING
+    // if (event.) {
 
-    }
-    //IF DESELECTING
-    else if () {
+    // }
+    // //IF DESELECTING
+    // else if () {
 
-    }
+    // }
 
   }
 

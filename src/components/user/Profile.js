@@ -121,7 +121,7 @@ const Profile = () => {
             <article className="saved-events">
               <h2>Saved Events</h2>
               <Box className="events-profile">
-                {favouritedEvents.get.map((event, i) => (
+                {favouritedEvents.map((event, i) => (
                   <EventCardHorizontal key={i} event={event} />
                 ))}
                 {favouritedEvents.length === 0 && <><h2>You have not yet saved any events.</h2></>}
