@@ -515,10 +515,11 @@ footer {
 
 /* PROFILE PAGE & ORGANIZAER DASHBOARD */
 .profile-container {
-  min-height: 78vh;
+  min-height: 1000px;
+  max-height: 2500px;
   display: grid;
   grid-template-areas: "head head" "bio events" "account events";
-  grid-template-rows: 100px minmax(300px, auto) minmax(400px, auto);
+  grid-template-rows: 100px fit-content(300px) fit-content(400px);
   grid-template-columns: 30% 70%;
   background-color: #e6e2e2;
 }
@@ -607,13 +608,8 @@ footer {
   transform: scale(1.1);
 }
 .profile-container .events-profile {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  height: 90%;
+  height: 100%;
   width: 100%;
-  gap: 2%;
 }
 
 /*EVENT PAGE*/
@@ -872,9 +868,18 @@ div.lineup {
   margin: 2%;
 }
 
-.card-icon:hover {
+.card-icon:hover,
+.card-icon-selected:hover {
   transform: scale(1.1);
   cursor: pointer;
+}
+
+.card-icon,
+.card-icon-selected {
+  padding: 2%;
+  border-radius: 50%;
+  text-align: center;
+  position: absolute;
 }
 
 .card-icon {
@@ -882,20 +887,37 @@ div.lineup {
   color: #ffffff;
   width: 23px;
   height: 23px;
-  padding: 2%;
-  border-radius: 50%;
-  text-align: center;
-  position: absolute;
 }
 
-.ev-share {
+.card-icon-selected {
+  background-color: #ffffff;
+  color: #f58146;
+  border: solid 3px #f58146;
+  width: 21.5px;
+  height: 21.5px;
+}
+
+#ev-share {
   top: 51.5%;
   right: 20%;
 }
 
-.ev-bookmark {
+#ev-bookmark {
   top: 51.5%;
   right: 5%;
+}
+
+#ev-bookmark-selected {
+  top: 51%;
+  right: 5%;
+}
+
+#bookmark-show {
+  display: initial;
+}
+
+#bookmark-hide {
+  display: none;
 }
 
 .horizontal-card-box {
@@ -907,10 +929,18 @@ div.lineup {
 .horizontal-card {
   position: relative;
   width: 100%;
+  height: 220px;
+  min-height: 220px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: left;
+  margin-bottom: 3%;
+}
+.horizontal-card .MuiCardMedia-root {
+  width: 45% !important;
+  min-width: 45%;
+  height: 100% !important;
 }
 
 .ev-share-h {
@@ -947,16 +977,19 @@ div.lineup {
   background-color: #f5f5f5;
   padding-bottom: 1%;
 }
+#create-event-main p {
+  font-size: 16px;
+}
 
-#create-event-screen {
+.create-event-screen {
   max-width: 100%;
   min-height: 65vh;
-  max-height: 850px;
+  max-height: 1000px;
   background-color: #ffffff;
   padding: 2%;
   margin: 2%;
 }
-#create-event-screen h2 {
+.create-event-screen h2 {
   font-size: 2em;
 }
 
@@ -988,7 +1021,8 @@ div.lineup {
 #save-cont-ev-btn,
 #skip-ev-btn,
 #disable-ev-btn,
-#disable-ev-btn-show {
+#disable-ev-btn-show,
+#save-publish-ev-btn {
   background-color: #f58146;
   color: #000000;
   border: solid 2px #f58146;
@@ -1003,6 +1037,7 @@ div.lineup {
 }
 
 #save-exit-ev-btn,
+#save-ex-ev-btn,
 #hide,
 #show {
   background-color: #ffffff;
@@ -1051,9 +1086,41 @@ div.lineup {
 }
 
 .create-event-header h1 {
-  font-size: 2.7em;
+  font-size: 3em;
   color: #ffffff;
   text-shadow: rgb(40, 39, 39) 1px 1px 4px;
+}
+
+.create-event-screen h2 {
+  font-size: 3em;
+}
+
+.css-12z1287-MuiGrid-root p,
+.css-1f064cs-MuiGrid-root p,
+.css-1qeq9aw-MuiGrid-root p {
+  font-size: 18px;
+}
+
+#create-event-description {
+  font-size: 1.5em;
+  padding: 13px;
+}
+
+.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
+  height: 50px;
+}
+
+.css-suj22h-MuiChip-root {
+  font-size: 1.5rem;
+  height: 30px;
+}
+
+.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root {
+  font-size: 1rem;
+}
+
+.css-sghohy-MuiButtonBase-root-MuiButton-root {
+  font-size: 2rem;
 }
 
 .create-event-stepper {
@@ -1061,12 +1128,47 @@ div.lineup {
   max-width: 94%;
 }
 
-.add-artist-fab, .remove-artist-fab {
-  width: 25px !important;
-  height: 25px !important;
-  min-height: 25px !important;
+.form-label-disabled {
+  color: #8e8d8d;
+}
+
+.form-label-active {
+  color: #000000;
+}
+
+.add-artist-fab,
+.remove-artist-fab,
+.add-ticket-fab,
+.remove-ticket-fab {
+  width: 20px !important;
+  height: 20px !important;
+  min-height: 20px !important;
   background-color: #ffffff !important;
   border: solid 2px #f58146 !important;
+}
+.add-artist-fab .MuiSvgIcon-root,
+.remove-artist-fab .MuiSvgIcon-root,
+.add-ticket-fab .MuiSvgIcon-root,
+.remove-ticket-fab .MuiSvgIcon-root {
+  color: #f58146 !important;
+}
+
+.remove-artist-fab-disabled,
+.add-artist-fab-disabled,
+.add-ticket-fab-disabled,
+.remove-ticket-fab-disabled {
+  width: 20px !important;
+  height: 20px !important;
+  min-height: 20px !important;
+  background-color: #e6e2e2 !important;
+  border: solid 2px #8e8d8d !important;
+  cursor: default !important;
+}
+.remove-artist-fab-disabled .MuiSvgIcon-root,
+.add-artist-fab-disabled .MuiSvgIcon-root,
+.add-ticket-fab-disabled .MuiSvgIcon-root,
+.remove-ticket-fab-disabled .MuiSvgIcon-root {
+  color: #8e8d8d !important;
 }
 
 .fab-container {
@@ -1074,10 +1176,20 @@ div.lineup {
   flex-direction: column;
   justify-content: flex-end;
   gap: 7%;
-  padding-bottom: 0.07%;
+  padding-bottom: 0.2%;
 }
 
-.add-artist-fab:hover, .remove-artist-fab:hover {
+.fab-container-tickets {
+  display: flex;
+  flex: row;
+  justify-content: flex-end;
+  gap: 1%;
+}
+
+.add-artist-fab:hover,
+.remove-artist-fab:hover,
+.add-ticket-fab:hover,
+.remove-ticket-fab:hover {
   transform: scale(1.05);
   cursor: pointer;
 }
@@ -1090,9 +1202,270 @@ div.lineup {
   height: 400px;
 }
 
-.preview-image {
-  height: 300px;
+.create-ev-img-box {
   width: 100%;
+  height: 60vh;
+  background-color: #e6e2e2;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.create-ev-img-box img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+#create-ev-img-input {
+  display: none;
+}
+
+#remove-img-box {
+  width: 100%;
+  padding: 1.5% 0 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.prev-event-body {
+  display: block;
+}
+
+.event-prev-card-icon-share,
+.event-prev-card-icon-bookmark {
+  border-radius: 50%;
+  background-color: #f58146;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.event-prev-card-icon-share {
+  position: absolute;
+  right: 8%;
+  top: 465px;
+}
+
+.event-prev-card-icon-bookmark {
+  position: absolute;
+  right: 4%;
+  top: 465px;
+}
+
+.event-preview-screen {
+  max-height: fit-content;
+  height: fit-content;
+  min-height: 1600px;
+  padding: 2% 1%;
+}
+
+.event-preview {
+  background-color: #ffffff;
+  padding: 1% 2%;
+  height: 90%;
+  position: relative;
+}
+
+.event-main-image {
+  height: 400px;
+  min-height: 400px;
+  width: 100%;
+}
+.event-main-image img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.event-prev-first-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 140px;
+  width: 98%;
+}
+.event-prev-first-row button:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+.event-prev-first-row h1 {
+  font-size: 36px;
+}
+
+.outlined {
+  border: solid 1px #e6e2e2;
+  position: relative;
+  margin-top: 5%;
+}
+
+.icon-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2%;
+}
+
+.horizontal-stack {
+  height: 80%;
+  width: 100%;
+  padding: 3% 0%;
+}
+
+.prev-date-time {
+  width: 40%;
+  padding: 0 4%;
+}
+
+.prev-location {
+  width: 60%;
+  padding: 0 3%;
+}
+
+.event-prev-title {
+  position: absolute;
+  background-color: #ffffff;
+  top: -18%;
+  left: 4%;
+  width: fit-content;
+  height: fit-content;
+}
+
+.event-prev-title-2 {
+  position: absolute;
+  background-color: #ffffff;
+  top: -22%;
+  left: 3%;
+  width: fit-content;
+  height: fit-content;
+}
+
+.event-prev-second-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 200px;
+  gap: 3%;
+}
+.event-prev-second-row .when-where-box {
+  width: 68%;
+  height: 100%;
+}
+.event-prev-second-row .organiser-box {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 2%;
+  gap: 7%;
+}
+
+.strong-string-prev {
+  font-size: 16px;
+  padding-left: 11%;
+  color: #f58146;
+  font-weight: 500;
+}
+
+#event-avatar {
+  font-size: 30px;
+  height: 100px;
+  width: 100px;
+  background-color: #4d7bbe;
+}
+
+.event-prev-third-row {
+  width: 100%;
+  height: 180px;
+}
+
+.pricing-box {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.event-prev-price {
+  width: 25%;
+  max-width: 50%;
+  padding: 1% 3%;
+}
+.event-prev-price p {
+  font-size: 15px;
+  padding: 0 10%;
+}
+
+.event-prev-fourth-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: fit-content;
+  height: 200px;
+  max-height: fit-content;
+  margin: 2% 0;
+}
+.event-prev-fourth-row p {
+  font-size: 15px;
+}
+
+.create-prev-about {
+  width: 75%;
+  height: 100%;
+  padding-right: 5%;
+}
+
+.create-prev-lineup {
+  width: 25%;
+  height: 100%;
+}
+.create-prev-lineup ul {
+  margin-top: 10%;
+}
+.create-prev-lineup ul li {
+  margin-top: 5%;
+}
+
+.event-prev-fifth-row {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.event-prev-tags div {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2%;
+}
+
+.event-prev-end-bttns {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 2%;
+  height: 100px;
 }
 
 /* CONTENT PAGES */
@@ -1419,7 +1792,7 @@ div.lineup {
   /*PROFILE PAGE*/
   .profile-container {
     grid-template-areas: "head head" "bio bio" "account account" "events events";
-    grid-template-rows: 100px auto auto auto;
+    grid-template-rows: 100px fit-content fit-content fit-content;
     grid-template-columns: 100%;
   }
   .profile-box {
@@ -1447,6 +1820,58 @@ div.lineup {
     font-size: 0.7em;
     padding-bottom: 2px;
   }
+  /*CREATE EVENTS PAGE*/
+  .create-event-header h1 {
+    font-size: 2.2em;
+  }
+  #save-exit-ev-btn {
+    width: 11em;
+    height: 4em;
+    text-align: center;
+    font-size: 0.8em;
+  }
+  #save-cont-ev-btn {
+    width: 13em;
+    height: 4em;
+    text-align: center;
+    font-size: 0.8em;
+  }
+  #create-ev-bttns-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  #create-ev-bttns div {
+    width: 50%;
+    gap: 5%;
+  }
+  #stepper-box {
+    justify-content: left;
+    gap: 5%;
+  }
+  #stepper-box h2 {
+    padding-left: 10px;
+  }
+  .create-event-screen h2 {
+    text-align: center;
+  }
+  .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+    font-size: 5em;
+  }
+  .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
+    height: 25px;
+  }
+  .css-suj22h-MuiChip-root {
+    height: 18px;
+  }
+  .css-6od3lo-MuiChip-label {
+    padding-left: 10px;
+    padding-right: 9px;
+    height: 10px;
+    font-size: 0.8em;
+    padding-top: 8px;
+  }
 }
 @media only screen and (max-width: 480px) {
   /*EVENTS PAGE*/
@@ -1470,13 +1895,78 @@ div.lineup {
     margin-top: 10px; /* Add a margin to create spacing between elements */
     display: inline-flex;
   }
+  /*CREATE EVENTS PAGE*/
+  #save-exit-ev-btn {
+    padding: 7px 6px;
+  }
+  #save-cont-ev-btn {
+    padding: 7px 5px;
+  }
+  #stepper-box h2 {
+    font-size: 0.8em;
+    padding-left: 1em;
+  }
+  #stepper-box {
+    justify-content: left;
+  }
+  #discard-ev-btn {
+    right: 4%;
+    font-size: 1em;
+  }
+  .create-event-screen h2 {
+    text-align: center;
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+  .css-12z1287-MuiGrid-root p,
+  .css-1f064cs-MuiGrid-root p,
+  .css-1qeq9aw-MuiGrid-root p {
+    font-size: 0.8em;
+  }
+  #create-event-description {
+    font-size: 1em;
+    padding: 7.5px 8px;
+  }
+  #create-event-name,
+  #create-event-organiser,
+  #create-event-eventURL {
+    font-size: 3.8em;
+    padding: 7.5px 8px;
+  }
+  .css-8ewcdo-MuiInputBase-root-MuiOutlinedInput-root {
+    padding: 7.5px 7px;
+    font-size: 0.8rem;
+  }
+  .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
+    font-size: 0.1rem;
+  }
+  .css-sghohy-MuiButtonBase-root-MuiButton-root {
+    font-size: 0.5em;
+  }
+  .create-event-header {
+    height: 26vh;
+  }
+  .create-event-header h1 {
+    font-size: 2.2em;
+  }
+  .css-17clsp4-MuiPaper-root-MuiMobileStepper-root {
+    width: 44%;
+  }
+  .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root {
+    font-size: 0.6rem;
+    min-height: 30px;
+  }
+  .css-yi3mkw {
+    flex-wrap: nowrap;
+  }
 }
 @media only screen and (max-width: 640px) {
   /*PROFILE PAGE*/
   .profile-container {
     grid-template-areas: "head" "bio" "account" "events";
-    grid-template-rows: 100px auto auto auto;
-    grid-template-columns: 100%;
+  }
+  .profile-container .events-profile {
+    height: auto;
   }
   .profile-box {
     padding: 2%;
@@ -1509,11 +1999,14 @@ div.lineup {
     margin-top: 0px;
     margin-bottom: 5px;
   }
+  .horizontal-card {
+    margin-bottom: 0;
+    margin-top: 5%;
+    height: 150px;
+    min-height: 150px;
+  }
   .horizontal-card-box {
     width: 130%;
-    position: relative;
-    padding-left: 3%;
-    padding-bottom: 3%;
   }
   .ev-share-h {
     bottom: 5%;

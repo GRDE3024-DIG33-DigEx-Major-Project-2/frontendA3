@@ -4,10 +4,11 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import { setAccessToken, setUserSession } from "../../utils/localStorage";
 
-const Login = ({ setIsLoggedIn, setUser }) => {
+const Login = ({setIsLoggedIn}) => {
   const baseURL = process.env.REACT_APP_BASEURL;
-  
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(null);
@@ -44,9 +45,11 @@ localStorage.setItem("accessToken", response.data.accessToken);
               lastName: response.data.user.lastName,
               fullName: response.data.user.fullName,
               id: response.data.user.id,
+              bio: response.data.user.bio,
               password: response.data.user.password,
               phoneNumber: response.data.user.phoneNumber,
               organizationName: response.data.user.organizationName,
+              imgUrl: response.data.user.imgUrl
             };
             
             destinationPage = "../dashboard";
@@ -67,9 +70,12 @@ localStorage.setItem("accessToken", response.data.accessToken);
             destinationPage = "../profile";
           }
 
-          console.log(user);
-          setUser(user);
+          // set user
+          setUserSession(user);
+          console.log(response.data.accessToken);
+          setAccessToken(response.data.accessToken);
           setIsLoggedIn(true);
+          // navigate to profile or dashboard
           navigate(destinationPage);
         })
         .catch((error) => {

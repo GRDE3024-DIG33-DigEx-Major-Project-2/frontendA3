@@ -18,8 +18,9 @@ import { useContext } from "react";
 //Import search event props
 import { SearchEventsContext, SearchEventFiltersContext } from "../../props/search-events.prop";
 
+import { getUser } from "../../utils/localStorage";
 
-const Profile = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
+const Profile = () => {
 
 
   const [favouritedEvents, setFavouritedEvents] = useState([]);
@@ -34,10 +35,11 @@ const Profile = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
       tags
     } = useContext(SearchEventsContext);
   
+  const user = getUser();
 
   useEffect(() => {
     async function fetchEvents() {
-      const data = await searchFavourites();
+      const data = await searchFavourites(0);
       console.log("Favourited events search results: ", data);
       setFavouritedEvents(data.events);
     }
@@ -52,7 +54,7 @@ const Profile = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
   return (
     <>
       <div className="profile-container">
-        {isLoggedIn && (
+        {user && (
           <>
             <div className="profile-banner">
               <h1>My Profile</h1>
@@ -119,14 +121,15 @@ const Profile = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
             <article className="saved-events">
               <h2>Saved Events</h2>
               <Box className="events-profile">
-                {events.get.map((event, i) => (
+                {favouritedEvents.get.map((event, i) => (
                   <EventCardHorizontal key={i} event={event} />
                 ))}
+                {favouritedEvents.length === 0 && <><h2>You have not yet saved any events.</h2></>}
               </Box>
             </article>
           </>
         )}
-        {!isLoggedIn && (
+        {!user && (
           <>
             <h1>You must login to view this page.</h1>
           </>

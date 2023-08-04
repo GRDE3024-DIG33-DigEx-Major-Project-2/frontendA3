@@ -229,8 +229,6 @@ export const getThisMonthsISODates = () => {
 }
 
 
-
-
 /**
  * Get first letter of organisation's or customer's name
  * @param {*} name 
@@ -238,12 +236,75 @@ export const getThisMonthsISODates = () => {
  */
 export const getFirstLetters = (name) => {
   if (name.includes(" ")) {
+  if (name.includes(" ")) {
     let split = name.split(" ");
     let a = split[0].charAt(0);
     let b = split[1].charAt(0);
 
     return a + b;
+    return a + b;
   } else {
     return name.charAt(0);
   }
 }
+};
+
+// Get australia time zones
+export const getAustralianTimezones = () => {
+  let timezones = [];
+  timezones.push({ value: "AWST", label: "(UTC+8:00) Perth" });
+  timezones.push({ value: "ACWST", label: "(UTC+8:45) Eucla" });
+  timezones.push({ value: "ACST", label: "(UTC+9:30) Adelaide" });
+  timezones.push({
+    value: "AEST",
+    label: "(UTC+10:00) Sydney, Melbourne, Brisbane",
+  });
+  timezones.push({ value: "LHST", label: "(UTC+10:30) Lord Howe Island" });
+
+  return timezones;
+};
+
+// get date range for event cards
+export const getDateRangeString = (startDate, endDate) => {
+  const dateOptions = { year: "numeric", month: "long", day: "numeric" };
+  const currentStartDate = new Date(Date.parse(startDate));
+  const currentEndDate = new Date(Date.parse(endDate));
+
+  if (
+    currentStartDate.getDate() === currentEndDate.getDate() &&
+    currentStartDate.getMonth() === currentEndDate.getMonth()
+  ) {
+    return currentStartDate.toLocaleDateString("en-AU", dateOptions);
+  }
+
+  if (currentStartDate.getMonth() === currentEndDate.getMonth()) {
+    return (
+      currentStartDate.getDate() +
+      " - " +
+      currentEndDate.toLocaleDateString("en-AU", dateOptions)
+    );
+  }
+
+  return (
+    currentStartDate.toLocaleDateString("en-AU", dateOptions) +
+    " - " +
+    currentEndDate.toLocaleDateString("en-AU", dateOptions)
+  );
+};
+
+// get price range for event cards
+export const getPriceRangeString = (tickets) => {
+  if (tickets.length === 0) return "No price data";
+  if (tickets.length === 1) return "$" + tickets[0].price;
+
+  let max = parseFloat(tickets[0].price);
+  let min = parseFloat(tickets[0].price);
+
+  tickets.forEach((ticket) => {
+    let currentPrice = parseFloat(ticket.price);
+    if (currentPrice < min) min = currentPrice;
+    if (currentPrice > max) max = currentPrice;
+  });
+
+  return "$" + min.toFixed(2) + " - " + "$" + max.toFixed(2);
+};

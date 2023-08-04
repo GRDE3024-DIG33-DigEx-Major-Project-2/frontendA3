@@ -9,33 +9,20 @@ import {
 import { Link } from "react-router-dom";
 import CreatedEventCardHorizontal from "../event/CreatedEventCardHorizontal";
 import LockIcon from "@mui/icons-material/Lock";
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useState, useEffect } from "react";
 import { getFirstLetters } from "../../utils/utils";
-//Search for owned events
-import {searchOwnedEvents, createEvent} from "../../services/EventAPI";
-// import { useContext } from "react";
-// //Import search event props
-// import { SearchEventsContext, SearchEventFiltersContext } from "../../props/search-events.prop";
+import { getUser } from "../../utils/localStorage";
+import { searchOwnedEvents } from "../../services/EventAPI";
 
-const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
-
+const Dashboard = () => {
 
   const [ownedEvents, setOwnedEvents] = useState([]);
-
-
-
-//   const testCreate = async () => {
-// console.log("ABOUT TO TEST CREATE");
-//       const testCreate = await createEvent(null);
-//       console.log(testCreate);    
-//   }
-
-
+  const user = getUser();
 
   useEffect(() => {
     async function fetchEvents() {
-      const data = await searchOwnedEvents();
+      const data = await searchOwnedEvents(0);
       console.log("Owned events search results: ", data);
       setOwnedEvents(data.events);
     }
@@ -61,7 +48,7 @@ const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
   return (
     <>
       <div className="profile-container">
-        {isLoggedIn && (
+        {user && (
           <>
             <div className="profile-banner">
               <h1>Dashboard</h1>
@@ -69,19 +56,21 @@ const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
             <article className="personal-bio">
               <h2>Organisation Info</h2>
               <Box className="profile-box prof-center">
-                <Avatar className="profile-avatar">
-                  {getFirstLetters(user.organizationName)}
-                </Avatar>
+                {user.imgUrl && (
+                  <Avatar
+                    className="profile-avatar"
+                    alt={user.organizationName}
+                    src={user.imgUrl}
+                  />
+                )}
+                {!user.imgUrl && (
+                  <Avatar className="profile-avatar">
+                    {getFirstLetters(user.organizationName)}
+                  </Avatar>
+                )}
                 <h3>{user.organizationName}</h3>
                 <p>Organisation description</p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Pellentesque urna nisi, mollis consequat nisi ac, efficitur
-                  accumsan enim. Interdum et malesuada fames ac ante ipsum
-                  primis in faucibus. Vivamus rhoncus aliquam nibh egestas
-                  convallis. Aenean efficitur laoreet leo non sagittis. Proin
-                  eget diam volutpat enim volutpat interdum.
-                </p>                  
+                <p>{user.bio}</p>
               </Box>
             </article>
             <article className="account-settings">
@@ -137,10 +126,7 @@ const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
             <article className="saved-events">
               <div id="saved-events-header">
                 <h2>Created Events</h2>
-                <Link
-                  className="bttn-style-orange"
-                  to="/createevent"
-                >
+                <Link className="bttn-style-orange" to="/createevent">
                   Create a new event
                 </Link>
               </div>
@@ -148,12 +134,13 @@ const Dashboard = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
                 {ownedEvents.map((event, i) => (
                   <CreatedEventCardHorizontal key={i} event={event} />
                 ))}
+                {ownedEvents.length === 0 && <><h2>You have not yet created any events.</h2></>}
               </Box>
               
             </article>
           </>
         )}
-        {!isLoggedIn && (
+        {!user && (
           <>
             <h1>You must login to view this page.</h1>
           </>

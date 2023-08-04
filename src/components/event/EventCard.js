@@ -2,58 +2,102 @@ import {
   Card,
   CardActionArea,
   CardContent,
-  CardMedia
+  CardMedia,
+  Tooltip,
 } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
-import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
+import BookmarkOutlinedIcon from "@mui/icons-material/BookmarkOutlined";
+import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import { useNavigate } from "react-router-dom";
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import { getDateRangeString } from "../../utils/utils";
+import { useState, useEffect } from "react";
+import { toggleFavourite, isFavourite } from "../../services/EventAPI";
 
 const EventCard = (props) => {
+  const navigate = useNavigate();
+  const [favourite, setFavourite] = useState(false);
 
-    const navigate = useNavigate();
-    
-    const cardRedirect = ()=> {
-      navigate("/event", {state:{event:props.event}});
+  useEffect(() => {
+    async function setIsFavourite() {
+      const isFav = await isFavourite(props.event.event.id);
+      setFavourite(isFav);
     }
+    setIsFavourite();
+  }, [setFavourite]);
 
-    const date = new Date(Date.parse(props.event.event.startDate));
-    const stringDate = date.toLocaleString([], {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+  // on load, check if the event is already in the favourite list
 
-    let imgUrl = "../Gigney_login.png";
+  const cardRedirect = () => {
+    navigate("/event", { state: { event: props.event } });
+  };
 
-    if(props.event.eventImg){
-      imgUrl = "https://gigney.s3.ap-southeast-2.amazonaws.com/" + props.event.eventImg.filename + ".jpeg";
+  const handleFavourite = () => {
+    if (favourite) {
+      console.log("removing from favourite events");
+      setFavourite(false);
+    } else {
+      console.log("adding to favourite events");
+      setFavourite(true);
     }
+    // favourite/unfavourite event using backend api
+    toggleFavourite(props.event.event.id);
+  };
+
+  const stringDate = getDateRangeString(
+    props.event.event.startDate,
+    props.event.event.endDate
+  );
+
+  let imgUrl = "../Gigney_login.png";
+
+  if (props.event.eventImg) {
+    imgUrl =
+      "https://gigney.s3.ap-southeast-2.amazonaws.com/" +
+      props.event.eventImg.filename +
+      ".jpeg";
+  }
 
   return (
-    <Card className="event-card" >
-      <CardActionArea onClick={cardRedirect} sx={{height: "100%"}}>
+    <Card className="event-card">
+      <CardActionArea onClick={cardRedirect} sx={{ height: "100%" }}>
         <CardMedia
           className="event-card-media"
           component="img"
-          image= {imgUrl}
+          image={imgUrl}
           alt={props.event.event.title}
         />
-        <CardContent sx={{minHeight:"50%"}}>
+        <CardContent sx={{ minHeight: "50%" }}>
           <h3 className="card-name">{props.event.event.title}</h3>
-          <p className="card-date"><CalendarTodayIcon sx={{ fontSize: 15}}/>  {stringDate}</p>
-          <p className="card-location"><LocationOnOutlinedIcon sx={{ fontSize: 15}}/>  {props.event.event.venueName}</p>
+          <p className="card-date">
+            <CalendarTodayIcon sx={{ fontSize: 15 }} /> {stringDate}
+          </p>
+          <p className="card-location">
+            <LocationOnOutlinedIcon sx={{ fontSize: 15 }} />{" "}
+            {props.event.event.venueName}
+          </p>
         </CardContent>
       </CardActionArea>
-        <div className="card-icon ev-share">
-          <ShareIcon sx={{ fontSize: 22, color:"black" }} />
+      <Tooltip title="Share this event">
+        <div id="ev-share" className="card-icon">
+          <ShareIcon sx={{ fontSize: 22, color: "black" }} />
         </div>
-        <div className="card-icon ev-bookmark">
-          <BookmarkAddIcon sx={{ fontSize: 23, color:"black" }} />
+      </Tooltip>
+      <Tooltip
+        title={!favourite ? "Add to favourites" : "Remove from favourites"}
+      >
+        <div id={favourite ? 'ev-bookmark-selected' : 'ev-bookmark'} className={favourite ? 'card-icon-selected' : 'card-icon'} onClick={handleFavourite}>
+          <BookmarkBorderOutlinedIcon
+            id={favourite ? "bookmark-hide" : "bookmark-show"}
+            sx={{ fontSize: 23, color: "black" }}
+          />
+          <BookmarkOutlinedIcon
+            id={favourite ? "bookmark-show" : "bookmark-hide"}
+            sx={{ fontSize: 23, color: "black" }}
+          />
         </div>
+      </Tooltip>
     </Card>
   );
 };

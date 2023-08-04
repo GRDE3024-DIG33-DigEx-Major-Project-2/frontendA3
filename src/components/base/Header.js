@@ -1,14 +1,21 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Drawer, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/styles";
+import { resetUserSession, resetTokenSession, getUser } from "../../utils/localStorage";
 
-export default function Header({ user, isLoggedIn, setIsLoggedIn, setUser }) {
+export default function Header({ isLoggedIn, setIsLoggedIn }) {
   const [menu, setMenu] = useState(false);
   const year = new Date().getFullYear();
+  const user = getUser();
+
+  useEffect(() => {
+    if(user) setIsLoggedIn(true);
+    else setIsLoggedIn(false);
+  }, [user]);
 
   const theme = createTheme({
     palette: {
@@ -22,9 +29,13 @@ export default function Header({ user, isLoggedIn, setIsLoggedIn, setUser }) {
   });
 
   const logOut = () => {
-    setIsLoggedIn(false);
+    // mobile menu option
     toggleDrawer(false);
-    setUser(null);
+    // delete data from local storage
+    resetUserSession();
+    resetTokenSession();
+    // change user and logged in state
+    setIsLoggedIn(false);
   };
 
   // only for mobile menu

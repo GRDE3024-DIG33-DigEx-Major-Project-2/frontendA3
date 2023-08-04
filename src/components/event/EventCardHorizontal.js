@@ -3,10 +3,12 @@ import ShareIcon from "@mui/icons-material/Share";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
-import SellOutlinedIcon from '@mui/icons-material/SellOutlined';
+import SellOutlinedIcon from "@mui/icons-material/SellOutlined";
+import { getDateRangeString, getPriceRangeString } from "../../utils/utils";
 import { useNavigate } from "react-router-dom";
 
 const EventCardHorizontal = (props) => {
+  // get date range
 
 
   const navigate = useNavigate();
@@ -16,17 +18,16 @@ const EventCardHorizontal = (props) => {
   }
 
 
-  const date = new Date(Date.parse(props.event.event.startDate));
-  const stringDate = date.toLocaleString([], {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  const stringDate = getDateRangeString(
+    props.event.event.startDate,
+    props.event.event.endDate
+  );
 
+  // get price range
+  const priceString = getPriceRangeString(props.event.ticketTypes);
+
+  // get img URL
   let imgUrl = "../Gigney_login.png";
-
   if (props.event.eventImg) {
     imgUrl =
       "https://gigney.s3.ap-southeast-2.amazonaws.com/" +
@@ -34,21 +35,11 @@ const EventCardHorizontal = (props) => {
       ".jpeg";
   }
 
-  let price = "No price data";
-  if (props.event.ticketTypes.length > 0) {
-    if (props.event.ticketTypes.length > 1) {
-      // TODO: implement function to find min and max price
-    } else {
-      price = "$" + props.event.ticketTypes[0].price;
-    }
-  }
-
   return (
     <CardActionArea onClick={cardRedirect} sx={{height: "100%"}}>
     <Card className="horizontal-card">
       <CardMedia
         component="img"
-        height="200"
         image={imgUrl}
         alt={props.event.event.title}
       />
@@ -63,13 +54,13 @@ const EventCardHorizontal = (props) => {
             {props.event.event.venueName}
           </p>
           <p className="card-price">
-            <SellOutlinedIcon sx={{ fontSize: 15 }} /> {price}
+            <SellOutlinedIcon sx={{ fontSize: 15 }} /> {priceString}
           </p>
           <div className="card-icon ev-share-h">
-            <ShareIcon sx={{ fontSize: 23, color:"black" }} />
+            <ShareIcon sx={{ fontSize: 23, color: "black" }} />
           </div>
           <div className="card-icon ev-bookmark-h">
-            <BookmarkAddIcon sx={{ fontSize: 21, color:"black" }} />
+            <BookmarkAddIcon sx={{ fontSize: 21, color: "black" }} />
           </div>
         </CardContent>
       </Box>

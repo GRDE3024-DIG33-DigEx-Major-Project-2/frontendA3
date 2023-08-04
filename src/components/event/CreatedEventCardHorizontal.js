@@ -3,34 +3,26 @@ import ShareIcon from "@mui/icons-material/Share";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
-import SellOutlinedIcon from '@mui/icons-material/SellOutlined';
+import SellOutlinedIcon from "@mui/icons-material/SellOutlined";
+import { getDateRangeString, getPriceRangeString } from "../../utils/utils";
 
 const CreatedEventCardHorizontal = (props) => {
-  const date = new Date(Date.parse(props.event.event.startDate));
-  const stringDate = date.toLocaleString([], {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  // get date range
+  const stringDate = getDateRangeString(
+    props.event.event.startDate,
+    props.event.event.endDate
+  );
 
+  // get price range
+  const priceString = getPriceRangeString(props.event.ticketTypes);
+
+  // get img URL
   let imgUrl = "../Gigney_login.png";
-
   if (props.event.eventImg) {
     imgUrl =
       "https://gigney.s3.ap-southeast-2.amazonaws.com/" +
       props.event.eventImg.filename +
       ".jpeg";
-  }
-
-  let price = "No price data";
-  if (props.event.ticketTypes.length > 0) {
-    if (props.event.ticketTypes.length > 1) {
-      // TODO: implement function to find min and max price
-    } else {
-      price = "$" + props.event.ticketTypes[0].price;
-    }
   }
 
   return (
@@ -43,7 +35,7 @@ const CreatedEventCardHorizontal = (props) => {
       />
       <Box className="horizontal-card-box">
         <CardContent>
-        <h3 className="card-name">{props.event.event.title}</h3>
+          <h3 className="card-name">{props.event.event.title}</h3>
           <p className="card-date">
             <CalendarTodayIcon sx={{ fontSize: 15 }} /> {stringDate}
           </p>
@@ -52,7 +44,7 @@ const CreatedEventCardHorizontal = (props) => {
             {props.event.event.venueName}
           </p>
           <p className="card-price">
-            <SellOutlinedIcon sx={{ fontSize: 15 }} /> {price}
+            <SellOutlinedIcon sx={{ fontSize: 15 }} /> {priceString}
           </p>
           <div className="card-icon ev-share-h-2">
             <ShareIcon sx={{ fontSize: 23, color: "black" }} />
