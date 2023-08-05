@@ -855,7 +855,7 @@ footer {
 }
 
 #discard-ev-btn {
-  position: absolute;
+  position: relative;
   right: 2%;
   font-size: 1.2em;
   text-decoration: underline;
@@ -1710,6 +1710,13 @@ footer {
     width: 1.5em;
     height: 1em;
   }
+  /*CREATE EVENTS PAGE*/
+  .create-event-screen h2 {
+    margin: 0 12px 0 12px;
+  }
+  .create-event-media {
+    margin-top: 20px;
+  }
 }
 /* Small Phone */
 @media screen and (max-width: 480px) {
@@ -1730,24 +1737,15 @@ footer {
   }
   #stepper-box h2 {
     font-size: 0.8em;
-    padding-left: 1em;
-  }
-  #stepper-box {
-    justify-content: left;
   }
   #discard-ev-btn {
-    right: 4%;
     font-size: 1em;
   }
   .create-event-screen h2 {
     text-align: center;
     margin-top: 12px;
     margin-bottom: 12px;
-  }
-  .css-12z1287-MuiGrid-root p,
-  .css-1f064cs-MuiGrid-root p,
-  .css-1qeq9aw-MuiGrid-root p {
-    font-size: 0.8em;
+    font-size: 2em;
   }
   #create-event-description {
     font-size: 1em;
@@ -1755,8 +1753,9 @@ footer {
   }
   #create-event-name,
   #create-event-organiser,
-  #create-event-eventURL {
-    font-size: 3.8em;
+  #create-event-eventURL,
+  #create-event-an1 {
+    font-size: 0.8em;
     padding: 7.5px 8px;
   }
   .css-8ewcdo-MuiInputBase-root-MuiOutlinedInput-root {
@@ -1784,6 +1783,98 @@ footer {
   }
   .css-yi3mkw {
     flex-wrap: nowrap;
+  }
+  .artist-and-summary .MuiGrid-container,
+  .basic-information .MuiGrid-container,
+  .create-event-location-div .MuiGrid-container,
+  .create-event-screen .MuiGrid-container,
+  .create-event-pricing .MuiGrid-container,
+  #stepper-box,
+  #discard-ev-btn {
+    display: flex !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding-left: 46px;
+    min-width: 90%;
+    padding-top: 0;
+  }
+  #stepper-box,
+  #discard-ev-btn,
+  #stepper-box h2 {
+    align-items: center !important;
+    padding: 0 !important;
+    right: 0 !important;
+    margin-top: 5px;
+  }
+  .create-event-pricing .MuiGrid-spacing-xs-1 {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    padding: 0px;
+  }
+  .create-event-pricing .MuiGrid-grid-xs-6,
+  .artist-and-summary .MuiGrid-grid-xs-5,
+  .artist-and-summary .MuiGrid-grid-xs-11 {
+    padding-top: 0 !important;
+  }
+  .artist-and-summary .MuiGrid-item {
+    width: 100% !important;
+  }
+  .create-event-location-div .MuiGrid-container {
+    padding-left: 20px !important;
+  }
+  .artist-and-summary .MuiInputBase-multiline {
+    width: 19em;
+  }
+  .basic-information .MuiInputBase-formControl {
+    width: 21em !important;
+  }
+  .artist-and-summary .fab-container {
+    flex-direction: row !important;
+    justify-content: flex-end !important;
+  }
+  .create-event-pricing .fab-container-tickets {
+    flex-direction: row !important;
+    padding-top: 4px !important;
+  }
+  .create-event-pricing .add-artist-fab-disabled,
+  .create-event-pricing .remove-artist-fab-disabled,
+  .create-event-pricing .add-ticket-fab-disabled,
+  .create-event-pricing .remove-ticket-fab-disabled,
+  .create-event-pricing .add-artist-fab,
+  .create-event-pricing .remove-artist-fab,
+  .create-event-pricing .add-ticket-fab,
+  .create-event-pricing .remove-ticket-fab {
+    left: 8em !important;
+  }
+  #create-ev-summary {
+    width: 50%;
+  }
+  .map-container {
+    height: 18em;
+    width: 30em;
+    margin: 0px 30px 0px 30px;
+  }
+  .create-event-location-div .MuiOutlinedInput-notchedOutline,
+  .artist-and-summary .MuiOutlinedInput-notchedOutline {
+    width: 100%;
+  }
+  .create-event-location-div .MuiGrid-grid-xs-3 {
+    padding-left: 0 !important;
+    margin-bottom: 2px;
+  }
+  .create-event-location-div .MuiGrid-grid-xs-1,
+  .create-event-location-div .MuiGrid-grid-xs-5 {
+    padding-left: 0px !important;
+    margin-bottom: 2px;
+  }
+  .create-event-pricing .form-label-active {
+    margin: 2px;
+  }
+  .create-event-pricing .MuiOutlinedInput-root {
+    height: 30px;
   }
 }
 
