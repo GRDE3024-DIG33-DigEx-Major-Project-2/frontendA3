@@ -37,7 +37,7 @@ function Event() {
       <div className="event-prev-card-icon-bookmark">
         <BookmarkAddIcon sx={{ fontSize: 23, color: "black" }} />
       </div>
-      <h1>Event preview</h1>
+      <h1>&nbsp;</h1>
       <div className="event-main-image">
         <img alt={event.event.title} src={imgUrl} />
       </div>
