@@ -43,7 +43,7 @@ import LocalActivityOutlinedIcon from "@mui/icons-material/LocalActivityOutlined
 import ShareIcon from "@mui/icons-material/Share";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import { getUser } from "../../utils/localStorage";
-import { createEvent } from "../../services/EventAPI";
+import { updateEvent } from "../../services/EventAPI";
 
 function EditEvent() {
   const user = getUser();
@@ -348,25 +348,30 @@ function EditEvent() {
     if (newImg){
       let formData = {
         event: event,
-        acts: acts,
-        ticketTypes: ticketTypes,
+        acts: [],
+        newActs: acts,
+        ticketTypes: [],
+        newTicketTypes: ticketTypes,
         tags: formattedTags,
+        eventImg: null,
         filename: selectedImage.name.split(".")[0],
         "event-img": selectedImage,
       };
       console.log(formData);
-      await createEvent(formData);
+      await updateEvent(formData);
     } else {
       let formData = {
         event: event,
-        acts: acts,
-        ticketTypes: ticketTypes,
+        acts: [],
+        newActs: acts,
+        ticketTypes: [],
+        newTicketTypes: ticketTypes,
         tags: formattedTags
       };
       console.log(formData);
-      await createEvent(formData);
+      await updateEvent(formData);
     }
-
+  
     navigate("/dashboard");
   };
 
@@ -441,7 +446,7 @@ function EditEvent() {
               <div className="event-main-image">
                 <img
                   alt="event image"
-                  src={URL.createObjectURL(selectedImage)}
+                  src={newImg ? URL.createObjectURL(selectedImage) : selectedImage}
                 />
               </div>
               <div className="prev-event-body">
