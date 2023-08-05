@@ -28,7 +28,7 @@ const EventCard = (props) => {
   }, [setFavourite]);
 
   // on load, check if the event is already in the favourite list
-
+  
   const cardRedirect = () => {
     navigate("/event", { state: { event: props.event } });
   };
