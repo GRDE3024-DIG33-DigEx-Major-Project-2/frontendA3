@@ -1,188 +1,153 @@
 import { useLocation } from "react-router-dom";
-import LocalActivityRoundedIcon from "@mui/icons-material/LocalActivityRounded";
-import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
-import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
+import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import LocalActivityOutlinedIcon from "@mui/icons-material/LocalActivityOutlined";
 import ShareIcon from "@mui/icons-material/Share";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
+import { Divider, Stack, Chip, Avatar } from "@mui/material";
+import { getFirstLetters } from "../../utils/utils";
 
 function Event() {
   const location = useLocation();
   const event = location.state.event;
 
-  // convert date
-  const date = new Date(Date.parse(event.event.startDate));
-  const stringDate = date.toLocaleString([], {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  //TO-DO fetch organiser name using OrganizerId
+  const eventOrganiser = "Ticket Master";
 
-  // find URL
+  // get date range
+  const startDate = new Date(Date.parse(event.event.startDate));
+  const endDate = new Date(Date.parse(event.event.endDate));
+  // get ticket types
+  const ticketTypes = event.ticketTypes;
+  // get lineup
+  const lineup = event.acts;
+  // get tags
+  const tags = event.tags;
+  // find URL - if image not added, use default image
   let imgUrl = "../Gigney_login.png";
   if (event.eventImg) {
-    imgUrl =
-      "https://gigney.s3.ap-southeast-2.amazonaws.com/" +
-      event.eventImg.filename +
-      ".jpeg";
+    imgUrl = event.eventImg.url
   }
 
   return (
-    <div className="Event">
-      <div className="header">
-        <img className="event-main-image" alt="eventimage" src={imgUrl}></img>
-        <div className="event-card-icon share">
-          <ShareIcon sx={{ fontSize: 22, color: "black" }} />
-        </div>
-        <div className="event-card-icon bookmark">
-          <BookmarkAddIcon sx={{ fontSize: 23, color: "black" }} />
-        </div>
+    <div className="event-preview">
+      <div className="event-prev-card-icon-share">
+        <ShareIcon sx={{ fontSize: 22, color: "black" }} />
       </div>
-      <div className="event-body">
-        <div className="event-columns">
-          <div className="event-column-title">
-            <h1 className="event-title">{event.event.title}</h1>
-          </div>
-          <div className="event-column-button">
-            <button className="event-buy-button">Buy Tickets</button>
-          </div>
-          <div className="event-column-title">
-            <h2 className="event-details">
-              <span>When and where</span>
-            </h2>
-            <div className="event-columns-details">
-              <div className="event-column-detail">
-                <h4>
-                  <CalendarMonthRoundedIcon /> Date & Time
-                </h4>
-                <p className="dateandtime">{stringDate}</p>
+      <div className="event-prev-card-icon-bookmark">
+        <BookmarkAddIcon sx={{ fontSize: 23, color: "black" }} />
+      </div>
+      <h1>&nbsp;</h1>
+      <div className="event-main-image">
+        <img alt={event.event.title} src={imgUrl} />
+      </div>
+      <div className="prev-event-body">
+        <div className="event-prev-first-row">
+          <h1 className="event-title">{event.event.title}</h1>
+          <button className="event-buy-button">Buy Tickets</button>
+        </div>
+        <div className="event-prev-second-row">
+          <div className="when-where-box outlined">
+            <h2 className="event-prev-title">When and where</h2>
+            <Stack
+              spacing={2}
+              direction="row"
+              className="horizontal-stack"
+              divider={<Divider orientation="vertical" flexItem />}
+            >
+              <div className="prev-date-time">
+                <span className="icon-title">
+                  <CalendarTodayOutlinedIcon sx={{ color: "#4B7CBE" }} />
+                  <h3>Date and time</h3>
+                </span>
+                <p className="strong-string-prev">
+                  {startDate.toDateString()}{" "}
+                  {startDate.toLocaleString("en-US", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}{" "}
+                  - {endDate.toDateString()}{" "}
+                  {endDate.toLocaleString("en-US", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </p>
               </div>
-              <hr></hr>
-              <div className="event-column-detail">
-                <h4>
-                  <LocationOnRoundedIcon /> Location
-                </h4>
-                <p className="eventlocation">
+              <div className="prev-location">
+                <span className="icon-title">
+                  <LocationOnOutlinedIcon sx={{ color: "#4B7CBE" }} />
+                  <h3>Location</h3>
+                </span>
+                <p className="strong-string-prev">
                   {event.event.venueName}, {event.event.address}
+                  {event.event.suburb}, {event.event.postcode},{" "}
+                  {event.event.city} {event.event.region}
                 </p>
-                <p className="eventlocation">
-                  {event.event.city} - {event.event.region}
-                </p>
               </div>
-            </div>
+            </Stack>
           </div>
-          <div className="event-column-button">
-            <h2 className="organised_by">
-              <span>Organised By</span>
-            </h2>
-            <div className="event-columns-details">
-              <div className="event-column-detail">
-                <img
-                  className="event-logo"
-                  // TODO - fetch organizer's logo
-                  src="https://www.frontiertouring.com/files/web_images/logo-frontier_footer.png"
-                  alt="artist"
-                ></img>
-              </div>
-              <div className="event-column-detail">
-                <p>{event.event.OrganizerId} - TODO FETCH ORGANIZER USING ID</p>
-              </div>
-            </div>
+          <div className="organiser-box outlined">
+            <h2 className="event-prev-title">Organiser</h2>
+            <Avatar id="event-avatar">{getFirstLetters(eventOrganiser)}</Avatar>
+            <h2>{eventOrganiser}</h2>
           </div>
-          <p>&nbsp;</p>
-          <div className="event-column-title">
-            <p>&nbsp;</p>
-            <div className="pricing">
-              <h2>
-                <span>Pricing</span>
-              </h2>
-              <div className="event-columns-details">
-                <div className="event-column-detail">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>
-                          <LocalActivityRoundedIcon /> Early Bird
-                        </th>
-                        <hr></hr>
-                        <th>
-                          <LocalActivityRoundedIcon /> Concession
-                        </th>
-                        <hr></hr>
-                        <th>
-                          <LocalActivityRoundedIcon /> General
-                        </th>
-                        <hr></hr>
-                        <th>
-                          <LocalActivityRoundedIcon /> VIP
-                        </th>
-                        <hr></hr>
-                        <th>
-                          <LocalActivityRoundedIcon /> Backstage
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>$95</td>
-                        <hr></hr>
-                        <td>$120</td>
-                        <hr></hr>
-                        <td>$240</td>
-                        <hr></hr>
-                        <td>$360</td>
-                        <hr></hr>
-                        <td>$150</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
+        </div>
+        <div className="event-prev-third-row">
+          <div className="pricing-box outlined">
+            <h2 className="event-prev-title-2">Pricing</h2>
+            <Stack
+              spacing={2}
+              direction="row"
+              className="horizontal-stack"
+              divider={<Divider orientation="vertical" flexItem />}
+            >
+              {ticketTypes.length !== 0 &&
+                ticketTypes.map((ticket) => (
+                  <div className="event-prev-price">
+                    <span className="icon-title">
+                      <LocalActivityOutlinedIcon sx={{ color: "#4B7CBE" }} />
+                      <h3>{ticket.name}</h3>
+                    </span>
+                    <p>$ {ticket.price}</p>
+                  </div>
+                ))}
+              {ticketTypes.length === 0 && <h2 style={{padding: "3% 5%"}}>This event is free.</h2>}
+            </Stack>
           </div>
-
-          <p>&nbsp;</p>
-
-          <div className="event-column-title">
-            <h2 className="about">About this event</h2>
+        </div>
+        <div className="event-prev-fourth-row">
+          <div className="create-prev-about">
+            <h2>About this event</h2>
             <p>{event.event.description}</p>
           </div>
-          <div className="event-column-button">
-            <h2 className="lineup">
-              <span>Artist Line-Up</span>
-            </h2>
-            <div className="event-columns-details">
-              <div className="event-column-detail">
-                <ul>
-                  <li>Artist 1</li>
-                  <li>Artist 2</li>
-                  <li>Artist 3</li>
-                  <li>Artist 4</li>
-                  <li>Artist 5</li>
-                </ul>
-              </div>
+          <div className="create-prev-lineup outlined">
+            <h2 className="event-prev-title">Artist line-up</h2>
+            <ul>
+              {lineup.length !== 0 && lineup.map((act) => <li>{act.name}</li>)}
+            </ul>
+          </div>
+        </div>
+        <div className="event-prev-fifth-row">
+          <div className="event-prev-tags">
+            <h2>Tags</h2>
+            <div>
+              {tags.map((tag) => (
+                <Chip
+                  sx={{
+                    backgroundColor: "white",
+                    color: "#7759a6",
+                    border: "solid 1px #7759a6",
+                    margin: "0 1%",
+                  }}
+                  key={tag.id}
+                  label={tag.name}
+                />
+              ))}
             </div>
           </div>
-        </div>
-
-        <div className="event-columns">
-          <div className="tags">
-            <h3>Tags</h3>
-            {event.tags.map((tag, i) => (
-              <span key={i} className="event-tag">
-                {tag.name}
-              </span>
-            ))}
-          </div>
-
-          <div className="event-column-button">
-            <button className="event-buy-button">Buy Tickets</button>
-          </div>
+          <button className="event-buy-button">Buy Tickets</button>
         </div>
       </div>
-      <p>&nbsp;</p>
-      <p>&nbsp;</p>
     </div>
   );
 }

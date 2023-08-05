@@ -1,4 +1,4 @@
-import { Card, CardContent, CardMedia, CardActionArea, Box } from "@mui/material";
+import { Card, CardContent, CardMedia, CardActionArea, Box, Link } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
@@ -8,14 +8,9 @@ import { getDateRangeString, getPriceRangeString } from "../../utils/utils";
 import { useNavigate } from "react-router-dom";
 
 const EventCardHorizontal = (props) => {
-  // get date range
 
 
   const navigate = useNavigate();
-    
-  const cardRedirect = ()=> {
-    navigate("/event", {state:{event:props.event}});
-  }
 
 
   const stringDate = getDateRangeString(
@@ -25,27 +20,26 @@ const EventCardHorizontal = (props) => {
 
   // get price range
   const priceString = getPriceRangeString(props.event.ticketTypes);
-
-  // get img URL
+  
+  // find URL - if image not added, use default image
   let imgUrl = "../Gigney_login.png";
   if (props.event.eventImg) {
-    imgUrl =
-      "https://gigney.s3.ap-southeast-2.amazonaws.com/" +
-      props.event.eventImg.filename +
-      ".jpeg";
+    imgUrl = props.event.eventImg.url
   }
+
+  const cardRedirect = () => {
+    navigate("/event", { state: { event: props.event } });
+  };
 
   return (
     <CardActionArea onClick={cardRedirect} sx={{height: "100%"}}>
     <Card className="horizontal-card">
-      <CardMedia
-        component="img"
-        image={imgUrl}
-        alt={props.event.event.title}
-      />
+      <CardMedia component="img" image={imgUrl} alt={props.event.event.title} />
       <Box className="horizontal-card-box">
         <CardContent>
-          <h3 className="card-name">{props.event.event.title}</h3>
+          <Link id="card-name-link" onClick={cardRedirect}>
+            <h3>{props.event.event.title}</h3>
+          </Link>
           <p className="card-date">
             <CalendarTodayIcon sx={{ fontSize: 15 }} /> {stringDate}
           </p>
