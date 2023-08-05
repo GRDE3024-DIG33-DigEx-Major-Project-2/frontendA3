@@ -53,8 +53,13 @@ const DateRadioBtns = () => {
     //Date range specified
     let tempDateRange = null;
 
+    //Disable date range filtering
+    if (value === "None") {
+      console.log("Disabling date range filtering");
+      tempDateRange = {minDate: null, maxDate: null};
+    }
     //Get ISO range for today
-    if (value === "Today") {
+    else if (value === "Today") {
       console.log("Getting Today's date range");
       tempDateRange = getTodayISODates();
     }
@@ -78,8 +83,15 @@ const DateRadioBtns = () => {
       console.log("Getting this Month's date range");
       tempDateRange = getThisMonthsISODates();
     }
+    else return;
+
     console.log("Result: ", tempDateRange);
+
+    //Remove old date filter chip
+    temp = temp.filter(x => x.searchCategory !== "date");
+
     //Add chip to temp filter chips
+    if (value !== "None")
     temp.push({
       //Set key
       key: newKey,
@@ -108,10 +120,15 @@ const DateRadioBtns = () => {
     <div>
       <h2>Date</h2>
       <RadioGroup
-        defaultValue="Today"
+        defaultValue="None"
         name="date-radio"
         onChange={(event) => chipSelectDate(event.target.value)}
       >
+        <FormControlLabel
+          value="None"
+          control={<Radio />}
+          label="None"
+        />
         <FormControlLabel
           value="Today"
           control={<Radio />}

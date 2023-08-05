@@ -49,8 +49,6 @@ import SvgIcon from "@mui/material/SvgIcon";
       chipData
     } = useContext(SearchEventFiltersContext);
   
-  
-  
     //The HTML template
     return (
         <TextField

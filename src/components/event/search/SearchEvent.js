@@ -150,17 +150,22 @@ let newArr = [...events.get, ...searchResult.events]
     //TODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODO
 
     //CLEAR DATE RADIO BUTTONS
-
-
+    //Set to None Radio button -- TODO FEATURE NOT IMPLEMENTED
     //CLEAR DATE CALENDAR
+    //Set calendar to equivalent value
+    //Make sure date picker is set to values that would make it ignored when searching
 
     //CLEAR TICKET PRICE RANGE
+    //Set to free button
 
     //CLEAR TAGS
+    //Deselect all tags
+    //Empty tagSelection array
 
-    //CLEAR VENUES
+    //CLEAR VENUES - TODO THIS FILTER ISNT MADE YET
+    //Deselect venueNames array
 
-
+    //Clear selected filter chip UI
     chipData.set([]);
     change.set(!change.get);
   };
@@ -201,19 +206,13 @@ let newArr = [...events.get, ...searchResult.events]
      */
     async function fetchEvents() {
 
-      try {
-        let isoDates = getTodayISODates();
-
-        console.log(isoDates);
-
         currPage.set(0);
-
 
         const data = await searchEvents(
           tagSelection.get,
           keywords.get,
-          isoDates.minDate,
-          isoDates.maxDate,
+          null,
+          null,
           location.get,
           { minPrice: Number(priceRange.minPrice.get), maxPrice: Number(priceRange.maxPrice.get) },
           currPage.get);
@@ -221,11 +220,6 @@ let newArr = [...events.get, ...searchResult.events]
         events.set(data.events);
         //Set total page count
         pageCount.set(data.pageCount);
-
-      }
-      catch (error) {
-        //console.log("Error in search event input");
-      }
     }
 
     //Fetch all possible pre-defined tags if none have been retrieved

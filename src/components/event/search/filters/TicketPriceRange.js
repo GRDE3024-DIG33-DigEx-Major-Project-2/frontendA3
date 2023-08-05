@@ -65,13 +65,13 @@ import { Link } from "react-router-dom";
     //const minPrice = priceRange.minPrice.get;
     //const maxPrice = priceRange.maxPrice.get;
 
-    const [isFree, setIsFree] = useState("paid");
+    const [isFree, setIsFree] = useState("free");
 
 
 
     useEffect(() => {
-      console.log("Price Range Min:", priceRange.minPrice.get);
-      console.log("Price Range Max:", priceRange.maxPrice.get);
+      // console.log("Price Range Min:", priceRange.minPrice.get);
+      // console.log("Price Range Max:", priceRange.maxPrice.get);
     }, [priceRange.minPrice.get, priceRange.maxPrice.get]);
 
 
@@ -147,13 +147,13 @@ import { Link } from "react-router-dom";
     >
       <FormControlLabel
         value="free"
+        defaultChecked={true}
         control={<Radio />}
         label="Free"
         onClick={() => handleIsFree("free")}
       />
       <FormControlLabel
         value="paid"
-        defaultChecked={true}
         control={<Radio />}
         label="Paid"
         onClick={() => handleIsFree("paid")}

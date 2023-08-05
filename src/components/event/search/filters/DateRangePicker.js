@@ -31,12 +31,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 const DateRangePicker = () => {
 
-
-
-
-  //const defaultMin = 
-
-
   /**
    * Prop context for search event data
    */
@@ -61,20 +55,31 @@ const DateRangePicker = () => {
  * @param {*} date 
  * @returns 
  */
-const ShouldDisableDate = (date) => {
-      const currentDate = date.toDate();
-      return currentDate < dateRange.minDate || currentDate > dateRange.maxDate;
-}  
+const ShouldDisableDate = (date, dateVal) => {
+
+  const currentDate = date.toDate();
+  //Disable dates less than minDate for maxDate
+  if (dateVal === "maxDate" && date != null) {
+    return currentDate < dateRange.minDate.get;
+  } 
+  //Disable dates greater than maxDate for minDate
+  else if (dateVal === "minDate" && date != null) { 
+  return currentDate > dateRange.maxDate.get;
+  }
+  //Enable all other dates
+  return false; 
+};
 
 
 
   const SetDateHandler = (selectedDate, dateVal) => {
     console.log("in setDateHandler");
 
+  
     const selectedDateObj = selectedDate.toDate();
     const selectedDateISO = selectedDateObj.toISOString();
 
-    const formattedDate = dayjs(selectedDateISO).format("YYYY-MM-DD HH:mm:ss");
+    const formattedDate = selectedDate ? dayjs(selectedDateISO).format("YYYY-MM-DD HH:mm:ss") : null;
 
     //minDate change attempt -- validate it and complete
     if (dateVal == "minDate") {
@@ -112,10 +117,9 @@ return (
         //label="Minimum Date"
         dateFormat="YYYY-MM-DD HH:MM:SS"
         placeholder="Minimum Date"
-        defaultValue={dayjs(dateRange.minDate.get)}
         value={dayjs(dateRange.minDate.get)}
         onChange={(minDate) => SetDateHandler(minDate, 'minDate')}
-        shouldDisableDate={ShouldDisableDate}
+        shouldDisableDate={(minDate) => ShouldDisableDate(minDate, 'minDate')}
         slots={{
           openPickerIcon: ArrowDropDownOutlinedIcon
         }}
@@ -137,10 +141,9 @@ return (
         //label="Maximum Date"
         dateFormat="YYYY-MM-DD HH:MM:SS"
         placeholder="Maximum Date"
-        defaultValue={dayjs(dateRange.maxDate.get)}
         value={dayjs(dateRange.maxDate.get)}
         onChange={(maxDate) => SetDateHandler(maxDate, 'maxDate')}
-        shouldDisableDate={ShouldDisableDate}
+        shouldDisableDate={(maxDate) => ShouldDisableDate(maxDate, 'maxDate')}
         slots={{
           openPickerIcon: ArrowDropDownOutlinedIcon
         }}

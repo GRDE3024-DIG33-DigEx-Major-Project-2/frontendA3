@@ -59,15 +59,13 @@ const SearchEventFiltersProvider = ({ children }) => {
 
 
     //Default range for ticket price filter
-    const DEFAULT_MIN_PRICE = 1;
-    const DEFAULT_MAX_PRICE = 200;
-    //Default isFree value (paid or free)
-    const DEFAULT_ISFREE = "paid";
+    //const DEFAULT_MIN_PRICE = 1;
+    //const DEFAULT_MAX_PRICE = 200;
     //Default date range for events
-    const DEFAULT_DATE_RANGE = getTodayISODates();
+    const DEFAULT_DATE_RANGE = {minDate:null, maxDate: null};
     //Default search chip values
     const DEFAULT_FILTER_CHIPS = [
-        { key: 0, searchCategory: "venue", label: "Arena51", value: "Arena51" },
+        //{ key: 0, searchCategory: "venue", label: "Arena51", value: "Arena51" },
         //{ key: 1, searchCategory: "date", label: "Today", value: getTodayISODates() },
         //   {
         //     key: 2,
@@ -86,10 +84,10 @@ const [minDate, setMinDate] = useState(DEFAULT_DATE_RANGE.minDate);
 const [maxDate, setMaxDate] = useState(DEFAULT_DATE_RANGE.maxDate);
 const [selectedTagIds, setSelectedTagIds] = useState([]);
 const [keywords, setKeywords] = useState("");
-const [isFree, setIsFree] = useState(DEFAULT_ISFREE);
+//const [isFree, setIsFree] = useState(DEFAULT_ISFREE);
 const [change, setChange] = useState(true);
-const [minPrice, setMinPrice] = useState(DEFAULT_MIN_PRICE);
-const [maxPrice, setMaxPrice] = useState(DEFAULT_MAX_PRICE);
+const [minPrice, setMinPrice] = useState(null);
+const [maxPrice, setMaxPrice] = useState(null);
 //Filter chip UI data
 const [chipData, setChipData] = useState(DEFAULT_FILTER_CHIPS);
 const [currPage, setCurrPage] = useState(0);
@@ -127,10 +125,10 @@ const [currPage, setCurrPage] = useState(0);
                 set: setMaxPrice,
             }
         },
-        isFree: {
-            get: isFree,
-            set: setIsFree,
-        },
+        // isFree: {
+        //     get: isFree,
+        //     set: setIsFree,
+        // },
         change: {
             get: change,
             set: setChange
