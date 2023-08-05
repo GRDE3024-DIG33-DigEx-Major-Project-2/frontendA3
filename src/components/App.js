@@ -16,9 +16,9 @@ import SignUpGuest from "./user/SignupGuest.js";
 import SignUpOrganiser from "./user/SignupOrganiser";
 import Dashboard from "./user/Dashboard";
 import CreateEvent from "./event/CreateEvent.js";
+import EditEvent from "./event/EditEvent";
 import "../static/fonts.css";
-import { getUser } from "../utils/localStorage";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 //Import prop context providers
 import { SearchEventsProvider, SearchEventFiltersProvider } from "../props/search-events.prop";
@@ -47,6 +47,7 @@ function App() {
         <Route path="/signupguest" element={<SignUpGuest />} />
         <Route path="/signuporganiser" element={<SignUpOrganiser />} />
         <Route path="/createevent" element={<CreateEvent />} />
+        <Route path="/edit-event" element={<EditEvent />} />
         <Route path="*" element={<h1 className="not-found">Page Not Found</h1>} />
       </Routes>          
         </SearchEventFiltersProvider>
