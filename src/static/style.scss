@@ -1838,7 +1838,8 @@ footer {
 }
 
 #loggedin-links-menu {
-  font-size: 2em;
+  font-size: 1em;
+  margin: 5px 0 12px 0;
 }
 
 .mobile-menu-link{
@@ -1954,12 +1955,21 @@ footer {
 
   /*CREATE EVENTS PAGE*/
   #save-exit-ev-btn {
-    padding: 7px 6px;
+    padding: 5px 6px;
     margin: 10px;
+    width: 13em;
+    height: 2.5em;
   }
 
   #save-cont-ev-btn {
-    padding: 7px 5px;
+    padding: 5px 5px;
+    width: 13em;
+    height: 2.5em;
+  }
+
+  #show{
+    padding: 3px 5px;
+    width: 12em;
   }
 
   #stepper-box h2 {
@@ -2128,6 +2138,12 @@ footer {
     height: 30px;
   }
 
+  #create-ev-bttns,
+  #create-ev-bttns-right,
+  #create-ev-bttns-left {
+    flex-direction: column;
+  }
+
   /*SIGNUP PAGE*/
 
   .signup {
@@ -2189,5 +2205,39 @@ text-shadow: -0.5px -0.5px 0 $black, 0.5px -0.5px 0 $black, -0.5px 0.5px 0 $blac
  }
  .signup-second-page {
   padding: 3% 0;
+}
+
+/*LOGIN PAGE*/
+.login-page{
+  height: 198vh;
+}
+
+.left {
+  height: 33%;
+}
+
+.right{
+  margin-bottom: 110px;
+}
+
+.mobile-login-logo {
+  top: 22%;
+}
+
+.right .login-form{
+  row-gap: 0em;
+}
+
+.login-logo h1{
+  margin-bottom: 0px;
+  margin-top: 0%;
+}
+
+.login-page footer{
+  margin-top: 35px;
+}
+
+.right .MuiOutlinedInput-input{
+  padding: 6px 14px;
 }
 }
