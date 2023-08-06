@@ -1818,19 +1818,22 @@ footer {
   }
 
   .mobile-menu-box {
-    width: 
-    50vw;
+    width: 50vw;
   }
   #gigney-menu-logo {
-    width: 25%;
+    width: 70%;
 }
   #gigney-menu-logo img{
-    width: 10m;
+    width: 10em;
     height: 6em;
   }
   .mobile-menu-box h1 {
     font-size: 2em;
     margin-bottom: 10px;
+}
+
+#menu-drawer .MuiDrawer-paper{
+  width: 50%;
 }
 
 #loggedin-links-menu {
@@ -2173,5 +2176,13 @@ text-shadow: -0.5px -0.5px 0 $black, 0.5px -0.5px 0 $black, -0.5px 0.5px 0 $blac
 }
 .signup-left .signup-form{
   row-gap: 7em;
+}
+
+ /*SIGNUP PAGE - ATTENDEE*/
+ .signup-second-page-logo img {
+  width: 59vh;
+ }
+ .signup-second-page {
+  padding: 3% 0;
 }
 }
