@@ -319,6 +319,12 @@ a {
   }
 }
 
+#demo-simple-select-label {
+  color: $white;
+  text-shadow: -1px -1px 0 $black, 1px -1px 0 $black, -1px 1px 0 $black,
+    1px 1px 0 $black;
+}
+
 .signup-right {
   width: 50%;
   img {
@@ -1246,6 +1252,42 @@ footer {
 .content-body {
   margin: 15px;
   margin-bottom: 30px;
+}
+
+// *********************** RESET PASSWORD *********************** //
+
+.reset-password,
+.reset-pwd-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reset-password h1{
+  font-size: 5em;
+  text-align: center;
+}
+
+.reset-pwd-form{
+  margin:15px;
+}
+.reset-pwd-form p,
+.reset-pwd-form label {
+  font-size: 20px;
+}
+
+.reset-pwd-form input{
+  width: 100%;
+  height: 35px;
+  margin: 10px;
+}
+
+#reset-btn{
+  background-color: $orange1;
+  border: 2px solid $black;
+  font-size: 20px;
+  font-weight: 600;
+  height:40px;
 }
 
 // *********************** MEDIA QUERIES *********************** //
@@ -2239,5 +2281,14 @@ text-shadow: -0.5px -0.5px 0 $black, 0.5px -0.5px 0 $black, -0.5px 0.5px 0 $blac
 
 .right .MuiOutlinedInput-input{
   padding: 6px 14px;
+}
+/*RESET PASSWORD*/
+
+.reset-password h1{
+  font-size: 3em;
+  text-align: center;
+}
+.reset-pwd-form p{
+  font-size: 14px;
 }
 }
