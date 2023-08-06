@@ -16,7 +16,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <>
+    <div class="reset-password">
       <h1>Reset Password</h1>
       <form className="reset-pwd-form" onSubmit={resetHandler}>
       <p>We are going to send a code to your email to reset your password.</p>
@@ -36,7 +36,7 @@ const ResetPassword = () => {
           value="Send code"
         />
       </form>  
-    </>
+      </div>
   );
 };
 

@@ -335,7 +335,7 @@ export const updateEvent = async function (formData) {
   console.log("Performed first event update request");
 
   //Refresh tokens in case of expired access token (should be equal to 403, but it catches all non-201 statuses)
-  if (response.status != 201) {
+  if (response.status != 200) {
     console.log("Initial event update failed. Attempting token refresh");
     //Perform refresh token request
     let refreshResponse = await axios
@@ -355,7 +355,7 @@ export const updateEvent = async function (formData) {
       console.log("Retried initial event request");
 
       //Event retry failed -- Throw error or log user out?
-      if (response.status != 201) {
+      if (response.status != 200) {
         //TODO
         console.log("Event retry failed");
         console.log(response);
