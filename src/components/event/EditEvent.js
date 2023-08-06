@@ -306,6 +306,7 @@ function EditEvent() {
         ticketTypes: ticketTypes,
         newTicketTypes: newTicketTypes,
         tags: formattedTags,
+        eventImg: selectedImage
       };
       console.log(formData);
       await updateEvent(formData);
