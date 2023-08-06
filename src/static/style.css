@@ -41,6 +41,7 @@ nav .nav-links {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  font-size: 1.2em;
 }
 
 p {
@@ -1292,6 +1293,7 @@ footer {
   /* HEADER */
   nav .nav-links {
     width: 65vw;
+    font-size: 0.8em;
   }
   .find-event-header {
     max-height: 40vw;
@@ -1308,6 +1310,12 @@ footer {
   }
   #events-txt-field {
     width: 40%;
+  }
+  .bttn-style-orange {
+    padding: 6px 8px;
+  }
+  .bttn-style-purple {
+    padding: 6px 15px;
   }
   /*PROFILE PAGE*/
   .profile-container {
@@ -1721,12 +1729,51 @@ footer {
 /* Small Phone */
 @media screen and (max-width: 480px) {
   /* HEADER */
+  header {
+    height: 3em;
+  }
   .find-event-header {
     min-height: 85vh;
   }
   .find-event-search {
     width: 90%;
     min-height: 35vh;
+  }
+  #nav-logo {
+    padding-bottom: 2em;
+  }
+  #mobile-menu .MuiButtonBase-root {
+    padding: 0 8px 8px 8px;
+    margin-bottom: 15px;
+  }
+  .mobile-menu-box {
+    width: 50vw;
+  }
+  #gigney-menu-logo {
+    width: 17%;
+  }
+  #gigney-menu-logo img {
+    width: 7em;
+    height: 4em;
+  }
+  .mobile-menu-box h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+  }
+  #loggedin-links-menu {
+    font-size: 2em;
+  }
+  .mobile-menu-link {
+    padding: 6px;
+  }
+  #menu-drawer .MuiDrawer-root {
+    font-size: 0.4em;
+  }
+  .bttn-style-purple {
+    width: 10vw;
+    height: 3vw;
+    padding: 3px 9px;
+    font-size: 10px;
   }
   /*CREATE EVENTS PAGE*/
   #save-exit-ev-btn {

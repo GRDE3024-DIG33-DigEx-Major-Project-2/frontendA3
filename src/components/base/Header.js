@@ -220,7 +220,6 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
                   Privacy Policy
                 </Link>
               </div>
-              ;
             </Drawer>
           </ThemeProvider>
         </div>
