@@ -11,17 +11,13 @@ import {
   Button,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 //Import search event props
 import { SearchEventsContext, SearchEventFiltersContext } from "../../../../props/search-events.prop";
+import { v4 as uuidv4 } from 'uuid';
 
 
 const VenueInput = () => {
-
-
-
-
-
 
 
   /**
@@ -38,11 +34,13 @@ const VenueInput = () => {
    */
   const {
     change,
-    chipData
+    chipData,
+    selectedVenue
   } = useContext(SearchEventFiltersContext);
 
 
 
+  //Get unique venue names from search results
   const uniqueVenues = new Set();
   events.get.forEach((event) => uniqueVenues.add(event.event.venueName));
   const uniqueVenueNames = Array.from(uniqueVenues);
@@ -53,64 +51,31 @@ const VenueInput = () => {
    * @param {*} venue 
    */
   const chipSelectVenue = (venue) => {
-    let newKey = chipData.get.length + 1;
     let temp = chipData.get;
     //Don't duplicate venue listings.
     if (!temp.find(x => x.value === venue)) {
-      temp.push({
-        key: newKey,
-        searchCategory: "venue",
-        label: venue,
-        value: venue,
-      });
+      selectedVenue.set(venue);
     }
-    //Set chip data
-    chipData.set(temp);
-    //Flag the filter options as having changed
-    change.set(!change.get);
   };
 
-
-
-//TODO CONTINUE. USE USEEFFECT TO FILTER OUT OLD VENUE SELECTION CORRECTLY....
-  const toggleVenueFilter = (venue) => {
-
-
-    let temp = chipData.get;
-
-    // Remove existing venue chip, if any
-    temp = temp.filter((x) => x.searchCategory !== "venue");
-
-    if (venue !== "All") {
-      // Add the selected venue as a chip
-      const newKey = chipData.get.length + 1;
-      temp.push({
-        key: newKey,
-        searchCategory: "venue",
-        label: venue,
-        value: venue,
-      });
-    }
-    // // Update the chip data
-     chipData.set(temp);
-    // // Flag the filter options as having changed
-     change.set(!change.get);
-    // console.log("Test");
-    // console.log(temp); console.log(chipData.get);
-    // console.log(temp.length === chipData.get.length);
-
-
-
-  }
-
-  // Use useEffect to perform filtering logic when chipData changes
+  //Handle chip data changes when selectedVenue changes
   useEffect(() => {
+    let temp = chipData.get;
+    temp = temp.filter((x) => x.searchCategory !== "venue");
+    const newKey = uuidv4();
+    temp.push({
+      key: newKey,
+      searchCategory: "venue",
+      label: selectedVenue.get,
+      value: selectedVenue.get,
+    });
 
-    // Update the chip data
-    chipData.set(temp);
-    // Flag the filter options as having changed
-    change.set(!change.get);
-  }, [chipData]);
+    //Delay setting the chip data to the next render cycle
+    setTimeout(() => {
+      chipData.set(temp, false);
+      change.set(!change.get);
+    }, 0);
+  }, [selectedVenue.get]);
 
 
 
@@ -129,24 +94,20 @@ const VenueInput = () => {
       ) : (
         <>
           <RadioGroup
-            defaultValue="All"
-            name="venue-radio"
+            value={selectedVenue.get}
+            name="venue-radio"    
             onChange={(event) => chipSelectVenue(event.target.value)}
           >
             <FormControlLabel
-              key={null}
-              value="All"
+              value="All Venues"
               control={<Radio />}
-              label="All"
-              onChange={() => toggleVenueFilter("All")}
+              label="All Venues"
             />
             {uniqueVenueNames.map((venueName, i) => (
               <FormControlLabel
-                key={i}
                 value={venueName}
                 control={<Radio />}
                 label={venueName}
-                onChange={() => toggleVenueFilter(venueName)}
               />
             ))}
           </RadioGroup>
@@ -157,7 +118,6 @@ const VenueInput = () => {
 
   );
 };
-
 
 
 //Export the Event Venue Input component

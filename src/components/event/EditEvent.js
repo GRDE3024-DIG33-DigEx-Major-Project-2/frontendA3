@@ -28,7 +28,6 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { renderTimeViewClock } from "@mui/x-date-pickers/timeViewRenderers";
 import { Checkbox } from "@mui/material";
 import {
-  getAllTags,
   getAustralianTimezones,
   getFirstLetters,
 } from "../../utils/utils";
@@ -43,7 +42,7 @@ import LocalActivityOutlinedIcon from "@mui/icons-material/LocalActivityOutlined
 import ShareIcon from "@mui/icons-material/Share";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import { getUser } from "../../utils/localStorage";
-import { updateEvent } from "../../services/EventAPI";
+import { updateEvent, getAllTags } from "../../services/EventAPI";
 
 function EditEvent() {
   const user = getUser();
@@ -71,7 +70,7 @@ function EditEvent() {
   const [availableTags, setAvailableTags] = useState([]);
   const [eventURL, setEventURL] = useState(event.event.purchaseUrl);
   // ** SECOND SCREEN - ARTISTS AND SUMMARY ** //
-  const [artistName, setArtistName] = useState(event.acts[0].name);
+  const [artistName, setArtistName] = useState(event.acts.length > 0 ? event.acts[0].name : "");
   const [artistName2, setArtistName2] = useState(
     event.acts.length > 1 ? event.acts[1].name : ""
   );

@@ -63,6 +63,8 @@ const SearchEventFiltersProvider = ({ children }) => {
     //const DEFAULT_MAX_PRICE = 200;
     //Default date range for events
     const DEFAULT_DATE_RANGE = {minDate:null, maxDate: null};
+      //Default selected venue is all venues
+  const DEFAULT_VENUE_SELECT = "All Venues";
     //Default search chip values
     const DEFAULT_FILTER_CHIPS = [
         //{ key: 0, searchCategory: "venue", label: "Arena51", value: "Arena51" },
@@ -91,6 +93,9 @@ const [maxPrice, setMaxPrice] = useState(null);
 //Filter chip UI data
 const [chipData, setChipData] = useState(DEFAULT_FILTER_CHIPS);
 const [currPage, setCurrPage] = useState(0);
+//Filter for selected venue
+const [selectedVenue, setSelectedVenue] = useState(DEFAULT_VENUE_SELECT);
+const [isFree, setIsFree] = useState("free");
 
 
 
@@ -125,10 +130,10 @@ const [currPage, setCurrPage] = useState(0);
                 set: setMaxPrice,
             }
         },
-        // isFree: {
-        //     get: isFree,
-        //     set: setIsFree,
-        // },
+        selectedVenue: {
+            get: selectedVenue,
+            set: setSelectedVenue
+        },
         change: {
             get: change,
             set: setChange
@@ -136,6 +141,10 @@ const [currPage, setCurrPage] = useState(0);
         tagSelection: {
             get: selectedTagIds,
             set: setSelectedTagIds,
+        },
+        isFree: {
+            get: isFree,
+            set: setIsFree
         },
         chipData: {
             get: chipData,

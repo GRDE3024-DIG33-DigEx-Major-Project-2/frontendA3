@@ -61,11 +61,12 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
     location,
     dateRange,
     priceRange,
-    isFree,
     change,
     tagSelection,
     chipData,
-    currPage
+    currPage,
+    selectedVenue,
+    isFree
   } = useContext(SearchEventFiltersContext);
 
 
@@ -146,27 +147,21 @@ let newArr = [...events.get, ...searchResult.events]
    * Clear search filters
    */
   const clearFilters = () => {
-
-    //TODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODOTODO
-
-    //CLEAR DATE RADIO BUTTONS
-    //Set to None Radio button -- TODO FEATURE NOT IMPLEMENTED
-    //CLEAR DATE CALENDAR
-    //Set calendar to equivalent value
-    //Make sure date picker is set to values that would make it ignored when searching
-
-    //CLEAR TICKET PRICE RANGE
-    //Set to free button
-
-    //CLEAR TAGS
-    //Deselect all tags
-    //Empty tagSelection array
-
-    //CLEAR VENUES - TODO THIS FILTER ISNT MADE YET
-    //Deselect venueNames array
-
-    //Clear selected filter chip UI
+    console.log("CLEARING ALL FILTERS");
+    //Reset selected chips
     chipData.set([]);
+    //Reset pagination
+    currPage.set(0);
+    //Reset filter props
+    tagSelection.set([]);
+    keywords.set("");
+    selectedVenue.set("All Venues");
+    dateRange.minDate.set(null);
+    dateRange.maxDate.set(null);
+    priceRange.minPrice.set(null);
+    priceRange.maxPrice.set(null);
+    isFree.set("free");
+    console.log(tagSelection.get, keywords.get, dateRange.minDate.get, dateRange.maxDate.get, priceRange.minPrice.get, priceRange.maxPrice.get, location.get, currPage.get);
     change.set(!change.get);
   };
 
@@ -176,9 +171,10 @@ let newArr = [...events.get, ...searchResult.events]
    */
   let eventListings = <>
     <Box className="events-result">
-        {events.get.map((event, i) => (
-          <EventCardHorizontal key={i} event={event} />
-        ))
+        {events.get.map((event, i) => {
+          //Filter out event display results by venue selected
+          if (event.event.venueName === selectedVenue.get || selectedVenue.get === "All Venues")
+          return (<EventCardHorizontal key={i} event={event} />)})
         }
         {((currPage.get + 1) == pageCount.get) || (currPage.get == 0 && pageCount.get == 0) ? null : <>
         <Button id="load-more-events-btn" onClick={loadMoreHandler}>Load More</Button>

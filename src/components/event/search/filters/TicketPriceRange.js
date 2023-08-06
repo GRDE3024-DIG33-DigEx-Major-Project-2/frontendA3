@@ -52,27 +52,24 @@ import { Link } from "react-router-dom";
    */
   const {
     priceRange,
-    //isFree,
-    // change,
-    // tagSelection,
-    // chipData
+    isFree,
   } = useContext(SearchEventFiltersContext);
 
 
     //Ticket price range UI values
-    const [minPrice, setMinPrice] = useState(1);
-    const [maxPrice, setMaxPrice] = useState(200);
-    //const minPrice = priceRange.minPrice.get;
-    //const maxPrice = priceRange.maxPrice.get;
+    const [minPrice, setMinPrice] = useState(priceRange.minPrice.get);
+    const [maxPrice, setMaxPrice] = useState();
 
-    const [isFree, setIsFree] = useState("free");
+    
 
 
 
-    useEffect(() => {
-      // console.log("Price Range Min:", priceRange.minPrice.get);
-      // console.log("Price Range Max:", priceRange.maxPrice.get);
-    }, [priceRange.minPrice.get, priceRange.maxPrice.get]);
+    useEffect(() => {   
+      if (isFree.get == "free") {
+        setMinPrice(1);
+        setMaxPrice(200);
+      }
+    }, [priceRange.minPrice.get, priceRange.maxPrice.get, isFree.get]);
 
 
   /**
@@ -102,13 +99,13 @@ import { Link } from "react-router-dom";
     if (option == "free") {
       priceRange.minPrice.set(null);
       priceRange.maxPrice.set(null);
-      setIsFree("free");
+      isFree.set("free");
     }
     //Set ticket price filter to paid
     else if (option == "paid") {
       priceRange.minPrice.set(1);
       priceRange.maxPrice.set(200);
-      setIsFree("paid");
+      isFree.set("paid");
     }
   }
 
@@ -131,7 +128,7 @@ import { Link } from "react-router-dom";
     <RadioGroup
       aria-labelledby="price-radio-label"
       name="price-radio"
-      value={isFree}
+      value={isFree.get}
       onChange={(event) => {
         //Set price range to default paid
         if (event.target.value == false) {
@@ -142,7 +139,7 @@ import { Link } from "react-router-dom";
           priceRange.minPrice.set(0); priceRange.maxPrice.set(0);
         }
         //Set paid flag
-        setIsFree(event.target.value)
+        isFree.set(event.target.value)
       }}
     >
       <FormControlLabel
@@ -159,7 +156,7 @@ import { Link } from "react-router-dom";
         onClick={() => handleIsFree("paid")}
       />
     </RadioGroup>
-    {isFree === "paid" && (
+    {isFree.get === "paid" && (
       <Stack
         id="price-select-box"
         spacing={2}
