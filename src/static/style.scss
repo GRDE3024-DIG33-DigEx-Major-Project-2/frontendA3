@@ -76,7 +76,7 @@ nav {
 
   .nav-links {
     width: 50vw;
-    @include flex-nav;
+    @include flex-row;
     font-size: 1.2em;
   }
 }
