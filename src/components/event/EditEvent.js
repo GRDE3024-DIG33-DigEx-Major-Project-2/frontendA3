@@ -49,6 +49,7 @@ function EditEvent() {
   const user = getUser();
   const location = useLocation();
   const event = location.state.event;
+  console.log(event);
   const tagString = [];
   event.tags.forEach((tag) => {
     tagString.push(tag.name + "," + tag.id);
@@ -64,14 +65,19 @@ function EditEvent() {
   const navigate = useNavigate();
 
   //** FIRST SCREEN - BASIC INFO **//
+  const [eventID, setEventID] = useState(event.event.id);
   const [eventName, setEventName] = useState(event.event.title);
-  const [eventOrganiser, setEventOrganiser] = useState(event.event.OrganizerId); // to be changed to name
+  const [eventOrganiser, setEventOrganiser] = useState(
+    event.event.organizationName
+  );
   const [description, setDescription] = useState(event.event.description);
   const [tags, setTags] = useState(tagString);
   const [availableTags, setAvailableTags] = useState([]);
   const [eventURL, setEventURL] = useState(event.event.purchaseUrl);
   // ** SECOND SCREEN - ARTISTS AND SUMMARY ** //
-  const [artistName, setArtistName] = useState(event.acts[0].name);
+  const [artistName, setArtistName] = useState(
+    event.acts[0] ? event.acts[0].name : ""
+  );
   const [artistName2, setArtistName2] = useState(
     event.acts.length > 1 ? event.acts[1].name : ""
   );
@@ -80,6 +86,18 @@ function EditEvent() {
   );
   const [artistName4, setArtistName4] = useState(
     event.acts.length > 3 ? event.acts[3].name : ""
+  );
+  const [artistID, setArtistID] = useState(
+    event.acts.length > 0 ? event.acts[0].id : ""
+  );
+  const [artistID2, setArtistID2] = useState(
+    event.acts.length > 1 ? event.acts[1].id : ""
+  );
+  const [artistID3, setArtistID3] = useState(
+    event.acts.length > 2 ? event.acts[2].id : ""
+  );
+  const [artistID4, setArtistID4] = useState(
+    event.acts.length > 3 ? event.acts[3].id : ""
   );
   const [eventSummary, setEventSummary] = useState(event.event.summary);
   const [enableArtist2, setEnableArtist2] = useState(
@@ -107,28 +125,21 @@ function EditEvent() {
   const timezones = getAustralianTimezones();
   const startDate = new Date(event.event.startDate);
   const endDate = new Date(event.event.endDate);
-  const [eventStartDate, setEventStartDate] = useState(
-    new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())
-  );
-  const [eventEndDate, setEventEndDate] = useState(
-    new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate())
-  );
-  const [eventStartTime, setEventStartTime] = useState(
-    new Date(
-      startDate.getHours(),
-      startDate.getMinutes(),
-      startDate.getSeconds()
-    )
-  );
-  const [eventEndTime, setEventEndTime] = useState(
-    new Date(endDate.getHours(), endDate.getMinutes(), endDate.getSeconds())
-  );
+  const [eventStartDate, setEventStartDate] = useState(startDate);
+  const [eventEndDate, setEventEndDate] = useState(endDate);
+  const [eventStartTime, setEventStartTime] = useState(startDate);
+  const [eventEndTime, setEventEndTime] = useState(endDate);
   const [eventTimezone, setEventTimezone] = useState("AEST");
   // ** FIFTH SCREEN - PRICE **//
   const { eventFree, eventPaid } = state;
   const eventTierName1 = "General Admission";
   const [eventPrice1, setEventPrice1] = useState(
-    eventPaid ? parseFloat(event.ticketTypes[0].price).toFixed(2) : 0.0
+    event.ticketTypes[0]
+      ? parseFloat(event.ticketTypes[0].price).toFixed(2)
+      : 0.0
+  );
+  const [eventTierID1, setEventTierID1] = useState(
+    event.ticketTypes[0] ? event.ticketTypes[0].id : ""
   );
   const [eventTierName2, setEventTierName2] = useState(
     event.ticketTypes[1] ? event.ticketTypes[1].name : ""
@@ -138,6 +149,9 @@ function EditEvent() {
       ? parseFloat(event.ticketTypes[1].price).toFixed(2)
       : 0.0
   );
+  const [eventTierID2, setEventTierID2] = useState(
+    event.ticketTypes[1] ? event.ticketTypes[1].id : ""
+  );
   const [eventTierName3, setEventTierName3] = useState(
     event.ticketTypes[2] ? event.ticketTypes[2].name : ""
   );
@@ -146,6 +160,9 @@ function EditEvent() {
       ? parseFloat(event.ticketTypes[2].price).toFixed(2)
       : 0.0
   );
+  const [eventTierID3, setEventTierID3] = useState( 
+    event.ticketTypes[2] ? event.ticketTypes[2].id : ""
+  );
   const [eventTierName4, setEventTierName4] = useState(
     event.ticketTypes[3] ? event.ticketTypes[3].name : ""
   );
@@ -153,6 +170,9 @@ function EditEvent() {
     event.ticketTypes[3]
       ? parseFloat(event.ticketTypes[3].price).toFixed(2)
       : 0.0
+  );
+  const [eventTierID4, setEventTierID4] = useState(
+    event.ticketTypes[3] ? event.ticketTypes[3].id : ""
   );
   const [enableTicket2, setEnableTicket2] = useState(
     event.ticketTypes[1] ? true : false
@@ -164,8 +184,10 @@ function EditEvent() {
     event.ticketTypes[3] ? true : false
   );
   // ** SIXTH SCREEN - MEDIA **//
-  const [selectedImage, setSelectedImage] = useState(event.eventImg.url);
   const [newImg, setNewImg] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(
+    !event.eventImg ? "" : event.eventImg.url
+  );
 
   // functions to enable/disable artist form fields
   const handleDisable2 = () => {
@@ -308,6 +330,7 @@ function EditEvent() {
     );
 
     const event = {
+      id: eventID,
       title: eventName,
       venueName: venueName,
       description: description,
@@ -325,19 +348,65 @@ function EditEvent() {
     };
 
     let acts = [];
-    acts.push({ name: artistName });
-    if (artistName2 !== "") acts.push({ name: artistName2 });
-    if (artistName3 !== "") acts.push({ name: artistName3 });
-    if (artistName4 !== "") acts.push({ name: artistName4 });
+    let newActs = [];
+    if (artistID !== "") acts.push({ id: artistID, name: artistName });
+    else newActs.push({ name: artistName });
+
+    if (artistName2 !== "") {
+      if (artistID2 !== "") acts.push({ id: artistID2, name: artistName2 });
+      else newActs.push({ name: artistName2 });
+    }
+
+    if (artistName3 !== "") {
+      if (artistID3 !== "") acts.push({ id: artistID3, name: artistName3 });
+      else newActs.push({ name: artistName3 });
+    }
+
+    if (artistName4 !== "") {
+      if (artistID4 !== "") acts.push({ id: artistID4, name: artistName4 });
+      else newActs.push({ name: artistName4 });
+    }
 
     let ticketTypes = [];
-    ticketTypes.push({ name: eventTierName1, price: eventPrice1 });
-    if (eventTierName2 !== "")
-      ticketTypes.push({ name: eventTierName2, price: eventPrice2 });
-    if (eventTierName3 !== "")
-      ticketTypes.push({ name: eventTierName3, price: eventPrice3 });
-    if (eventTierName4 !== "")
-      ticketTypes.push({ name: eventTierName4, price: eventPrice4 });
+    let newTicketTypes = [];
+
+    if (eventTierID1 !== "")
+      ticketTypes.push({
+        id: eventTierID1,
+        name: eventTierName1,
+        price: eventPrice1,
+      });
+    else newTicketTypes.push({ name: eventTierName1, price: eventPrice1 });
+
+    if (eventTierName2 !== "") {
+      if (eventTierID2 !== "")
+        ticketTypes.push({
+          id: eventTierID2,
+          name: eventTierName2,
+          price: eventPrice2,
+        });
+      else newTicketTypes.push({ name: eventTierName2, price: eventPrice2 });
+    }
+
+    if (eventTierName3 !== "") {
+      if (eventTierID3 !== "")
+        ticketTypes.push({
+          id: eventTierID3,
+          name: eventTierName3,
+          price: eventPrice3,
+        });
+      else newTicketTypes.push({ name: eventTierName3, price: eventPrice3 });
+    }
+
+    if (eventTierName4 !== "") {
+      if (eventTierID4 !== "")
+        ticketTypes.push({
+          id: eventTierID4,
+          name: eventTierName4,
+          price: eventPrice4,
+        });
+      else newTicketTypes.push({ name: eventTierName4, price: eventPrice4 });
+    }
 
     let formattedTags = [];
     tags.forEach((tag) => {
@@ -345,13 +414,13 @@ function EditEvent() {
       formattedTags.push({ id: formattedTag[1], name: formattedTag[0] });
     });
 
-    if (newImg){
+    if (newImg) {
       let formData = {
         event: event,
-        acts: [],
-        newActs: acts,
-        ticketTypes: [],
-        newTicketTypes: ticketTypes,
+        acts: acts,
+        newActs: newActs,
+        ticketTypes: ticketTypes,
+        newTicketTypes: newTicketTypes,
         tags: formattedTags,
         eventImg: null,
         filename: selectedImage.name.split(".")[0],
@@ -362,16 +431,16 @@ function EditEvent() {
     } else {
       let formData = {
         event: event,
-        acts: [],
-        newActs: acts,
-        ticketTypes: [],
-        newTicketTypes: ticketTypes,
-        tags: formattedTags
+        acts: acts,
+        newActs: newActs,
+        ticketTypes: ticketTypes,
+        newTicketTypes: newTicketTypes,
+        tags: formattedTags,
       };
       console.log(formData);
       await updateEvent(formData);
     }
-  
+
     navigate("/dashboard");
   };
 
@@ -446,7 +515,9 @@ function EditEvent() {
               <div className="event-main-image">
                 <img
                   alt="event image"
-                  src={newImg ? URL.createObjectURL(selectedImage) : selectedImage}
+                  src={
+                    newImg ? URL.createObjectURL(selectedImage) : selectedImage
+                  }
                 />
               </div>
               <div className="prev-event-body">
@@ -764,9 +835,10 @@ function EditEvent() {
                                     fullWidth
                                     value={artistName}
                                     required
-                                    onChange={(event) =>
-                                      setArtistName(event.target.value)
-                                    }
+                                    onChange={(event) => {
+                                      setArtistName(event.target.value);
+                                      setArtistID("");
+                                    }}
                                     id="create-event-an1"
                                     placeholder="Enter an artist's name"
                                     variant="outlined"
@@ -810,9 +882,10 @@ function EditEvent() {
                                     fullWidth
                                     value={artistName2}
                                     required
-                                    onChange={(event) =>
-                                      setArtistName2(event.target.value)
-                                    }
+                                    onChange={(event) => {
+                                      setArtistName2(event.target.value);
+                                      setArtistID2("");
+                                    }}
                                     id="create-event-an2"
                                     placeholder="Enter an artist's name"
                                     variant="outlined"
@@ -867,9 +940,10 @@ function EditEvent() {
                                     fullWidth
                                     value={artistName3}
                                     required
-                                    onChange={(event) =>
-                                      setArtistName3(event.target.value)
-                                    }
+                                    onChange={(event) => {
+                                      setArtistName3(event.target.value);
+                                      setArtistID3("");
+                                    }}
                                     id="create-event-an3"
                                     placeholder="Enter an artist's name"
                                     variant="outlined"
@@ -924,9 +998,10 @@ function EditEvent() {
                                     fullWidth
                                     value={artistName4}
                                     required
-                                    onChange={(event) =>
-                                      setArtistName4(event.target.value)
-                                    }
+                                    onChange={(event) => {
+                                      setArtistName4(event.target.value);
+                                      setArtistID4("");
+                                    }}
                                     id="create-event-an4"
                                     placeholder="Enter an artist's name"
                                     variant="outlined"
@@ -1457,9 +1532,10 @@ function EditEvent() {
                                   <TextField
                                     value={eventTierName2}
                                     required
-                                    onChange={(event) =>
-                                      setEventTierName2(event.target.value)
-                                    }
+                                    onChange={(event) => {
+                                      setEventTierName2(event.target.value);
+                                      setEventTierID2("");
+                                    }}
                                     id="create-event-ticker-tier2"
                                     placeholder="Enter the ticket tier name"
                                     variant="outlined"
@@ -1534,9 +1610,10 @@ function EditEvent() {
                                   <TextField
                                     value={eventTierName3}
                                     required
-                                    onChange={(event) =>
-                                      setEventTierName3(event.target.value)
-                                    }
+                                    onChange={(event) => {
+                                      setEventTierName3(event.target.value);
+                                      setEventTierID3("");
+                                    }}
                                     id="create-event-ticket-tier3"
                                     placeholder="Enter the ticket tier name"
                                     variant="outlined"
@@ -1611,9 +1688,10 @@ function EditEvent() {
                                   <TextField
                                     value={eventTierName4}
                                     required
-                                    onChange={(event) =>
-                                      setEventTierName4(event.target.value)
-                                    }
+                                    onChange={(event) => {
+                                      setEventTierName4(event.target.value);
+                                      setEventTierID4("");
+                                    }}
                                     id="create-event-ticket-tier4"
                                     placeholder="Enter the ticket tier name"
                                     variant="outlined"

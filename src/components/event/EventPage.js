@@ -11,9 +11,6 @@ function Event() {
   const location = useLocation();
   const event = location.state.event;
 
-  //TO-DO fetch organiser name using OrganizerId
-  const eventOrganiser = "Ticket Master";
-
   // get date range
   const startDate = new Date(Date.parse(event.event.startDate));
   const endDate = new Date(Date.parse(event.event.endDate));
@@ -88,8 +85,8 @@ function Event() {
           </div>
           <div className="organiser-box outlined">
             <h2 className="event-prev-title">Organiser</h2>
-            <Avatar id="event-avatar">{getFirstLetters(eventOrganiser)}</Avatar>
-            <h2>{eventOrganiser}</h2>
+            <Avatar id="event-avatar">{getFirstLetters(event.event.organizationName)}</Avatar>
+            <h2>{event.event.organizationName}</h2>
           </div>
         </div>
         <div className="event-prev-third-row">

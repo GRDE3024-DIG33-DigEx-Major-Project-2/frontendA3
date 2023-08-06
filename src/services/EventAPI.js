@@ -330,7 +330,7 @@ export const updateEvent = async function (formData) {
 
   //Perform first event update request
   let response = await axios
-    .post(EVENT_ENDPOINTS.updateEventUrl, formData, updateEventOptions);
+    .put(EVENT_ENDPOINTS.updateEventUrl, formData, updateEventOptions);
 
   console.log("Performed first event update request");
 
@@ -350,7 +350,7 @@ export const updateEvent = async function (formData) {
 
       //Retry event create
       response = await axios
-        .post(EVENT_ENDPOINTS.updateEventUrl, formData, updateEventOptions);
+        .put(EVENT_ENDPOINTS.updateEventUrl, formData, updateEventOptions);
 
       console.log("Retried initial event request");
 
