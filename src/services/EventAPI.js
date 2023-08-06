@@ -102,79 +102,6 @@ return { events: events, pageCount: pageCount };
 //TODO REFRESH TOKEN IMPLEMENTATION
 //TODO INCOMPLETE
 /**
- * Update event via API PUT request
- * @param {*} formData Formdata from form which contains all the event request body data you would require
- * @returns Event update result
- */
-export const updateEvent = async function (formData) {
-
-  console.log("Inside updateEvent");
-
-  //Event Update request options
-  const updateEventOptions = {
-    //Set to multipart/form-data
-    headers: {
-      'Content-Type': 'multipart/form-data',
-      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-    },
-  };
-
-
-
-  //Perform first event update request
-  let response = await axios
-    .put(EVENT_ENDPOINTS.updateEventUrl, formData, updateEventOptions);
-
-  console.log("Performed first event update request");
-
-  //Refresh tokens in case of expired access token (should be equal to 403, but it catches all non-201 statuses)
-  if (response.status != 201) {
-    console.log("Initial event update failed. Attempting token refresh");
-    //Perform refresh token request
-    let refreshResponse = await axios
-      .get(AUTH_ENDPOINTS.refreshTokenUrl);
-
-    //Token refresh successful! Retry previous request
-    if (refreshResponse.status == 201) {
-
-      console.log("Token refresh successful!", refreshResponse.data);
-      //Set the accessToken
-      localStorage.setItem("accessToken", refreshResponse.data.accessToken);
-
-      //Retry event create
-      response = await axios
-        .post(EVENT_ENDPOINTS.updateEventUrl, formData, updateEventOptions);
-
-      console.log("Retried initial event request");
-
-      //Event retry failed -- Throw error or log user out?
-      if (response.status != 201) {
-        //TODO
-        console.log("Event retry failed");
-        console.log(response);
-      }
-    }
-    //Refresh token failed -- Throw error or log user out?
-    else {
-      //TODO
-      console.log("Refresh token failed");
-      console.log(response);
-      //Checking old accessToken
-      console.log(localStorage.getItem("accessToken"));
-    }
-  }
-
-  console.log("Update Event Success!");
-  console.log(response.data);
-
-  //Return object containing API response data 
-  return response.data;
-
-};
-
-//TODO REFRESH TOKEN IMPLEMENTATION
-//TODO INCOMPLETE
-/**
  * Deletes the user's owned event by id (must be an Organizer)
  * @param {*} eventId Event to delete
  * @param {*} user 
@@ -497,4 +424,75 @@ export const isFavourite = async function (events, eventId) {
 
   // else return false
   return false;
+};
+
+//TODO REFRESH TOKEN IMPLEMENTATION
+//TODO INCOMPLETE
+/**
+ * Update event via API PUT request
+ * @param {*} formData Formdata from form which contains all the event request body data you would require
+ * @returns Event update result
+ */
+export const updateEvent = async function (formData) {
+
+  console.log("Inside updateEvent");
+
+  //Event Update request options
+  const updateEventOptions = {
+    //Set to multipart/form-data
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${getAccessToken()}`,
+    },
+  };
+
+  //Perform first event update request
+  let response = await axios
+    .put(EVENT_ENDPOINTS.updateEventUrl, formData, updateEventOptions);
+
+  console.log("Performed first event update request");
+
+  //Refresh tokens in case of expired access token (should be equal to 403, but it catches all non-201 statuses)
+  if (response.status != 201) {
+    console.log("Initial event update failed. Attempting token refresh");
+    //Perform refresh token request
+    let refreshResponse = await axios
+      .get(AUTH_ENDPOINTS.refreshTokenUrl);
+
+    //Token refresh successful! Retry previous request
+    if (refreshResponse.status == 201) {
+
+      console.log("Token refresh successful!", refreshResponse.data);
+      //Set the accessToken
+      localStorage.setItem("accessToken", refreshResponse.data.accessToken);
+
+      //Retry event create
+      response = await axios
+        .put(EVENT_ENDPOINTS.updateEventUrl, formData, updateEventOptions);
+
+      console.log("Retried initial event request");
+
+      //Event retry failed -- Throw error or log user out?
+      if (response.status != 201) {
+        //TODO
+        console.log("Event retry failed");
+        console.log(response);
+      }
+    }
+    //Refresh token failed -- Throw error or log user out?
+    else {
+      //TODO
+      console.log("Refresh token failed");
+      console.log(response);
+      //Checking old accessToken
+      console.log(getAccessToken());
+    }
+  }
+
+  console.log("Update Event Success!");
+  console.log(response.data);
+
+  //Return object containing API response data 
+  return response.data;
+
 };

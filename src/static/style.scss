@@ -77,6 +77,7 @@ nav {
   .nav-links {
     width: 50vw;
     @include flex-row;
+    font-size: 1.2em;
   }
 }
 
@@ -866,7 +867,7 @@ footer {
 }
 
 #discard-ev-btn {
-  position: absolute;
+  position: relative;
   right: 2%;
   font-size: 1.2em;
   text-decoration: underline;
@@ -1271,6 +1272,7 @@ footer {
   nav {
     .nav-links {
       width: 65vw;
+      font-size: 0.8em;
     }
   }
 
@@ -1293,6 +1295,13 @@ footer {
     width: 40%;
   }
 
+  .bttn-style-orange {
+    padding: 6px 8px;
+}
+
+.bttn-style-purple {
+  padding: 6px 15px;
+}
   /*PROFILE PAGE*/
   .profile-container {
     grid-template-areas:
@@ -1772,13 +1781,26 @@ footer {
     width: 1.5em;
     height: 1em;
   }
+
+  /*CREATE EVENTS PAGE*/
+
+.create-event-screen h2{
+  margin: 0 12px 0 12px;
+}
+
+.create-event-media{
+  margin-top: 20px;
+}
 }
 
 /* Small Phone */
 @media screen and (max-width: 480px) {
   /* HEADER */
+  header{
+    height: 3em;
+  }
   .find-event-header {
-    min-height: 85vh;
+    min-height: 100vh;
   }
 
   .find-event-search {
@@ -1786,9 +1808,146 @@ footer {
     min-height: 35vh;
   }
 
+  #nav-logo{
+    padding-bottom: 2em;
+  }
+
+  #mobile-menu .MuiButtonBase-root{
+    padding: 0 8px 8px 8px;
+    margin-bottom: 15px;
+  }
+
+  .mobile-menu-box {
+    width: 
+    50vw;
+  }
+  #gigney-menu-logo {
+    width: 25%;
+}
+  #gigney-menu-logo img{
+    width: 10m;
+    height: 6em;
+  }
+  .mobile-menu-box h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+#loggedin-links-menu {
+  font-size: 2em;
+}
+
+.mobile-menu-link{
+  padding: 6px;
+}
+
+#menu-drawer .MuiDrawer-root{
+  font-size: 0.4em;
+}
+
+.bttn-style-purple, 
+.bttn-style-orange {
+  width: 25vw;
+  height: 3vw;
+  padding: 3px 9px;
+  font-size: 10px;
+  margin: 5px;
+}
+
+/*FIND AN EVENT*/
+
+#location-field-search{
+  justify-content: center;
+  align-items: center;
+  width: 98%;
+}
+
+.find-event-header-text{
+  margin: 0;
+  font-size: 35px !important;
+}
+
+#search-event-form .MuiInputBase-root {
+  height: 29px;
+  margin: 3px;
+}
+
+#search-event-form .MuiTextField-root{
+  background-color: transparent !important;
+}
+
+#search-event-form .MuiOutlinedInput-root{
+  background-color: $white;
+  padding: 0 13px;
+}
+
+#search-event-form .find-event-search{
+  padding-top: 2px;
+}
+
+.search-form-els, #search-form-submit-btn{
+  width: 87%;
+}
+#search-form-submit-btn{
+  height: 24px;
+  margin: 5px;
+}
+
+#search-event-form .MuiChip-sizeMedium{
+  text-align: center;
+  font-size: 0.5em;
+  height: 16px;
+}
+#search-event-form .MuiChip-labelMedium{
+  height: 15px;
+}
+
+.find-event-tags{
+  margin: 25px;
+}
+
+#events-txt-field {
+  min-width: 50vw;
+}
+
+.home-row h1{
+  text-align: center;
+}
+
+.home-row .MuiCardMedia-root{
+  width: 27em !important;
+  height: 13em !important;
+}
+
+.home-row #ev-share,
+.home-row #ev-bookmark{
+  top: 40.5%;
+}
+
+.home-row .MuiSvgIcon-root{
+  width: 1em;
+  height: 1.3em;
+  font-size: 1em;
+}
+
+.home-row .card-icon{
+  width: 20px;
+  height: 20px;
+}
+
+.card-name{
+  font-size: 27px;
+}
+
+.card-date,
+.card-location {
+  font-size: 17px;
+}
+
   /*CREATE EVENTS PAGE*/
   #save-exit-ev-btn {
     padding: 7px 6px;
+    margin: 10px;
   }
 
   #save-cont-ev-btn {
@@ -1797,25 +1956,16 @@ footer {
 
   #stepper-box h2 {
     font-size: 0.8em;
-    padding-left: 1em;
   }
-  #stepper-box {
-    justify-content: left;
-  }
+
   #discard-ev-btn {
-    right: 4%;
     font-size: 1em;
   }
   .create-event-screen h2 {
     text-align: center;
     margin-top: 12px;
     margin-bottom: 12px;
-  }
-
-  .css-12z1287-MuiGrid-root p,
-  .css-1f064cs-MuiGrid-root p,
-  .css-1qeq9aw-MuiGrid-root p {
-    font-size: 0.8em;
+    font-size: 2em;
   }
 
   #create-event-description {
@@ -1825,8 +1975,10 @@ footer {
 
   #create-event-name,
   #create-event-organiser,
-  #create-event-eventURL {
-    font-size: 3.8em;
+  #create-event-eventURL,
+  #create-event-an1
+   {
+    font-size: 0.8em;
     padding: 7.5px 8px;
   }
 
@@ -1861,4 +2013,165 @@ footer {
   .css-yi3mkw {
     flex-wrap: nowrap;
   }
+
+  .artist-and-summary .MuiGrid-container,
+  .basic-information .MuiGrid-container,
+  .create-event-location-div .MuiGrid-container,
+  .create-event-screen .MuiGrid-container,
+  .create-event-pricing .MuiGrid-container,
+  #stepper-box,
+  #discard-ev-btn{
+    display: flex !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding-left: 46px;
+    min-width: 90%;
+    padding-top: 0;
+  }
+
+  #stepper-box,
+  #discard-ev-btn,
+  #stepper-box h2{
+    align-items: center !important;
+    padding: 0 !important;
+    right: 0 !important;
+    margin-top: 5px;
+  }
+
+  .create-event-pricing .MuiGrid-spacing-xs-1{
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    padding: 0px;
+  }
+
+  .create-event-pricing .MuiGrid-grid-xs-6,
+  .artist-and-summary .MuiGrid-grid-xs-5,
+  .artist-and-summary .MuiGrid-grid-xs-11{
+    padding-top: 0 !important;
+  }
+
+  .artist-and-summary .MuiGrid-item{
+    width: 100% !important;
+  }
+
+  .create-event-location-div .MuiGrid-container{
+    padding-left: 20px !important;
+  }
+
+  .artist-and-summary .MuiInputBase-multiline{
+    width: 19em;
+  }
+  .basic-information .MuiInputBase-formControl{
+    width: 21em !important;
+  }
+
+  .artist-and-summary .fab-container{
+    flex-direction: row !important;
+    justify-content: flex-end !important;
+  }
+
+  .create-event-pricing .fab-container-tickets{
+    flex-direction: row !important;
+    padding-top: 4px !important;
+  }
+
+  .create-event-pricing .add-artist-fab-disabled,
+  .create-event-pricing .remove-artist-fab-disabled,
+  .create-event-pricing .add-ticket-fab-disabled, 
+  .create-event-pricing .remove-ticket-fab-disabled,
+  .create-event-pricing .add-artist-fab, 
+  .create-event-pricing .remove-artist-fab, 
+  .create-event-pricing .add-ticket-fab, 
+  .create-event-pricing .remove-ticket-fab{
+    left: 8em !important;
+  }
+
+  #create-ev-summary{
+    width: 50%
+  }
+  .map-container {
+    height: 18em;
+    width: 30em;
+    margin: 0px 30px 0px 30px;
+  }
+
+  .create-event-location-div .MuiOutlinedInput-notchedOutline,
+  .artist-and-summary .MuiOutlinedInput-notchedOutline{
+    width: 100%;
+  }
+  .create-event-location-div .MuiGrid-grid-xs-3{
+    padding-left: 0 !important;
+    margin-bottom: 2px;
+  }
+  .create-event-location-div .MuiGrid-grid-xs-1,
+  .create-event-location-div .MuiGrid-grid-xs-5 {
+    padding-left: 0px !important;
+    margin-bottom: 2px;
+  }
+
+  .create-event-pricing .form-label-active{
+    margin: 2px;
+  }
+
+  .create-event-pricing .MuiOutlinedInput-root{
+    height: 30px;
+  }
+
+  /*SIGNUP PAGE*/
+
+  .signup {
+    height: 200vh;
+  }
+  .signup #signup-right-img {
+    height: 35vw;
+  }
+
+  .mobile-signup-logo {
+    width: 38%;
+    top: 27%;
+    left: 29%;
+}
+
+.signup-left h1 {
+  font-size: 2em;
+}
+
+.signup-left{
+  min-height: 70% !important;
+}
+
+.signup-form {
+  height: 60%;
+}
+
+.signup-left .MuiInputLabel-root{
+  line-height: 1em;
+}
+
+#demo-simple-select-label{
+color: $white;
+text-shadow: -0.5px -0.5px 0 $black, 0.5px -0.5px 0 $black, -0.5px 0.5px 0 $black,
+0.5px 0.5px 0 $black;
+  font-size: 0.7em;
+  top: -14px;
+}
+
+.signup-left #next-button{
+  height: 2.5em;
+}
+
+.signup-left .MuiSelect-outlined{
+  line-height: 1em;
+  padding: 9.5px 9px;
+}
+
+.login-link {
+  font-size: 0.8em;
+}
+.signup-left .signup-form{
+  row-gap: 7em;
+}
 }
