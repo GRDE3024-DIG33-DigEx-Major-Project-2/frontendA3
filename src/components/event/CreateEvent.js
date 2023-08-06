@@ -17,7 +17,6 @@ import {
 import Grid from "@mui/material/Grid";
 import Select from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
-import OutlinedInput from "@mui/material/OutlinedInput";
 import MenuItem from "@mui/material/MenuItem";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
@@ -28,7 +27,6 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { renderTimeViewClock } from "@mui/x-date-pickers/timeViewRenderers";
 import { Checkbox } from "@mui/material";
 import {
-  getAllTags,
   getAustralianTimezones,
   getFirstLetters,
 } from "../../utils/utils";
@@ -44,6 +42,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import { getUser } from "../../utils/localStorage";
 import { createEvent } from "../../services/EventAPI";
+import BasicInfo from "./CE1_BasicInfo";
 
 function CreateEvent() {
   const user = getUser();
@@ -56,11 +55,11 @@ function CreateEvent() {
   const navigate = useNavigate();
 
   //** FIRST SCREEN - BASIC INFO **//
+  const [eventID, setEventID] = useState("");
   const [eventName, setEventName] = useState("");
   const [eventOrganiser, setEventOrganiser] = useState("");
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState([]);
-  const [availableTags, setAvailableTags] = useState([]);
   const [eventURL, setEventURL] = useState("");
   // ** SECOND SCREEN - ARTISTS AND SUMMARY ** //
   const [artistName, setArtistName] = useState("");
@@ -134,22 +133,6 @@ function CreateEvent() {
     if (!enableTicket4) setEnableTicket4(true);
   };
 
-  /**
-   * Fetch api data on load
-   */
-  useEffect(() => {
-    /**
-     * Get all pre-defined tags/genres
-     */
-    async function fetchTags() {
-      const tags = await getAllTags();
-      setAvailableTags(tags);
-    }
-
-    //Get tags
-    fetchTags();
-  }, [setAvailableTags]);
-
   useEffect(() => {
     /** Update map location as address is typed in*/
     async function fetchCoordinates() {
@@ -189,27 +172,6 @@ function CreateEvent() {
 
     fetchCoordinates();
   }, [eventState, eventPostCode]);
-
-  // select keywords styling
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = -55;
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
-  };
-
-  // select tags handler
-  const selectTags = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setTags(typeof value === "string" ? value.split(",") : value);
-    console.log(tags);
-  };
 
   const handleNext = (e) => {
     if (activeStep === 5 && !selectedImage) {
@@ -566,120 +528,18 @@ function CreateEvent() {
                 // FIRST SCREEN - BASIC INFO
                 if (activeStep === 0) {
                   return (
-                    <>
-                      <h2>Basic Information</h2>
-                      <div className="basic-information">
-                        <Box alignItems="center" justifyContent="center">
-                          <form onSubmit={signupHandler}>
-                            <FormControl fullWidth>
-                              <Grid container spacing={2} paddingBottom="15px">
-                                <Grid container item xs={6} direction="column">
-                                  <p>Event Name:</p>
-                                  <TextField
-                                    fullWidth
-                                    value={eventName}
-                                    required
-                                    onChange={(event) =>
-                                      setEventName(event.target.value)
-                                    }
-                                    id="create-event-name"
-                                    placeholder="Enter the event name"
-                                    variant="outlined"
-                                  />
-                                </Grid>
-                                <Grid container item xs={6} direction="column">
-                                  <p>Event Organiser:</p>
-                                  <TextField
-                                    fullWidth
-                                    value={eventOrganiser}
-                                    required
-                                    onChange={(event) =>
-                                      setEventOrganiser(event.target.value)
-                                    }
-                                    id="create-event-organiser"
-                                    placeholder="Enter the event organiser"
-                                    variant="outlined"
-                                  />
-                                </Grid>
-                                <Grid container item l={12} direction="row">
-                                  <p>Event description:</p>
-                                  <TextField
-                                    fullWidth
-                                    value={description}
-                                    required
-                                    onChange={(event) =>
-                                      setDescription(event.target.value)
-                                    }
-                                    placeholder="Enter a description for the event"
-                                    multiline
-                                    id="create-event-description"
-                                    variant="outlined"
-                                    rows={8}
-                                  />
-                                </Grid>{" "}
-                                <Grid container item xs={12} direction="column">
-                                  <p>Keywords</p>
-                                  <Select
-                                    fullWidth
-                                    id="create-event-multiple-tags"
-                                    multiple
-                                    value={tags}
-                                    onChange={selectTags}
-                                    input={
-                                      <OutlinedInput id="select-multiple-chip" />
-                                    }
-                                    renderValue={(selected) => (
-                                      <Box
-                                        sx={{
-                                          display: "flex",
-                                          flexWrap: "wrap",
-                                          gap: 0.5,
-                                        }}
-                                      >
-                                        {selected.map((value) => (
-                                          <Chip
-                                            key={value}
-                                            sx={{
-                                              backgroundColor: "#7759A6",
-                                              color: "white",
-                                            }}
-                                            label={value.split(",")[0]}
-                                          />
-                                        ))}
-                                      </Box>
-                                    )}
-                                    MenuProps={MenuProps}
-                                  >
-                                    {availableTags.map((tag) => (
-                                      <MenuItem
-                                        key={tag.id}
-                                        value={tag.name + "," + tag.id}
-                                      >
-                                        {tag.name}
-                                      </MenuItem>
-                                    ))}
-                                  </Select>
-                                </Grid>
-                                <Grid container item xs={6} direction="column">
-                                  <p>Event purchase URL:</p>
-                                  <TextField
-                                    fullWidth
-                                    value={eventURL}
-                                    required
-                                    onChange={(event) =>
-                                      setEventURL(event.target.value)
-                                    }
-                                    placeholder="Enter a URL for ticket purchasing"
-                                    id="create-event-eventURL"
-                                    variant="outlined"
-                                  />
-                                </Grid>
-                              </Grid>
-                            </FormControl>
-                          </form>
-                        </Box>
-                      </div>
-                    </>
+                    <BasicInfo
+                      eventName={eventName}
+                      setEventName={setEventName}
+                      eventOrganiser={eventOrganiser}
+                      setEventOrganiser={setEventOrganiser}
+                      description={description}
+                      setDescription={setDescription}
+                      tags={tags}
+                      setTags={setTags}
+                      eventURL={eventURL}
+                      setEventURL={setEventURL}
+                    />
                   );
                 } else if (activeStep === 1) {
                   return (
