@@ -14,6 +14,7 @@ import { useState, useEffect } from "react";
 import { getFirstLetters } from "../../utils/utils";
 import { getUser } from "../../utils/localStorage";
 import { searchOwnedEvents } from "../../services/EventAPI";
+import DraftCard from "../event/DraftCard";
 
 const Dashboard = () => {
   const [events, setEvents] = useState([]);
@@ -110,6 +111,12 @@ const Dashboard = () => {
               </Box>
             </article>
             <article className="saved-events">
+              <div id="event-drafts">
+              <h2>Event Drafts</h2>
+              <Box className="drafts">
+                <DraftCard />
+              </Box>
+              </div>
               <div id="saved-events-header">
                 <h2>Created Events</h2>
                 <Link className="bttn-style-orange" to="/createevent">
