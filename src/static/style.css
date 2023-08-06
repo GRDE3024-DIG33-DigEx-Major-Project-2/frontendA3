@@ -1733,7 +1733,7 @@ footer {
     height: 3em;
   }
   .find-event-header {
-    min-height: 85vh;
+    min-height: 100vh;
   }
   .find-event-search {
     width: 90%;
@@ -1750,11 +1750,11 @@ footer {
     width: 50vw;
   }
   #gigney-menu-logo {
-    width: 17%;
+    width: 25%;
   }
   #gigney-menu-logo img {
-    width: 7em;
-    height: 4em;
+    width: 10m;
+    height: 6em;
   }
   .mobile-menu-box h1 {
     font-size: 2em;
@@ -1769,15 +1769,90 @@ footer {
   #menu-drawer .MuiDrawer-root {
     font-size: 0.4em;
   }
-  .bttn-style-purple {
-    width: 10vw;
+  .bttn-style-purple,
+  .bttn-style-orange {
+    width: 25vw;
     height: 3vw;
     padding: 3px 9px;
     font-size: 10px;
+    margin: 5px;
+  }
+  /*FIND AN EVENT*/
+  #location-field-search {
+    justify-content: center;
+    align-items: center;
+    width: 98%;
+  }
+  .find-event-header-text {
+    margin: 0;
+    font-size: 35px !important;
+  }
+  #search-event-form .MuiInputBase-root {
+    height: 29px;
+    margin: 3px;
+  }
+  #search-event-form .MuiTextField-root {
+    background-color: transparent !important;
+  }
+  #search-event-form .MuiOutlinedInput-root {
+    background-color: #ffffff;
+    padding: 0 13px;
+  }
+  #search-event-form .find-event-search {
+    padding-top: 2px;
+  }
+  .search-form-els, #search-form-submit-btn {
+    width: 87%;
+  }
+  #search-form-submit-btn {
+    height: 24px;
+    margin: 5px;
+  }
+  #search-event-form .MuiChip-sizeMedium {
+    text-align: center;
+    font-size: 0.5em;
+    height: 16px;
+  }
+  #search-event-form .MuiChip-labelMedium {
+    height: 15px;
+  }
+  .find-event-tags {
+    margin: 25px;
+  }
+  #events-txt-field {
+    min-width: 50vw;
+  }
+  .home-row h1 {
+    text-align: center;
+  }
+  .home-row .MuiCardMedia-root {
+    width: 27em !important;
+    height: 13em !important;
+  }
+  .home-row #ev-share,
+  .home-row #ev-bookmark {
+    top: 40.5%;
+  }
+  .home-row .MuiSvgIcon-root {
+    width: 1em;
+    height: 1.3em;
+    font-size: 1em;
+  }
+  .home-row .card-icon {
+    width: 20px;
+    height: 20px;
+  }
+  .card-name {
+    font-size: 27px;
+  }
+  .card-date,
+  .card-location {
+    font-size: 17px;
   }
   /*CREATE EVENTS PAGE*/
   #save-exit-ev-btn {
     padding: 7px 6px;
+    margin: 10px;
   }
   #save-cont-ev-btn {
     padding: 7px 5px;
@@ -1922,6 +1997,49 @@ footer {
   }
   .create-event-pricing .MuiOutlinedInput-root {
     height: 30px;
+  }
+  /*SIGNUP PAGE*/
+  .signup {
+    height: 200vh;
+  }
+  .signup #signup-right-img {
+    height: 35vw;
+  }
+  .mobile-signup-logo {
+    width: 38%;
+    top: 27%;
+    left: 29%;
+  }
+  .signup-left h1 {
+    font-size: 2em;
+  }
+  .signup-left {
+    min-height: 70% !important;
+  }
+  .signup-form {
+    height: 60%;
+  }
+  .signup-left .MuiInputLabel-root {
+    line-height: 1em;
+  }
+  #demo-simple-select-label {
+    color: #ffffff;
+    text-shadow: -0.5px -0.5px 0 #000000, 0.5px -0.5px 0 #000000, -0.5px 0.5px 0 #000000, 0.5px 0.5px 0 #000000;
+    font-size: 0.7em;
+    top: -14px;
+  }
+  .signup-left #next-button {
+    height: 2.5em;
+  }
+  .signup-left .MuiSelect-outlined {
+    line-height: 1em;
+    padding: 9.5px 9px;
+  }
+  .login-link {
+    font-size: 0.8em;
+  }
+  .signup-left .signup-form {
+    row-gap: 7em;
   }
 }
 
