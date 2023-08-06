@@ -44,6 +44,8 @@ const VenueInput = () => {
   const uniqueVenues = new Set();
   events.get.forEach((event) => uniqueVenues.add(event.event.venueName));
   const uniqueVenueNames = Array.from(uniqueVenues);
+  //Number of venue filters that are displayed
+  const [numDisplayedVenues, setNumDisplayedVenues] = useState(10);
 
 
   /**
@@ -79,8 +81,12 @@ const VenueInput = () => {
 
 
 
-  //TODO
+  /**
+   * Display an extra 10 venues
+   * @param {*} event 
+   */
   const loadMoreVenues = (event) => {
+    setNumDisplayedVenues(numDisplayedVenues + 10);
     console.log("TODO LOAD MORE VENUES");
   };
 
@@ -103,15 +109,18 @@ const VenueInput = () => {
               control={<Radio />}
               label="All Venues"
             />
-            {uniqueVenueNames.map((venueName, i) => (
+            {uniqueVenueNames.slice(0, numDisplayedVenues).map((venueName, i) => (
               <FormControlLabel
+                key={i}
                 value={venueName}
                 control={<Radio />}
                 label={venueName}
               />
             ))}
           </RadioGroup>
-          <Button onClick={loadMoreVenues}>View more</Button>
+          {numDisplayedVenues < uniqueVenueNames.length && (
+            <Button onClick={loadMoreVenues}>View more</Button>
+          )}
         </>
       )}
     </div>
