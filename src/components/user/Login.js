@@ -98,7 +98,6 @@ const Login = ({ setIsLoggedIn }) => {
         setLoading(false);
       }
 
-
     }
   };
 
