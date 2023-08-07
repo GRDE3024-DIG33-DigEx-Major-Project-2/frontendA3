@@ -2,7 +2,7 @@ import * as React from "react";
 import { FormControl, TextField, InputAdornment, Button } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { useNavigate, Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
@@ -13,9 +13,16 @@ import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
+import { LoadingContext, useLoading } from "../../props/loading-spinner.prop";
 
 function SignUpGuest() {
   const baseURL = process.env.REACT_APP_BASEURL;
+
+  //Fullpage loading spinner props
+  const {
+    loading,
+    setLoading
+  } = useContext(LoadingContext);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -43,6 +50,10 @@ function SignUpGuest() {
 
   const signupHandler = async (event) => {
     event.preventDefault();
+
+    //Enable fullpage loading spinner
+    setLoading(true);
+
     if (password !== confirmPassword) {
       alert("Passwords must match");
     } else {
@@ -64,6 +75,8 @@ function SignUpGuest() {
         .post(registerUrl, requestBody)
         .then((response) => {
           alert("Registration Succesful");
+          //Disable fullpage loading spinner
+          setLoading(false);
           navigate("/login");
         })
         .catch((error) => {

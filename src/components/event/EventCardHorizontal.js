@@ -1,4 +1,4 @@
-import { Card, CardContent, CardMedia, Box, Link } from "@mui/material";
+import { Card, CardContent, CardMedia, CardActionArea, Box, Link } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
@@ -8,8 +8,11 @@ import { getDateRangeString, getPriceRangeString } from "../../utils/utils";
 import { useNavigate } from "react-router-dom";
 
 const EventCardHorizontal = (props) => {
+
+
   const navigate = useNavigate();
-  // get date range
+
+
   const stringDate = getDateRangeString(
     props.event.event.startDate,
     props.event.event.endDate
@@ -29,6 +32,7 @@ const EventCardHorizontal = (props) => {
   };
 
   return (
+    <CardActionArea onClick={cardRedirect} sx={{height: "100%"}}>
     <Card className="horizontal-card">
       <CardMedia component="img" image={imgUrl} alt={props.event.event.title} />
       <Box className="horizontal-card-box">
@@ -55,6 +59,8 @@ const EventCardHorizontal = (props) => {
         </CardContent>
       </Box>
     </Card>
+    </CardActionArea>
+
   );
 };
 

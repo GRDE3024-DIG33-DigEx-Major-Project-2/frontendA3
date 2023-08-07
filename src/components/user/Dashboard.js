@@ -20,7 +20,8 @@ import { searchOwnedEvents } from "../../services/EventAPI";
 import DraftCard from "../event/DraftCard";
 
 const Dashboard = () => {
-  const [events, setEvents] = useState([]);
+
+  const [ownedEvents, setOwnedEvents] = useState([]);
   const user = getUser();
 
   const drafts = getDrafts();
@@ -29,15 +30,27 @@ const Dashboard = () => {
   useEffect(() => {
     async function fetchEvents() {
       const data = await searchOwnedEvents(0);
-      setEvents(data.events);
+      console.log("Owned events search results: ", data);
+      setOwnedEvents(data.events);
     }
 
     fetchEvents();
-  }, [setEvents]);
+  }, [setOwnedEvents]);
 
   const handleDelete = () => {
     console.log("redirecting to delete page or pop up");
   };
+
+// return (<>
+// <Button onclick={testCreate}
+//                   variant="contained"
+//                   id="save-pwd-btn"
+//                   type="submit"
+//                   >
+//                     TEST CREATE</Button>
+//   <button onClick={testCreate}>Test Create</button>
+// </>
+// );
 
   return (
     <>
@@ -98,6 +111,7 @@ const Dashboard = () => {
                       ),
                     }}
                   />
+
                   <Button
                     variant="contained"
                     id="save-pwd-btn"
@@ -144,6 +158,7 @@ const Dashboard = () => {
                   </>
                 )}
               </Box>
+              
             </article>
           </>
         )}

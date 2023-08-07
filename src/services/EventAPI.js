@@ -10,31 +10,45 @@ import {
 } from "../utils/constants.util";
 import axios from "axios";
 import { getAccessToken } from "../utils/localStorage";
-const baseURL = process.env.REACT_APP_BASEURL;
+import axiosRetry from 'axios-retry';
 
-const searchEventsURL = baseURL + "event/search-page";
-const getAllTagsUrl = baseURL + "event/tags";
-
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 /**
  * Get a page of events from api endpoint
- * @param {*} tagIds
- * @param {*} keywords Keywords that match
- * @param {*} startDate The starting date of the event
+ * @param {*} tagIds 
+ * @param {*} keywords Keywords that match 
+ * @param {*} minDate The minimum date for an event
+ * @param {*} maxDate The maximum date for an event
  * @param {*} city The city the event is in
  * @param {*} priceRange Object that contains minPrice and maxPrice
  * @param {*} page The page of event matches requested
  * @returns Array of events and number of pages that match the filter options
  */
-export const searchEvents = async function (
-  tagIds,
-  keywords,
-  startDate,
-  city,
-  priceRange,
-  page
-) {
+export const searchEvents = async function (tagIds, keywords, minDate, maxDate, city, priceRange, page) {
+  await delay(3000);
   console.log("Inside Search Events");
-  console.log(tagIds, keywords, startDate, city, page);
+  console.log(tagIds, keywords, minDate, maxDate, city, page);
+
+  let priceSetting = null;
+
+  if (priceRange != null) {
+  if (priceRange.minPrice != null 
+    && priceRange.maxPrice != null
+    && priceRange.minPrice != 0
+    && priceRange.maxPrice != 0)
+  priceSetting = {
+    minPrice: priceRange.minPrice,
+    maxPrice: priceRange.maxPrice
+  };    
+  }
+
+
+  //Set empty keywords string to null
+  if (keywords == "")
+  keywords = null;
+
 
   //The array of events to return
   let events = [];
@@ -45,30 +59,75 @@ export const searchEvents = async function (
   let requestBody = {
     tags: tagIds,
     keywords: keywords,
-    startDate: startDate,
+    minDate: minDate,
+    maxDate: maxDate,
     city: city,
-    //priceRange: priceRange,
-    page: page | 0,
+    priceRange: priceSetting,
+    page: page | 0
   };
 
   console.log("Request body test");
   console.log(requestBody);
 
+  try {
   //Get the array of events and the page number
   await axios
-    .post(searchEventsURL, requestBody)
+    .post(EVENT_ENDPOINTS.searchEventsUrl, requestBody)
     .then((response) => {
       console.log("Search Events Test...");
       console.log(response.data);
       events = response.data.events;
       pageCount = response.data.pageCount;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+    });  
+  }
+  catch(error) {
+
+    //console.clear();
+    console.log(tagIds, keywords, minDate, maxDate, city, page);
+    console.log("An error occured while searching events!");
+
+      //Request body is invalid!
+  if (error.response.status == 422) {
+console.log("Request body is invalid!");
+console.log(error.response.data.errors);
+
+//TODO ADJUST THIS PART TO MEET YOUR NEEDS
+return { events: events, pageCount: pageCount };
+//return response.data.errors;
+  }
+  }
 
   //Return object containing API response data
   return { events: events, pageCount: pageCount };
+};
+
+//TODO REFRESH TOKEN IMPLEMENTATION
+//TODO INCOMPLETE
+/**
+ * Deletes the user's owned event by id (must be an Organizer)
+ * @param {*} eventId Event to delete
+ * @param {*} user 
+ */
+export const deleteEvent = async function (eventId) {
+
+  const options = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+  };
+
+
+  await axios
+    .delete(EVENT_ENDPOINTS.deleteEventUrl + `/${eventId}`, options)
+    .then((response) => {
+      console.log(response);
+      console.log("Event deleted!")
+      return response;
+    })
+    .catch((error) => {
+      console.log(error);
+      return;
+    });
 };
 
 /**
@@ -79,7 +138,7 @@ export const getAllTags = async function () {
   let tags = [];
 
   await axios
-    .get(getAllTagsUrl)
+    .get(EVENT_ENDPOINTS.getAllTagsUrl)
     .then((response) => {
       tags = response.data.tags;
     })
@@ -146,7 +205,14 @@ export const searchOwnedEvents = async function (page) {
  * @returns Event creation result
  */
 export const createEvent = async function (formData) {
+
   console.log("Inside createEvent");
+
+
+
+  if (formData.event.purchaseUrl == "") {
+    formData.event.purchaseUrl = null;
+  }
 
   //Event Create request options
   const createEventOptions = {
@@ -277,7 +343,7 @@ export const toggleFavourite = async function (eventId) {
   };
 
   await axios
-    .post(EVENT_ENDPOINTS.toggleFavouriteUrl + `/${eventId}`, options)
+    .post(EVENT_ENDPOINTS.toggleFavouriteUrl, requestBody, options)
     .then((response) => {
       console.log(response.data);
       console.log("Event favourited toggled!");
@@ -318,6 +384,7 @@ export const isFavourite = async function (events, eventId) {
 export const updateEvent = async function (formData) {
 
   console.log("Inside updateEvent");
+  console.log(formData);
 
   //Event Update request options
   const updateEventOptions = {
@@ -342,7 +409,7 @@ export const updateEvent = async function (formData) {
       .get(AUTH_ENDPOINTS.refreshTokenUrl);
 
     //Token refresh successful! Retry previous request
-    if (refreshResponse.status == 201) {
+    if (refreshResponse.status == 200) {
 
       console.log("Token refresh successful!", refreshResponse.data);
       //Set the accessToken

@@ -8,7 +8,7 @@ import Login from "./user/Login.js";
 import Signup from "./user/Signup.js";
 import About from "./base/About.js";
 import ResetPassword from "./user/ResetPassword.js";
-import Events from "./event/Events";
+import SearchEvent from "./event/search/SearchEvent";
 import TermsOfUse from "./base/TermsOfUse";
 import PrivacyPolicy from "./base/PrivacyPolicy";
 import EventPage from "./event/EventPage.js";
@@ -22,19 +22,25 @@ import { useState } from "react";
 
 //Import prop context providers
 import { SearchEventsProvider, SearchEventFiltersProvider } from "../props/search-events.prop";
+import {LoadingProvider} from "../props/loading-spinner.prop";
+
+import {FullPageSpinner} from "./shared/LoadingSpinner";
 
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+
   return (
     <div className="App">
       <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-      <SearchEventsProvider>
+      <LoadingProvider>
+        <FullPageSpinner></FullPageSpinner>
+            <SearchEventsProvider>
         <SearchEventFiltersProvider>
-      <Routes>
+          <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="events" element={<Events />} />        
+            <Route path="events" element={<SearchEvent />} />        
         <Route path="about" element={<About />} />
         <Route path="login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="signup" element={<Signup />} />
@@ -51,7 +57,9 @@ function App() {
         <Route path="*" element={<h1 className="not-found">Page Not Found</h1>} />
       </Routes>          
         </SearchEventFiltersProvider>
-      </SearchEventsProvider>
+      </SearchEventsProvider>  
+      </LoadingProvider>
+
 
       <Footer />
     </div>

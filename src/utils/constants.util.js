@@ -36,3 +36,5 @@ export const USER_ENDPOINTS = {
   deleteUrl: BASE_URL + "user",
   resetPasswordUrl: BASE_URL + "user/reset-password",
 };
+
+

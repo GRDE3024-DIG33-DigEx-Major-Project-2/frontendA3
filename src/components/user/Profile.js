@@ -9,24 +9,43 @@ import {
 import { Link } from "react-router-dom";
 import EventCardHorizontal from "../event/EventCardHorizontal";
 import { useState, useEffect } from "react";
-import { getFirstLetters } from "../../utils/utils";
+import {  getFirstLetters } from "../../utils/utils";
+//Search for favourited events
+import {searchFavourites} from "../../services/EventAPI";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import LockIcon from "@mui/icons-material/Lock";
+import { useContext } from "react";
+//Import search event props
+import { SearchEventsContext, SearchEventFiltersContext } from "../../props/search-events.prop";
+
 import { getUser } from "../../utils/localStorage";
-import { searchFavourites } from "../../services/EventAPI";
 
 const Profile = () => {
-  const [events, setEvents] = useState([]);
+
+
+  const [favouritedEvents, setFavouritedEvents] = useState([]);
+
+  
+    /**
+   * Prop context for search event data
+   */
+    const {
+      events,
+      pageCount,
+      tags
+    } = useContext(SearchEventsContext);
+  
   const user = getUser();
 
   useEffect(() => {
     async function fetchEvents() {
       const data = await searchFavourites(0);
-      setEvents(data.events);
+      console.log("Favourited events search results: ", data);
+      setFavouritedEvents(data.events);
     }
 
     fetchEvents();
-  }, [setEvents]);
+  }, [setFavouritedEvents]);
 
   const handleDelete = () => {
     console.log("redirecting to delete page or pop up");
@@ -102,10 +121,10 @@ const Profile = () => {
             <article className="saved-events">
               <h2>Saved Events</h2>
               <Box className="events-profile">
-                {events.length !== 0 && events.map((event, i) => (
+                {favouritedEvents.map((event, i) => (
                   <EventCardHorizontal key={i} event={event} />
                 ))}
-                {events.length === 0 && <><h2>You have not yet saved any events.</h2></>}
+                {favouritedEvents.length === 0 && <><h2>You have not yet saved any events.</h2></>}
               </Box>
             </article>
           </>

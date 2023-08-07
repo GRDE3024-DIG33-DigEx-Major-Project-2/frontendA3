@@ -1,12 +1,24 @@
 import { FormControl, TextField, InputAdornment, Button } from "@mui/material";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { setAccessToken, setUserSession, setDrafts } from "../../utils/localStorage";
+import { LoadingContext } from "../../props/loading-spinner.prop";
 
-const Login = ({setIsLoggedIn}) => {
+
+// /**
+//  * Delay artificially by set ms
+//  * @param {*} ms 
+//  * @returns 
+//  */
+// function delay(ms) {
+//   return new Promise(resolve => setTimeout(resolve, ms));
+// }
+
+
+const Login = ({ setIsLoggedIn }) => {
   const baseURL = process.env.REACT_APP_BASEURL;
 
   const [email, setEmail] = useState("");
@@ -14,11 +26,22 @@ const Login = ({setIsLoggedIn}) => {
   const [message, setMessage] = useState(null);
   const navigate = useNavigate();
 
+  //Loading spinner props
+  const {
+    loading,
+    setLoading
+  } = useContext(LoadingContext);
+
   const loginUrl = baseURL + "auth/login";
 
   const loginHandler = async (event) => {
     event.preventDefault();
     console.log("Login Handler");
+
+    //Enable fullpage loading spinner
+    setLoading(true);
+
+    //await delay(3000);
 
     let loginBody = {
       email: email,
@@ -35,7 +58,8 @@ const Login = ({setIsLoggedIn}) => {
         .post(loginUrl, loginBody)
         .then((response) => {
           setMessage("Login Succesful");
-
+          //TODO REMOVE LOCALSTORAGE USE
+          localStorage.setItem("accessToken", response.data.accessToken);
           if (response.data.user.organizationName) {
             user = {
               type: response.data.user.userType,
@@ -76,8 +100,12 @@ const Login = ({setIsLoggedIn}) => {
           setIsLoggedIn(true);
           // initialise draft function
           setDrafts([]);
+
+          //Disable fullpage loading spinner
+          setLoading(false);
           // navigate to profile or dashboard
           navigate(destinationPage);
+
         })
         .catch((error) => {
           setMessage("Invalid email or password. Try again.");
