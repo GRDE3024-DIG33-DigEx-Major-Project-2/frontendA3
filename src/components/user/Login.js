@@ -103,7 +103,6 @@ const Login = ({ setIsLoggedIn }) => {
 
           //Disable fullpage loading spinner
           setLoading(false);
-
           // navigate to profile or dashboard
           navigate(destinationPage);
 
