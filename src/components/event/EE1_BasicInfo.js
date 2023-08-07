@@ -9,7 +9,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import { useState, useEffect } from "react";
-import { getAllTags } from "../../utils/utils";
+import { getAllTags } from "../../services/EventAPI";
 
 const EditBasicInfo = (props) => {
   const [availableTags, setAvailableTags] = useState([]);

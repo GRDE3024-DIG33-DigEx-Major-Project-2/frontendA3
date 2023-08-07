@@ -17,6 +17,18 @@ const isoFormat = "YYYY-MM-DD HH:mm:ss";
 const isoTimezone = "Z";
 
 
+
+
+/**
+ * Delay by ms specified
+ * @param {*} ms 
+ * @returns Promise that resolves after the ms set
+ */
+export const delay = function (ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
 /**
  * Convert ISO date string to locale date time
  * @param {*} ISOdate ISO date string (without the timezone)

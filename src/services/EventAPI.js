@@ -10,11 +10,10 @@ import {
 } from "../utils/constants.util";
 import axios from "axios";
 import { getAccessToken } from "../utils/localStorage";
-import axiosRetry from 'axios-retry';
 
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+
+
+
 /**
  * Get a page of events from api endpoint
  * @param {*} tagIds 
@@ -27,7 +26,7 @@ function delay(ms) {
  * @returns Array of events and number of pages that match the filter options
  */
 export const searchEvents = async function (tagIds, keywords, minDate, maxDate, city, priceRange, page) {
-  await delay(3000);
+  //await delay(3000);
   console.log("Inside Search Events");
   console.log(tagIds, keywords, minDate, maxDate, city, page);
 
