@@ -22,15 +22,21 @@ import { useState } from "react";
 
 //Import prop context providers
 import { SearchEventsProvider, SearchEventFiltersProvider } from "../props/search-events.prop";
+import {LoadingProvider} from "../props/loading-spinner.prop";
+
+import {FullPageSpinner} from "./shared/LoadingSpinner";
 
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+
   return (
     <div className="App">
       <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-      <SearchEventsProvider>
+      <LoadingProvider>
+        <FullPageSpinner></FullPageSpinner>
+            <SearchEventsProvider>
         <SearchEventFiltersProvider>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -51,7 +57,9 @@ function App() {
         <Route path="*" element={<h1 className="not-found">Page Not Found</h1>} />
       </Routes>          
         </SearchEventFiltersProvider>
-      </SearchEventsProvider>
+      </SearchEventsProvider>  
+      </LoadingProvider>
+
 
       <Footer />
     </div>

@@ -2,15 +2,26 @@ import * as React from "react";
 import { FormControl, TextField, InputAdornment, Button } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { useNavigate, Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import LockIcon from "@mui/icons-material/Lock";
 import Grid from "@mui/material/Grid";
 import axios from "axios";
+import { LoadingContext, useLoading } from "../../props/loading-spinner.prop";
 
 function SignUpOrganiser() {
+
+
+  
+      //Fullpage loading spinner props
+      const {
+        loading,
+        setLoading
+      } = useContext(LoadingContext);
+
+
   const baseURL = process.env.REACT_APP_BASEURL;
   
   const [organizationName, setOrganizationName] = useState("");
@@ -38,7 +49,8 @@ function SignUpOrganiser() {
 
   const signupHandler = async (event) => {
     event.preventDefault();
-
+    //Enable fullpage loading spinner
+    setLoading(true);
     if (password !== confirmPassword) {
       alert("Passwords must match");
     } else {
@@ -58,6 +70,8 @@ function SignUpOrganiser() {
         .post(registerUrl, requestBody)
         .then((response) => {
           alert("Registration Succesful");
+                    //Disable fullpage loading spinner
+                    setLoading(false);
           navigate("/login");
         })
         .catch((error) => {

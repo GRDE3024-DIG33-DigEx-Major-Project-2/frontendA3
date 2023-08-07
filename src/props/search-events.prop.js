@@ -17,6 +17,8 @@ const SearchEventsProvider = ({ children }) => {
     const [events, setEvents] = useState([]);
     const [pageCount, setPageCount] = useState(0);
     const [tags, setTags] = useState([]);
+    //Used for flagging in-progress async operation. True if running, else false
+    const [fetchStatus, setFetchStatus] = useState(false);
 
 
     //Search Events related props
@@ -32,6 +34,10 @@ const SearchEventsProvider = ({ children }) => {
         tags: {
             get: tags,
             set: setTags
+        },
+        fetchStatus: {
+            get: fetchStatus,
+            set: setFetchStatus
         }
     };
 

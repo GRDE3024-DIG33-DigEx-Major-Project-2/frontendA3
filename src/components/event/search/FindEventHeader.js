@@ -27,7 +27,7 @@ import { searchEvents, getAllTags } from "../../../services/EventAPI";
 import DateRangePicker from "./filters/DateRangePicker";
 import ByLocation from "./filters/ByLocation";
 import ByKeywords from "./filters/ByKeywords";
-import {HeaderSelectedTags} from "./filters/TagSelection";
+import { HeaderSelectedTags } from "./filters/TagSelection";
 import { getTodayISODates, getTomorrowISODates, getWeekendISODates } from "../../../utils/utils";
 
 
@@ -37,14 +37,15 @@ import { getTodayISODates, getTomorrowISODates, getWeekendISODates } from "../..
  */
 const FindEventHeader = () => {
 
-    /**
-   * Prop context for search event data
-   */
-    const { 
-      events, 
-      pageCount,
-      tags
-    } = useContext(SearchEventsContext);
+  /**
+ * Prop context for search event data
+ */
+  const {
+    events,
+    pageCount,
+    tags,
+    fetchStatus
+  } = useContext(SearchEventsContext);
 
   /**
    * Prop context for search event filters
@@ -95,6 +96,11 @@ const FindEventHeader = () => {
     //Prevent default submit form behaviour
     event.preventDefault();
 
+
+    //Toggle loading UI on
+    fetchStatus.set(true);
+    console.log("FETCH STATUS SHOULD BE TRUE: ", fetchStatus.get);
+
     console.log("Search event fired");
     console.log(tagSelection.get, keywords.get, dateRange.minDate.get, dateRange.maxDate.get, location.get, 0);
     console.log(priceRange.minPrice.get);
@@ -102,15 +108,17 @@ const FindEventHeader = () => {
 
     //Make request for filtered events
     let searchResult = await searchEvents(
-      tagSelection.get, 
-      keywords, 
+      tagSelection.get,
+      keywords,
       dateRange.minDate.get,
-      dateRange.maxDate.get, 
-      location.get, 
-      {minPrice: Number(priceRange.minPrice.get), 
-        maxPrice: Number(priceRange.maxPrice.get)}, 
-        currPage.get
-        );
+      dateRange.maxDate.get,
+      location.get,
+      {
+        minPrice: Number(priceRange.minPrice.get),
+        maxPrice: Number(priceRange.maxPrice.get)
+      },
+      currPage.get
+    );
 
 
 
@@ -120,15 +128,19 @@ const FindEventHeader = () => {
 
     console.log("After search result found");
     console.log(searchResult);
-    console.log("Page Count: "+ pageCount.get);
-    
+    console.log("Page Count: " + pageCount.get);
+
+    //Toggle loading UI off
+    fetchStatus.set(false);
+    console.log("FETCH STATUS SHOULD BE FALSE: ", fetchStatus.get);
+
     console.log(spaLocation.pathname);
 
     //Navigate to the event search component
     if (spaLocation.pathname !== "/events")
-    navigate("events");
+      navigate("events");
     else
-    navigate();
+      navigate();
   };
 
 
@@ -140,9 +152,9 @@ const FindEventHeader = () => {
       <form id="search-event-form" onSubmit={searchHandler}>
         <div className="find-event-search">
 
-      <ByLocation/>
-              <DateRangePicker />
-      <ByKeywords></ByKeywords>
+          <ByLocation />
+          <DateRangePicker />
+          <ByKeywords></ByKeywords>
 
           <Button
             className="search-form-els"
@@ -153,7 +165,7 @@ const FindEventHeader = () => {
             Search
           </Button>
         </div>
-      <HeaderSelectedTags></HeaderSelectedTags>
+        <HeaderSelectedTags></HeaderSelectedTags>
       </form>
     </div>
   );

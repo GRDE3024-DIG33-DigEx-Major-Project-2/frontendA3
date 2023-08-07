@@ -12,7 +12,9 @@ import axios from "axios";
 import { getAccessToken } from "../utils/localStorage";
 import axiosRetry from 'axios-retry';
 
-
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 /**
  * Get a page of events from api endpoint
  * @param {*} tagIds 
@@ -25,7 +27,7 @@ import axiosRetry from 'axios-retry';
  * @returns Array of events and number of pages that match the filter options
  */
 export const searchEvents = async function (tagIds, keywords, minDate, maxDate, city, priceRange, page) {
-
+  await delay(3000);
   console.log("Inside Search Events");
   console.log(tagIds, keywords, minDate, maxDate, city, page);
 
@@ -207,64 +209,10 @@ export const createEvent = async function (formData) {
   console.log("Inside createEvent");
 
 
-    //Extract event data from formData
-    const event = formData.event;
 
-    //Validate event startDate and endDate
-    if (event.startDate > event.endDate) {
-      throw new Error("startDate must be earlier than endDate");
-    }
-  
-    //Validate event required props
-    if (
-      !event.title ||
-      !event.venueName ||
-      !event.description ||
-      !event.summary ||
-      !event.startDate ||
-      !event.endDate ||
-      !event.address ||
-      !event.city ||
-      !event.region ||
-      !event.postcode ||
-      !event.country ||
-      event.isFree === undefined
-    ) {
-      throw new Error("Invalid event data");
-    }
-
-
-    if (event.purchaseUrl == null || event.purchaseUrl == "") {
-      formData.event.purchaseUrl = undefined;
-    }
-  
-    //Validate acts array
-    if (Array.isArray(formData.acts)) {
-      for (let act of formData.acts) {
-        //acts fields arent set, send empty array instead
-        if (!act.name) {
-          formData.acts = [];
-        }
-      }
-    }
-  
-    //Validate ticketTypes array
-    if (Array.isArray(formData.ticketTypes)) {
-      for (let ticketType of formData.ticketTypes) {
-        if (!ticketType.name || ticketType.price === undefined) {
-          formData.ticketTypes = [];
-        }
-      }
-    }
-  
-    //Validate tags array
-    if (Array.isArray(formData.tags)) {
-      for (let tag of formData.tags) {
-        if (!tag.name || !tag.id) {
-          formData.tags = [];
-        }
-      }
-    }
+  if (formData.event.purchaseUrl == "") {
+    formData.event.purchaseUrl = null;
+  }
 
   //Event Create request options
   const createEventOptions = {
@@ -436,6 +384,7 @@ export const isFavourite = async function (events, eventId) {
 export const updateEvent = async function (formData) {
 
   console.log("Inside updateEvent");
+  console.log(formData);
 
   //Event Update request options
   const updateEventOptions = {
@@ -453,14 +402,14 @@ export const updateEvent = async function (formData) {
   console.log("Performed first event update request");
 
   //Refresh tokens in case of expired access token (should be equal to 403, but it catches all non-201 statuses)
-  if (response.status != 201) {
+  if (response.status != 200) {
     console.log("Initial event update failed. Attempting token refresh");
     //Perform refresh token request
     let refreshResponse = await axios
       .get(AUTH_ENDPOINTS.refreshTokenUrl);
 
     //Token refresh successful! Retry previous request
-    if (refreshResponse.status == 201) {
+    if (refreshResponse.status == 200) {
 
       console.log("Token refresh successful!", refreshResponse.data);
       //Set the accessToken
@@ -473,7 +422,7 @@ export const updateEvent = async function (formData) {
       console.log("Retried initial event request");
 
       //Event retry failed -- Throw error or log user out?
-      if (response.status != 201) {
+      if (response.status != 200) {
         //TODO
         console.log("Event retry failed");
         console.log(response);

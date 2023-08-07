@@ -35,6 +35,9 @@ import DateRadioBtns from "./filters/DateRadioButtons";
 import TicketPriceRange from "./filters/TicketPriceRange";
 import { SearchSelectedTags } from "./filters/TagSelection";
 
+//Partial page spinner
+import { PartialLoadSpinner } from "../../shared/LoadingSpinner";
+
 /**
  * The event search component
  * @param {*} param0 
@@ -50,7 +53,8 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
   const {
     events,
     pageCount,
-    tags
+    tags,
+    fetchStatus
   } = useContext(SearchEventsContext);
 
   /**
@@ -81,36 +85,46 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
 
     console.log("Search event load more fired");
 
+    //Toggle loading UI on
+    fetchStatus.set(true);
+    console.log("FETCH STATUS SHOULD BE TRUE: ", fetchStatus.get);
+
     //Increment to next page
     currPage.set(currPage.get++);
 
     //Make request for filtered events
     let searchResult = await searchEvents(
-      tagSelection.get, 
-      keywords, 
+      tagSelection.get,
+      keywords,
       dateRange.minDate.get,
-      dateRange.maxDate.get, 
-      location.get, 
-      {minPrice: Number(priceRange.minPrice.get), 
-        maxPrice: Number(priceRange.maxPrice.get)}, 
-        currPage.get
-        );
+      dateRange.maxDate.get,
+      location.get,
+      {
+        minPrice: Number(priceRange.minPrice.get),
+        maxPrice: Number(priceRange.maxPrice.get)
+      },
+      currPage.get
+    );
 
     console.log("After search result found");
     console.log(searchResult);
-    console.log("Page Count: "+ pageCount.get);
+    console.log("Page Count: " + pageCount.get);
 
     let currEvents = events.get;
 
     console.log("Curr Events " + currEvents);
     console.log("New Events " + searchResult.events);
     pageCount.set(searchResult.pageCount);
-let newArr = [...events.get, ...searchResult.events]
+    let newArr = [...events.get, ...searchResult.events]
     //Set state props of events and page count
     events.set(newArr);
     pageCount.set(searchResult.pageCount);
 
     console.log("NUM RENDERED EVENTS: ", events.get);
+
+    //Toggle loading UI off
+    fetchStatus.set(false);
+    console.log("FETCH STATUS SHOULD BE FALSE: ", fetchStatus.get);
   }
 
 
@@ -128,7 +142,7 @@ let newArr = [...events.get, ...searchResult.events]
   }
 
 
-  
+
 
 
   /**
@@ -170,18 +184,24 @@ let newArr = [...events.get, ...searchResult.events]
    * Event listing display container
    */
   let eventListings = <>
-    <Box className="events-result">
-        {events.get.map((event, i) => {
-          //Filter out event display results by venue selected
-          if (event.event.venueName === selectedVenue.get || selectedVenue.get === "All Venues")
-          return (<EventCardHorizontal key={i} event={event} />)})
-        }
-        {((currPage.get + 1) == pageCount.get) || (currPage.get == 0 && pageCount.get == 0) ? null : <>
-        <Button id="load-more-events-btn" onClick={loadMoreHandler}>Load More</Button>
-        <Button id="back-to-top-btn" onClick={scrollToTop}>Back To Top</Button>
-        </>}
-      </Box>  
-      </>;
+    {
+      (!fetchStatus.get) ?
+        <Box className="events-result">
+          {events.get.map((event, i) => {
+            //Filter out event display results by venue selected
+            if (event.event.venueName === selectedVenue.get || selectedVenue.get === "All Venues")
+              return (<EventCardHorizontal key={i} event={event} />)
+          })
+          }
+          {((currPage.get + 1) == pageCount.get) || (currPage.get == 0 && pageCount.get == 0) ? null : <>
+            <Button id="load-more-events-btn" onClick={loadMoreHandler}>Load More</Button>
+            <Button id="back-to-top-btn" onClick={scrollToTop}>Back To Top</Button>
+          </>}
+        </Box>
+        : <><PartialLoadSpinner></PartialLoadSpinner></>
+    }
+
+  </>;
 
 
   /**
@@ -202,20 +222,20 @@ let newArr = [...events.get, ...searchResult.events]
      */
     async function fetchEvents() {
 
-        currPage.set(0);
+      currPage.set(0);
 
-        const data = await searchEvents(
-          tagSelection.get,
-          keywords.get,
-          null,
-          null,
-          location.get,
-          { minPrice: Number(priceRange.minPrice.get), maxPrice: Number(priceRange.maxPrice.get) },
-          currPage.get);
-        //Set events
-        events.set(data.events);
-        //Set total page count
-        pageCount.set(data.pageCount);
+      const data = await searchEvents(
+        tagSelection.get,
+        keywords.get,
+        null,
+        null,
+        location.get,
+        { minPrice: Number(priceRange.minPrice.get), maxPrice: Number(priceRange.maxPrice.get) },
+        currPage.get);
+      //Set events
+      events.set(data.events);
+      //Set total page count
+      pageCount.set(data.pageCount);
     }
 
     //Fetch all possible pre-defined tags if none have been retrieved
@@ -280,7 +300,7 @@ let newArr = [...events.get, ...searchResult.events]
               />
             ))}
             {chipData.get < 1 ? null : <><Link onClick={clearFilters}>Clear all filters</Link></>}
-            
+
           </Stack>
           {eventListings}
         </div>

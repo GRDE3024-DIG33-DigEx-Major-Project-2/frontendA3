@@ -9,6 +9,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import InputAdornment from "@mui/material/InputAdornment";
 import { Button } from "@mui/material";
+import { useLoading } from "../../props/loading-spinner.prop";
 
 function SignUp() {
   const [accountType, setAccountType] = useState("");
@@ -19,6 +20,9 @@ function SignUp() {
   };
   const navigate = useNavigate();
   const handleClick = () => navigate("/signup" + accountType);
+
+
+
 
   return (
     <>
