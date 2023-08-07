@@ -5,7 +5,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/styles";
-import { resetUserSession, resetTokenSession, getUser } from "../../utils/localStorage";
+import { resetUserSession, resetTokenSession, getUser, resetDrafts } from "../../utils/localStorage";
 
 export default function Header({ isLoggedIn, setIsLoggedIn }) {
   const [menu, setMenu] = useState(false);
@@ -34,6 +34,7 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
     // delete data from local storage
     resetUserSession();
     resetTokenSession();
+    resetDrafts();
     // change user and logged in state
     setIsLoggedIn(false);
   };

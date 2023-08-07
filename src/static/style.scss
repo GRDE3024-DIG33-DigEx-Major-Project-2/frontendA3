@@ -636,6 +636,7 @@ footer {
   .draft-card{
     @include flex-row(space-between, center);
     padding: 1% 2%;
+    margin-bottom: 2%;
   }
 }
 

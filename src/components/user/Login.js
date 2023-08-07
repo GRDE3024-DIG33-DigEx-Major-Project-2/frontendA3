@@ -4,7 +4,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import { setAccessToken, setUserSession } from "../../utils/localStorage";
+import { setAccessToken, setUserSession, setDrafts } from "../../utils/localStorage";
 
 const Login = ({setIsLoggedIn}) => {
   const baseURL = process.env.REACT_APP_BASEURL;
@@ -74,6 +74,8 @@ const Login = ({setIsLoggedIn}) => {
           console.log(response.data.accessToken);
           setAccessToken(response.data.accessToken);
           setIsLoggedIn(true);
+          // initialise draft function
+          setDrafts([]);
           // navigate to profile or dashboard
           navigate(destinationPage);
         })

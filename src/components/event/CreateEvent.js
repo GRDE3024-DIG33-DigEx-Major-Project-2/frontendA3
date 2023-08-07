@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   MobileStepper,
   Stack,
@@ -24,14 +24,21 @@ import Location from "./CE3_Location";
 import DateTime from "./CE4_DateTime";
 import Pricing from "./CE5_Pricing";
 import EventMedia from "./CE6_EventMedia";
+import { addDraft } from "../../utils/localStorage";
 
 function CreateEvent() {
-  const [activeStep, setActiveStep] = useState(0);
 
   const navigate = useNavigate();
+  const location = useLocation();
+  let draft = null;
+  if (location.state){
+    draft = location.state.draft;
+  }
+
+  const [activeStep, setActiveStep] = useState(0);
 
   //** FIRST SCREEN - BASIC INFO **//
-  const [eventName, setEventName] = useState("");
+  const [eventName, setEventName] = useState(draft && draft.eventName ? draft.eventName : "");
   const [eventOrganiser, setEventOrganiser] = useState("");
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState([]);
@@ -175,8 +182,15 @@ function CreateEvent() {
   };
 
   const saveExit = () => {
+
+    const draft = {
+      eventName: eventName
+    }
+
+    addDraft(draft);
     navigate("/dashboard");
   };
+
 
   return (
     <div id="create-event-main">
