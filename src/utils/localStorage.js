@@ -37,3 +37,38 @@ export const resetTokenSession = async function () {
   sessionStorage.removeItem("accessToken");
   console.log("accessToken removed");
 };
+
+// token functions
+export const getDrafts = function () {
+  const drafts = sessionStorage.getItem("drafts");
+  if (drafts === "undefined" || !drafts) {
+    return null;
+  } else {
+    return JSON.parse(drafts);
+  }
+};
+
+export const setDrafts = function (drafts) {
+  sessionStorage.setItem("drafts", JSON.stringify(drafts));
+  console.log("HEY", getDrafts())
+};
+
+export const resetDrafts = async function () {
+  sessionStorage.setItem("drafts", null);
+  sessionStorage.removeItem("drafts");
+  console.log("drafts removed");
+};
+
+export const addDraft = function (draft) {
+  let drafts = getDrafts();
+  drafts.push(draft);
+  console.log("HO", drafts);
+  setDrafts(drafts);
+}
+
+export const removeDraft = function (draftNo) {
+  let drafts = getDrafts();
+  drafts.splice(draftNo, 1);
+  console.log("REMOVED", drafts);
+  setDrafts(drafts);
+}

@@ -4,7 +4,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import { setAccessToken, setUserSession } from "../../utils/localStorage";
+import { setAccessToken, setUserSession, setDrafts } from "../../utils/localStorage";
 import { LoadingContext } from "../../props/loading-spinner.prop";
 
 
@@ -98,6 +98,8 @@ const Login = ({ setIsLoggedIn }) => {
           console.log(response.data.accessToken);
           setAccessToken(response.data.accessToken);
           setIsLoggedIn(true);
+          // initialise draft function
+          setDrafts([]);
 
           //Disable fullpage loading spinner
           setLoading(false);

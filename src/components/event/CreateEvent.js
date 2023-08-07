@@ -1,19 +1,16 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import dayjs from "dayjs";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
-  FormControl,
-  TextField,
-  InputAdornment,
   MobileStepper,
   Stack,
   Divider,
   Avatar,
+  Chip,
+  Box,
+  Button,
 } from "@mui/material";
+<<<<<<< HEAD
 import Grid from "@mui/material/Grid";
 import Select from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
@@ -32,35 +29,40 @@ import {
   getFirstLetters,
 } from "../../utils/utils";
 import { getAllTags } from "../../services/EventAPI";
+=======
+import { getFirstLetters } from "../../utils/utils";
+>>>>>>> main
 import { Link } from "@mui/material";
-import CreateEventMap from "../mapbox/CreateEventMap";
-import { forwardGeocoding } from "../../services/Geocoding";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import LocalActivityOutlinedIcon from "@mui/icons-material/LocalActivityOutlined";
 import ShareIcon from "@mui/icons-material/Share";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
-import { getUser } from "../../utils/localStorage";
 import { createEvent } from "../../services/EventAPI";
+import BasicInfo from "./CE1_BasicInfo";
+import ArtistsAndSummary from "./CE2_ArtistsAndSummary";
+import Location from "./CE3_Location";
+import DateTime from "./CE4_DateTime";
+import Pricing from "./CE5_Pricing";
+import EventMedia from "./CE6_EventMedia";
+import { addDraft } from "../../utils/localStorage";
 
 function CreateEvent() {
-  const user = getUser();
-  const [activeStep, setActiveStep] = useState(0);
-  const [state, setState] = useState({
-    eventFree: false,
-    eventPaid: true,
-  });
 
   const navigate = useNavigate();
+  const location = useLocation();
+  let draft = null;
+  if (location.state){
+    draft = location.state.draft;
+  }
+
+  const [activeStep, setActiveStep] = useState(0);
 
   //** FIRST SCREEN - BASIC INFO **//
-  const [eventName, setEventName] = useState("");
+  const [eventName, setEventName] = useState(draft && draft.eventName ? draft.eventName : "");
   const [eventOrganiser, setEventOrganiser] = useState("");
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState([]);
-  const [availableTags, setAvailableTags] = useState([]);
   const [eventURL, setEventURL] = useState("");
   // ** SECOND SCREEN - ARTISTS AND SUMMARY ** //
   const [artistName, setArtistName] = useState("");
@@ -80,17 +82,17 @@ function CreateEvent() {
   const [eventCountry, setEventCountry] = useState("");
   const [eventState, setEventState] = useState("");
   const [eventPostCode, setEventPostCode] = useState("");
-  const [lat, setLat] = useState(-33.86);
-  const [lng, setLng] = useState(151.2);
-  const [mapKey, setMapKey] = useState(1);
   // ** FOURTH SCREEN - DATE AND TIME ** //
-  const timezones = getAustralianTimezones();
   const [eventStartDate, setEventStartDate] = useState(null);
   const [eventEndDate, setEventEndDate] = useState(null);
   const [eventStartTime, setEventStartTime] = useState(null);
   const [eventEndTime, setEventEndTime] = useState(null);
   const [eventTimezone, setEventTimezone] = useState("AEST");
   // ** FIFTH SCREEN - PRICE **//
+  const [state, setState] = useState({
+    eventFree: false,
+    eventPaid: true,
+  });
   const { eventFree, eventPaid } = state;
   const eventTierName1 = "General Admission";
   const [eventPrice1, setEventPrice1] = useState(parseFloat(0.0).toFixed(2));
@@ -105,111 +107,6 @@ function CreateEvent() {
   const [enableTicket4, setEnableTicket4] = useState(false);
   // ** SIXTH SCREEN - MEDIA **//
   const [selectedImage, setSelectedImage] = useState();
-
-  // functions to enable/disable artist form fields
-  const handleDisable2 = () => {
-    if (enableArtist2) setEnableArtist2(false);
-    if (!enableArtist2) setEnableArtist2(true);
-  };
-  const handleDisable3 = () => {
-    if (enableArtist3) setEnableArtist3(false);
-    if (!enableArtist3) setEnableArtist3(true);
-  };
-  const handleDisable4 = () => {
-    if (enableArtist4) setEnableArtist4(false);
-    if (!enableArtist4) setEnableArtist4(true);
-  };
-
-  // functions to enable/disable price form fields
-  const handleTicketDisable2 = () => {
-    if (enableTicket2) setEnableTicket2(false);
-    if (!enableTicket2) setEnableTicket2(true);
-  };
-  const handleTicketDisable3 = () => {
-    if (enableTicket3) setEnableTicket3(false);
-    if (!enableTicket3) setEnableTicket3(true);
-  };
-  const handleTicketDisable4 = () => {
-    if (enableTicket4) setEnableTicket4(false);
-    if (!enableTicket4) setEnableTicket4(true);
-  };
-
-  /**
-   * Fetch api data on load
-   */
-  useEffect(() => {
-    /**
-     * Get all pre-defined tags/genres
-     */
-    async function fetchTags() {
-      const tags = await getAllTags();
-      setAvailableTags(tags);
-    }
-
-    //Get tags
-    fetchTags();
-  }, [setAvailableTags]);
-
-  useEffect(() => {
-    /** Update map location as address is typed in*/
-    async function fetchCoordinates() {
-      let address =
-        eventAddress1 +
-        eventAddress2 +
-        "," +
-        suburb +
-        "," +
-        eventCity +
-        "," +
-        eventState +
-        "," +
-        eventPostCode;
-      if (suburb !== "") {
-        address += "," + suburb;
-      }
-      if (eventCity !== "") {
-        address += "," + eventCity;
-      }
-      if (eventState !== "") {
-        address += "," + eventState;
-      }
-      if (eventPostCode !== "") {
-        address += "," + eventPostCode;
-      }
-      if (eventCountry !== "") {
-        address += "," + eventCountry;
-      }
-
-      let result = await forwardGeocoding(address);
-      console.log("HI", result[0], result[1]);
-      setLat(result[0]);
-      setLng(result[1]);
-      setMapKey(result[0] + result[1]);
-    }
-
-    fetchCoordinates();
-  }, [eventState, eventPostCode]);
-
-  // select keywords styling
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = -55;
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
-  };
-
-  // select tags handler
-  const selectTags = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setTags(typeof value === "string" ? value.split(",") : value);
-    console.log(tags);
-  };
 
   const handleNext = (e) => {
     if (activeStep === 5 && !selectedImage) {
@@ -301,48 +198,20 @@ function CreateEvent() {
     navigate("/dashboard");
   };
 
-  const signupHandler = async (event) => {
-    event.preventDefault();
-    console.log(eventName, eventOrganiser, description, tags);
-    console.log(eventStartDate, eventEndDate, eventStartTime, eventEndTime);
-  };
-
   const deleteEvent = () => {
     navigate("/dashboard");
   };
 
   const saveExit = () => {
+
+    const draft = {
+      eventName: eventName
+    }
+
+    addDraft(draft);
     navigate("/dashboard");
   };
 
-  const imageChange = (e) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setSelectedImage(e.target.files[0]);
-    }
-  };
-
-  // This function will be triggered when the "Remove This Image" button is clicked
-  const removeSelectedImage = () => {
-    setSelectedImage();
-  };
-
-  const handleChecked = (event) => {
-    if (event.target.name === "eventFree") {
-      setState({
-        ...state,
-        eventFree: true,
-        eventPaid: false,
-      });
-    }
-
-    if (event.target.name === "eventPaid") {
-      setState({
-        ...state,
-        eventFree: false,
-        eventPaid: true,
-      });
-    }
-  };
 
   return (
     <div id="create-event-main">
@@ -380,7 +249,7 @@ function CreateEvent() {
               <h1>Event preview</h1>
               <div className="event-main-image">
                 <img
-                  alt="event image"
+                  alt={eventName}
                   src={URL.createObjectURL(selectedImage)}
                 />
               </div>
@@ -563,1126 +432,114 @@ function CreateEvent() {
           <>
             <div className="create-event-screen">
               {(() => {
-                // FIRST SCREEN - BASIC INFO
                 if (activeStep === 0) {
                   return (
-                    <>
-                      <h2>Basic Information</h2>
-                      <div className="basic-information">
-                        <Box alignItems="center" justifyContent="center">
-                          <form onSubmit={signupHandler}>
-                            <FormControl fullWidth>
-                              <Grid container spacing={2} paddingBottom="15px">
-                                <Grid container item xs={6} direction="column">
-                                  <p>Event Name:</p>
-                                  <TextField
-                                    fullWidth
-                                    value={eventName}
-                                    required
-                                    onChange={(event) =>
-                                      setEventName(event.target.value)
-                                    }
-                                    id="create-event-name"
-                                    placeholder="Enter the event name"
-                                    variant="outlined"
-                                  />
-                                </Grid>
-                                <Grid container item xs={6} direction="column">
-                                  <p>Event Organiser:</p>
-                                  <TextField
-                                    fullWidth
-                                    value={eventOrganiser}
-                                    required
-                                    onChange={(event) =>
-                                      setEventOrganiser(event.target.value)
-                                    }
-                                    id="create-event-organiser"
-                                    placeholder="Enter the event organiser"
-                                    variant="outlined"
-                                  />
-                                </Grid>
-                                <Grid container item l={12} direction="row">
-                                  <p>Event description:</p>
-                                  <TextField
-                                    fullWidth
-                                    value={description}
-                                    required
-                                    onChange={(event) =>
-                                      setDescription(event.target.value)
-                                    }
-                                    placeholder="Enter a description for the event"
-                                    multiline
-                                    id="create-event-description"
-                                    variant="outlined"
-                                    rows={8}
-                                  />
-                                </Grid>{" "}
-                                <Grid container item xs={12} direction="column">
-                                  <p>Keywords</p>
-                                  <Select
-                                    fullWidth
-                                    id="create-event-multiple-tags"
-                                    multiple
-                                    value={tags}
-                                    onChange={selectTags}
-                                    input={
-                                      <OutlinedInput id="select-multiple-chip" />
-                                    }
-                                    renderValue={(selected) => (
-                                      <Box
-                                        sx={{
-                                          display: "flex",
-                                          flexWrap: "wrap",
-                                          gap: 0.5,
-                                        }}
-                                      >
-                                        {selected.map((value) => (
-                                          <Chip
-                                            key={value}
-                                            sx={{
-                                              backgroundColor: "#7759A6",
-                                              color: "white",
-                                            }}
-                                            label={value.split(",")[0]}
-                                          />
-                                        ))}
-                                      </Box>
-                                    )}
-                                    MenuProps={MenuProps}
-                                  >
-                                    {availableTags.map((tag) => (
-                                      <MenuItem
-                                        key={tag.id}
-                                        value={tag.name + "," + tag.id}
-                                      >
-                                        {tag.name}
-                                      </MenuItem>
-                                    ))}
-                                  </Select>
-                                </Grid>
-                                <Grid container item xs={6} direction="column">
-                                  <p>Event purchase URL:</p>
-                                  <TextField
-                                    fullWidth
-                                    value={eventURL}
-                                    required
-                                    onChange={(event) =>
-                                      setEventURL(event.target.value)
-                                    }
-                                    placeholder="Enter a URL for ticket purchasing"
-                                    id="create-event-eventURL"
-                                    variant="outlined"
-                                  />
-                                </Grid>
-                              </Grid>
-                            </FormControl>
-                          </form>
-                        </Box>
-                      </div>
-                    </>
+                    <BasicInfo
+                      eventName={eventName}
+                      setEventName={setEventName}
+                      eventOrganiser={eventOrganiser}
+                      setEventOrganiser={setEventOrganiser}
+                      description={description}
+                      setDescription={setDescription}
+                      tags={tags}
+                      setTags={setTags}
+                      eventURL={eventURL}
+                      setEventURL={setEventURL}
+                    />
                   );
                 } else if (activeStep === 1) {
                   return (
-                    <>
-                      {/* PAGE 2 - ARTISTS AND SUMMARY */}
-                      <h2>Artists and summary</h2>
-                      <div className="artist-and-summary">
-                        <Box alignItems="center" justifyContent="center">
-                          <form onSubmit={signupHandler}>
-                            <FormControl fullWidth>
-                              <Grid container spacing={2} paddingBottom="15px">
-                                <Grid container item xs={5} direction="column">
-                                  <p className="form-label-active">
-                                    Artist name:
-                                  </p>
-                                  <TextField
-                                    fullWidth
-                                    value={artistName}
-                                    required
-                                    onChange={(event) =>
-                                      setArtistName(event.target.value)
-                                    }
-                                    id="create-event-an1"
-                                    placeholder="Enter an artist's name"
-                                    variant="outlined"
-                                  />
-                                </Grid>
-                                <Grid
-                                  container
-                                  item
-                                  xs={1}
-                                  direction="column"
-                                  className="fab-container"
-                                >
-                                  <Fab
-                                    className="add-artist-fab-disabled"
-                                    id="add-artist-1"
-                                    aria-label="Add"
-                                    disabled="true"
-                                  >
-                                    <AddIcon />
-                                  </Fab>
-                                  <Fab
-                                    className="remove-artist-fab-disabled"
-                                    id="remove-artist-1"
-                                    aria-label="Remove"
-                                    disabled="true"
-                                  >
-                                    <RemoveIcon />
-                                  </Fab>
-                                </Grid>
-                                <Grid container item xs={5} direction="column">
-                                  <p
-                                    className={
-                                      enableArtist2
-                                        ? "form-label-active"
-                                        : "form-label-disabled"
-                                    }
-                                  >
-                                    Artist name:
-                                  </p>
-                                  <TextField
-                                    fullWidth
-                                    value={artistName2}
-                                    required
-                                    onChange={(event) =>
-                                      setArtistName2(event.target.value)
-                                    }
-                                    id="create-event-an2"
-                                    placeholder="Enter an artist's name"
-                                    variant="outlined"
-                                    disabled={!enableArtist2}
-                                  />
-                                </Grid>
-                                <Grid
-                                  container
-                                  item
-                                  xs={1}
-                                  direction="column"
-                                  className="fab-container"
-                                >
-                                  <Fab
-                                    className={
-                                      !enableArtist2
-                                        ? "add-artist-fab"
-                                        : "add-artist-fab-disabled"
-                                    }
-                                    id="add-artist-2"
-                                    aria-label="Add"
-                                    onClick={handleDisable2}
-                                    disabled={enableArtist2}
-                                  >
-                                    <AddIcon />
-                                  </Fab>
-                                  <Fab
-                                    className={
-                                      enableArtist2
-                                        ? "remove-artist-fab"
-                                        : "remove-artist-fab-disabled"
-                                    }
-                                    id="remove-artist-2"
-                                    aria-label="Remove"
-                                    onClick={handleDisable2}
-                                    disabled={!enableArtist2}
-                                  >
-                                    <RemoveIcon />
-                                  </Fab>
-                                </Grid>
-                                <Grid container item xs={5} direction="column">
-                                  <p
-                                    className={
-                                      enableArtist3
-                                        ? "form-label-active"
-                                        : "form-label-disabled"
-                                    }
-                                  >
-                                    Artist name:
-                                  </p>
-                                  <TextField
-                                    fullWidth
-                                    value={artistName3}
-                                    required
-                                    onChange={(event) =>
-                                      setArtistName3(event.target.value)
-                                    }
-                                    id="create-event-an3"
-                                    placeholder="Enter an artist's name"
-                                    variant="outlined"
-                                    disabled={!enableArtist3}
-                                  />
-                                </Grid>
-                                <Grid
-                                  container
-                                  item
-                                  xs={1}
-                                  direction="column"
-                                  className="fab-container"
-                                >
-                                  <Fab
-                                    className={
-                                      !enableArtist3
-                                        ? "add-artist-fab"
-                                        : "add-artist-fab-disabled"
-                                    }
-                                    id="add-artist-3"
-                                    aria-label="Add"
-                                    onClick={handleDisable3}
-                                    disabled={enableArtist3}
-                                  >
-                                    <AddIcon />
-                                  </Fab>
-                                  <Fab
-                                    className={
-                                      enableArtist3
-                                        ? "remove-artist-fab"
-                                        : "remove-artist-fab-disabled"
-                                    }
-                                    id="remove-artist-3"
-                                    aria-label="Remove"
-                                    onClick={handleDisable3}
-                                    disabled={!enableArtist3}
-                                  >
-                                    <RemoveIcon />
-                                  </Fab>
-                                </Grid>
-                                <Grid container item xs={5} direction="column">
-                                  <p
-                                    className={
-                                      enableArtist4
-                                        ? "form-label-active"
-                                        : "form-label-disabled"
-                                    }
-                                  >
-                                    Artist name:
-                                  </p>
-                                  <TextField
-                                    fullWidth
-                                    value={artistName4}
-                                    required
-                                    onChange={(event) =>
-                                      setArtistName4(event.target.value)
-                                    }
-                                    id="create-event-an4"
-                                    placeholder="Enter an artist's name"
-                                    variant="outlined"
-                                    disabled={!enableArtist4}
-                                  />
-                                </Grid>
-                                <Grid
-                                  container
-                                  item
-                                  xs={1}
-                                  direction="column"
-                                  className="fab-container"
-                                >
-                                  <Fab
-                                    className={
-                                      !enableArtist4
-                                        ? "add-artist-fab"
-                                        : "add-artist-fab-disabled"
-                                    }
-                                    id="add-artist-4"
-                                    aria-label="Add"
-                                    onClick={handleDisable4}
-                                    disabled={enableArtist4}
-                                  >
-                                    <AddIcon />
-                                  </Fab>
-                                  <Fab
-                                    className={
-                                      enableArtist4
-                                        ? "remove-artist-fab"
-                                        : "remove-artist-fab-disabled"
-                                    }
-                                    id="remove-artist-4"
-                                    aria-label="Remove"
-                                    onClick={handleDisable4}
-                                    disabled={!enableArtist4}
-                                  >
-                                    <RemoveIcon />
-                                  </Fab>
-                                </Grid>
-                                <Grid container item xs={11} direction="row">
-                                  <p>Event summary:</p>
-                                  <TextField
-                                    fullWidth
-                                    value={eventSummary}
-                                    required
-                                    onChange={(event) =>
-                                      setEventSummary(event.target.value)
-                                    }
-                                    multiline
-                                    id="create-ev-summary"
-                                    variant="outlined"
-                                    rows={5}
-                                  />
-                                </Grid>
-                              </Grid>
-                            </FormControl>
-                          </form>
-                        </Box>
-                      </div>
-                    </>
+                    <ArtistsAndSummary
+                      artistName={artistName}
+                      setArtistName={setArtistName}
+                      artistName2={artistName2}
+                      setArtistName2={setArtistName2}
+                      artistName3={artistName3}
+                      setArtistName3={setArtistName3}
+                      artistName4={artistName4}
+                      setArtistName4={setArtistName4}
+                      eventSummary={eventSummary}
+                      setEventSummary={setEventSummary}
+                      enableArtist2={enableArtist2}
+                      setEnableArtist2={setEnableArtist2}
+                      enableArtist3={enableArtist3}
+                      setEnableArtist3={setEnableArtist3}
+                      enableArtist4={enableArtist4}
+                      setEnableArtist4={setEnableArtist4}
+                    />
                   );
                 } else if (activeStep === 2) {
                   return (
-                    <>
-                      {/* PAGE 3 - LOCATION */}
-                      <h2>Location</h2>
-                      <div className="create-event-location-div">
-                        <Box alignItems="center" justifyContent="center">
-                          <form
-                            onSubmit={signupHandler}
-                            className="create-event-location-box"
-                          >
-                            <FormControl fullWidth>
-                              <Grid container spacing={2} paddingBottom="15px">
-                                <Grid container item xs={6} direction="column">
-                                  <p>Venue name:</p>
-                                  <TextField
-                                    value={venueName}
-                                    required
-                                    onChange={(event) =>
-                                      setVenueName(event.target.value)
-                                    }
-                                    id="create-event-venue-name"
-                                    placeholder="Enter the name of the venue"
-                                    variant="outlined"
-                                  />
-                                </Grid>
-                                <Grid container item xs={6} direction="column">
-                                  <p>Venue location:</p>
-                                  <TextField
-                                    value={suburb}
-                                    required
-                                    onChange={(event) =>
-                                      setSuburb(event.target.value)
-                                    }
-                                    id="create-event-venue-suburb"
-                                    placeholder="Enter the suburb of the venue"
-                                    variant="outlined"
-                                  />
-                                </Grid>
-                              </Grid>
-                              <CreateEventMap
-                                lat={lat}
-                                lng={lng}
-                                key={mapKey}
-                              />
-                              <Grid container spacing={2} paddingBottom="15px">
-                                <Grid
-                                  container
-                                  item
-                                  xs={6}
-                                  direction="column"
-                                  sx={{ height: "300px" }}
-                                >
-                                  <Grid container item xs={1} direction="row">
-                                    <p>Street Address</p>
-                                  </Grid>
-                                  <Grid
-                                    container
-                                    item
-                                    xs={3}
-                                    direction="column"
-                                  >
-                                    <TextField
-                                      value={eventAddress1}
-                                      required
-                                      onChange={(event) =>
-                                        setEventAddress1(event.target.value)
-                                      }
-                                      id="create-event-address1"
-                                      placeholder="Address line 1"
-                                      variant="outlined"
-                                    />
-                                  </Grid>
-                                  <Grid
-                                    container
-                                    item
-                                    xs={3}
-                                    direction="column"
-                                  >
-                                    <TextField
-                                      value={eventCity}
-                                      required
-                                      onChange={(event) =>
-                                        setEventCity(event.target.value)
-                                      }
-                                      id="create-event-city"
-                                      placeholder="City"
-                                      variant="outlined"
-                                    />
-                                  </Grid>
-                                  <Grid
-                                    container
-                                    item
-                                    xs={3}
-                                    direction="column"
-                                  >
-                                    <TextField
-                                      value={eventCountry}
-                                      required
-                                      onChange={(event) =>
-                                        setEventCountry(event.target.value)
-                                      }
-                                      id="create-event-country"
-                                      placeholder="Country"
-                                      variant="outlined"
-                                    />
-                                  </Grid>
-                                </Grid>
-                                <Grid
-                                  container
-                                  item
-                                  xs={6}
-                                  direction="column"
-                                  sx={{ height: "300px" }}
-                                >
-                                  <Grid container item xs={1} direction="row">
-                                    <p>&nbsp;</p>
-                                  </Grid>
-                                  <Grid
-                                    container
-                                    item
-                                    xs={3}
-                                    direction="column"
-                                  >
-                                    <TextField
-                                      value={eventAddress2}
-                                      required
-                                      onChange={(event) =>
-                                        setEventAddress2(event.target.value)
-                                      }
-                                      id="create-event-address2"
-                                      placeholder="Address line 2"
-                                      variant="outlined"
-                                    />
-                                  </Grid>
-                                  <Grid container item xs={3} direction="row">
-                                    <Grid
-                                      container
-                                      item
-                                      xs={5}
-                                      direction="column"
-                                    >
-                                      <TextField
-                                        value={eventState}
-                                        required
-                                        onChange={(event) =>
-                                          setEventState(event.target.value)
-                                        }
-                                        id="create-event-state"
-                                        placeholder="State or territory"
-                                        variant="outlined"
-                                      />
-                                    </Grid>
-                                    <Grid
-                                      container
-                                      item
-                                      xs={2}
-                                      direction="column"
-                                    />
-                                    <Grid
-                                      container
-                                      item
-                                      xs={5}
-                                      direction="column"
-                                    >
-                                      <TextField
-                                        value={eventPostCode}
-                                        required
-                                        onChange={(event) =>
-                                          setEventPostCode(event.target.value)
-                                        }
-                                        id="create-event-postcode"
-                                        placeholder="Postcode"
-                                        variant="outlined"
-                                      />
-                                    </Grid>
-                                  </Grid>
-                                </Grid>
-                              </Grid>
-                            </FormControl>
-                          </form>
-                        </Box>
-                      </div>
-                    </>
+                    <Location
+                      venueName={venueName}
+                      setVenueName={setVenueName}
+                      suburb={suburb}
+                      setSuburb={setSuburb}
+                      eventAddress1={eventAddress1}
+                      setEventAddress1={setEventAddress1}
+                      eventAddress2={eventAddress2}
+                      setEventAddress2={setEventAddress2}
+                      eventCity={eventCity}
+                      setEventCity={setEventCity}
+                      eventCountry={eventCountry}
+                      setEventCountry={setEventCountry}
+                      eventState={eventState}
+                      setEventState={setEventState}
+                      eventPostCode={eventPostCode}
+                      setEventPostCode={setEventPostCode}
+                    />
                   );
                 } else if (activeStep === 3) {
                   return (
-                    <>
-                      {/* PAGE 4 - DATE AND TIME */}
-                      <h2>Date and Time</h2>
-                      <div className="create-event-date-time">
-                        <Box alignItems="center" justifyContent="center">
-                          <form onSubmit={signupHandler}>
-                            <FormControl fullWidth>
-                              <Grid container spacing={2} paddingBottom="15px">
-                                <Grid
-                                  container
-                                  item
-                                  xs={6}
-                                  direction="column"
-                                  components={["DatePicker"]}
-                                  fullWidth
-                                >
-                                  <p>Event start date:</p>
-                                  <LocalizationProvider
-                                    dateAdapter={AdapterDayjs}
-                                  >
-                                    <DatePicker
-                                      id="start-date-field-create-event"
-                                      className="search-form-els"
-                                      placeholder="Event Start Date"
-                                      value={
-                                        eventStartDate
-                                          ? dayjs(eventStartDate)
-                                          : null
-                                      }
-                                      onChange={(newValue) =>
-                                        setEventStartDate(
-                                          new Date(Date.parse(newValue))
-                                        )
-                                      }
-                                      slots={{
-                                        openPickerIcon:
-                                          ArrowDropDownOutlinedIcon,
-                                      }}
-                                      slotProps={{
-                                        textField: {
-                                          placeholder: "Select a starting date",
-                                          InputProps: {
-                                            startAdornment: (
-                                              <InputAdornment position="start">
-                                                <CalendarMonthIcon color="primary" />
-                                              </InputAdornment>
-                                            ),
-                                          },
-                                        },
-                                      }}
-                                    />
-                                  </LocalizationProvider>
-                                  <p>Event end date:</p>
-                                  <LocalizationProvider
-                                    dateAdapter={AdapterDayjs}
-                                  >
-                                    <DatePicker
-                                      id="start-date-field-create-event"
-                                      className="search-form-els"
-                                      placeholder="Event End Date"
-                                      value={
-                                        eventEndDate
-                                          ? dayjs(eventEndDate)
-                                          : null
-                                      }
-                                      onChange={(newValue) =>
-                                        setEventEndDate(
-                                          new Date(Date.parse(newValue))
-                                        )
-                                      }
-                                      slots={{
-                                        openPickerIcon:
-                                          ArrowDropDownOutlinedIcon,
-                                      }}
-                                      slotProps={{
-                                        textField: {
-                                          placeholder: "Select an ending date",
-                                          InputProps: {
-                                            startAdornment: (
-                                              <InputAdornment position="start">
-                                                <CalendarMonthIcon color="primary" />
-                                              </InputAdornment>
-                                            ),
-                                          },
-                                        },
-                                      }}
-                                    />
-                                  </LocalizationProvider>
-                                  <p>Time Zone:</p>
-                                  <Select
-                                    value={eventTimezone}
-                                    sx={{ color: "#4B7CBE" }}
-                                    id="create-event-time-zone"
-                                    placeholder="Timezone"
-                                    onChange={(event) =>
-                                      setEventTimezone(event.target.value)
-                                    }
-                                  >
-                                    {timezones.map((time, i) => (
-                                      <MenuItem value={time.value}>
-                                        {time.label}
-                                      </MenuItem>
-                                    ))}
-                                  </Select>
-                                </Grid>
-                                <Grid container item xs={6} direction="column">
-                                  <p>Event start time:</p>
-                                  <LocalizationProvider
-                                    dateAdapter={AdapterDayjs}
-                                  >
-                                    <TimePicker
-                                      value={
-                                        eventStartTime
-                                          ? dayjs(eventStartTime)
-                                          : null
-                                      }
-                                      onChange={(newValue) =>
-                                        setEventStartTime(
-                                          new Date(Date.parse(newValue))
-                                        )
-                                      }
-                                      viewRenderers={{
-                                        hours: renderTimeViewClock,
-                                        minutes: renderTimeViewClock,
-                                        seconds: renderTimeViewClock,
-                                      }}
-                                      slotProps={{
-                                        textField: {
-                                          placeholder: "Select a starting time",
-                                        },
-                                      }}
-                                    />
-                                  </LocalizationProvider>
-                                  <p>Event end time:</p>
-                                  <LocalizationProvider
-                                    dateAdapter={AdapterDayjs}
-                                  >
-                                    <TimePicker
-                                      value={
-                                        eventEndTime
-                                          ? dayjs(eventEndTime)
-                                          : null
-                                      }
-                                      onChange={(newValue) =>
-                                        setEventEndTime(
-                                          new Date(Date.parse(newValue))
-                                        )
-                                      }
-                                      viewRenderers={{
-                                        hours: renderTimeViewClock,
-                                        minutes: renderTimeViewClock,
-                                        seconds: renderTimeViewClock,
-                                      }}
-                                      slotProps={{
-                                        textField: {
-                                          placeholder: "Select an ending time",
-                                        },
-                                      }}
-                                    />
-                                  </LocalizationProvider>
-                                </Grid>
-                              </Grid>
-                            </FormControl>
-                          </form>
-                        </Box>
-                      </div>
-                    </>
+                    <DateTime
+                      eventStartDate={eventStartDate}
+                      setEventStartDate={setEventStartDate}
+                      eventEndDate={eventEndDate}
+                      setEventEndDate={setEventEndDate}
+                      eventStartTime={eventStartTime}
+                      setEventStartTime={setEventStartTime}
+                      eventEndTime={eventEndTime}
+                      setEventEndTime={setEventEndTime}
+                      eventTimezone={eventTimezone}
+                      setEventTimezone={setEventTimezone}
+                    />
                   );
                 } else if (activeStep === 4) {
                   return (
-                    <>
-                      {/* PAGE 5 - PRICING */}
-                      <h2>Pricing</h2>
-                      <div className="create-event-pricing">
-                        <Box alignItems="center" justifyContent="center">
-                          <form onSubmit={signupHandler}>
-                            <FormControl fullWidth>
-                              <Grid container spacing={2} paddingBottom="15px">
-                                <Grid
-                                  container
-                                  spacing={1}
-                                  item
-                                  s={6}
-                                  paddingBottom="15px"
-                                  direction="row"
-                                >
-                                  <Checkbox
-                                    checked={eventFree}
-                                    onChange={handleChecked}
-                                    name="eventFree"
-                                    label="Free"
-                                    inputProps={{
-                                      "aria-label": "controlled",
-                                    }}
-                                  />
-                                  <p>Free</p>{" "}
-                                  <Checkbox
-                                    checked={eventPaid}
-                                    onChange={handleChecked}
-                                    name="eventPaid"
-                                    label="paid"
-                                    inputProps={{
-                                      "aria-label": "controlled",
-                                    }}
-                                  />
-                                  <p>Paid</p>
-                                </Grid>
-                                <Grid container item xs={6} direction="column">
-                                  <p
-                                    className={
-                                      !eventFree
-                                        ? "form-label-active"
-                                        : "form-label-disabled"
-                                    }
-                                  >
-                                    Ticket type:
-                                  </p>
-                                  <TextField
-                                    value={eventTierName1}
-                                    required
-                                    id="create-event-ticket-tier1"
-                                    placeholder="Enter the ticket tier name"
-                                    variant="outlined"
-                                    inputProps={{ readonly: true }}
-                                    disabled={eventFree}
-                                  />
-                                </Grid>
-                                <Grid container item xs={6} direction="column">
-                                  <p
-                                    className={
-                                      !eventFree
-                                        ? "form-label-active"
-                                        : "form-label-disabled"
-                                    }
-                                  >
-                                    Ticket price:
-                                  </p>
-                                  <TextField
-                                    variant="outlined"
-                                    value={parseFloat(eventPrice1).toFixed(2)}
-                                    onChange={(event) =>
-                                      setEventPrice1(event.target.value)
-                                    }
-                                    id="create-event-ticket-price1"
-                                    disabled={eventFree}
-                                  />
-                                </Grid>
-                                <Grid
-                                  container
-                                  item
-                                  xs={12}
-                                  direction="row"
-                                  className="fab-container-tickets"
-                                >
-                                  <Fab
-                                    className="add-ticket-fab-disabled"
-                                    id="add-ticket-1"
-                                    aria-label="Add"
-                                    disabled={true}
-                                  >
-                                    <AddIcon />
-                                  </Fab>
-                                  <Fab
-                                    className="remove-ticket-fab-disabled"
-                                    id="remove-ticket-1"
-                                    aria-label="Remove"
-                                    disabled={true}
-                                  >
-                                    <RemoveIcon />
-                                  </Fab>
-                                </Grid>
-                                <Grid container item xs={6} direction="column">
-                                  <p
-                                    className={
-                                      enableTicket2 || !eventFree
-                                        ? "form-label-active"
-                                        : "form-label-disabled"
-                                    }
-                                  >
-                                    Ticket type:
-                                  </p>
-                                  <TextField
-                                    value={eventTierName2}
-                                    required
-                                    onChange={(event) =>
-                                      setEventTierName2(event.target.value)
-                                    }
-                                    id="create-event-ticker-tier2"
-                                    placeholder="Enter the ticket tier name"
-                                    variant="outlined"
-                                    disabled={eventFree || !enableTicket2}
-                                  />
-                                </Grid>
-                                <Grid container item xs={6} direction="column">
-                                  <p
-                                    className={
-                                      enableTicket2 || !eventFree
-                                        ? "form-label-active"
-                                        : "form-label-disabled"
-                                    }
-                                  >
-                                    Ticket price:
-                                  </p>
-                                  <TextField
-                                    variant="outlined"
-                                    value={parseFloat(eventPrice2).toFixed(2)}
-                                    onChange={(event) =>
-                                      setEventPrice2(event.target.value)
-                                    }
-                                    id="create-event-ticket-price2"
-                                    disabled={eventFree || !enableTicket2}
-                                  />
-                                </Grid>
-                                <Grid
-                                  container
-                                  item
-                                  xs={12}
-                                  direction="row"
-                                  className="fab-container-tickets"
-                                >
-                                  <Fab
-                                    className={
-                                      !(eventFree || enableTicket2)
-                                        ? "add-ticket-fab"
-                                        : "add-ticket-fab-disabled"
-                                    }
-                                    onClick={handleTicketDisable2}
-                                    id="add-ticket-2"
-                                    aria-label="Add"
-                                    disabled={eventFree || enableTicket2}
-                                  >
-                                    <AddIcon />
-                                  </Fab>
-                                  <Fab
-                                    className={
-                                      enableTicket2 ||
-                                      (!eventFree && enableTicket2)
-                                        ? "remove-ticket-fab"
-                                        : "remove-ticket-fab-disabled"
-                                    }
-                                    onClick={handleTicketDisable2}
-                                    id="remove-ticket-2"
-                                    aria-label="Remove"
-                                    disabled={eventFree || !enableTicket2}
-                                  >
-                                    <RemoveIcon />
-                                  </Fab>
-                                </Grid>
-                                <Grid container item xs={6} direction="column">
-                                  <p
-                                    className={
-                                      enableTicket3 || !eventFree
-                                        ? "form-label-active"
-                                        : "form-label-disabled"
-                                    }
-                                  >
-                                    Ticket type:
-                                  </p>
-                                  <TextField
-                                    value={eventTierName3}
-                                    required
-                                    onChange={(event) =>
-                                      setEventTierName3(event.target.value)
-                                    }
-                                    id="create-event-ticket-tier3"
-                                    placeholder="Enter the ticket tier name"
-                                    variant="outlined"
-                                    disabled={eventFree || !enableTicket3}
-                                  />
-                                </Grid>
-                                <Grid container item xs={6} direction="column">
-                                  <p
-                                    className={
-                                      enableTicket3 || !eventFree
-                                        ? "form-label-active"
-                                        : "form-label-disabled"
-                                    }
-                                  >
-                                    Ticket price:
-                                  </p>
-                                  <TextField
-                                    variant="outlined"
-                                    value={parseFloat(eventPrice3).toFixed(2)}
-                                    onChange={(event) =>
-                                      setEventPrice3(event.target.value)
-                                    }
-                                    id="create-event-ticket-price3"
-                                    disabled={eventFree || !enableTicket3}
-                                  />
-                                </Grid>
-                                <Grid
-                                  container
-                                  item
-                                  xs={12}
-                                  direction="row"
-                                  className="fab-container-tickets"
-                                >
-                                  <Fab
-                                    className={
-                                      !(eventFree || enableTicket3)
-                                        ? "add-ticket-fab"
-                                        : "add-ticket-fab-disabled"
-                                    }
-                                    onClick={handleTicketDisable3}
-                                    id="add-ticket-3"
-                                    aria-label="Add"
-                                    disabled={eventFree || enableTicket3}
-                                  >
-                                    <AddIcon />
-                                  </Fab>
-                                  <Fab
-                                    className={
-                                      enableTicket3 ||
-                                      (!eventFree && enableTicket3)
-                                        ? "remove-ticket-fab"
-                                        : "remove-ticket-fab-disabled"
-                                    }
-                                    onClick={handleTicketDisable3}
-                                    id="remove-ticket-3"
-                                    aria-label="Remove"
-                                    disabled={eventFree || !enableTicket3}
-                                  >
-                                    <RemoveIcon />
-                                  </Fab>
-                                </Grid>
-                                <Grid container item xs={6} direction="column">
-                                  <p
-                                    className={
-                                      enableTicket4 || !eventFree
-                                        ? "form-label-active"
-                                        : "form-label-disabled"
-                                    }
-                                  >
-                                    Ticket type:
-                                  </p>
-                                  <TextField
-                                    value={eventTierName4}
-                                    required
-                                    onChange={(event) =>
-                                      setEventTierName4(event.target.value)
-                                    }
-                                    id="create-event-ticket-tier4"
-                                    placeholder="Enter the ticket tier name"
-                                    variant="outlined"
-                                    disabled={eventFree || !enableTicket4}
-                                  />
-                                </Grid>
-                                <Grid container item xs={6} direction="column">
-                                  <p
-                                    className={
-                                      enableTicket4 || !eventFree
-                                        ? "form-label-active"
-                                        : "form-label-disabled"
-                                    }
-                                  >
-                                    Ticket price:
-                                  </p>
-                                  <TextField
-                                    variant="outlined"
-                                    value={eventPrice4}
-                                    onChange={(event) =>
-                                      setEventPrice4(event.target.value)
-                                    }
-                                    id="create-event-ticket-price4"
-                                    disabled={eventFree || !enableTicket4}
-                                  />
-                                </Grid>
-                                <Grid
-                                  container
-                                  item
-                                  xs={12}
-                                  direction="row"
-                                  className="fab-container-tickets"
-                                >
-                                  <Fab
-                                    className={
-                                      !(eventFree || enableTicket4)
-                                        ? "add-ticket-fab"
-                                        : "add-ticket-fab-disabled"
-                                    }
-                                    onClick={handleTicketDisable4}
-                                    id="add-ticket-4"
-                                    aria-label="Add"
-                                    disabled={eventFree || enableTicket4}
-                                  >
-                                    <AddIcon />
-                                  </Fab>
-                                  <Fab
-                                    className={
-                                      enableTicket4 ||
-                                      (!eventFree && enableTicket4)
-                                        ? "remove-ticket-fab"
-                                        : "remove-ticket-fab-disabled"
-                                    }
-                                    onClick={handleTicketDisable4}
-                                    id="remove-ticket-4"
-                                    aria-label="Remove"
-                                    disabled={eventFree || !enableTicket4}
-                                  >
-                                    <RemoveIcon />
-                                  </Fab>
-                                </Grid>
-                              </Grid>
-                            </FormControl>
-                          </form>
-                        </Box>
-                      </div>
-                    </>
+                    <Pricing
+                      eventFree={eventFree}
+                      eventPaid={eventPaid}
+                      eventTierName1={eventTierName1}
+                      eventPrice1={eventPrice1}
+                      setEventPrice1={setEventPrice1}
+                      eventTierName2={eventTierName2}
+                      setEventTierName2={setEventTierName2}
+                      eventPrice2={eventPrice2}
+                      setEventPrice2={setEventPrice2}
+                      eventTierName3={eventTierName3}
+                      setEventTierName3={setEventTierName3}
+                      eventPrice3={eventPrice3}
+                      setEventPrice3={setEventPrice3}
+                      eventTierName4={eventTierName4}
+                      setEventTierName4={setEventTierName4}
+                      eventPrice4={eventPrice4}
+                      setEventPrice4={setEventPrice4}
+                      enableTicket2={enableTicket2}
+                      setEnableTicket2={setEnableTicket2}
+                      enableTicket3={enableTicket3}
+                      setEnableTicket3={setEnableTicket3}
+                      enableTicket4={enableTicket4}
+                      setEnableTicket4={setEnableTicket4}
+                      state={state}
+                      setState={setState}
+                    />
                   );
                 } else if (activeStep === 5) {
                   return (
-                    <>
-                      {/* PAGE 6 - EVENT MEDIA */}
-                      <h2>Event media</h2>
-                      <div className="create-event-media">
-                        <Box alignItems="center" justifyContent="center">
-                          <form onSubmit={signupHandler}>
-                            <FormControl fullWidth>
-                              <Grid container spacing={2} paddingBottom="15px">
-                                <Grid
-                                  container
-                                  spacing={1}
-                                  item
-                                  s={6}
-                                  paddingBottom="15px"
-                                  direction="row"
-                                >
-                                  {!selectedImage && (
-                                    <div className="create-ev-img-box">
-                                      {" "}
-                                      <label>
-                                        <input
-                                          id="create-ev-img-input"
-                                          accept="image/*"
-                                          type="file"
-                                          onChange={imageChange}
-                                        />
-                                        <Link color="#f58146">
-                                          Upload image
-                                        </Link>
-                                      </label>
-                                    </div>
-                                  )}
-                                  {selectedImage && (
-                                    <>
-                                      <div className="create-ev-img-box">
-                                        <img
-                                          src={URL.createObjectURL(
-                                            selectedImage
-                                          )}
-                                          onerror="this.onerror=null"
-                                          alt="Thumb"
-                                          className="preview-image"
-                                        />
-                                      </div>
-                                      <div id="remove-img-box">
-                                        <Link
-                                          color="#f58146"
-                                          onClick={removeSelectedImage}
-                                        >
-                                          Remove This Image
-                                        </Link>
-                                      </div>
-                                    </>
-                                  )}
-                                </Grid>
-                              </Grid>
-                            </FormControl>
-                          </form>
-                        </Box>
-                      </div>
-                    </>
+                    <EventMedia
+                      selectedImage={selectedImage}
+                      setSelectedImage={setSelectedImage}
+                    />
                   );
                 } else {
                   return <p>Form error.. trying reloading the page</p>;

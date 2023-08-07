@@ -12,13 +12,20 @@ import LockIcon from "@mui/icons-material/Lock";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useState, useEffect } from "react";
 import { getFirstLetters } from "../../utils/utils";
-import { getUser } from "../../utils/localStorage";
+import {
+  getUser,
+  getDrafts,
+} from "../../utils/localStorage";
 import { searchOwnedEvents } from "../../services/EventAPI";
+import DraftCard from "../event/DraftCard";
 
 const Dashboard = () => {
 
   const [ownedEvents, setOwnedEvents] = useState([]);
   const user = getUser();
+
+  const drafts = getDrafts();
+  console.log(drafts);
 
   useEffect(() => {
     async function fetchEvents() {
@@ -124,6 +131,16 @@ const Dashboard = () => {
               </Box>
             </article>
             <article className="saved-events">
+              {drafts.length > 0 && (
+                <div id="event-drafts">
+                  <h2>Event Drafts</h2>
+                  <Box className="drafts">
+                    {drafts.map((draft, i) => (
+                      <DraftCard key={i} name={draft.eventName ? draft.eventName : "Draft " + (i+1)} draftNo={i} />
+                    ))}
+                  </Box>
+                </div>
+              )}
               <div id="saved-events-header">
                 <h2>Created Events</h2>
                 <Link className="bttn-style-orange" to="/createevent">
@@ -131,10 +148,15 @@ const Dashboard = () => {
                 </Link>
               </div>
               <Box className="events-profile">
-                {ownedEvents.map((event, i) => (
-                  <CreatedEventCardHorizontal key={i} event={event} />
-                ))}
-                {ownedEvents.length === 0 && <><h2>You have not yet created any events.</h2></>}
+                {events.length !== 0 &&
+                  events.map((event, i) => (
+                    <CreatedEventCardHorizontal key={i} event={event} />
+                  ))}
+                {events.length === 0 && (
+                  <>
+                    <h2>You have not yet created any events.</h2>
+                  </>
+                )}
               </Box>
               
             </article>
