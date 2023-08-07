@@ -10,28 +10,7 @@ import {
   Box,
   Button,
 } from "@mui/material";
-<<<<<<< HEAD
-import Grid from "@mui/material/Grid";
-import Select from "@mui/material/Select";
-import Chip from "@mui/material/Chip";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import MenuItem from "@mui/material/MenuItem";
-import Fab from "@mui/material/Fab";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { TimePicker } from "@mui/x-date-pickers/TimePicker";
-import { renderTimeViewClock } from "@mui/x-date-pickers/timeViewRenderers";
-import { Checkbox } from "@mui/material";
-import {
-  getAustralianTimezones,
-  getFirstLetters,
-} from "../../utils/utils";
-import { getAllTags } from "../../services/EventAPI";
-=======
 import { getFirstLetters } from "../../utils/utils";
->>>>>>> main
 import { Link } from "@mui/material";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
