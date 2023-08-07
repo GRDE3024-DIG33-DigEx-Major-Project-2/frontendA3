@@ -148,11 +148,11 @@ const Dashboard = () => {
                 </Link>
               </div>
               <Box className="events-profile">
-                {events.length !== 0 &&
-                  events.map((event, i) => (
+                {ownedEvents.length !== 0 &&
+                  ownedEvents.map((event, i) => (
                     <CreatedEventCardHorizontal key={i} event={event} />
                   ))}
-                {events.length === 0 && (
+                {ownedEvents.length === 0 && (
                   <>
                     <h2>You have not yet created any events.</h2>
                   </>
