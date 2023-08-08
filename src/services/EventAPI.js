@@ -121,7 +121,7 @@ export const deleteEvent = async function (eventId) {
         .delete(EVENT_ENDPOINTS.deleteEventUrl + `/${eventId}`, options);
 
       //Retry success!
-      if (retry == 200) {
+      if (retry.status == 200) {
         console.log("Event deleted!");
         return retry;
       }
@@ -134,7 +134,7 @@ export const deleteEvent = async function (eventId) {
     }
   }
   //Success!
-  else if (response == 200) {
+  else if (response.status == 200) {
     console.log("Event deleted!");
     return response;
   }
@@ -213,7 +213,7 @@ export const searchOwnedEvents = async function (page) {
         .post(EVENT_ENDPOINTS.searchOwnedEventsUrl, requestBody, options);
 
       //Retry success!
-      if (retry == 200) {
+      if (retry.status == 200) {
         console.log("Owned events search completed!");
         events = retry.data.events;
         pageCount = retry.data.pageCount;
@@ -227,7 +227,7 @@ export const searchOwnedEvents = async function (page) {
     }
   }
   //Success!
-  else if (response == 200) {
+  else if (response.status == 200) {
     console.log("Owned events search completed!");
     events = response.data.events;
     pageCount = response.data.pageCount;
@@ -290,7 +290,7 @@ export const createEvent = async function (formData) {
       console.log("Retried event create request");
 
       //Retry success!
-      if (retry == 200) {
+      if (retry.status == 201) {
         console.log("Create Event Success!");
         return retry.data;
       }
@@ -361,7 +361,7 @@ export const searchFavourites = async function (page) {
         .post(EVENT_ENDPOINTS.searchFavouritesUrl, requestBody, options);
 
       //Retry success!
-      if (retry == 200) {
+      if (retry.status == 200) {
         console.log("Favourited events search completed!");
         events = retry.data.events;
         pageCount = retry.data.pageCount;
@@ -377,7 +377,7 @@ export const searchFavourites = async function (page) {
 
   }
   //Success!
-  else if (response == 200) {
+  else if (response.status == 200) {
     console.log("Favourited events search completed!");
     events = response.data.events;
     pageCount = response.data.pageCount;
@@ -426,7 +426,7 @@ export const toggleFavourite = async function (eventId) {
         .post(EVENT_ENDPOINTS.toggleFavouriteUrl, requestBody, options);
 
       //Retry success!
-      if (retry == 200) {
+      if (retry.status == 200) {
         console.log("Event favourited toggled!");
         return retry;
       }
@@ -439,7 +439,7 @@ export const toggleFavourite = async function (eventId) {
     }
   }
   //Success!
-  else if (response == 200) {
+  else if (response.status == 200) {
     console.log("Event favourited toggled!");
     return response;
   }
@@ -488,7 +488,7 @@ export const isFavourited = async function (eventIds) {
       console.log("Retried event isFavourited request");
 
       //Retry success!
-      if (retry == 200) {
+      if (retry.status == 200) {
         console.log("isFavourited Success!");
         favStatuses.push(retry.data.favStatuses);
       }
@@ -500,7 +500,7 @@ export const isFavourited = async function (eventIds) {
     }
   }
   //Success!
-  else if (response == 200) {
+  else if (response.status == 200) {
     console.log("isFavourited Success!");
     favStatuses.push(response.data.favStatuses);
   }

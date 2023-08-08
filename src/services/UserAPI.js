@@ -52,7 +52,7 @@ export const updateUser = async function (formData) {
       console.log("Retried user update request");
 
       //Retry success! Set new user and access token
-      if (retry == 200) {
+      if (retry.status == 200) {
         console.log("Update User Success!");
         setUserSession(retry.data.user);
         setAccessToken(retry.data.accessToken);
@@ -66,7 +66,7 @@ export const updateUser = async function (formData) {
     }
   }
   //Success! Set new user and access token
-  else if (response.status == 201) {
+  else if (response.status == 200) {
     console.log("Update User Success!");
     setUserSession(response.data.user);
     setAccessToken(response.data.accessToken);
@@ -110,7 +110,7 @@ export const resetPassword = async function (oldPassword, newPassword) {
       console.log("Retried user reset password request");
 
       //Retry success! Set new user and access token
-      if (retry == 200) {
+      if (retry.status == 200) {
         console.log("Reset Password Success!");
         console.log(retry.data.msg);
       }
@@ -122,7 +122,7 @@ export const resetPassword = async function (oldPassword, newPassword) {
     }
   }
   //Success! Set new user and access token
-  else if (response.status == 201) {
+  else if (response.status == 200) {
     console.log("Reset Password Success!");
     console.log(response.data.msg);
   }
@@ -161,7 +161,7 @@ export const deleteUser = async function () {
       console.log("Retried user delete request");
 
       //Retry success! Set new user and access token
-      if (retry == 200) {
+      if (retry.status == 200) {
         console.log("User Delete Success!");
         console.log(retry.data);
         resetUserSession();
@@ -175,7 +175,7 @@ export const deleteUser = async function () {
     }
   }
   //Success! Set new user and access token
-  else if (response.status == 201) {
+  else if (response.status == 200) {
     console.log("User Delete Success!");
     console.log(response.data);
     resetUserSession();

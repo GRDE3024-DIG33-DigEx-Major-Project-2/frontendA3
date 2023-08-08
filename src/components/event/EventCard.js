@@ -14,6 +14,7 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import { getDateRangeString } from "../../utils/utils";
 import { useState, useEffect } from "react";
 import { toggleFavourite, isFavourited } from "../../services/EventAPI";
+import { getUser } from "../../utils/localStorage";
 
 const EventCard = (props) => {
   const navigate = useNavigate();
@@ -26,7 +27,9 @@ const EventCard = (props) => {
       if (isFav[0].isFavourite)
       setFavourite(isFav[0].isFavourite);
     }
-    setIsFavourite();
+    if (getUser.userType == "Attendee") {
+setIsFavourite();
+    }
   }, [setFavourite]);
 
   // on load, check if the event is already in the favourite list
@@ -86,20 +89,26 @@ const EventCard = (props) => {
           <ShareIcon sx={{ fontSize: 22, color: "black" }} />
         </div>
       </Tooltip>
-      <Tooltip
-        title={!favourite ? "Add to favourites" : "Remove from favourites"}
-      >
-        <div id={favourite ? 'ev-bookmark-selected' : 'ev-bookmark'} className={favourite ? 'card-icon-selected' : 'card-icon'} onClick={handleFavourite}>
-          <BookmarkBorderOutlinedIcon
-            id={favourite ? "bookmark-hide" : "bookmark-show"}
-            sx={{ fontSize: 23, color: "black" }}
-          />
-          <BookmarkOutlinedIcon
-            id={favourite ? "bookmark-show" : "bookmark-hide"}
-            sx={{ fontSize: 23, color: "black" }}
-          />
-        </div>
-      </Tooltip>
+      {getUser().userType === "Attendee" && (
+  <Tooltip
+    title={!favourite ? "Add to favourites" : "Remove from favourites"}
+  >
+    <div
+      id={favourite ? 'ev-bookmark-selected' : 'ev-bookmark'}
+      className={favourite ? 'card-icon-selected' : 'card-icon'}
+      onClick={handleFavourite}
+    >
+      <BookmarkBorderOutlinedIcon
+        id={favourite ? "bookmark-hide" : "bookmark-show"}
+        sx={{ fontSize: 23, color: "black" }}
+      />
+      <BookmarkOutlinedIcon
+        id={favourite ? "bookmark-show" : "bookmark-hide"}
+        sx={{ fontSize: 23, color: "black" }}
+      />
+    </div>
+  </Tooltip>
+)}
     </Card>
   );
 };
