@@ -50,7 +50,7 @@ export const getDrafts = function () {
 
 export const setDrafts = function (drafts) {
   sessionStorage.setItem("drafts", JSON.stringify(drafts));
-  console.log("HEY", getDrafts())
+  console.log("HEY", getDrafts());
 };
 
 export const resetDrafts = async function () {
@@ -64,11 +64,11 @@ export const addDraft = function (draft) {
   drafts.push(draft);
   console.log("HO", drafts);
   setDrafts(drafts);
-}
+};
 
 export const removeDraft = function (draftNo) {
   let drafts = getDrafts();
   drafts.splice(draftNo, 1);
   console.log("REMOVED", drafts);
   setDrafts(drafts);
-}
+};

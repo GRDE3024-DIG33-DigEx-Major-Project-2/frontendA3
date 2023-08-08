@@ -186,7 +186,7 @@ a {
   width: 22%;
 }
 
-#date-field-search {
+#date-field-search-min, #date-field-search-max {
   width: 18%;
 }
 
@@ -621,6 +621,14 @@ footer {
   align-items: center;
   padding: 1% 2%;
   margin-bottom: 2%;
+}
+.profile-container .draft-card div {
+  width: 40%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 4%;
 }
 
 .home-section {
