@@ -89,25 +89,27 @@ setIsFavourite();
           <ShareIcon sx={{ fontSize: 22, color: "black" }} />
         </div>
       </Tooltip>
-      {getUser().userType === "Attendee" && (
-  <Tooltip
-    title={!favourite ? "Add to favourites" : "Remove from favourites"}
-  >
-    <div
-      id={favourite ? 'ev-bookmark-selected' : 'ev-bookmark'}
-      className={favourite ? 'card-icon-selected' : 'card-icon'}
-      onClick={handleFavourite}
+      {getUser() !== null && (
+  getUser().userType === "Attendee" ? (
+    <Tooltip
+      title={!favourite ? "Add to favourites" : "Remove from favourites"}
     >
-      <BookmarkBorderOutlinedIcon
-        id={favourite ? "bookmark-hide" : "bookmark-show"}
-        sx={{ fontSize: 23, color: "black" }}
-      />
-      <BookmarkOutlinedIcon
-        id={favourite ? "bookmark-show" : "bookmark-hide"}
-        sx={{ fontSize: 23, color: "black" }}
-      />
-    </div>
-  </Tooltip>
+      <div
+        id={favourite ? 'ev-bookmark-selected' : 'ev-bookmark'}
+        className={favourite ? 'card-icon-selected' : 'card-icon'}
+        onClick={handleFavourite}
+      >
+        <BookmarkBorderOutlinedIcon
+          id={favourite ? "bookmark-hide" : "bookmark-show"}
+          sx={{ fontSize: 23, color: "black" }}
+        />
+        <BookmarkOutlinedIcon
+          id={favourite ? "bookmark-show" : "bookmark-hide"}
+          sx={{ fontSize: 23, color: "black" }}
+        />
+      </div>
+    </Tooltip>
+  ) : null
 )}
     </Card>
   );
