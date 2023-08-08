@@ -10,19 +10,15 @@ import LockIcon from "@mui/icons-material/Lock";
 import Grid from "@mui/material/Grid";
 import axios from "axios";
 import { LoadingContext, useLoading } from "../../props/loading-spinner.prop";
+import {register} from "../../services/UserAPI";
 
 function SignUpOrganiser() {
-
-
   
       //Fullpage loading spinner props
       const {
         loading,
         setLoading
       } = useContext(LoadingContext);
-
-
-  const baseURL = process.env.REACT_APP_BASEURL;
   
   const [organizationName, setOrganizationName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -54,7 +50,6 @@ function SignUpOrganiser() {
     if (password !== confirmPassword) {
       alert("Passwords must match");
     } else {
-      const registerUrl = baseURL + "user/register";
 
       const requestBody = {
         userType: "organizer",
@@ -66,17 +61,19 @@ function SignUpOrganiser() {
 
       console.log(requestBody);
 
-      axios
-        .post(registerUrl, requestBody)
-        .then((response) => {
-          alert("Registration Succesful");
-                    //Disable fullpage loading spinner
-                    setLoading(false);
-          navigate("/login");
-        })
-        .catch((error) => {
-          alert("Sorry, the backend server is down! Please try again later.");
-        });
+      await register(requestBody)
+      .then((response) => {
+        alert("Registration Succesful");
+        navigate("/login");
+      })
+      .catch((error) => {
+        alert("Sorry, the backend server is down! Please try again later.");
+      })
+      .finally(() => {
+        //Disable fullpage loading spinner
+        setLoading(false);        
+      });
+
     }
   };
 
