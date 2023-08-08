@@ -15,7 +15,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
 import { LoadingContext, useLoading } from "../../props/loading-spinner.prop";
 import {register} from "../../services/UserAPI";
-import { showToast, showErrorToast } from "../shared/Toaster";
+import { showSuccessToast, showErrorToast } from "../shared/Toaster";
 
 function SignUpGuest() {
 
@@ -76,7 +76,7 @@ function SignUpGuest() {
 
       await register(requestBody)
       .then((response) => {
-        showToast("Registration Succesful");
+        showSuccessToast("Registration Succesful");
         navigate("/login");
       })
       .catch((error) => {

@@ -7,7 +7,7 @@ import axios from "axios";
 import { setAccessToken, setUserSession, setDrafts } from "../../utils/localStorage";
 import { LoadingContext } from "../../props/loading-spinner.prop";
 import { login } from "../../services/AuthAPI";
-import { showToast, showErrorToast } from "../shared/Toaster";
+import { showSuccessToast, showErrorToast } from "../shared/Toaster";
 
 
 const Login = ({ setIsLoggedIn }) => {
@@ -44,7 +44,7 @@ const Login = ({ setIsLoggedIn }) => {
         response = await login(email, password);
 
         setMessage("Login Succesful");
-        showToast("Login Succesful");
+        showSuccessToast("Login Succesful");
 
         if (response.data.user.organizationName) {
           user = {
