@@ -18,6 +18,7 @@ export const EVENT_ENDPOINTS = {
   //Requires id as param
   getByIdUrl: BASE_URL + "event/",
   toggleFavouriteUrl: BASE_URL + "event/toggle-favourite",
+  isFavourited: BASE_URL + "event/is-favourited"
 };
 
 
@@ -38,3 +39,5 @@ export const USER_ENDPOINTS = {
 };
 
 
+export const INVALID_TOKEN_STATUS = 403;
+export const INVALID_TOKEN_MSG = "Forbidden";

@@ -4,12 +4,13 @@
 
 //Import dependencies
 import {
-  AUTH_ENDPOINTS,
   EVENT_ENDPOINTS,
-  BASE_URL,
+  INVALID_TOKEN_MSG,
+  INVALID_TOKEN_STATUS
 } from "../utils/constants.util";
 import axios from "axios";
 import { getAccessToken } from "../utils/localStorage";
+import { refreshToken } from "./AuthAPI";
 
 
 
@@ -26,27 +27,26 @@ import { getAccessToken } from "../utils/localStorage";
  * @returns Array of events and number of pages that match the filter options
  */
 export const searchEvents = async function (tagIds, keywords, minDate, maxDate, city, priceRange, page) {
-  //await delay(3000);
-  console.log("Inside Search Events");
-  console.log(tagIds, keywords, minDate, maxDate, city, page);
 
+  //The sanitized price range for request body
   let priceSetting = null;
 
+  //Sanitize price range for endpoint validation
   if (priceRange != null) {
-  if (priceRange.minPrice != null 
-    && priceRange.maxPrice != null
-    && priceRange.minPrice != 0
-    && priceRange.maxPrice != 0)
-  priceSetting = {
-    minPrice: priceRange.minPrice,
-    maxPrice: priceRange.maxPrice
-  };    
+    if (priceRange.minPrice != null
+      && priceRange.maxPrice != null
+      && priceRange.minPrice != 0
+      && priceRange.maxPrice != 0)
+      priceSetting = {
+        minPrice: priceRange.minPrice,
+        maxPrice: priceRange.maxPrice
+      };
   }
 
 
-  //Set empty keywords string to null
+  //Sanitize keywords by setting empty keywords string to null
   if (keywords == "")
-  keywords = null;
+    keywords = null;
 
 
   //The array of events to return
@@ -65,43 +65,34 @@ export const searchEvents = async function (tagIds, keywords, minDate, maxDate, 
     page: page | 0
   };
 
-  console.log("Request body test");
-  console.log(requestBody);
-
   try {
-  //Get the array of events and the page number
-  await axios
-    .post(EVENT_ENDPOINTS.searchEventsUrl, requestBody)
-    .then((response) => {
-      console.log("Search Events Test...");
-      console.log(response.data);
-      events = response.data.events;
-      pageCount = response.data.pageCount;
-    });  
+    //Get the array of events and the page number
+    await axios
+      .post(EVENT_ENDPOINTS.searchEventsUrl, requestBody)
+      .then((response) => {
+        events = response.data.events;
+        pageCount = response.data.pageCount;
+      });
   }
-  catch(error) {
-
-    //console.clear();
-    console.log(tagIds, keywords, minDate, maxDate, city, page);
+  catch (error) {
     console.log("An error occured while searching events!");
-
-      //Request body is invalid!
-  if (error.response.status == 422) {
-console.log("Request body is invalid!");
-console.log(error.response.data.errors);
-
-//TODO ADJUST THIS PART TO MEET YOUR NEEDS
-return { events: events, pageCount: pageCount };
-//return response.data.errors;
+    console.log(tagIds, keywords, minDate, maxDate, city, page);
+    //Request body is invalid!
+    if (error.response.status == 422) {
+      console.log("Request body is invalid!");
+      console.log(error.response.data.errors);
+    }
   }
+  finally {
+    //Return object containing events and total page count
+    return { events: events, pageCount: pageCount };
   }
 
-  //Return object containing API response data
-  return { events: events, pageCount: pageCount };
+
 };
 
-//TODO REFRESH TOKEN IMPLEMENTATION
-//TODO INCOMPLETE
+
+
 /**
  * Deletes the user's owned event by id (must be an Organizer)
  * @param {*} eventId Event to delete
@@ -111,29 +102,58 @@ export const deleteEvent = async function (eventId) {
 
   const options = {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      Authorization: `Bearer ${getAccessToken()}`,
     },
   };
 
 
-  await axios
-    .delete(EVENT_ENDPOINTS.deleteEventUrl + `/${eventId}`, options)
-    .then((response) => {
-      console.log(response);
-      console.log("Event deleted!")
-      return response;
-    })
-    .catch((error) => {
-      console.log(error);
-      return;
-    });
+  let response = await axios
+    .delete(EVENT_ENDPOINTS.deleteEventUrl + `/${eventId}`, options);
+
+  //Failed! Refresh token and try again
+  if (response.status == INVALID_TOKEN_STATUS && response.data.msg == INVALID_TOKEN_MSG) {
+
+    console.log("Refreshing token and trying again!");
+    //Retry if refresh succeeded
+    if (refreshToken()) {
+
+      let retry = await axios
+        .delete(EVENT_ENDPOINTS.deleteEventUrl + `/${eventId}`, options);
+
+      //Retry success!
+      if (retry == 200) {
+        console.log("Event deleted!");
+        return retry;
+      }
+      //Retry failed!
+      else {
+        console.log("Failed to delete event!");
+        console.log(retry);
+        return retry;
+      }
+    }
+  }
+  //Success!
+  else if (response == 200) {
+    console.log("Event deleted!");
+    return response;
+  }
+  //Failed!
+  else {
+    console.log("Failed to delete event!");
+    console.log(response);
+    return response;
+  }
 };
+
+
 
 /**
  * Find all tags in the database
  * @returns Object Array of Tags
  */
 export const getAllTags = async function () {
+
   let tags = [];
 
   await axios
@@ -148,14 +168,16 @@ export const getAllTags = async function () {
   return tags;
 };
 
+
+
 /**
  * Get a page of favourited events from api endpoint
  * @param {*} page
  * @returns Array of events and number of pages that match the filter options
  */
 export const searchOwnedEvents = async function (page) {
-  console.log("Inside Owned Favourites");
-  console.log(page);
+
+  console.log("Searching for page ", page, " of owned events");
 
   const options = {
     headers: {
@@ -173,29 +195,56 @@ export const searchOwnedEvents = async function (page) {
     page: page | 0,
   };
 
-  console.log("Request body test");
-  console.log(requestBody);
+  console.log("Owned events request body: ", requestBody);
 
   //Get the array of events and the page number
-  await axios
-    .post(EVENT_ENDPOINTS.searchOwnedEventsUrl, requestBody, options)
-    .then((response) => {
-      console.log("Search Owned Test...");
-      console.log(response.data);
-      events = response.data.events;
-      pageCount = response.data.pageCount;
-    })
-    .catch((error) => {
-      console.log("Error while searching");
-      console.log(error.status);
-      console.log(error);
-    });
+  let response = await axios
+    .post(EVENT_ENDPOINTS.searchOwnedEventsUrl, requestBody, options);
+
+  //Failed! Refresh token and try again
+  if (response.status == INVALID_TOKEN_STATUS && response.data.msg == INVALID_TOKEN_MSG) {
+
+    console.log("Refreshing token and trying again!");
+
+    //Retry if refresh succeeded
+    if (refreshToken()) {
+
+      let retry = await axios
+        .post(EVENT_ENDPOINTS.searchOwnedEventsUrl, requestBody, options);
+
+      //Retry success!
+      if (retry == 200) {
+        console.log("Owned events search completed!");
+        events = retry.data.events;
+        pageCount = retry.data.pageCount;
+      }
+      //Retry failed!
+      else {
+        console.log("Error while searching owned events");
+        console.log(retry.status);
+        console.log(retry);
+      }
+    }
+  }
+  //Success!
+  else if (response == 200) {
+    console.log("Owned events search completed!");
+    events = response.data.events;
+    pageCount = response.data.pageCount;
+  }
+  //Failed!
+  else {
+    console.log("Error while searching owned events");
+    console.log(response.status);
+    console.log(response);
+  }
 
   //Return object containing API response data
   return { events: events, pageCount: pageCount };
 };
 
-//TODO FINISH REFRESH TOKEN IMPLEMENTATION
+
+
 /**
  * Create event via API POST request
  * Check api-docs for more info
@@ -205,10 +254,10 @@ export const searchOwnedEvents = async function (page) {
  */
 export const createEvent = async function (formData) {
 
-  console.log("Inside createEvent");
+  //The created event
+  let createdEvent = null;
 
-
-
+  //Sanitize purchaseUrl for when it is not provided
   if (formData.event.purchaseUrl == "") {
     formData.event.purchaseUrl = null;
   }
@@ -229,64 +278,55 @@ export const createEvent = async function (formData) {
     createEventOptions
   );
 
-  console.log("Performed first event create request");
-
-  //Refresh tokens in case of expired access token (should be equal to 403, but it catches all non-201 statuses)
-  if (response.status != 201) {
+  //Refresh tokens in case of expired access token
+  if (response.status == INVALID_TOKEN_STATUS && response.data.msg == INVALID_TOKEN_MSG) {
     console.log("Initial event create failed. Attempting token refresh");
-    //Perform refresh token request
-    let refreshResponse = await axios.get(AUTH_ENDPOINTS.refreshTokenUrl);
+    //Retry if refresh succeeded
+    if (refreshToken()) {
 
-    //Token refresh successful! Retry previous request
-    if (refreshResponse.status == 201) {
-      console.log("Token refresh successful!", refreshResponse.data);
-      //Set the accessToken
-      localStorage.setItem("accessToken", refreshResponse.data.accessToken);
-      //You will also receive the user data @ refreshResponse.data.user TODO REMOVE THIS COMMENT
+      let retry = await axios
+        .put(EVENT_ENDPOINTS.createEventUrl, formData, createEventOptions);
 
-      //Retry event create
-      response = await axios.post(
-        EVENT_ENDPOINTS.createEventUrl,
-        formData,
-        createEventOptions
-      );
+      console.log("Retried event create request");
 
-      console.log("Retried initial event request");
-
-      //Event retry failed -- Throw error or log user out?
-      if (response.status != 201) {
-        //TODO
-        console.log("Event retry failed");
-        console.log(response);
+      //Retry success!
+      if (retry == 200) {
+        console.log("Create Event Success!");
+        return retry.data;
+      }
+      //Retry failed!
+      else {
+        console.log("Error while creating event");
+        console.log(retry);
+        return;
       }
     }
-    //Refresh token failed -- Throw error or log user out?
-    else {
-      //TODO
-      console.log("Refresh token failed");
-      console.log(response);
-      //Checking old accessToken
-      console.log(getAccessToken());
-    }
+  }
+  //Success!
+  else if (response.status == 201) {
+    console.log("Create Event Success!");
+    createdEvent = response.data;
+  }
+  //Failed!
+  else {
+    console.log("Create Event Failed!");
+    console.log(response.status);
   }
 
-  console.log("Create Event Success!");
-  console.log(response.data);
-
   //Return object containing API response data
-  //event obj, eventImg obj, obj arrays etc... Optional data might be null (eventImg and possibly arrays for example)
-  return response.data;
+  return createdEvent;
 };
 
-//TODO REFRESH TOKEN IMPLEMENTATION
+
+
 /**
  * Get a page of favourited events from api endpoint
  * @param {*} page
  * @returns Array of events and number of pages that match the filter options
  */
 export const searchFavourites = async function (page) {
-  // console.log("Inside Search Favourites");
-  // console.log(page);
+
+  console.log("Searching for page ", page, " of favourited events");
 
   const options = {
     headers: {
@@ -304,33 +344,63 @@ export const searchFavourites = async function (page) {
     page: page | 0,
   };
 
-  // console.log("Request body test");
-  // console.log(requestBody);
+  console.log("Favourited events request body: ", requestBody);
 
-  //Get the array of events and the page number
-  await axios
-    .post(EVENT_ENDPOINTS.searchFavouritesUrl, requestBody, options)
-    .then((response) => {
-      // console.log("Search Favourites Test...");
-      // console.log(response.data);
-      events = response.data.events;
-      pageCount = response.data.pageCount;
-    })
-    .catch((error) => {
-      console.log("Error while searching");
-      console.log(error.status);
-      console.log(error);
-    });
+  //Get the array of favourited events and the page number
+  let response = await axios
+    .post(EVENT_ENDPOINTS.searchFavouritesUrl, requestBody, options);
+
+  //Failed! Refresh token and try again
+  if (response.status == INVALID_TOKEN_STATUS && response.data.msg == INVALID_TOKEN_MSG) {
+
+    console.log("Refreshing token and trying again!");
+
+    //Retry if refresh succeeded
+    if (refreshToken()) {
+      let retry = await axios
+        .post(EVENT_ENDPOINTS.searchFavouritesUrl, requestBody, options);
+
+      //Retry success!
+      if (retry == 200) {
+        console.log("Favourited events search completed!");
+        events = retry.data.events;
+        pageCount = retry.data.pageCount;
+      }
+      //Retry failed!
+      else {
+        console.log("Error while searching favourited events");
+        console.log(retry.status);
+        console.log(retry);
+      }
+    }
+
+
+  }
+  //Success!
+  else if (response == 200) {
+    console.log("Favourited events search completed!");
+    events = response.data.events;
+    pageCount = response.data.pageCount;
+  }
+  //Failed!
+  else {
+    console.log("Error while searching favourited events");
+    console.log(response.status);
+    console.log(response);
+  }
 
   //Return object containing API response data
   return { events: events, pageCount: pageCount };
+
 };
+
 
 /** Toggles an event as favourited/unfavourited for an Attendee
  * @param {*} eventId
  */
 
 export const toggleFavourite = async function (eventId) {
+
   const options = {
     headers: {
       Authorization: `Bearer ${getAccessToken()}`,
@@ -341,40 +411,112 @@ export const toggleFavourite = async function (eventId) {
     eventId: eventId,
   };
 
-  await axios
-    .post(EVENT_ENDPOINTS.toggleFavouriteUrl, requestBody, options)
-    .then((response) => {
-      console.log(response.data);
-      console.log("Event favourited toggled!");
-      return response;
-    })
-    .catch((error) => {
-      console.log(error);
-      return;
-    });
+  let response = await axios
+    .post(EVENT_ENDPOINTS.toggleFavouriteUrl, requestBody, options);
+
+  //Failed! Refresh token and try again
+  if (response.status == INVALID_TOKEN_STATUS && response.data.msg == INVALID_TOKEN_MSG) {
+
+    console.log("Refreshing token and trying again!");
+
+    //Retry if refresh succeeded
+    if (refreshToken()) {
+
+      let retry = await axios
+        .post(EVENT_ENDPOINTS.toggleFavouriteUrl, requestBody, options);
+
+      //Retry success!
+      if (retry == 200) {
+        console.log("Event favourited toggled!");
+        return retry;
+      }
+      //Retry failed!
+      else {
+        console.log("Error while toggling event favourite");
+        console.log(retry);
+        return;
+      }
+    }
+  }
+  //Success!
+  else if (response == 200) {
+    console.log("Event favourited toggled!");
+    return response;
+  }
+  //Failed!
+  else {
+    console.log("Error while toggling event favourite");
+    console.log(response);
+    return;
+  }
 };
 
-/** Checks if an event has already been added to favourites by a user
- * @param {*} eventId
+/**
+ * Checks favourited status of several events by id
+ * @param {*} eventIds Array of event ids to find the favourite status of
+ * @returns {[]} Array of objects with eventId and isFavourite props
  */
+export const isFavourited = async function (eventIds) {
 
-export const isFavourite = async function (events, eventId) {
-  // get list of favourited events
-  const favouritedEvents = await searchFavourites(0);
+  //Array of objects with eventId and isFavourite props
+  let favStatuses = [];
 
-  // check if the eventId is in the list
-  if (favouritedEvents.events) {
-    favouritedEvents.events.forEach((event) => {
-      if (event.id === eventId) return true;
-    });
+  console.log("Inside isFavourited endpoint handler");
+
+  let requestBody = {
+    eventIds: eventIds
+  };
+
+
+  const options = {
+    headers: {
+      Authorization: `Bearer ${getAccessToken()}`,
+    },
+  };
+
+  let response = await axios
+    .put(EVENT_ENDPOINTS.isFavourited, requestBody, options);
+
+  //Failed! Refresh token and try again
+  if (response.status == INVALID_TOKEN_STATUS && response.data.msg == INVALID_TOKEN_MSG) {
+    console.log("Refreshing token and trying again!");
+    //Retry if refresh succeeded
+    if (refreshToken()) {
+      let retry = await axios
+        .put(EVENT_ENDPOINTS.isFavourited, requestBody, options);
+
+      console.log("Retried event isFavourited request");
+
+      //Retry success!
+      if (retry == 200) {
+        console.log("isFavourited Success!");
+        favStatuses.push(retry.data.favStatuses);
+      }
+      //Retry failed!
+      else {
+        console.log("Error while finding isFavourited");
+        console.log(retry);
+      }
+    }
+  }
+  //Success!
+  else if (response == 200) {
+    console.log("isFavourited Success!");
+    favStatuses.push(response.data.favStatuses);
+  }
+  //Failed!
+  else {
+    console.log("Error while finding isFavourited");
+    console.log(response);
   }
 
-  // else return false
-  return false;
+  //Return the array of objects with eventId and isFavourite props
+  return favStatuses;
+
 };
 
-//TODO REFRESH TOKEN IMPLEMENTATION
-//TODO INCOMPLETE
+
+
 /**
  * Update event via API PUT request
  * @param {*} formData Formdata from form which contains all the event request body data you would require
@@ -400,47 +542,42 @@ export const updateEvent = async function (formData) {
 
   console.log("Performed first event update request");
 
-  //Refresh tokens in case of expired access token (should be equal to 403, but it catches all non-201 statuses)
-  if (response.status != 200) {
-    console.log("Initial event update failed. Attempting token refresh");
-    //Perform refresh token request
-    let refreshResponse = await axios
-      .get(AUTH_ENDPOINTS.refreshTokenUrl);
+  //Failed! Refresh token and try again
+  if (response.status == INVALID_TOKEN_STATUS && response.data.msg == INVALID_TOKEN_MSG) {
 
-    //Token refresh successful! Retry previous request
-    if (refreshResponse.status == 200) {
+    console.log("Refreshing token and trying again!");
 
-      console.log("Token refresh successful!", refreshResponse.data);
-      //Set the accessToken
-      localStorage.setItem("accessToken", refreshResponse.data.accessToken);
+    //Retry if refresh succeeded
+    if (refreshToken()) {
 
-      //Retry event create
-      response = await axios
+      let retry = await axios
         .put(EVENT_ENDPOINTS.updateEventUrl, formData, updateEventOptions);
 
-      console.log("Retried initial event request");
+      console.log("Retried event update request");
 
-      //Event retry failed -- Throw error or log user out?
-      if (response.status != 200) {
-        //TODO
-        console.log("Event retry failed");
-        console.log(response);
+      //Retry success!
+      if (retry == 200) {
+        console.log("Update Event Success!");
+        return retry.data;
+      }
+      //Retry failed!
+      else {
+        console.log("Error while updating event");
+        console.log(retry);
+        return;
       }
     }
-    //Refresh token failed -- Throw error or log user out?
-    else {
-      //TODO
-      console.log("Refresh token failed");
-      console.log(response);
-      //Checking old accessToken
-      console.log(getAccessToken());
-    }
   }
-
-  console.log("Update Event Success!");
-  console.log(response.data);
-
-  //Return object containing API response data 
-  return response.data;
+  //Success!
+  else if (response == 200) {
+    console.log("Update Event Success!");
+    return response.data;
+  }
+  //Failed!
+  else {
+    console.log("Error while updating event");
+    console.log(response);
+    return;
+  }
 
 };

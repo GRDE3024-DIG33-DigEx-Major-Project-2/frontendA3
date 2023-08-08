@@ -13,7 +13,7 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import { getDateRangeString } from "../../utils/utils";
 import { useState, useEffect } from "react";
-import { toggleFavourite, isFavourite } from "../../services/EventAPI";
+import { toggleFavourite, isFavourited } from "../../services/EventAPI";
 
 const EventCard = (props) => {
   const navigate = useNavigate();
@@ -21,8 +21,10 @@ const EventCard = (props) => {
 
   useEffect(() => {
     async function setIsFavourite() {
-      const isFav = await isFavourite(props.event.event.id);
-      setFavourite(isFav);
+      const isFav = await isFavourited([props.event.event.id]);
+      if (isFav.length > 0)
+      if (isFav[0].isFavourite)
+      setFavourite(isFav[0].isFavourite);
     }
     setIsFavourite();
   }, [setFavourite]);
