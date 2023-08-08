@@ -6,6 +6,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/styles";
 import { resetUserSession, resetTokenSession, getUser, resetDrafts } from "../../utils/localStorage";
+import { showToast, showErrorToast, showSuccessToast } from "../shared/Toaster";
 
 export default function Header({ isLoggedIn, setIsLoggedIn }) {
   const [menu, setMenu] = useState(false);
@@ -37,6 +38,8 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
     resetDrafts();
     // change user and logged in state
     setIsLoggedIn(false);
+    //Show toaster for logout notification
+    showToast("You have been logged out");      
   };
 
   // only for mobile menu

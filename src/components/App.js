@@ -19,6 +19,8 @@ import CreateEvent from "./event/CreateEvent.js";
 import EditEvent from "./event/EditEvent";
 import "../static/fonts.css";
 import { useState } from "react";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 //Import prop context providers
 import { SearchEventsProvider, SearchEventFiltersProvider } from "../props/search-events.prop";
@@ -34,6 +36,7 @@ function App() {
   return (
     <div className="App">
       <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+      <ToastContainer />
       <LoadingProvider>
         <FullPageSpinner></FullPageSpinner>
             <SearchEventsProvider>

@@ -6,16 +6,8 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { setAccessToken, setUserSession, setDrafts } from "../../utils/localStorage";
 import { LoadingContext } from "../../props/loading-spinner.prop";
-
-
-// /**
-//  * Delay artificially by set ms
-//  * @param {*} ms 
-//  * @returns 
-//  */
-// function delay(ms) {
-//   return new Promise(resolve => setTimeout(resolve, ms));
-// }
+import { login } from "../../services/AuthAPI";
+import { showSuccessToast, showErrorToast } from "../shared/Toaster";
 
 
 const Login = ({ setIsLoggedIn }) => {
@@ -32,8 +24,6 @@ const Login = ({ setIsLoggedIn }) => {
     setLoading
   } = useContext(LoadingContext);
 
-  const loginUrl = baseURL + "auth/login";
-
   const loginHandler = async (event) => {
     event.preventDefault();
     console.log("Login Handler");
@@ -41,76 +31,75 @@ const Login = ({ setIsLoggedIn }) => {
     //Enable fullpage loading spinner
     setLoading(true);
 
-    //await delay(3000);
-
-    let loginBody = {
-      email: email,
-      password: password,
-    };
-
     let destinationPage = "";
     let user;
+    let response;
 
     if (email === "" || password === "") {
       setMessage("Both email and password required. Try again.");
+      showErrorToast("Both email and password required. Try again.");
     } else {
-      axios
-        .post(loginUrl, loginBody)
-        .then((response) => {
-          setMessage("Login Succesful");
-          //TODO REMOVE LOCALSTORAGE USE
-          localStorage.setItem("accessToken", response.data.accessToken);
-          if (response.data.user.organizationName) {
-            user = {
-              type: response.data.user.userType,
-              email: response.data.user.email,
-              firstName: response.data.user.firstName,
-              lastName: response.data.user.lastName,
-              fullName: response.data.user.fullName,
-              id: response.data.user.id,
-              bio: response.data.user.bio,
-              password: response.data.user.password,
-              phoneNumber: response.data.user.phoneNumber,
-              organizationName: response.data.user.organizationName,
-              imgUrl: response.data.user.imgUrl
-            };
 
-            destinationPage = "../dashboard";
-          } else {
-            user = {
-              type: response.data.user.userType,
-              email: response.data.user.email,
-              firstName: response.data.user.firstName,
-              lastName: response.data.user.lastName,
-              fullName: response.data.user.fullName,
-              id: response.data.user.id,
-              password: response.data.user.password,
-              phoneNumber: response.data.user.phoneNumber,
-              bio: response.data.user.bio,
-              dob: response.data.user.dob,
-            };
+      try {
+        response = await login(email, password);
 
-            destinationPage = "../profile";
-          }
+        setMessage("Login Succesful");
+        showSuccessToast("Login Succesful");
 
-          // set user
-          setUserSession(user);
-          console.log(response.data.accessToken);
-          setAccessToken(response.data.accessToken);
-          setIsLoggedIn(true);
-          // initialise draft function
-          setDrafts([]);
+        if (response.data.user.organizationName) {
+          user = {
+            type: response.data.user.userType,
+            email: response.data.user.email,
+            firstName: response.data.user.firstName,
+            lastName: response.data.user.lastName,
+            fullName: response.data.user.fullName,
+            id: response.data.user.id,
+            bio: response.data.user.bio,
+            password: response.data.user.password,
+            phoneNumber: response.data.user.phoneNumber,
+            organizationName: response.data.user.organizationName,
+            imgUrl: response.data.user.imgUrl
+          };
 
-          //Disable fullpage loading spinner
-          setLoading(false);
-          // navigate to profile or dashboard
-          navigate(destinationPage);
+          destinationPage = "../dashboard";
+        } else {
+          user = {
+            type: response.data.user.userType,
+            email: response.data.user.email,
+            firstName: response.data.user.firstName,
+            lastName: response.data.user.lastName,
+            fullName: response.data.user.fullName,
+            id: response.data.user.id,
+            password: response.data.user.password,
+            phoneNumber: response.data.user.phoneNumber,
+            bio: response.data.user.bio,
+            dob: response.data.user.dob,
+          };
 
-        })
-        .catch((error) => {
-          setMessage("Invalid email or password. Try again.");
-          console.log(error);
-        });
+          destinationPage = "../profile";
+        }
+        // set user
+        setUserSession(user);
+
+        setAccessToken(response.data.accessToken);
+        setIsLoggedIn(true);
+        // initialise draft function
+        setDrafts([]);
+
+
+
+        // navigate to profile or dashboard
+        navigate(destinationPage);
+      }
+      catch (error) {
+        setMessage("Invalid email or password. Try again.");
+        showErrorToast("Invalid email or password. Try again.");
+      }
+      finally {
+        //Disable fullpage loading spinner
+        setLoading(false);
+      }
+
     }
   };
 
