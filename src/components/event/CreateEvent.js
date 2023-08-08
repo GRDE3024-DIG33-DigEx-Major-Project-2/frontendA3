@@ -8,7 +8,7 @@ import {
   Avatar,
   Chip,
   Box,
-  Button
+  Button,
 } from "@mui/material";
 import { getFirstLetters } from "../../utils/utils";
 import { Link } from "@mui/material";
@@ -24,11 +24,14 @@ import Location from "./CE3_Location";
 import DateTime from "./CE4_DateTime";
 import Pricing from "./CE5_Pricing";
 import EventMedia from "./CE6_EventMedia";
-import { addDraft, removeDraft } from "../../utils/localStorage";
+import { addDraft, getUser, removeDraft } from "../../utils/localStorage";
 
 function CreateEvent() {
   const navigate = useNavigate();
   const location = useLocation();
+  const user = getUser();
+
+  // draft setup
   let draft = null;
   let draftNo = null;
   if (location.state) {
@@ -36,15 +39,14 @@ function CreateEvent() {
     draftNo = location.state.draftNo;
   }
 
+  // stepper state
   const [activeStep, setActiveStep] = useState(0);
 
   //** FIRST SCREEN - BASIC INFO **//
   const [eventName, setEventName] = useState(
     draft && draft.eventName ? draft.eventName : ""
   );
-  const [eventOrganiser, setEventOrganiser] = useState(
-    draft && draft.eventOrganiser ? draft.eventOrganiser : ""
-  );
+  const eventOrganiser = user.organizationName;
   const [description, setDescription] = useState(
     draft && draft.description ? draft.description : ""
   );
@@ -52,6 +54,12 @@ function CreateEvent() {
   const [eventURL, setEventURL] = useState(
     draft && draft.eventURL ? draft.eventURL : ""
   );
+
+  /* First screen error flags */
+  const [nameError, setNameError] = useState(false);
+  const [descriptionError, setDescriptionError] = useState(false);
+  const [urlError, setUrlError] = useState(false);
+
   // ** SECOND SCREEN - ARTISTS AND SUMMARY ** //
   const [artistName, setArtistName] = useState(
     draft && draft.artistName ? draft.artistName : ""
@@ -170,11 +178,44 @@ function CreateEvent() {
     draft && draft.selectedImage ? draft.selectedImage : null
   );
 
+  // handles validation and changes pages in the form
   const handleNext = (e) => {
-    if (activeStep === 5 && !selectedImage) {
-      alert("Please upload an image to proceed");
-    } else {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    switch (activeStep) {
+      case 0:
+        if (eventName === "") setNameError(true)
+        else setNameError(false);
+
+        if (description === "") setDescriptionError(true);
+        else setDescriptionError(false);
+
+        if(eventURL === "") setUrlError(true);
+        else setUrlError(false);
+
+        if (eventName !== "" && description !== "" && eventURL !== "") setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        break;
+      case 1:
+        console.log("leaving second step");
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        break;
+      case 2:
+        console.log("leaving third step");
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        break;
+      case 3:
+        console.log("leaving fourth step");
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        break;
+      case 4:
+        console.log("leaving fifth step");
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        break;
+      case 5:
+        console.log("leaving sixth step");
+        if (!selectedImage) alert("Please upload an image to proceed");
+        else setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        break;
+      default:
+        console.log("Event preview");
     }
   };
 
@@ -182,6 +223,7 @@ function CreateEvent() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
+  // Event Creation handler
   const submitEvent = async () => {
     // merge date and time into single date field
     var startDateTime = new Date(
@@ -256,10 +298,12 @@ function CreateEvent() {
     navigate("/dashboard");
   };
 
+  // TODO
   const deleteEvent = () => {
     navigate("/dashboard");
   };
 
+  // Draft implementation handler
   const saveExit = () => {
     if (draft) {
       console.log("DELETING", draftNo);
@@ -534,13 +578,15 @@ function CreateEvent() {
                       eventName={eventName}
                       setEventName={setEventName}
                       eventOrganiser={eventOrganiser}
-                      setEventOrganiser={setEventOrganiser}
                       description={description}
                       setDescription={setDescription}
                       tags={tags}
                       setTags={setTags}
                       eventURL={eventURL}
                       setEventURL={setEventURL}
+                      nameError={nameError}
+                      descriptionError={descriptionError}
+                      urlError={urlError}
                     />
                   );
                 } else if (activeStep === 1) {
