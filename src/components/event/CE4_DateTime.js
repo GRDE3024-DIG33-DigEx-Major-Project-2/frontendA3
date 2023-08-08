@@ -34,7 +34,6 @@ const DateTime = (props) => {
                   xs={6}
                   direction="column"
                   components={["DatePicker"]}
-                  fullWidth
                 >
                   <p>Event start date:</p>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -107,7 +106,7 @@ const DateTime = (props) => {
                     }
                   >
                     {timezones.map((time, i) => (
-                      <MenuItem value={time.value}>{time.label}</MenuItem>
+                      <MenuItem key={i} value={time.value}>{time.label}</MenuItem>
                     ))}
                   </Select>
                 </Grid>

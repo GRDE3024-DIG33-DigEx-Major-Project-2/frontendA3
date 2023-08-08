@@ -69,7 +69,7 @@ const Pricing = (props) => {
                   />
                   <p>Free</p>{" "}
                   <Checkbox
-                    checked={props.eventPaid}
+                    checked={!props.eventFree}
                     onChange={handleChecked}
                     name="eventPaid"
                     label="paid"
@@ -95,7 +95,7 @@ const Pricing = (props) => {
                     id="create-event-ticket-tier1"
                     placeholder="Enter the ticket tier name"
                     variant="outlined"
-                    inputProps={{ readonly: true }}
+                    inputProps={{ readOnly: true }}
                     disabled={props.eventFree}
                   />
                 </Grid>

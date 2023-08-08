@@ -8,7 +8,7 @@ import {
   Avatar,
   Chip,
   Box,
-  Button,
+  Button
 } from "@mui/material";
 import { getFirstLetters } from "../../utils/utils";
 import { Link } from "@mui/material";
@@ -24,68 +24,151 @@ import Location from "./CE3_Location";
 import DateTime from "./CE4_DateTime";
 import Pricing from "./CE5_Pricing";
 import EventMedia from "./CE6_EventMedia";
-import { addDraft } from "../../utils/localStorage";
+import { addDraft, removeDraft } from "../../utils/localStorage";
 
 function CreateEvent() {
-
   const navigate = useNavigate();
   const location = useLocation();
   let draft = null;
-  if (location.state){
+  let draftNo = null;
+  if (location.state) {
     draft = location.state.draft;
+    draftNo = location.state.draftNo;
   }
 
   const [activeStep, setActiveStep] = useState(0);
 
   //** FIRST SCREEN - BASIC INFO **//
-  const [eventName, setEventName] = useState(draft && draft.eventName ? draft.eventName : "");
-  const [eventOrganiser, setEventOrganiser] = useState("");
-  const [description, setDescription] = useState("");
-  const [tags, setTags] = useState([]);
-  const [eventURL, setEventURL] = useState("");
+  const [eventName, setEventName] = useState(
+    draft && draft.eventName ? draft.eventName : ""
+  );
+  const [eventOrganiser, setEventOrganiser] = useState(
+    draft && draft.eventOrganiser ? draft.eventOrganiser : ""
+  );
+  const [description, setDescription] = useState(
+    draft && draft.description ? draft.description : ""
+  );
+  const [tags, setTags] = useState(draft && draft.tags ? draft.tags : []);
+  const [eventURL, setEventURL] = useState(
+    draft && draft.eventURL ? draft.eventURL : ""
+  );
   // ** SECOND SCREEN - ARTISTS AND SUMMARY ** //
-  const [artistName, setArtistName] = useState("");
-  const [artistName2, setArtistName2] = useState("");
-  const [artistName3, setArtistName3] = useState("");
-  const [artistName4, setArtistName4] = useState("");
-  const [eventSummary, setEventSummary] = useState("");
-  const [enableArtist2, setEnableArtist2] = useState(false);
-  const [enableArtist3, setEnableArtist3] = useState(false);
-  const [enableArtist4, setEnableArtist4] = useState(false);
+  const [artistName, setArtistName] = useState(
+    draft && draft.artistName ? draft.artistName : ""
+  );
+  const [artistName2, setArtistName2] = useState(
+    draft && draft.artistName2 ? draft.artistName2 : ""
+  );
+  const [artistName3, setArtistName3] = useState(
+    draft && draft.artistName3 ? draft.artistName3 : ""
+  );
+  const [artistName4, setArtistName4] = useState(
+    draft && draft.artistName4 ? draft.artistName4 : ""
+  );
+  const [eventSummary, setEventSummary] = useState(
+    draft && draft.eventSummary ? draft.eventSummary : ""
+  );
+  const [enableArtist2, setEnableArtist2] = useState(
+    draft && draft.enableArtist2 ? draft.enableArtist2 : false
+  );
+  const [enableArtist3, setEnableArtist3] = useState(
+    draft && draft.enableArtist3 ? draft.enableArtist3 : false
+  );
+  const [enableArtist4, setEnableArtist4] = useState(
+    draft && draft.enableArtist4 ? draft.enableArtist4 : false
+  );
   // ** THIRD SCREEN - LOCATION ** //
-  const [venueName, setVenueName] = useState("");
-  const [suburb, setSuburb] = useState("");
-  const [eventAddress1, setEventAddress1] = useState("");
-  const [eventAddress2, setEventAddress2] = useState("");
-  const [eventCity, setEventCity] = useState("");
-  const [eventCountry, setEventCountry] = useState("");
-  const [eventState, setEventState] = useState("");
-  const [eventPostCode, setEventPostCode] = useState("");
+  const [venueName, setVenueName] = useState(
+    draft && draft.venueName ? draft.venueName : ""
+  );
+  const [suburb, setSuburb] = useState(
+    draft && draft.suburb ? draft.suburb : ""
+  );
+  const [eventAddress1, setEventAddress1] = useState(
+    draft && draft.eventAddress1 ? draft.eventAddress1 : ""
+  );
+  const [eventAddress2, setEventAddress2] = useState(
+    draft && draft.eventAddress2 ? draft.eventAddress2 : ""
+  );
+  const [eventCity, setEventCity] = useState(
+    draft && draft.eventCity ? draft.eventCity : ""
+  );
+  const [eventCountry, setEventCountry] = useState(
+    draft && draft.eventCountry ? draft.eventCountry : ""
+  );
+  const [eventState, setEventState] = useState(
+    draft && draft.eventState ? draft.eventState : ""
+  );
+  const [eventPostCode, setEventPostCode] = useState(
+    draft && draft.eventPostCode ? draft.eventPostCode : ""
+  );
   // ** FOURTH SCREEN - DATE AND TIME ** //
-  const [eventStartDate, setEventStartDate] = useState(null);
-  const [eventEndDate, setEventEndDate] = useState(null);
-  const [eventStartTime, setEventStartTime] = useState(null);
-  const [eventEndTime, setEventEndTime] = useState(null);
-  const [eventTimezone, setEventTimezone] = useState("AEST");
+  let startDate = null;
+  let endDate = null;
+  let startTime = null;
+  let endTime = null;
+  if (draft) {
+    startDate = new Date(draft.eventStartDate);
+    endDate = new Date(draft.eventEndDate);
+    startTime = new Date(draft.eventStartTime);
+    endTime = new Date(draft.eventEndTime);
+  }
+  const [eventStartDate, setEventStartDate] = useState(
+    draft && startDate ? startDate : null
+  );
+  const [eventEndDate, setEventEndDate] = useState(
+    draft && endDate ? endDate : null
+  );
+  const [eventStartTime, setEventStartTime] = useState(
+    draft && startTime ? startTime : null
+  );
+  const [eventEndTime, setEventEndTime] = useState(
+    draft && endTime ? endTime : null
+  );
+  const [eventTimezone, setEventTimezone] = useState(
+    draft && draft.eventTimezone ? draft.eventTimezone : "AEST"
+  );
   // ** FIFTH SCREEN - PRICE **//
   const [state, setState] = useState({
-    eventFree: false,
-    eventPaid: true,
+    eventFree: draft && draft.eventFree ? draft.eventFree : false,
+    eventPaid: draft && draft.eventPaid ? draft.eventPaid : true,
   });
   const { eventFree, eventPaid } = state;
   const eventTierName1 = "General Admission";
-  const [eventPrice1, setEventPrice1] = useState(parseFloat(0.0).toFixed(2));
-  const [eventTierName2, setEventTierName2] = useState("");
-  const [eventPrice2, setEventPrice2] = useState(parseFloat(0.0).toFixed(2));
-  const [eventTierName3, setEventTierName3] = useState("");
-  const [eventPrice3, setEventPrice3] = useState(parseFloat(0.0).toFixed(2));
-  const [eventTierName4, setEventTierName4] = useState("");
-  const [eventPrice4, setEventPrice4] = useState(parseFloat(0.0).toFixed(2));
-  const [enableTicket2, setEnableTicket2] = useState(false);
-  const [enableTicket3, setEnableTicket3] = useState(false);
-  const [enableTicket4, setEnableTicket4] = useState(false);
+  const [eventPrice1, setEventPrice1] = useState(
+    draft && draft.eventPrice1 ? draft.eventPrice1 : parseFloat(0.0).toFixed(2)
+  );
+  const [eventTierName2, setEventTierName2] = useState(
+    draft && draft.eventTierName2 ? draft.eventTierName2 : ""
+  );
+  const [eventPrice2, setEventPrice2] = useState(
+    draft && draft.eventPrice2 ? draft.eventPrice2 : parseFloat(0.0).toFixed(2)
+  );
+  const [eventTierName3, setEventTierName3] = useState(
+    draft && draft.eventTierName3 ? draft.eventTierName3 : ""
+  );
+  const [eventPrice3, setEventPrice3] = useState(
+    draft && draft.eventPrice3 ? draft.eventPrice3 : parseFloat(0.0).toFixed(2)
+  );
+  const [eventTierName4, setEventTierName4] = useState(
+    draft && draft.eventTierName4 ? draft.eventTierName4 : ""
+  );
+  const [eventPrice4, setEventPrice4] = useState(
+    draft && draft.eventPrice4 ? draft.eventPrice4 : parseFloat(0.0).toFixed(2)
+  );
+  const [enableTicket2, setEnableTicket2] = useState(
+    draft && draft.enableTicket2 ? draft.enableTicket2 : false
+  );
+  const [enableTicket3, setEnableTicket3] = useState(
+    draft && draft.enableTicket3 ? draft.enableTicket3 : false
+  );
+  const [enableTicket4, setEnableTicket4] = useState(
+    draft && draft.enableTicket4 ? draft.enableTicket4 : false
+  );
   // ** SIXTH SCREEN - MEDIA **//
-  const [selectedImage, setSelectedImage] = useState();
+  const [selectedImage, setSelectedImage] = useState(
+    draft && draft.selectedImage ? draft.selectedImage : null
+  );
 
   const handleNext = (e) => {
     if (activeStep === 5 && !selectedImage) {
@@ -97,10 +180,6 @@ function CreateEvent() {
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleSave = () => {
-    console.log("TO DO SAVE");
   };
 
   const submitEvent = async () => {
@@ -182,15 +261,56 @@ function CreateEvent() {
   };
 
   const saveExit = () => {
-
-    const draft = {
-      eventName: eventName
+    if (draft) {
+      console.log("DELETING", draftNo);
+      removeDraft(draftNo);
     }
 
-    addDraft(draft);
+    const currentDraft = {
+      eventName: eventName,
+      eventOrganiser: eventOrganiser,
+      description: description,
+      tags: tags,
+      eventURL: eventURL,
+      artistName: artistName,
+      artistName2: artistName2,
+      artistName3: artistName3,
+      artistName4: artistName4,
+      eventSummary: eventSummary,
+      enableArtist2: enableArtist2,
+      enableArtist3: enableArtist3,
+      enableArtist4: enableArtist4,
+      venueName: venueName,
+      suburb: suburb,
+      eventAddress1: eventAddress1,
+      eventAddress2: eventAddress2,
+      eventCity: eventCity,
+      eventCountry: eventCountry,
+      eventState: eventState,
+      eventPostCode: eventPostCode,
+      eventStartDate: eventStartDate,
+      eventEndDate: eventEndDate,
+      eventStartTime: eventStartTime,
+      eventEndTime: eventEndTime,
+      eventTimezone: eventTimezone,
+      eventFree: eventFree,
+      eventPaid: eventPaid,
+      eventPrice1: eventPrice1,
+      eventPrice2: eventPrice2,
+      eventPrice3: eventPrice3,
+      eventPrice4: eventPrice4,
+      eventTierName2: eventTierName2,
+      eventTierName3: eventTierName3,
+      eventTierName4: eventTierName4,
+      enableTicket2: enableTicket2,
+      enableTicket3: enableTicket3,
+      enableTicket4: enableTicket4,
+    };
+
+    console.log(currentDraft);
+    addDraft(currentDraft);
     navigate("/dashboard");
   };
-
 
   return (
     <div id="create-event-main">
@@ -227,10 +347,7 @@ function CreateEvent() {
               </div>
               <h1>Event preview</h1>
               <div className="event-main-image">
-                <img
-                  alt={eventName}
-                  src={URL.createObjectURL(selectedImage)}
-                />
+                <img alt={eventName} src={URL.createObjectURL(selectedImage)} />
               </div>
               <div className="prev-event-body">
                 <div className="event-prev-first-row">
@@ -394,7 +511,7 @@ function CreateEvent() {
               <Button
                 id="save-ex-ev-btn"
                 variant="contained"
-                onClick={handleSave}
+                onClick={saveExit}
               >
                 Save and exit
               </Button>

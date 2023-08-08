@@ -10,11 +10,12 @@ const DraftCard = (props) => {
   const draft = drafts[props.draftNo];
 
   const cardRedirect = () => {
-    navigate("/createevent", { state: { draft: draft } });
+    navigate("/createevent", { state: { draft: draft, draftNo: props.draftNo } });
   };
 
   const remove = () => {
     removeDraft(props.draftNo);
+    props.setRefresh(!props.refresh);
   };
 
   return (
@@ -22,12 +23,14 @@ const DraftCard = (props) => {
       <Link id="card-name-link" onClick={cardRedirect}>
         <h3>{props.name}</h3>
       </Link>
+      <div>
       <Button id="save-cont-ev-btn" variant="contained" onClick={cardRedirect}>
         Keep editing
       </Button>
       <Button id="save-exit-ev-btn" variant="contained" onClick={remove}>
         Delete draft
       </Button>
+      </div>
     </Card>
   );
 };

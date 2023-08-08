@@ -22,9 +22,10 @@ import DraftCard from "../event/DraftCard";
 const Dashboard = () => {
 
   const [ownedEvents, setOwnedEvents] = useState([]);
+  const [drafts, setDrafts] = useState(getDrafts());
+  const [refresh, setRefresh] = useState(false);
+  
   const user = getUser();
-
-  const drafts = getDrafts();
   console.log(drafts);
 
   useEffect(() => {
@@ -36,6 +37,10 @@ const Dashboard = () => {
 
     fetchEvents();
   }, [setOwnedEvents]);
+
+  useEffect(() => {
+    setDrafts(getDrafts());
+  },[refresh])
 
   const handleDelete = () => {
     console.log("redirecting to delete page or pop up");
@@ -136,7 +141,7 @@ const Dashboard = () => {
                   <h2>Event Drafts</h2>
                   <Box className="drafts">
                     {drafts.map((draft, i) => (
-                      <DraftCard key={i} name={draft.eventName ? draft.eventName : "Draft " + (i+1)} draftNo={i} />
+                      <DraftCard key={i} name={draft.eventName ? draft.eventName : "Draft " + (i+1)} draftNo={i} setRefresh={setRefresh} refresh={refresh} />
                     ))}
                   </Box>
                 </div>

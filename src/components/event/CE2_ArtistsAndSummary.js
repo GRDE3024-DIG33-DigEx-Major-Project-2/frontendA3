@@ -49,7 +49,7 @@ const ArtistsAndSummary = (props) => {
                     className="add-artist-fab-disabled"
                     id="add-artist-1"
                     aria-label="Add"
-                    disabled="true"
+                    disabled={true}
                   >
                     <AddIcon />
                   </Fab>
@@ -57,7 +57,7 @@ const ArtistsAndSummary = (props) => {
                     className="remove-artist-fab-disabled"
                     id="remove-artist-1"
                     aria-label="Remove"
-                    disabled="true"
+                    disabled={true}
                   >
                     <RemoveIcon />
                   </Fab>
