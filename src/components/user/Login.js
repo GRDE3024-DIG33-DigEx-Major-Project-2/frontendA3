@@ -7,6 +7,7 @@ import axios from "axios";
 import { setAccessToken, setUserSession, setDrafts } from "../../utils/localStorage";
 import { LoadingContext } from "../../props/loading-spinner.prop";
 import { login } from "../../services/AuthAPI";
+import { showToast, showErrorToast } from "../shared/Toaster";
 
 
 const Login = ({ setIsLoggedIn }) => {
@@ -23,8 +24,6 @@ const Login = ({ setIsLoggedIn }) => {
     setLoading
   } = useContext(LoadingContext);
 
-  const loginUrl = baseURL + "auth/login";
-
   const loginHandler = async (event) => {
     event.preventDefault();
     console.log("Login Handler");
@@ -38,12 +37,14 @@ const Login = ({ setIsLoggedIn }) => {
 
     if (email === "" || password === "") {
       setMessage("Both email and password required. Try again.");
+      showErrorToast("Both email and password required. Try again.");
     } else {
 
       try {
         response = await login(email, password);
 
         setMessage("Login Succesful");
+        showToast("Login Succesful");
 
         if (response.data.user.organizationName) {
           user = {
@@ -92,6 +93,7 @@ const Login = ({ setIsLoggedIn }) => {
       }
       catch (error) {
         setMessage("Invalid email or password. Try again.");
+        showErrorToast("Invalid email or password. Try again.");
       }
       finally {
         //Disable fullpage loading spinner

@@ -15,6 +15,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
 import { LoadingContext, useLoading } from "../../props/loading-spinner.prop";
 import {register} from "../../services/UserAPI";
+import { showToast, showErrorToast } from "../shared/Toaster";
 
 function SignUpGuest() {
 
@@ -59,7 +60,7 @@ function SignUpGuest() {
     setLoading(true);
 
     if (password !== confirmPassword) {
-      alert("Passwords must match");
+      showErrorToast("Passwords must match");
     } else {
 
       const requestBody = {
@@ -75,11 +76,11 @@ function SignUpGuest() {
 
       await register(requestBody)
       .then((response) => {
-        alert("Registration Succesful");
+        showToast("Registration Succesful");
         navigate("/login");
       })
       .catch((error) => {
-        alert("Sorry, the backend server is down! Please try again later.");
+        showErrorToast("Sorry, the backend server is down! Please try again later.");
       })
       .finally(() => {
         //Disable fullpage loading spinner
