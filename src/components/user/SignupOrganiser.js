@@ -11,6 +11,7 @@ import Grid from "@mui/material/Grid";
 import axios from "axios";
 import { LoadingContext, useLoading } from "../../props/loading-spinner.prop";
 import {register} from "../../services/UserAPI";
+import { showToast, showErrorToast } from "../shared/Toaster";
 
 function SignUpOrganiser() {
   
@@ -48,7 +49,7 @@ function SignUpOrganiser() {
     //Enable fullpage loading spinner
     setLoading(true);
     if (password !== confirmPassword) {
-      alert("Passwords must match");
+      showErrorToast("Passwords must match");
     } else {
 
       const requestBody = {
@@ -63,11 +64,11 @@ function SignUpOrganiser() {
 
       await register(requestBody)
       .then((response) => {
-        alert("Registration Succesful");
+        showToast("Registration Succesful");
         navigate("/login");
       })
       .catch((error) => {
-        alert("Sorry, the backend server is down! Please try again later.");
+        showErrorToast("Sorry, the backend server is down! Please try again later.");
       })
       .finally(() => {
         //Disable fullpage loading spinner
