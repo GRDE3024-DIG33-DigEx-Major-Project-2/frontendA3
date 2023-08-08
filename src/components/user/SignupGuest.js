@@ -14,9 +14,9 @@ import dayjs from "dayjs";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
 import { LoadingContext, useLoading } from "../../props/loading-spinner.prop";
+import {register} from "../../services/UserAPI";
 
 function SignUpGuest() {
-  const baseURL = process.env.REACT_APP_BASEURL;
 
   //Fullpage loading spinner props
   const {
@@ -48,6 +48,10 @@ function SignUpGuest() {
 
   const navigate = useNavigate();
 
+  /**
+   * Registration request handler
+   * @param {*} event 
+   */
   const signupHandler = async (event) => {
     event.preventDefault();
 
@@ -57,8 +61,6 @@ function SignUpGuest() {
     if (password !== confirmPassword) {
       alert("Passwords must match");
     } else {
-      // URL FOR LOCALHOST
-      const registerUrl = baseURL + "user/register";
 
       const requestBody = {
         userType: "attendee",
@@ -71,17 +73,19 @@ function SignUpGuest() {
 
       console.log(requestBody);
 
-      axios
-        .post(registerUrl, requestBody)
-        .then((response) => {
-          alert("Registration Succesful");
-          //Disable fullpage loading spinner
-          setLoading(false);
-          navigate("/login");
-        })
-        .catch((error) => {
-          alert("Sorry, the backend server is down! Please try again later.");
-        });
+      await register(requestBody)
+      .then((response) => {
+        alert("Registration Succesful");
+        navigate("/login");
+      })
+      .catch((error) => {
+        alert("Sorry, the backend server is down! Please try again later.");
+      })
+      .finally(() => {
+        //Disable fullpage loading spinner
+        setLoading(false);        
+      });
+
     }
   };
 
