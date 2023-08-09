@@ -37,7 +37,3 @@ export const USER_ENDPOINTS = {
   deleteUrl: BASE_URL + "user",
   resetPasswordUrl: BASE_URL + "user/reset-password",
 };
-
-
-export const INVALID_TOKEN_STATUS = 403;
-export const INVALID_TOKEN_MSG = "Forbidden";

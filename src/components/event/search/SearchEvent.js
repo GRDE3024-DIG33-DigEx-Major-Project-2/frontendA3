@@ -199,9 +199,7 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
           </>}
         </Box>
         : <><PartialLoadSpinner></PartialLoadSpinner></>
-    }
-
-  </>;
+    }</>;
 
 
   /**
