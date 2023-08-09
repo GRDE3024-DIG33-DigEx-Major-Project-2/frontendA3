@@ -85,6 +85,10 @@ function CreateEvent() {
   const [enableArtist4, setEnableArtist4] = useState(
     draft && draft.enableArtist4 ? draft.enableArtist4 : false
   );
+
+  /* Second screen error flags */
+  const [summaryError, setSummaryError] = useState(false);
+
   // ** THIRD SCREEN - LOCATION ** //
   const [venueName, setVenueName] = useState(
     draft && draft.venueName ? draft.venueName : ""
@@ -182,22 +186,34 @@ function CreateEvent() {
   const handleNext = (e) => {
     switch (activeStep) {
       case 0:
-        if (eventName === "") setNameError(true)
+        // RULES: name, description and URL are required
+        if (eventName === "") setNameError(true);
         else setNameError(false);
 
         if (description === "") setDescriptionError(true);
         else setDescriptionError(false);
 
-        if(eventURL === "") setUrlError(true);
+        if (eventURL === "") setUrlError(true);
         else setUrlError(false);
 
-        if (eventName !== "" && description !== "" && eventURL !== "") setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        if (eventName !== "" && description !== "" && eventURL !== "")
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
         break;
       case 1:
-        console.log("leaving second step");
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        // RULES: At least one artist. Summary is required.
+        let atLeastOneArtist = !(artistName === "" && artistName2 === "" && artistName3 === "" && artistName4 === "")
+        if (!atLeastOneArtist){
+          alert("At least one artist is required in order to proceed.");
+        }
+
+        if (eventSummary === "") setSummaryError(true);
+        else setSummaryError(false);
+
+        if(atLeastOneArtist && eventSummary !== "") setActiveStep((prevActiveStep) => prevActiveStep + 1);        
         break;
       case 2:
+        // RULES: Venue name and all address fields are required.
+        // TODO remove address field 2 
         console.log("leaving third step");
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
         break;
@@ -608,6 +624,7 @@ function CreateEvent() {
                       setEnableArtist3={setEnableArtist3}
                       enableArtist4={enableArtist4}
                       setEnableArtist4={setEnableArtist4}
+                      summaryError={summaryError}
                     />
                   );
                 } else if (activeStep === 2) {
