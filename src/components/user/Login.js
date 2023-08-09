@@ -38,6 +38,8 @@ const Login = ({ setIsLoggedIn }) => {
     if (email === "" || password === "") {
       setMessage("Both email and password required. Try again.");
       showErrorToast("Both email and password required. Try again.");
+      //Disable fullpage loading spinner
+      setLoading(false);
     } else {
 
       try {

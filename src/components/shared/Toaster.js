@@ -6,6 +6,13 @@
 import { toast } from 'react-toastify';
 
 
+//Toast UI stylesheet props
+const styleProps = {
+  top: "8vh",
+  paddingTop: "20px",
+  fontWeight:"bold",
+};
+
 
     /**
      * Displays the Toaster UI for a timespan
@@ -19,6 +26,7 @@ import { toast } from 'react-toastify';
       closeOnClick: true,
       pauseOnHover: true,
       draggable: false,
+      style: styleProps
     });
 };
 
@@ -35,6 +43,7 @@ import { toast } from 'react-toastify';
       closeOnClick: true,
       pauseOnHover: true,
       draggable: false,
+      style: styleProps
     });
 };
 
@@ -50,5 +59,6 @@ import { toast } from 'react-toastify';
           closeOnClick: true,
           pauseOnHover: true,
           draggable: false,
+          style: styleProps
         });
   };
