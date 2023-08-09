@@ -67,8 +67,12 @@ const BasicInfo = (props) => {
                     id="create-event-name"
                     placeholder="Enter the event name"
                     variant="outlined"
-                    error={props.nameError}
-                    helperText={props.nameError ? "An event name is required to continue" : null}
+                    error={props.nameError && props.eventName === ""}
+                    helperText={
+                      props.nameError && props.eventName === ""
+                        ? "An event name is required to continue"
+                        : null
+                    }
                   />
                 </Grid>
                 <Grid container item xs={6} direction="column">
@@ -98,8 +102,12 @@ const BasicInfo = (props) => {
                     id="create-event-description"
                     variant="outlined"
                     rows={8}
-                    error={props.descriptionError}
-                    helperText={props.descriptionError ? "A description is required to continue" : null}
+                    error={props.descriptionError && props.description === ""}
+                    helperText={
+                      props.descriptionError && props.description === ""
+                        ? "A description is required to continue"
+                        : null
+                    }
                   />
                 </Grid>{" "}
                 <Grid container item xs={12} direction="column">
@@ -150,8 +158,12 @@ const BasicInfo = (props) => {
                     placeholder="Enter a URL for ticket purchasing"
                     id="create-event-eventURL"
                     variant="outlined"
-                    error={props.urlError}
-                    helperText={props.urlError ? "An event URL is required to continue" : null}
+                    error={props.urlError && props.eventURL === ""}
+                    helperText={
+                      props.urlError && props.eventURL === ""
+                        ? "An event URL is required to continue"
+                        : null
+                    }
                   />
                 </Grid>
               </Grid>

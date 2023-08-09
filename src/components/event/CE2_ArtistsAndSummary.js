@@ -256,9 +256,9 @@ const ArtistsAndSummary = (props) => {
                     id="create-ev-summary"
                     variant="outlined"
                     rows={5}
-                    error={props.summaryError}
+                    error={props.summaryError && props.eventSummary === ""}
                     helperText={
-                      props.summaryError
+                      props.summaryError && props.eventSummary === ""
                         ? "An event summary is required to continue"
                         : null
                     }

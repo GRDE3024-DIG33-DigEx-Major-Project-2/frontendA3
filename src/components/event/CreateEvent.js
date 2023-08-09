@@ -99,9 +99,6 @@ function CreateEvent() {
   const [eventAddress1, setEventAddress1] = useState(
     draft && draft.eventAddress1 ? draft.eventAddress1 : ""
   );
-  const [eventAddress2, setEventAddress2] = useState(
-    draft && draft.eventAddress2 ? draft.eventAddress2 : ""
-  );
   const [eventCity, setEventCity] = useState(
     draft && draft.eventCity ? draft.eventCity : ""
   );
@@ -114,6 +111,16 @@ function CreateEvent() {
   const [eventPostCode, setEventPostCode] = useState(
     draft && draft.eventPostCode ? draft.eventPostCode : ""
   );
+
+  /* Third screen error flags */
+  const [venueNameError, setVenueNameError] = useState(false);
+  const [suburbError, setSuburbError] = useState(false);
+  const [addressError, setAddressError] = useState(false);
+  const [cityError, setCityError] = useState(false);
+  const [countryError, setCountryError] = useState(false);
+  const [stateError, setStateError] = useState(false);
+  const [postcodeError, setPostcodeError] = useState(false);
+
   // ** FOURTH SCREEN - DATE AND TIME ** //
   let startDate = null;
   let endDate = null;
@@ -185,8 +192,8 @@ function CreateEvent() {
   // handles validation and changes pages in the form
   const handleNext = (e) => {
     switch (activeStep) {
+      // RULES: name, description and URL are required
       case 0:
-        // RULES: name, description and URL are required
         if (eventName === "") setNameError(true);
         else setNameError(false);
 
@@ -199,23 +206,59 @@ function CreateEvent() {
         if (eventName !== "" && description !== "" && eventURL !== "")
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
         break;
+      // RULES: At least one artist. Summary is required.
       case 1:
-        // RULES: At least one artist. Summary is required.
-        let atLeastOneArtist = !(artistName === "" && artistName2 === "" && artistName3 === "" && artistName4 === "")
-        if (!atLeastOneArtist){
+        let atLeastOneArtist = !(
+          artistName === "" &&
+          artistName2 === "" &&
+          artistName3 === "" &&
+          artistName4 === ""
+        );
+        if (!atLeastOneArtist) {
           alert("At least one artist is required in order to proceed.");
         }
 
         if (eventSummary === "") setSummaryError(true);
         else setSummaryError(false);
 
-        if(atLeastOneArtist && eventSummary !== "") setActiveStep((prevActiveStep) => prevActiveStep + 1);        
+        if (atLeastOneArtist && eventSummary !== "")
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
         break;
+      // RULES: Venue name and all address fields are required.
       case 2:
-        // RULES: Venue name and all address fields are required.
-        // TODO remove address field 2 
-        console.log("leaving third step");
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        if (venueName === "") setVenueNameError(true);
+        else setVenueNameError(false);
+
+        if (suburb === "") setSuburbError(true);
+        else setSuburbError(false);
+
+        if (eventAddress1 === "") setAddressError(true);
+        else setAddressError(false);
+
+        if (eventCity === "") setCityError(true);
+        else setCityError(false);
+
+        if (eventCountry === "") setCountryError(true);
+        else setCountryError(false);
+
+        if (eventState === "") setStateError(true);
+        else setStateError(false);
+
+        if (eventPostCode === "") setPostcodeError(true);
+        else setPostcodeError(false);
+
+        if (
+          venueName !== "" &&
+          suburb !== "" &&
+          eventAddress1 !== "" &&
+          eventCity !== "" &&
+          eventCountry !== "" &&
+          eventState !== "" &&
+          eventPostCode !== ""
+        ) {
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        }
+
         break;
       case 3:
         console.log("leaving fourth step");
@@ -268,7 +311,7 @@ function CreateEvent() {
       startDate: startDateTime.toISOString(),
       endDate: endDateTime.toISOString(),
       suburb: suburb,
-      address: eventAddress1 + " " + eventAddress2,
+      address: eventAddress1,
       city: eventCity,
       region: eventState,
       postcode: eventPostCode,
@@ -343,7 +386,6 @@ function CreateEvent() {
       venueName: venueName,
       suburb: suburb,
       eventAddress1: eventAddress1,
-      eventAddress2: eventAddress2,
       eventCity: eventCity,
       eventCountry: eventCountry,
       eventState: eventState,
@@ -449,9 +491,8 @@ function CreateEvent() {
                           <h3>Location</h3>
                         </span>
                         <p className="strong-string-prev">
-                          {venueName}, {eventAddress1}
-                          {eventAddress2}, {suburb}, {eventPostCode},{" "}
-                          {eventCity} {eventCountry}
+                          {venueName}, {eventAddress1} {suburb}, {eventPostCode}
+                          , {eventCity} {eventCountry}
                         </p>
                       </div>
                     </Stack>
@@ -636,8 +677,6 @@ function CreateEvent() {
                       setSuburb={setSuburb}
                       eventAddress1={eventAddress1}
                       setEventAddress1={setEventAddress1}
-                      eventAddress2={eventAddress2}
-                      setEventAddress2={setEventAddress2}
                       eventCity={eventCity}
                       setEventCity={setEventCity}
                       eventCountry={eventCountry}
@@ -646,6 +685,13 @@ function CreateEvent() {
                       setEventState={setEventState}
                       eventPostCode={eventPostCode}
                       setEventPostCode={setEventPostCode}
+                      venueNameError={venueNameError}
+                      suburbError={suburbError}
+                      addressError={addressError}
+                      cityError={cityError}
+                      countryError={countryError}
+                      stateError={stateError}
+                      postcodeError={postcodeError}
                     />
                   );
                 } else if (activeStep === 3) {
