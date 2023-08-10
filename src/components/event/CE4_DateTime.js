@@ -18,7 +18,7 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
-import { getAustralianTimezones } from "../../utils/utils";
+import { getAustralianTimezones, mergeDateTime } from "../../utils/utils";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -39,22 +39,6 @@ const DateTime = (props) => {
     )
       return true;
     else return false;
-  };
-
-  // creates a single date given a date and a time field
-  const mergeDateTime = (date, time) => {
-    const paramDate = date.toDate();
-    const paramTime = time.toDate();
-
-    var result = new Date(
-      paramDate.getFullYear(),
-      paramDate.getMonth(),
-      paramDate.getDate(),
-      paramTime.getHours(),
-      paramTime.getMinutes(),
-      paramTime.getSeconds()
-    );
-    return result;
   };
 
   return (
@@ -206,7 +190,7 @@ const DateTime = (props) => {
                                 dayjs.utc(props.eventStartDate),
                                 dayjs.utc(props.eventStartTime)
                               )
-                            ).tz(props.eventTimezone)
+                            ).tz(props.eventTimezone).add(1, 'hour')
                           : null
                       }
                       onChange={(newValue) =>

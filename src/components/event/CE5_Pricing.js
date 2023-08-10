@@ -12,15 +12,27 @@ import RemoveIcon from "@mui/icons-material/Remove";
 const Pricing = (props) => {
   // functions to enable/disable price form fields
   const handleTicketDisable2 = () => {
-    if (props.enableTicket2) props.setEnableTicket2(false);
+    if (props.enableTicket2) {
+      props.setEnableTicket2(false);
+      props.setEventPrice2(parseFloat(0.0).toFixed(2));
+      props.setEventTierName2("");
+    }
     if (!props.enableTicket2) props.setEnableTicket2(true);
   };
   const handleTicketDisable3 = () => {
-    if (props.enableTicket3) props.setEnableTicket3(false);
+    if (props.enableTicket3) {
+      props.setEnableTicket3(false);
+      props.setEventPrice2(parseFloat(0.0).toFixed(2));
+      props.setEventTierName2("");
+    }
     if (!props.enableTicket3) props.setEnableTicket3(true);
   };
   const handleTicketDisable4 = () => {
-    if (props.enableTicket4) props.setEnableTicket4(false);
+    if (props.enableTicket4) {
+      props.setEnableTicket4(false);
+      props.setEventPrice2(parseFloat(0.0).toFixed(2));
+      props.setEventTierName2("");
+    }
     if (!props.enableTicket4) props.setEnableTicket4(true);
   };
 
@@ -117,6 +129,18 @@ const Pricing = (props) => {
                     }
                     id="create-event-ticket-price1"
                     disabled={props.eventFree}
+                    error={
+                      props.price1Error &&
+                      props.eventPaid &&
+                      props.eventPrice1 === parseFloat(0.0).toFixed(2)
+                    }
+                    helperText={
+                      props.price1Error &&
+                      props.eventPaid &&
+                      props.eventPrice1 === parseFloat(0.0).toFixed(2)
+                        ? "Insert ticket price to continue"
+                        : null
+                    }
                   />
                 </Grid>
                 <Grid
@@ -163,6 +187,20 @@ const Pricing = (props) => {
                     placeholder="Enter the ticket tier name"
                     variant="outlined"
                     disabled={props.eventFree || !props.enableTicket2}
+                    error={
+                      props.ticket2Error &&
+                      props.eventPaid &&
+                      props.eventTierName2 === "" &&
+                      props.enableTicket2
+                    }
+                    helperText={
+                      props.ticket2Error &&
+                      props.eventPaid &&
+                      props.eventTierName2 === "" &&
+                      props.enableTicket2
+                        ? "Insert ticket type name to continue"
+                        : null
+                    }
                   />
                 </Grid>
                 <Grid container item xs={6} direction="column">
@@ -183,6 +221,20 @@ const Pricing = (props) => {
                     }
                     id="create-event-ticket-price2"
                     disabled={props.eventFree || !props.enableTicket2}
+                    error={
+                      props.price2Error &&
+                      props.eventPaid &&
+                      props.eventPrice2 === parseFloat(0.0).toFixed(2) &&
+                      props.enableTicket2
+                    }
+                    helperText={
+                      props.price2Error &&
+                      props.eventPaid &&
+                      props.eventPrice2 === parseFloat(0.0).toFixed(2) &&
+                      props.enableTicket2
+                        ? "Insert ticket price to continue"
+                        : null
+                    }
                   />
                 </Grid>
                 <Grid
@@ -240,6 +292,20 @@ const Pricing = (props) => {
                     placeholder="Enter the ticket tier name"
                     variant="outlined"
                     disabled={props.eventFree || !props.enableTicket3}
+                    error={
+                      props.ticket3Error &&
+                      props.eventPaid &&
+                      props.eventTierName3 === "" &&
+                      props.enableTicket3
+                    }
+                    helperText={
+                      props.ticket3Error &&
+                      props.eventPaid &&
+                      props.eventTierName3 === "" &&
+                      props.enableTicket3
+                        ? "Insert ticket type name to continue"
+                        : null
+                    }
                   />
                 </Grid>
                 <Grid container item xs={6} direction="column">
@@ -260,6 +326,20 @@ const Pricing = (props) => {
                     }
                     id="create-event-ticket-price3"
                     disabled={props.eventFree || !props.enableTicket3}
+                    error={
+                      props.price3Error &&
+                      props.eventPaid &&
+                      props.eventPrice3 === parseFloat(0.0).toFixed(2) &&
+                      props.enableTicket3
+                    }
+                    helperText={
+                      props.price3Error &&
+                      props.eventPaid &&
+                      props.eventPrice3 === parseFloat(0.0).toFixed(2) &&
+                      props.enableTicket3
+                        ? "Insert ticket price to continue"
+                        : null
+                    }
                   />
                 </Grid>
                 <Grid
@@ -317,6 +397,20 @@ const Pricing = (props) => {
                     placeholder="Enter the ticket tier name"
                     variant="outlined"
                     disabled={props.eventFree || !props.enableTicket4}
+                    error={
+                      props.ticket4Error &&
+                      props.eventPaid &&
+                      props.eventTierName4 === "" &&
+                      props.enableTicket4
+                    }
+                    helperText={
+                      props.ticket4Error &&
+                      props.eventPaid &&
+                      props.eventTierName4 === "" &&
+                      props.enableTicket4
+                        ? "Insert ticket type name to continue"
+                        : null
+                    }
                   />
                 </Grid>
                 <Grid container item xs={6} direction="column">
@@ -337,6 +431,20 @@ const Pricing = (props) => {
                     }
                     id="create-event-ticket-price4"
                     disabled={props.eventFree || !props.enableTicket4}
+                    error={
+                      props.price4Error &&
+                      props.eventPaid &&
+                      props.eventPrice4 === parseFloat(0.0).toFixed(2) &&
+                      props.enableTicket4
+                    }
+                    helperText={
+                      props.price4Error &&
+                      props.eventPaid &&
+                      props.eventPrice4 === parseFloat(0.0).toFixed(2) &&
+                      props.enableTicket4
+                        ? "Insert ticket price to continue"
+                        : null
+                    }
                   />
                 </Grid>
                 <Grid

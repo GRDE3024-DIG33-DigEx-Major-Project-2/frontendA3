@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
+import dayjs from "dayjs";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
   MobileStepper,
@@ -9,9 +10,9 @@ import {
   Chip,
   Box,
   Button,
+  Link
 } from "@mui/material";
-import { getFirstLetters } from "../../utils/utils";
-import { Link } from "@mui/material";
+import { getFirstLetters, mergeDateTime } from "../../utils/utils";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import LocalActivityOutlinedIcon from "@mui/icons-material/LocalActivityOutlined";
@@ -147,6 +148,7 @@ function CreateEvent() {
   const [eventTimezone, setEventTimezone] = useState(
     draft && draft.eventTimezone ? draft.eventTimezone : "Australia/Sydney"
   );
+
   // ** FIFTH SCREEN - PRICE **//
   const [state, setState] = useState({
     eventFree: draft && draft.eventFree ? draft.eventFree : false,
@@ -184,10 +186,35 @@ function CreateEvent() {
   const [enableTicket4, setEnableTicket4] = useState(
     draft && draft.enableTicket4 ? draft.enableTicket4 : false
   );
+
+  /* Fifth screen error flags */
+  const [price1Error, setPrice1Error] = useState(false);
+  const [price2Error, setPrice2Error] = useState(false);
+  const [price3Error, setPrice3Error] = useState(false);
+  const [price4Error, setPrice4Error] = useState(false);
+  const [ticket2Error, setTicket2Error] = useState(false);
+  const [ticket3Error, setTicket3Error] = useState(false);
+  const [ticket4Error, setTicket4Error] = useState(false);
+
   // ** SIXTH SCREEN - MEDIA **//
   const [selectedImage, setSelectedImage] = useState(
     draft && draft.selectedImage ? draft.selectedImage : null
   );
+
+
+  // determines if the conditions are satisfied for users to proceed to screen six
+  const canProceed = (enableArtist, eventPrice, eventTierName) => {
+    console.log("HI")
+    if (enableArtist) {
+      if (
+        eventPrice === parseFloat(0.0).toFixed(2) ||
+        eventTierName === ""
+      ) {
+        return false;
+      } else return true;
+
+    } else return true;
+  };
 
   // handles validation and changes pages in the form
   const handleNext = (e) => {
@@ -260,18 +287,55 @@ function CreateEvent() {
         }
 
         break;
-      // RULES: Start date cannot be earlier than end date. All fields required
-      // TODO: make TimeZone picker work
+      // RULES: Start date cannot be earlier than end date. All fields required. End time needs to be at least one hour later than start time
       case 3:
-        console.log("leaving fourth step");
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        if (eventStartDate && eventEndDate && eventStartTime && eventEndTime)
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        else alert("All date and time fields are required to continue.");
         break;
+      // RULES: At least general admission price required if the event is paid. Once a ticket type is enabled, name and price are required.
       case 4:
-        console.log("leaving fifth step");
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        if (eventPaid && eventPrice1 === parseFloat(0.0).toFixed(2))
+          setPrice1Error(true);
+        else setPrice1Error(false);
+
+        if (eventPaid && enableTicket2) {
+          if (eventPrice2 === parseFloat(0.0).toFixed(2)) setPrice2Error(true);
+          else setPrice2Error(false);
+
+          if (eventTierName2 === "") setTicket2Error(true);
+          else setTicket2Error(false);
+        }
+
+        if (eventPaid && enableTicket3) {
+          if (eventPrice3 === parseFloat(0.0).toFixed(2)) setPrice3Error(true);
+          else setPrice3Error(false);
+
+          if (eventTierName3 === "") setTicket3Error(true);
+          else setTicket3Error(false);
+        }
+
+        if (eventPaid && enableTicket4) {
+          if (eventPrice4 === parseFloat(0.0).toFixed(2)) setPrice4Error(true);
+          else setPrice4Error(false);
+
+          if (eventTierName4 === "") setTicket4Error(true);
+          else setTicket4Error(false);
+        }
+
+        if (eventFree) setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        if (
+          !eventFree &&
+          canProceed(enableArtist2, eventPrice2, eventTierName2) &&
+          canProceed(enableArtist3, eventPrice3, eventTierName3) &&
+          canProceed(enableArtist4, eventPrice4, eventTierName4) &&
+          eventPrice1 !== parseFloat(0.0).toFixed(2)
+        ) {
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        }
         break;
+      // RULES: Image upload is required.
       case 5:
-        console.log("leaving sixth step");
         if (!selectedImage) alert("Please upload an image to proceed");
         else setActiveStep((prevActiveStep) => prevActiveStep + 1);
         break;
@@ -475,13 +539,13 @@ function CreateEvent() {
                           <h3>Date and time</h3>
                         </span>
                         <p className="strong-string-prev">
-                          {eventStartDate.toDateString()}{" "}
-                          {eventStartTime.toLocaleString("en-US", {
+                          {mergeDateTime(dayjs(eventStartDate), dayjs(eventStartTime)).toDateString()}{" "}
+                          {mergeDateTime(dayjs(eventStartDate), dayjs(eventStartTime)).toLocaleString("en-US", {
                             hour: "2-digit",
                             minute: "2-digit",
                           })}{" "}
-                          - {eventEndDate.toDateString()}{" "}
-                          {eventEndTime.toLocaleString("en-US", {
+                           - {mergeDateTime(dayjs(eventEndDate), dayjs(eventEndTime)).toDateString()}{" "}
+                          {mergeDateTime(dayjs(eventEndDate), dayjs(eventEndTime)).toLocaleString("en-US", {
                             hour: "2-digit",
                             minute: "2-digit",
                           })}
@@ -604,9 +668,10 @@ function CreateEvent() {
                           label={tag.split(",")[0]}
                         />
                       ))}
+                      {tags.length === 0 && <p>No tags have been added for this event</p>}
                     </div>
                   </div>
-                  <button className="event-buy-button">Buy Tickets</button>
+                  <Button href={eventURL} variant="contained" id="buy-tickets-btn">Buy Tickets</Button>
                 </div>
               </div>
             </div>
@@ -739,6 +804,13 @@ function CreateEvent() {
                       setEnableTicket4={setEnableTicket4}
                       state={state}
                       setState={setState}
+                      price1Error={price1Error}
+                      price2Error={price2Error}
+                      price3Error={price3Error}
+                      price4Error={price4Error}
+                      ticket2Error={ticket2Error}
+                      ticket3Error={ticket3Error}
+                      ticket4Error={ticket4Error}
                     />
                   );
                 } else if (activeStep === 5) {

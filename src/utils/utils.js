@@ -2,8 +2,7 @@
  * Shared global scope functions
  */
 
-
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 
 //Minimum time field for hours, minutes, seconds, and ms
 const minTimeField = 0;
@@ -16,18 +15,14 @@ const maxMs = 999;
 const isoFormat = "YYYY-MM-DD HH:mm:ss";
 const isoTimezone = "Z";
 
-
-
-
 /**
  * Delay by ms specified
- * @param {*} ms 
+ * @param {*} ms
  * @returns Promise that resolves after the ms set
  */
 export const delay = function (ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
 
 /**
  * Convert ISO date string to locale date time
@@ -49,7 +44,6 @@ export const toLocalDTString = async function (ISOdate) {
   console.log("Local Time: ", stringDate);
   return stringDate;
 };
-
 
 /**
  * Get today's ISO date range
@@ -76,9 +70,9 @@ export const getTodayISODates = () => {
   //Return date range ISO strings
   return {
     minDate: minIso,
-    maxDate: maxIso
-  }
-}
+    maxDate: maxIso,
+  };
+};
 
 /**
  * Get tomorrow's ISO date range
@@ -107,10 +101,9 @@ export const getTomorrowISODates = () => {
   //Return date range ISO strings
   return {
     minDate: minIso,
-    maxDate: maxIso
-  }
-}
-
+    maxDate: maxIso,
+  };
+};
 
 /**
  * Get this weekend's remaining time ISO date range
@@ -174,11 +167,9 @@ export const getWeekendISODates = () => {
   //Return date range ISO strings
   return {
     minDate: minIso,
-    maxDate: maxIso
-  }
-}
-
-
+    maxDate: maxIso,
+  };
+};
 
 /**
  * Get this week's remaining time ISO date range
@@ -199,7 +190,9 @@ export const getThisWeekISODates = () => {
   const remainingDays = 6 - currDay;
 
   minDate = new Date();
-  maxDate = new Date(currDate.getTime() + (remainingDays + 1) * 24 * 60 * 60 * 1000);
+  maxDate = new Date(
+    currDate.getTime() + (remainingDays + 1) * 24 * 60 * 60 * 1000
+  );
 
   //Date range iso strings
   minIso = dayjs(minDate.toISOString()).format(isoFormat);
@@ -208,17 +201,15 @@ export const getThisWeekISODates = () => {
   //Return date range ISO strings
   return {
     minDate: minIso,
-    maxDate: maxIso
-  }
-}
-
+    maxDate: maxIso,
+  };
+};
 
 /**
  * Get this month's remaining time ISO date range
  * @returns Object containing minDate and maxDate iso strings
  */
 export const getThisMonthsISODates = () => {
-
   //Min and max date iso strings
   let minIso;
   let maxIso;
@@ -236,29 +227,28 @@ export const getThisMonthsISODates = () => {
   //Return date range ISO strings
   return {
     minDate: minIso,
-    maxDate: maxIso
-  }
-}
-
+    maxDate: maxIso,
+  };
+};
 
 /**
  * Get first letter of organisation's or customer's name
- * @param {*} name 
- * @returns 
+ * @param {*} name
+ * @returns
  */
 export const getFirstLetters = (name) => {
   if (name.includes(" ")) {
-  if (name.includes(" ")) {
-    let split = name.split(" ");
-    let a = split[0].charAt(0);
-    let b = split[1].charAt(0);
+    if (name.includes(" ")) {
+      let split = name.split(" ");
+      let a = split[0].charAt(0);
+      let b = split[1].charAt(0);
 
-    return a + b;
-    return a + b;
-  } else {
-    return name.charAt(0);
+      return a + b;
+      return a + b;
+    } else {
+      return name.charAt(0);
+    }
   }
-}
 };
 
 // Get australia time zones
@@ -271,7 +261,10 @@ export const getAustralianTimezones = () => {
     value: "Australia/Sydney",
     label: "(UTC+10:00) Sydney, Melbourne, Brisbane",
   });
-  timezones.push({ value: "Australia/Lord_Howe", label: "(UTC+10:30) Lord Howe Island" });
+  timezones.push({
+    value: "Australia/Lord_Howe",
+    label: "(UTC+10:30) Lord Howe Island",
+  });
 
   return timezones;
 };
@@ -319,4 +312,20 @@ export const getPriceRangeString = (tickets) => {
   });
 
   return "$" + min.toFixed(2) + " - " + "$" + max.toFixed(2);
+};
+
+// creates a single date given a date and a time field
+export const mergeDateTime = (date, time) => {
+  const paramDate = date.toDate();
+  const paramTime = time.toDate();
+
+  var result = new Date(
+    paramDate.getFullYear(),
+    paramDate.getMonth(),
+    paramDate.getDate(),
+    paramTime.getHours(),
+    paramTime.getMinutes(),
+    paramTime.getSeconds()
+  );
+  return result;
 };
