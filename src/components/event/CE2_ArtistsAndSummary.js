@@ -3,18 +3,26 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 
 const ArtistsAndSummary = (props) => {
-
   // functions to enable/disable artist form fields
   const handleDisable2 = () => {
-    if (props.enableArtist2) props.setEnableArtist2(false);
+    if (props.enableArtist2) {
+      props.setEnableArtist2(false);
+      props.setArtistName2("");
+    }
     if (!props.enableArtist2) props.setEnableArtist2(true);
   };
   const handleDisable3 = () => {
-    if (props.enableArtist3) props.setEnableArtist3(false);
+    if (props.enableArtist3) {
+      props.setEnableArtist3(false);
+      props.setArtistName3("");
+    }
     if (!props.enableArtist3) props.setEnableArtist3(true);
   };
   const handleDisable4 = () => {
-    if (props.enableArtist4) props.setEnableArtist4(false);
+    if (props.enableArtist4) {
+      props.setEnableArtist4(false);
+      props.setArtistName4("");
+    }
     if (!props.enableArtist4) props.setEnableArtist4(true);
   };
 
@@ -32,7 +40,9 @@ const ArtistsAndSummary = (props) => {
                     fullWidth
                     value={props.artistName}
                     required
-                    onChange={(event) => props.setArtistName(event.target.value)}
+                    onChange={(event) =>
+                      props.setArtistName(event.target.value)
+                    }
                     id="create-event-an1"
                     placeholder="Enter an artist's name"
                     variant="outlined"
@@ -76,7 +86,9 @@ const ArtistsAndSummary = (props) => {
                     fullWidth
                     value={props.artistName2}
                     required
-                    onChange={(event) => props.setArtistName2(event.target.value)}
+                    onChange={(event) =>
+                      props.setArtistName2(event.target.value)
+                    }
                     id="create-event-an2"
                     placeholder="Enter an artist's name"
                     variant="outlined"
@@ -131,7 +143,9 @@ const ArtistsAndSummary = (props) => {
                     fullWidth
                     value={props.artistName3}
                     required
-                    onChange={(event) => props.setArtistName3(event.target.value)}
+                    onChange={(event) =>
+                      props.setArtistName3(event.target.value)
+                    }
                     id="create-event-an3"
                     placeholder="Enter an artist's name"
                     variant="outlined"
@@ -186,7 +200,9 @@ const ArtistsAndSummary = (props) => {
                     fullWidth
                     value={props.artistName4}
                     required
-                    onChange={(event) => props.setArtistName4(event.target.value)}
+                    onChange={(event) =>
+                      props.setArtistName4(event.target.value)
+                    }
                     id="create-event-an4"
                     placeholder="Enter an artist's name"
                     variant="outlined"
@@ -233,11 +249,19 @@ const ArtistsAndSummary = (props) => {
                     fullWidth
                     value={props.eventSummary}
                     required
-                    onChange={(event) => props.setEventSummary(event.target.value)}
+                    onChange={(event) =>
+                      props.setEventSummary(event.target.value)
+                    }
                     multiline
                     id="create-ev-summary"
                     variant="outlined"
                     rows={5}
+                    error={props.summaryError && props.eventSummary === ""}
+                    helperText={
+                      props.summaryError && props.eventSummary === ""
+                        ? "An event summary is required to continue"
+                        : null
+                    }
                   />
                 </Grid>
               </Grid>
