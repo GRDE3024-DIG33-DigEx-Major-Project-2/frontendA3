@@ -31,10 +31,10 @@ export const searchEvents = async function (tagIds, keywords, minDate, maxDate, 
 
   //Sanitize price range for endpoint validation
   if (priceRange != null) {
-    if (priceRange.minPrice != null
-      && priceRange.maxPrice != null
-      && priceRange.minPrice != 0
-      && priceRange.maxPrice != 0)
+    if (priceRange.minPrice !== null
+      && priceRange.maxPrice !== null
+      && priceRange.minPrice !== 0
+      && priceRange.maxPrice !== 0)
       priceSetting = {
         minPrice: priceRange.minPrice,
         maxPrice: priceRange.maxPrice
@@ -43,7 +43,7 @@ export const searchEvents = async function (tagIds, keywords, minDate, maxDate, 
 
 
   //Sanitize keywords by setting empty keywords string to null
-  if (keywords == "")
+  if (keywords === "")
     keywords = null;
 
 
@@ -76,7 +76,7 @@ export const searchEvents = async function (tagIds, keywords, minDate, maxDate, 
     console.log("An error occured while searching events!");
     console.log(tagIds, keywords, minDate, maxDate, city, page);
     //Request body is invalid!
-    if (error.response.status == 422) {
+    if (error.response.status === 422) {
       console.log("Request body is invalid!");
       console.log(error.response.data.errors);
     }
@@ -109,7 +109,7 @@ try {
     .catch((error) => logoutErrorHandler(error));
 
   //Success!
-  if (response.status == 200) {
+  if (response.status === 200) {
     console.log("Event deleted!");
     return response;
   }
@@ -184,7 +184,7 @@ export const searchOwnedEvents = async function (page) {
 
 
   //Success!
-  if (response.status == 200) {
+  if (response.status === 200) {
     console.log("Owned events search completed!");
     events = response.data.events;
     pageCount = response.data.pageCount;
@@ -220,7 +220,7 @@ export const createEvent = async function (formData) {
   let createdEvent = null;
 
   //Sanitize purchaseUrl for when it is not provided
-  if (formData.event.purchaseUrl == "") {
+  if (formData.event.purchaseUrl === "") {
     formData.event.purchaseUrl = null;
   }
 
@@ -241,7 +241,7 @@ try {
   );
 
   //Success!
-  if (response.status == 201) {
+  if (response.status === 201) {
     console.log("Create Event Success!");
     createdEvent = response.data;
   }
@@ -291,7 +291,7 @@ try {
     .post(EVENT_ENDPOINTS.searchFavouritesUrl, requestBody, options);
 
   //Success!
-  if (response.status == 200) {
+  if (response.status === 200) {
     console.log("Favourited events search completed!");
     events = response.data.events;
     pageCount = response.data.pageCount;
@@ -332,7 +332,7 @@ try {
     .post(EVENT_ENDPOINTS.toggleFavouriteUrl, requestBody, options);
 
   //Success!
-  if (response.status == 200) {
+  if (response.status === 200) {
     console.log("Event favourited toggled!");
     return response;
   }
@@ -375,7 +375,7 @@ try {
     .put(EVENT_ENDPOINTS.isFavourited, requestBody, options);
 
   //Success!
-  if (response.status == 200) {
+  if (response.status === 200) {
     console.log("isFavourited Success!");
     favStatuses.push(response.data.favStatuses);
   }
@@ -422,7 +422,7 @@ try {
   console.log("Performed first event update request");
 
   //Success!
-  if (response == 200) {
+  if (response === 200) {
     console.log("Update Event Success!");
     return response.data;
   }

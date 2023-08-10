@@ -9,9 +9,9 @@ import {
   MenuItem,
 } from "@mui/material";
 import { useState, useEffect } from "react";
-import { getAllTags } from "../../services/EventAPI";
+import { getAllTags } from "../../../services/EventAPI";
 
-const EditBasicInfo = (props) => {
+const BasicInfo = (props) => {
   const [availableTags, setAvailableTags] = useState([]);
   // select tags handler
   const selectTags = (event) => {
@@ -80,10 +80,9 @@ const EditBasicInfo = (props) => {
                   <TextField
                     fullWidth
                     value={props.eventOrganiser}
-                    required
-                    onChange={(event) =>
-                      props.setEventOrganiser(event.target.value)
-                    }
+                    InputProps={{
+                      readOnly: true,
+                    }}
                     id="create-event-organiser"
                     placeholder="Enter the event organiser"
                     variant="outlined"
@@ -159,9 +158,9 @@ const EditBasicInfo = (props) => {
                     placeholder="Enter a URL for ticket purchasing"
                     id="create-event-eventURL"
                     variant="outlined"
-                    error={props.urlError && !props.eventURL}
+                    error={props.urlError && props.eventURL === ""}
                     helperText={
-                      props.urlError && !props.eventURL
+                      props.urlError && props.eventURL === ""
                         ? "An event URL is required to continue"
                         : null
                     }
@@ -176,4 +175,4 @@ const EditBasicInfo = (props) => {
   );
 };
 
-export default EditBasicInfo;
+export default BasicInfo;

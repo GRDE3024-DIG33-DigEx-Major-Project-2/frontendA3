@@ -41,7 +41,7 @@ try {
     .catch((error) => logoutErrorHandler(error));
 
   //Success! Set new user and access token
-  if (response.status == 200) {
+  if (response.status === 200) {
     console.log("Update User Success!");
     setUserSession(response.data.user);
     setAccessToken(response.data.accessToken);
@@ -78,7 +78,7 @@ try {
     .put(USER_ENDPOINTS.resetPasswordUrl, requestBody, options);
 
   //Success! Set new user and access token
-  if (response.status == 200) {
+  if (response.status === 200) {
     console.log("Reset Password Success!");
     console.log(response.data.msg);
     return response;
@@ -90,7 +90,7 @@ try {
     return response;
   }
 } catch(error) {
-  if (error.response.status == 400) {
+  if (error.response.status === 400) {
   showErrorToast("Invalid credentials");
   }
   else {
@@ -119,7 +119,7 @@ try {
     .delete(USER_ENDPOINTS.deleteUrl, options);
 
   //Success! Set new user and access token
-  if (response.status == 200) {
+  if (response.status === 200) {
     console.log("User Delete Success!");
     showSuccessToast("Your account was successfully deleted!");
     logoutErrorHandler();

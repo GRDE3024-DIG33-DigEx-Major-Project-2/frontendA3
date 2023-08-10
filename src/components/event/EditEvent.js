@@ -19,12 +19,12 @@ import LocalActivityOutlinedIcon from "@mui/icons-material/LocalActivityOutlined
 import ShareIcon from "@mui/icons-material/Share";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import { updateEvent } from "../../services/EventAPI";
-import EditBasicInfo from "./EE1_BasicInfo";
-import EditArtistsAndSummary from "./EE2_ArtistsAndSummary";
-import EditLocation from "./EE3_Location";
-import EditDateTime from "./EE4_DateTime";
-import EditPricing from "./EE5_Pricing";
-import EditEventMedia from "./EE6_EventMedia";
+import EditBasicInfo from "./edit/EE1_BasicInfo";
+import EditArtistsAndSummary from "./edit/EE2_ArtistsAndSummary";
+import EditLocation from "./edit/EE3_Location";
+import EditDateTime from "./edit/EE4_DateTime";
+import EditPricing from "./edit/EE5_Pricing";
+import EditEventMedia from "./edit/EE6_EventMedia";
 import { PATHS } from "../../utils/constants.util";
 
 function EditEvent() {
@@ -594,15 +594,20 @@ function EditEvent() {
                       className="horizontal-stack"
                       divider={<Divider orientation="vertical" flexItem />}
                     >
-                      <div className="event-prev-price">
-                        <span className="icon-title">
-                          <LocalActivityOutlinedIcon
-                            sx={{ color: "#4B7CBE" }}
-                          />
-                          <h3>{eventTierName1}</h3>
-                        </span>
-                        <p>$ {eventPrice1}</p>
-                      </div>
+                      {eventFree && (
+                        <h2 style={{padding: "3% 5%"}}>This event is free.</h2>
+                      )}
+                      {eventPaid && (
+                        <div className="event-prev-price">
+                          <span className="icon-title">
+                            <LocalActivityOutlinedIcon
+                              sx={{ color: "#4B7CBE" }}
+                            />
+                            <h3>{eventTierName1}</h3>
+                          </span>
+                          <p>$ {eventPrice1}</p>
+                        </div>
+                      )}
                       {eventTierName2 && (
                         <div className="event-prev-price">
                           <span className="icon-title">

@@ -19,12 +19,12 @@ import LocalActivityOutlinedIcon from "@mui/icons-material/LocalActivityOutlined
 import ShareIcon from "@mui/icons-material/Share";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import { createEvent } from "../../services/EventAPI";
-import BasicInfo from "./CE1_BasicInfo";
-import ArtistsAndSummary from "./CE2_ArtistsAndSummary";
-import Location from "./CE3_Location";
-import DateTime from "./CE4_DateTime";
-import Pricing from "./CE5_Pricing";
-import EventMedia from "./CE6_EventMedia";
+import BasicInfo from "./create/CE1_BasicInfo";
+import ArtistsAndSummary from "./create/CE2_ArtistsAndSummary";
+import Location from "./create/CE3_Location";
+import DateTime from "./create/CE4_DateTime";
+import Pricing from "./create/CE5_Pricing";
+import EventMedia from "./create/CE6_EventMedia";
 import { PATHS } from "../../utils/constants.util";
 
 import { addDraft, getUser, removeDraft } from "../../utils/localStorage";
@@ -567,8 +567,8 @@ function CreateEvent() {
                           <h3>Location</h3>
                         </span>
                         <p className="strong-string-prev">
-                          {venueName}, {eventAddress1}, {suburb}, {eventPostCode}
-                          , {eventCity} {eventCountry}
+                          {venueName}, {eventAddress1}, {suburb},{" "}
+                          {eventPostCode}, {eventCity} {eventCountry}
                         </p>
                       </div>
                     </Stack>
@@ -590,15 +590,20 @@ function CreateEvent() {
                       className="horizontal-stack"
                       divider={<Divider orientation="vertical" flexItem />}
                     >
-                      <div className="event-prev-price">
-                        <span className="icon-title">
-                          <LocalActivityOutlinedIcon
-                            sx={{ color: "#4B7CBE" }}
-                          />
-                          <h3>{eventTierName1}</h3>
-                        </span>
-                        <p>$ {eventPrice1}</p>
-                      </div>
+                      {eventFree && (
+                        <h2 style={{padding: "3% 5%"}}>This event is free.</h2>
+                      )}
+                      {eventPaid && (
+                        <div className="event-prev-price">
+                          <span className="icon-title">
+                            <LocalActivityOutlinedIcon
+                              sx={{ color: "#4B7CBE" }}
+                            />
+                            <h3>{eventTierName1}</h3>
+                          </span>
+                          <p>$ {eventPrice1}</p>
+                        </div>
+                      )}
                       {eventTierName2 && (
                         <div className="event-prev-price">
                           <span className="icon-title">
