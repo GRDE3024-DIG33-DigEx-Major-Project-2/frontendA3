@@ -145,7 +145,7 @@ function CreateEvent() {
     draft && endTime ? endTime : null
   );
   const [eventTimezone, setEventTimezone] = useState(
-    draft && draft.eventTimezone ? draft.eventTimezone : "AEST"
+    draft && draft.eventTimezone ? draft.eventTimezone : "Australia/Sydney"
   );
   // ** FIFTH SCREEN - PRICE **//
   const [state, setState] = useState({
@@ -260,6 +260,8 @@ function CreateEvent() {
         }
 
         break;
+      // RULES: Start date cannot be earlier than end date. All fields required
+      // TODO: make TimeZone picker work
       case 3:
         console.log("leaving fourth step");
         setActiveStep((prevActiveStep) => prevActiveStep + 1);

@@ -14,12 +14,49 @@ import {
 } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
 import { getAustralianTimezones } from "../../utils/utils";
 
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
 const DateTime = (props) => {
   const timezones = getAustralianTimezones();
+  const today = dayjs.utc();
+
+  // checks if the date in parameters is the same as today
+  const isSameDate = (date, secondDate) => {
+    const first = date.toDate();
+    const second = secondDate.toDate();
+
+    if (
+      first.getFullYear() === second.getFullYear() &&
+      first.getMonth() === second.getMonth() &&
+      first.getDate() === second.getDate()
+    )
+      return true;
+    else return false;
+  };
+
+  // creates a single date given a date and a time field
+  const mergeDateTime = (date, time) => {
+    const paramDate = date.toDate();
+    const paramTime = time.toDate();
+
+    var result = new Date(
+      paramDate.getFullYear(),
+      paramDate.getMonth(),
+      paramDate.getDate(),
+      paramTime.getHours(),
+      paramTime.getMinutes(),
+      paramTime.getSeconds()
+    );
+    return result;
+  };
+
   return (
     <>
       <h2>Date and Time</h2>
@@ -41,6 +78,7 @@ const DateTime = (props) => {
                       id="start-date-field-create-event"
                       className="search-form-els"
                       placeholder="Event Start Date"
+                      minDate={today}
                       value={
                         props.eventStartDate
                           ? dayjs(props.eventStartDate)
@@ -72,6 +110,11 @@ const DateTime = (props) => {
                       id="start-date-field-create-event"
                       className="search-form-els"
                       placeholder="Event End Date"
+                      minDate={
+                        props.eventStartDate
+                          ? dayjs(props.eventStartDate)
+                          : today
+                      }
                       value={
                         props.eventEndDate ? dayjs(props.eventEndDate) : null
                       }
@@ -106,7 +149,9 @@ const DateTime = (props) => {
                     }
                   >
                     {timezones.map((time, i) => (
-                      <MenuItem key={i} value={time.value}>{time.label}</MenuItem>
+                      <MenuItem key={i} value={time.value}>
+                        {time.label}
+                      </MenuItem>
                     ))}
                   </Select>
                 </Grid>
@@ -116,11 +161,17 @@ const DateTime = (props) => {
                     <TimePicker
                       value={
                         props.eventStartTime
-                          ? dayjs(props.eventStartTime)
+                          ? dayjs.utc(props.eventStartTime)
                           : null
                       }
+                      minTime={
+                        isSameDate(dayjs.utc(props.eventStartDate), dayjs.utc())
+                          ? dayjs().tz(props.eventTimezone)
+                          : null
+                      }
+                      timezone={props.eventTimezone}
                       onChange={(newValue) =>
-                        props.setEventStartTime(new Date(Date.parse(newValue)))
+                        props.setEventStartTime(dayjs.utc(newValue))
                       }
                       viewRenderers={{
                         hours: renderTimeViewClock,
@@ -138,10 +189,28 @@ const DateTime = (props) => {
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <TimePicker
                       value={
-                        props.eventEndTime ? dayjs(props.eventEndTime) : null
+                        props.eventEndTime
+                          ? dayjs.utc(props.eventEndTime)
+                          : null
+                      }
+                      timezone={props.eventTimezone}
+                      minTime={
+                        props.eventStartDate &&
+                        props.eventStartTime &&
+                        isSameDate(
+                          dayjs.utc(props.eventStartDate),
+                          dayjs.utc(props.eventEndDate)
+                        )
+                          ? dayjs(
+                              mergeDateTime(
+                                dayjs.utc(props.eventStartDate),
+                                dayjs.utc(props.eventStartTime)
+                              )
+                            ).tz(props.eventTimezone)
+                          : null
                       }
                       onChange={(newValue) =>
-                        props.setEventEndTime(new Date(Date.parse(newValue)))
+                        props.setEventEndTime(dayjs.utc(newValue))
                       }
                       viewRenderers={{
                         hours: renderTimeViewClock,

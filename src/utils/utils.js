@@ -264,14 +264,14 @@ export const getFirstLetters = (name) => {
 // Get australia time zones
 export const getAustralianTimezones = () => {
   let timezones = [];
-  timezones.push({ value: "AWST", label: "(UTC+8:00) Perth" });
-  timezones.push({ value: "ACWST", label: "(UTC+8:45) Eucla" });
-  timezones.push({ value: "ACST", label: "(UTC+9:30) Adelaide" });
+  timezones.push({ value: "Australia/Perth", label: "(UTC+8:00) Perth" });
+  timezones.push({ value: "Australia/Eucla", label: "(UTC+8:45) Eucla" });
+  timezones.push({ value: "Australia/Adelaide", label: "(UTC+9:30) Adelaide" });
   timezones.push({
-    value: "AEST",
+    value: "Australia/Sydney",
     label: "(UTC+10:00) Sydney, Melbourne, Brisbane",
   });
-  timezones.push({ value: "LHST", label: "(UTC+10:30) Lord Howe Island" });
+  timezones.push({ value: "Australia/Lord_Howe", label: "(UTC+10:30) Lord Howe Island" });
 
   return timezones;
 };

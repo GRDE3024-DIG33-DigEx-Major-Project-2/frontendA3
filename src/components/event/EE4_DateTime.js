@@ -20,6 +20,7 @@ import { getAustralianTimezones } from "../../utils/utils";
 
 const EditDateTime = (props) => {
   const timezones = getAustralianTimezones();
+  const today = dayjs();
   return (
     <>
       <h2>Date and Time</h2>
@@ -41,6 +42,7 @@ const EditDateTime = (props) => {
                       id="start-date-field-create-event"
                       className="search-form-els"
                       placeholder="Event Start Date"
+                      minDate={today}
                       value={
                         props.eventStartDate
                           ? dayjs(props.eventStartDate)
@@ -72,6 +74,7 @@ const EditDateTime = (props) => {
                       id="start-date-field-create-event"
                       className="search-form-els"
                       placeholder="Event End Date"
+                      minDate={props.eventStartDate ? props.eventStartDate : today}
                       value={
                         props.eventEndDate ? dayjs(props.eventEndDate) : null
                       }
@@ -101,7 +104,7 @@ const EditDateTime = (props) => {
                     sx={{ color: "#4B7CBE" }}
                     id="create-event-time-zone"
                     placeholder="Timezone"
-                    onChange={(event) =>
+                    onChange={(event) => 
                       props.setEventTimezone(event.target.value)
                     }
                   >
