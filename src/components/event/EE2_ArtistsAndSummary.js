@@ -5,15 +5,24 @@ import RemoveIcon from "@mui/icons-material/Remove";
 const EditArtistsAndSummary = (props) => {
   // functions to enable/disable artist form fields
   const handleDisable2 = () => {
-    if (props.enableArtist2) props.setEnableArtist2(false);
+    if (props.enableArtist2) {
+      props.setEnableArtist2(false);
+      props.setArtistName2("");
+    }
     if (!props.enableArtist2) props.setEnableArtist2(true);
   };
   const handleDisable3 = () => {
-    if (props.enableArtist3) props.setEnableArtist3(false);
+    if (props.enableArtist3) {
+      props.setEnableArtist3(false);
+      props.setArtistName3("");
+    }
     if (!props.enableArtist3) props.setEnableArtist3(true);
   };
   const handleDisable4 = () => {
-    if (props.enableArtist4) props.setEnableArtist4(false);
+    if (props.enableArtist4) {
+      props.setEnableArtist4(false);
+      props.setArtistName4("");
+    }
     if (!props.enableArtist4) props.setEnableArtist4(true);
   };
 
@@ -251,6 +260,12 @@ const EditArtistsAndSummary = (props) => {
                     id="create-ev-summary"
                     variant="outlined"
                     rows={5}
+                    error={props.summaryError && !props.eventSummary}
+                    helperText={
+                      props.summaryError && !props.eventSummary
+                        ? "An event summary is required to continue"
+                        : null
+                    }
                   />
                 </Grid>
               </Grid>

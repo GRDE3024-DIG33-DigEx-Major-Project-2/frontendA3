@@ -65,6 +65,12 @@ const EditLocation = (props) => {
                     id="create-event-venue-name"
                     placeholder="Enter the name of the venue"
                     variant="outlined"
+                    error={props.venueNameError && !props.venueName}
+                    helperText={
+                      props.venueNameError && !props.venueName
+                        ? "An venue name is required to continue"
+                        : null
+                    }
                   />
                 </Grid>
                 <Grid container item xs={6} direction="column">
@@ -76,18 +82,18 @@ const EditLocation = (props) => {
                     id="create-event-venue-suburb"
                     placeholder="Enter the suburb of the venue"
                     variant="outlined"
+                    error={props.suburbError && !props.suburb}
+                    helperText={
+                      props.suburbError && !props.suburb
+                        ? "The suburb is required to continue"
+                        : null
+                    }
                   />
                 </Grid>
               </Grid>
               <CreateEventMap lat={lat} lng={lng} key={mapKey} />
               <Grid container spacing={2} paddingBottom="15px">
-                <Grid
-                  container
-                  item
-                  xs={6}
-                  direction="column"
-                  sx={{ height: "300px" }}
-                >
+                <Grid container item xs={12} direction="column">
                   <Grid container item xs={1} direction="row">
                     <p>Street Address</p>
                   </Grid>
@@ -95,30 +101,18 @@ const EditLocation = (props) => {
                     <TextField
                       value={props.eventAddress1}
                       required
-                      onChange={(event) => props.setEventAddress1(event.target.value)}
+                      onChange={(event) =>
+                        props.setEventAddress1(event.target.value)
+                      }
                       id="create-event-address1"
-                      placeholder="Address line 1"
+                      placeholder="Address"
                       variant="outlined"
-                    />
-                  </Grid>
-                  <Grid container item xs={3} direction="column">
-                    <TextField
-                      value={props.eventCity}
-                      required
-                      onChange={(event) => props.setEventCity(event.target.value)}
-                      id="create-event-city"
-                      placeholder="City"
-                      variant="outlined"
-                    />
-                  </Grid>
-                  <Grid container item xs={3} direction="column">
-                    <TextField
-                      value={props.eventCountry}
-                      required
-                      onChange={(event) => props.setEventCountry(event.target.value)}
-                      id="create-event-country"
-                      placeholder="Country"
-                      variant="outlined"
+                      error={props.addressError && !props.eventAddress1}
+                      helperText={
+                        props.addressError && !props.eventAddress1
+                          ? "The street address is required to continue"
+                          : null
+                      }
                     />
                   </Grid>
                 </Grid>
@@ -129,28 +123,67 @@ const EditLocation = (props) => {
                   direction="column"
                   sx={{ height: "300px" }}
                 >
-                  <Grid container item xs={1} direction="row">
-                    <p>&nbsp;</p>
+                  <Grid container item xs={3} direction="column">
+                    <TextField
+                      value={props.eventCity}
+                      required
+                      onChange={(event) =>
+                        props.setEventCity(event.target.value)
+                      }
+                      id="create-event-city"
+                      placeholder="City"
+                      variant="outlined"
+                      error={props.cityError && !props.eventCity}
+                      helperText={
+                        props.cityError && !props.eventCity
+                          ? "The city is required to continue"
+                          : null
+                      }
+                    />
                   </Grid>
                   <Grid container item xs={3} direction="column">
                     <TextField
-                      value={props.eventAddress2}
+                      value={props.eventCountry}
                       required
-                      onChange={(event) => props.setEventAddress2(event.target.value)}
-                      id="create-event-address2"
-                      placeholder="Address line 2"
+                      onChange={(event) =>
+                        props.setEventCountry(event.target.value)
+                      }
+                      id="create-event-country"
+                      placeholder="Country"
                       variant="outlined"
+                      error={props.countryError && !props.eventCountry}
+                      helperText={
+                        props.countryError && !props.eventCountry
+                          ? "The country is required to continue"
+                          : null
+                      }
                     />
                   </Grid>
+                </Grid>
+                <Grid
+                  container
+                  item
+                  xs={6}
+                  direction="column"
+                  sx={{ height: "200px" }}
+                >
                   <Grid container item xs={3} direction="row">
                     <Grid container item xs={5} direction="column">
                       <TextField
                         value={props.eventState}
                         required
-                        onChange={(event) => props.setEventState(event.target.value)}
+                        onChange={(event) =>
+                          props.setEventState(event.target.value)
+                        }
                         id="create-event-state"
                         placeholder="State or territory"
                         variant="outlined"
+                        error={props.stateError && !props.eventState}
+                        helperText={
+                          props.stateError && !props.eventState
+                            ? "The state is required to continue"
+                            : null
+                        }
                       />
                     </Grid>
                     <Grid container item xs={2} direction="column" />
@@ -164,6 +197,14 @@ const EditLocation = (props) => {
                         id="create-event-postcode"
                         placeholder="Postcode"
                         variant="outlined"
+                        error={
+                          props.postcodeError && !props.eventPostCode
+                        }
+                        helperText={
+                          props.postcodeError && !props.eventPostCode
+                            ? "The postcode is required to continue"
+                            : null
+                        }
                       />
                     </Grid>
                   </Grid>

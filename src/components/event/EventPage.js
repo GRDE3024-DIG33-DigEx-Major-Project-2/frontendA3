@@ -4,12 +4,13 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import LocalActivityOutlinedIcon from "@mui/icons-material/LocalActivityOutlined";
 import ShareIcon from "@mui/icons-material/Share";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
-import { Divider, Stack, Chip, Avatar } from "@mui/material";
+import { Divider, Stack, Chip, Avatar, Button } from "@mui/material";
 import { getFirstLetters } from "../../utils/utils";
 
 function Event() {
   const location = useLocation();
   const event = location.state.event;
+  console.log(event);
 
   // get date range
   const startDate = new Date(Date.parse(event.event.startDate));
@@ -142,7 +143,7 @@ function Event() {
               ))}
             </div>
           </div>
-          <button className="event-buy-button">Buy Tickets</button>
+          <Button href={event.event.purchaseUrl} variant="contained" id="buy-tickets-btn">Buy Tickets</Button>
         </div>
       </div>
     </div>

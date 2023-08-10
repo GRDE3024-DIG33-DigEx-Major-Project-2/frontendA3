@@ -836,7 +836,8 @@ footer {
 #skip-ev-btn,
 #disable-ev-btn,
 #disable-ev-btn-show,
-#save-publish-ev-btn {
+#save-publish-ev-btn,
+#buy-tickets-btn {
   background-color: #f58146;
   color: #000000;
   border: solid 2px #f58146;
