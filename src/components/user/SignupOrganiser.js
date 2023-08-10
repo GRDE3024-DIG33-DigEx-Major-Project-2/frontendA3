@@ -12,6 +12,7 @@ import axios from "axios";
 import { LoadingContext, useLoading } from "../../props/loading-spinner.prop";
 import {register} from "../../services/UserAPI";
 import { showSuccessToast, showErrorToast } from "../shared/Toaster";
+import { PATHS } from "../../utils/constants.util";
 
 function SignUpOrganiser() {
   
@@ -31,14 +32,14 @@ function SignUpOrganiser() {
   const pplabel = (
     <span>
       I accept Gigney's&nbsp;
-      <Link to="../privacy-policy">Privacy Policy</Link>
+      <Link to={PATHS.PRIVACY_POLICY}>Privacy Policy</Link>
     </span>
   );
 
   const tclabel = (
     <span>
       I agree to Gigney's&nbsp;
-      <Link to="../terms-of-use">Terms of Use</Link>
+      <Link to={PATHS.TERMS_OF_USE}>Terms of Use</Link>
     </span>
   );
 
@@ -65,7 +66,8 @@ function SignUpOrganiser() {
       await register(requestBody)
       .then((response) => {
         showSuccessToast("Registration Succesful");
-        navigate("/login");
+        //navigate.TO_LOGIN();
+        navigate(PATHS.LOGIN);
       })
       .catch((error) => {
         showErrorToast("Sorry, the backend server is down! Please try again later.");
@@ -144,7 +146,7 @@ function SignUpOrganiser() {
                 />
                 <span className="link-organizer l-o-1">
                   Already signed up?
-                  <Link to="../login">Login</Link>
+                  <Link to={PATHS.LOGIN}>Login</Link>
                   instead
                 </span>
               </Grid>{" "}
@@ -214,7 +216,7 @@ function SignUpOrganiser() {
               </Grid>
               <span className="link-organizer l-o-2">
                 Already signed up?
-                <Link to="../login">Login</Link>
+                <Link to={PATHS.LOGIN}>Login</Link>
                 instead
               </span>
             </Grid>

@@ -10,7 +10,8 @@ import {
 } from "../utils/constants.util";
 import { getAccessToken, resetUserSession, resetTokenSession, setAccessToken, setUserSession } from "../utils/localStorage";
 import axiosClient from "./Axios";
-
+import { showErrorToast, showSuccessToast } from "../components/shared/Toaster";
+import { logoutErrorHandler } from "./AuthAPI";
 
 
 /**
@@ -34,9 +35,10 @@ export const updateUser = async function (formData) {
       Authorization: `Bearer ${getAccessToken()}`,
     },
   };
-
+try {
   let response = await axiosClient
-    .put(USER_ENDPOINTS.updateUrl, formData, options);
+    .put(USER_ENDPOINTS.updateUrl, formData, options)
+    .catch((error) => logoutErrorHandler(error));
 
   //Success! Set new user and access token
   if (response.status == 200) {
@@ -49,7 +51,10 @@ export const updateUser = async function (formData) {
     console.log("Update User Failed!");
     console.log(response.status);
   }
-
+}
+catch(error) {
+logoutErrorHandler(error);
+}
 }
 
 
@@ -68,7 +73,7 @@ export const resetPassword = async function (oldPassword, newPassword) {
     oldPassword: oldPassword,
     newPassword: newPassword
   };
-
+try {
   let response = await axiosClient
     .put(USER_ENDPOINTS.resetPasswordUrl, requestBody, options);
 
@@ -76,12 +81,26 @@ export const resetPassword = async function (oldPassword, newPassword) {
   if (response.status == 200) {
     console.log("Reset Password Success!");
     console.log(response.data.msg);
+    return response;
   }
   //Failed!
   else {
     console.log("Reset Password Failed!");
     console.log(response.data.msg);
+    return response;
   }
+} catch(error) {
+  if (error.response.status == 400) {
+  showErrorToast("Invalid credentials");
+  }
+  else {
+    showErrorToast("Password reset failed!");
+  }
+
+  logoutErrorHandler(error);
+}
+
+
 
 }
 
@@ -95,23 +114,28 @@ export const deleteUser = async function () {
       Authorization: `Bearer ${getAccessToken()}`,
     },
   };
-
+try {
   let response = await axiosClient
     .delete(USER_ENDPOINTS.deleteUrl, options);
 
   //Success! Set new user and access token
   if (response.status == 200) {
     console.log("User Delete Success!");
-    console.log(response.data);
-    resetUserSession();
-    resetTokenSession();
+    showSuccessToast("Your account was successfully deleted!");
+    logoutErrorHandler();
+    return response;
   }
   //Failed!
   else {
-    console.log("User Delete Failed!");
+    console.log("A problem occured whiile deleting your account. Please try again later.");
     console.log(response);
+    return response;
   }
-
+}
+catch(error) {
+logoutErrorHandler(error);
+return error.response;
+}
 }
 
 

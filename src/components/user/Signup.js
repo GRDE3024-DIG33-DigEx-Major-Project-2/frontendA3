@@ -10,6 +10,7 @@ import { useState } from "react";
 import InputAdornment from "@mui/material/InputAdornment";
 import { Button } from "@mui/material";
 import { useLoading } from "../../props/loading-spinner.prop";
+import { PATHS } from "../../utils/constants.util";
 
 function SignUp() {
   const [accountType, setAccountType] = useState("");
@@ -19,7 +20,12 @@ function SignUp() {
     console.log(accountType);
   };
   const navigate = useNavigate();
-  const handleClick = () => navigate("/signup" + accountType);
+  const handleClick = () => {
+    if (accountType == "attendee")
+    navigate(PATHS.SIGN_UP_ATTENDEE);
+  else if (accountType == "organiser")
+  navigate(PATHS.SIGN_UP_ORGANISER);
+  };
 
 
 
@@ -46,7 +52,7 @@ function SignUp() {
               value={accountType}
               onChange={(event) => setAccountType(event.target.value)}
             >
-              <MenuItem id="guest" value={"guest"}>
+              <MenuItem id="guest" value={"attendee"}>
                 <LocationOnIcon color="primary" className="dropdown-icon" />
                 Search for events
               </MenuItem>
@@ -72,7 +78,7 @@ function SignUp() {
               <p>&nbsp;</p>
               <span className="login-link">
               Already have an account?
-              <Link to="../Login">
+              <Link to={PATHS.LOGIN}>
                  Login
               </Link>
               instead

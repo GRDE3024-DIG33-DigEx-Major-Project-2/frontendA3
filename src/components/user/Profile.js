@@ -26,7 +26,9 @@ import { SearchEventsContext, SearchEventFiltersContext } from "../../props/sear
 //Partial page spinner
 import { PartialLoadSpinner } from "../shared/LoadingSpinner";
 import { getUser } from "../../utils/localStorage";
-
+import { PATHS } from "../../utils/constants.util";
+import { useNavigate } from "react-router-dom";
+import AccountSettings from "./AccountSettings";
 
 /**
  * Builds the Profile react component
@@ -54,6 +56,10 @@ const Profile = () => {
     currPage
   } = useContext(SearchEventFiltersContext);
 
+
+
+  const navigate = useNavigate();
+
   //Get the user session data
   const user = getUser();
 
@@ -62,13 +68,21 @@ const Profile = () => {
    */
   useEffect(() => {
     async function fetchEvents() {
-      //Toggle loading UI on
+
+      try {
+              //Toggle loading UI on
       fetchStatus.set(true);
       const data = await searchFavourites(0);
       console.log("Favourited events search results: ", data);
       setFavouritedEvents(data.events);
       //Toggle loading UI off
       fetchStatus.set(false);
+    } catch (error) {
+      //Toggle loading UI off
+      fetchStatus.set(false);
+      navigate(PATHS.LOGIN);
+    }
+
     }
 
     fetchEvents();
@@ -100,6 +114,7 @@ const Profile = () => {
     currPage.set(currPage.get++);
 
     //Make request for favourited events
+    try {
     let searchResult = await searchFavourites(currPage.get);
 
     let currEvents = favouritedEvents;
@@ -112,6 +127,12 @@ const Profile = () => {
 
     //Toggle loading UI off
     fetchStatus.set(false);
+  } catch (error) {
+    //Toggle loading UI off
+    fetchStatus.set(false);
+    navigate(PATHS.LOGIN);
+  }
+
   }
 
 
@@ -170,53 +191,7 @@ const Profile = () => {
               </Box>
             </article>
             <article className="account-settings">
-              <h2>Account settings</h2>
-              <Box className="profile-box prof-left">
-                <FormControl fullWidth>
-                  <h3>Change Password</h3>
-                  <p>Password:</p>
-                  <TextField
-                    variant="outlined"
-                    id="password"
-                    placeholder="Enter your password"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <LockOutlinedIcon color="primary" />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                  <p>Confirm Password:</p>
-                  <TextField
-                    variant="outlined"
-                    id="confirm-password"
-                    placeholder="Enter your password again"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <LockIcon color="primary" />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                  <Button
-                    variant="contained"
-                    id="save-pwd-btn"
-                    type="submit"
-                    sx={{ color: "black" }}
-                  >
-                    Save new password
-                  </Button>
-                  <Link
-                    id="delete-account-profile"
-                    to="/"
-                    onClick={handleDelete}
-                  >
-                    Delete this account
-                  </Link>
-                </FormControl>
-              </Box>
+<AccountSettings></AccountSettings>
             </article>
             <article className="saved-events">
               <h2>Saved Events</h2>

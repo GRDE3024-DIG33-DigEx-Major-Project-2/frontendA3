@@ -64,27 +64,12 @@ const SearchEventFiltersProvider = ({ children }) => {
 
 
 
-    //Default range for ticket price filter
-    //const DEFAULT_MIN_PRICE = 1;
-    //const DEFAULT_MAX_PRICE = 200;
     //Default date range for events
     const DEFAULT_DATE_RANGE = {minDate:null, maxDate: null};
       //Default selected venue is all venues
   const DEFAULT_VENUE_SELECT = "All Venues";
     //Default search chip values
-    const DEFAULT_FILTER_CHIPS = [
-        //{ key: 0, searchCategory: "venue", label: "Arena51", value: "Arena51" },
-        //{ key: 1, searchCategory: "date", label: "Today", value: getTodayISODates() },
-        //   {
-        //     key: 2,
-        //     searchCategory: "genre",
-        //     label: "Rock",
-        //     value: "9a58b4a6-af1d-4102-b074-6cc5f1fda00e",
-        //   },    
-    ]
-
-//console.clear();
-//console.log("DEFAULT DATE RANGE: ", DEFAULT_DATE_RANGE);
+    const DEFAULT_FILTER_CHIPS = []
 
 //Filter form fields as props
 const [location, setLocation] = useState(null);
@@ -111,7 +96,6 @@ const [isFree, setIsFree] = useState("free");
             get: keywords,
             set: setKeywords
         },
-        //TODO revamp from city-only values
         location: {
             get: location,
             set: setLocation,

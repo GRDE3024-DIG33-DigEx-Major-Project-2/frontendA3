@@ -32,8 +32,30 @@ export const AUTH_ENDPOINTS = {
 
 //User-related endpoints
 export const USER_ENDPOINTS = {
-  registerUrl: BASE_URL + "user",
+  registerUrl: BASE_URL + "user/register",
   updateUrl: BASE_URL + "user",
   deleteUrl: BASE_URL + "user",
   resetPasswordUrl: BASE_URL + "user/reset-password",
+};
+
+
+
+//SPA paths of app
+export const PATHS = {
+  HOME: "/",
+  SEARCH_EVENTS: "/search-events",
+  ABOUT: "/about",
+  LOGIN: "/login",
+  SIGN_UP: "/signup",
+  RESET_PASSWORD: "/reset-password",
+  PROFILE: "/profile",
+  DASHBOARD: "/dashboard",
+  TERMS_OF_USE: "/terms-of-use",
+  PRIVACY_POLICY: "/privacy-policy",
+  EVENT_PAGE: "/events/event-page",
+  SIGN_UP_ATTENDEE: "/signup/attendee",
+  SIGN_UP_ORGANISER: "/signup/organiser",
+  CREATE_EVENT: "/dashboard/create-event",
+  EDIT_EVENT: "/dashboard/edit-event",
+  PAGE_NOT_FOUND: "*"
 };

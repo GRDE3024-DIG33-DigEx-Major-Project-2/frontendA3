@@ -29,6 +29,7 @@ import ByLocation from "./filters/ByLocation";
 import ByKeywords from "./filters/ByKeywords";
 import { HeaderSelectedTags } from "./filters/TagSelection";
 import { getTodayISODates, getTomorrowISODates, getWeekendISODates } from "../../../utils/utils";
+import { PATHS } from "../../../utils/constants.util";
 
 
 /**
@@ -138,9 +139,7 @@ const FindEventHeader = () => {
 
     //Navigate to the event search component
     if (spaLocation.pathname !== "/events")
-      navigate("events");
-    else
-      navigate();
+      navigate(PATHS.SEARCH_EVENTS);
   };
 
 

@@ -24,6 +24,7 @@ import EditLocation from "./EE3_Location";
 import EditDateTime from "./EE4_DateTime";
 import EditPricing from "./EE5_Pricing";
 import EditEventMedia from "./EE6_EventMedia";
+import { PATHS } from "../../utils/constants.util";
 
 function EditEvent() {
 
@@ -312,11 +313,11 @@ function EditEvent() {
       await updateEvent(formData);
     }
 
-    navigate("/dashboard");
+    navigate(PATHS.DASHBOARD);
   };
 
   const deleteEvent = () => {
-    navigate("/dashboard");
+    navigate(PATHS.DASHBOARD);
   };
 
   return (

@@ -131,11 +131,6 @@ export const SearchSelectedTags = () => {
         let newKey = chipData.get.length + 1;
         let temp = chipData.get;
 
-        // console.clear();
-        // console.log("TOGGLING CHIP");
-        // console.log(genre);
-        // console.log(tagSelection.get);
-
         //Select tag
         if (!temp.find(x => x.value === genre.id)) {
              console.log("SELECTING TAG");

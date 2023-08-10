@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   MobileStepper,
   Stack,
@@ -25,6 +25,7 @@ import DateTime from "./CE4_DateTime";
 import Pricing from "./CE5_Pricing";
 import EventMedia from "./CE6_EventMedia";
 import { addDraft, removeDraft } from "../../utils/localStorage";
+import { PATHS } from "../../utils/constants.util";
 
 function CreateEvent() {
   const navigate = useNavigate();
@@ -253,11 +254,11 @@ function CreateEvent() {
 
     await createEvent(formData);
 
-    navigate("/dashboard");
+    navigate(PATHS.DASHBOARD);
   };
 
   const deleteEvent = () => {
-    navigate("/dashboard");
+    navigate(PATHS.DASHBOARD);
   };
 
   const saveExit = () => {
@@ -309,7 +310,7 @@ function CreateEvent() {
 
     console.log(currentDraft);
     addDraft(currentDraft);
-    navigate("/dashboard");
+    navigate(PATHS.DASHBOARD);
   };
 
   return (

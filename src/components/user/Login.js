@@ -1,14 +1,16 @@
-import { FormControl, TextField, InputAdornment, Button } from "@mui/material";
+import { FormControl, TextField, InputAdornment, Button, IconButton } from "@mui/material";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useState, useContext } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { setAccessToken, setUserSession, setDrafts } from "../../utils/localStorage";
 import { LoadingContext } from "../../props/loading-spinner.prop";
 import { login } from "../../services/AuthAPI";
 import { showSuccessToast, showErrorToast } from "../shared/Toaster";
-
+import { PATHS } from "../../utils/constants.util";
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const Login = ({ setIsLoggedIn }) => {
   const baseURL = process.env.REACT_APP_BASEURL;
@@ -17,6 +19,8 @@ const Login = ({ setIsLoggedIn }) => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(null);
   const navigate = useNavigate();
+
+  const [showPassword, setShowPassword] = useState(false);
 
   //Loading spinner props
   const {
@@ -47,6 +51,8 @@ const Login = ({ setIsLoggedIn }) => {
 
         setMessage("Login Succesful");
         showSuccessToast("Login Succesful");
+
+
 
         if (response.data.user.organizationName) {
           user = {
@@ -90,10 +96,15 @@ const Login = ({ setIsLoggedIn }) => {
 
 
 
-        // navigate to profile or dashboard
-        navigate(destinationPage);
+        //navigate to profile or dashboard
+        if (destinationPage == "../dashboard")
+          navigate(PATHS.DASHBOARD);
+        else if (destinationPage == "../profile")
+          navigate(PATHS.PROFILE);
       }
       catch (error) {
+        console.log("ERROR WHILE LOGGING IN");
+        console.log(error);
         setMessage("Invalid email or password. Try again.");
         showErrorToast("Invalid email or password. Try again.");
       }
@@ -151,6 +162,7 @@ const Login = ({ setIsLoggedIn }) => {
             <TextField
               variant="outlined"
               value={password}
+              type={showPassword ? "text" : "password"}
               onChange={(event) => setPassword(event.target.value)}
               id="password"
               placeholder="Enter your password"
@@ -158,6 +170,16 @@ const Login = ({ setIsLoggedIn }) => {
                 startAdornment: (
                   <InputAdornment position="start">
                     <LockOutlinedIcon color="primary" />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
                   </InputAdornment>
                 ),
               }}
@@ -172,7 +194,7 @@ const Login = ({ setIsLoggedIn }) => {
             >
               Login
             </Button>
-            <Link to="../reset-password" className="forgot-btn">
+            <Link to={PATHS.RESET_PASSWORD} className="forgot-btn">
               Forgot your password?
             </Link>
           </FormControl>

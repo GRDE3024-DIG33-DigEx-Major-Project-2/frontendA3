@@ -44,7 +44,6 @@ const DateRadioBtns = () => {
    * @param {*} value 
    */
   const chipSelectDate = (value) => {
-    console.clear();
     //Filter chip key
     let newKey = chipData.get.length + 1;
     //Filter chips

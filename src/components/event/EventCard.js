@@ -15,11 +15,12 @@ import { getDateRangeString } from "../../utils/utils";
 import { useState, useEffect } from "react";
 import { toggleFavourite, isFavourited } from "../../services/EventAPI";
 import { getUser } from "../../utils/localStorage";
+import { PATHS } from "../../utils/constants.util";
 
 const EventCard = (props) => {
   const navigate = useNavigate();
   const [favourite, setFavourite] = useState(false);
-
+  const user = getUser();
   useEffect(() => {
     async function setIsFavourite() {
       const isFav = await isFavourited([props.event.event.id]);
@@ -27,7 +28,8 @@ const EventCard = (props) => {
       if (isFav[0].isFavourite)
       setFavourite(isFav[0].isFavourite);
     }
-    if (getUser.userType == "Attendee") {
+    if (user)
+    if (user.userType == "Attendee") {
 setIsFavourite();
     }
   }, [setFavourite]);
@@ -35,7 +37,7 @@ setIsFavourite();
   // on load, check if the event is already in the favourite list
   
   const cardRedirect = () => {
-    navigate("/event", { state: { event: props.event } });
+    navigate(PATHS.EVENT_PAGE, { state: { event: props.event } });
   };
 
   const handleFavourite = () => {
@@ -57,12 +59,8 @@ setIsFavourite();
 
   let imgUrl = "../Gigney_login.png";
 
-  if (props.event.eventImg) {
-    imgUrl =
-      "https://gigney.s3.ap-southeast-2.amazonaws.com/" +
-      props.event.eventImg.filename +
-      ".jpeg";
-  }
+  if (props.event.eventImg)
+    imgUrl = props.event.eventImg.url;
 
   return (
     <Card className="event-card">
@@ -89,8 +87,8 @@ setIsFavourite();
           <ShareIcon sx={{ fontSize: 22, color: "black" }} />
         </div>
       </Tooltip>
-      {getUser() !== null && (
-  getUser().userType === "Attendee" ? (
+      {user !== null && (
+  !user.organizationName ? (
     <Tooltip
       title={!favourite ? "Add to favourites" : "Remove from favourites"}
     >
