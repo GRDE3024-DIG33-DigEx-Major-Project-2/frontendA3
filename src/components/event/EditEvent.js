@@ -1,7 +1,6 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import { useState } from "react";
+import dayjs from "dayjs";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
   MobileStepper,
@@ -9,9 +8,11 @@ import {
   Divider,
   Avatar,
   Chip,
+  Button,
+  Link,
+  Box,
 } from "@mui/material";
-import { getFirstLetters } from "../../utils/utils";
-import { Link } from "@mui/material";
+import { getFirstLetters, mergeDateTime } from "../../utils/utils";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import LocalActivityOutlinedIcon from "@mui/icons-material/LocalActivityOutlined";
@@ -26,7 +27,6 @@ import EditPricing from "./EE5_Pricing";
 import EditEventMedia from "./EE6_EventMedia";
 
 function EditEvent() {
-
   const location = useLocation();
   const event = location.state.event;
   console.log(event);
@@ -42,12 +42,16 @@ function EditEvent() {
   //** FIRST SCREEN - BASIC INFO **//
   const [eventID, setEventID] = useState(event.event.id);
   const [eventName, setEventName] = useState(event.event.title);
-  const [eventOrganiser, setEventOrganiser] = useState(
-    event.event.organizationName
-  );
+  const eventOrganiser = event.event.organizationName;
   const [description, setDescription] = useState(event.event.description);
   const [tags, setTags] = useState(tagString);
   const [eventURL, setEventURL] = useState(event.event.purchaseUrl);
+
+  /* First screen error flags */
+  const [nameError, setNameError] = useState(false);
+  const [descriptionError, setDescriptionError] = useState(false);
+  const [urlError, setUrlError] = useState(false);
+
   // ** SECOND SCREEN - ARTISTS AND SUMMARY ** //
   const [artistName, setArtistName] = useState(
     event.acts[0] ? event.acts[0].name : ""
@@ -83,23 +87,36 @@ function EditEvent() {
   const [enableArtist4, setEnableArtist4] = useState(
     event.acts.length > 3 ? true : false
   );
+
+  /* Second screen error flags */
+  const [summaryError, setSummaryError] = useState(false);
+
   // ** THIRD SCREEN - LOCATION ** //
   const [venueName, setVenueName] = useState(event.event.venueName);
   const [suburb, setSuburb] = useState(event.event.suburb);
   const [eventAddress1, setEventAddress1] = useState(event.event.address);
-  const [eventAddress2, setEventAddress2] = useState("");
   const [eventCity, setEventCity] = useState(event.event.city);
   const [eventCountry, setEventCountry] = useState(event.event.country);
   const [eventState, setEventState] = useState(event.event.region);
   const [eventPostCode, setEventPostCode] = useState(event.event.postcode);
+
+  /* Third screen error flags */
+  const [venueNameError, setVenueNameError] = useState(false);
+  const [suburbError, setSuburbError] = useState(false);
+  const [addressError, setAddressError] = useState(false);
+  const [cityError, setCityError] = useState(false);
+  const [countryError, setCountryError] = useState(false);
+  const [stateError, setStateError] = useState(false);
+  const [postcodeError, setPostcodeError] = useState(false);
+
   // ** FOURTH SCREEN - DATE AND TIME ** //
   const startDate = new Date(event.event.startDate);
   const endDate = new Date(event.event.endDate);
-  const [eventStartDate, setEventStartDate] = useState(startDate);
-  const [eventEndDate, setEventEndDate] = useState(endDate);
-  const [eventStartTime, setEventStartTime] = useState(startDate);
-  const [eventEndTime, setEventEndTime] = useState(endDate);
-  const [eventTimezone, setEventTimezone] = useState("AEST");
+  const [eventStartDate, setEventStartDate] = useState(dayjs(startDate));
+  const [eventEndDate, setEventEndDate] = useState(dayjs(endDate));
+  const [eventStartTime, setEventStartTime] = useState(dayjs(startDate));
+  const [eventEndTime, setEventEndTime] = useState(dayjs(endDate));
+  const [eventTimezone, setEventTimezone] = useState("Australia/Sydney");
   // ** FIFTH SCREEN - PRICE **//
   const [state, setState] = useState({
     eventFree: event.event.isFree,
@@ -157,17 +174,156 @@ function EditEvent() {
   const [enableTicket4, setEnableTicket4] = useState(
     event.ticketTypes[3] ? true : false
   );
+
+  /* Fifth screen error flags */
+  const [price1Error, setPrice1Error] = useState(false);
+  const [price2Error, setPrice2Error] = useState(false);
+  const [price3Error, setPrice3Error] = useState(false);
+  const [price4Error, setPrice4Error] = useState(false);
+  const [ticket2Error, setTicket2Error] = useState(false);
+  const [ticket3Error, setTicket3Error] = useState(false);
+  const [ticket4Error, setTicket4Error] = useState(false);
+
   // ** SIXTH SCREEN - MEDIA **//
   const [newImg, setNewImg] = useState(false);
   const [selectedImage, setSelectedImage] = useState(
     !event.eventImg ? null : event.eventImg.url
   );
 
+  // determines if the conditions are satisfied for users to proceed to screen six
+  const canProceed = (enableArtist, eventPrice, eventTierName) => {
+    if (enableArtist) {
+      if (eventPrice === parseFloat(0.0).toFixed(2) || !eventTierName) {
+        return false;
+      } else return true;
+    } else return true;
+  };
+
+  // handles validation and changes pages in the form
   const handleNext = (e) => {
-    if (activeStep === 5 && !selectedImage) {
-      alert("Please upload an image to proceed");
-    } else {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    switch (activeStep) {
+      // RULES: name, description and URL are required
+      case 0:
+        if (eventName === "") setNameError(true);
+        else setNameError(false);
+
+        if (description === "") setDescriptionError(true);
+        else setDescriptionError(false);
+
+        if (!eventURL) setUrlError(true);
+        else setUrlError(false);
+
+        if (eventName !== "" && description !== "" && eventURL)
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        break;
+      // RULES: At least one artist. Summary is required.
+      case 1:
+        let atLeastOneArtist = !(
+          !artistName &&
+          !artistName2 &&
+          !artistName3 &&
+          !artistName4
+        );
+        if (!atLeastOneArtist) {
+          alert("At least one artist is required in order to proceed.");
+        }
+
+        if (!eventSummary) setSummaryError(true);
+        else setSummaryError(false);
+
+        if (atLeastOneArtist && eventSummary)
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        break;
+      // RULES: Venue name and all address fields are required.
+      case 2:
+        if (!venueName) setVenueNameError(true);
+        else setVenueNameError(false);
+
+        if (!suburb) setSuburbError(true);
+        else setSuburbError(false);
+
+        if (!eventAddress1) setAddressError(true);
+        else setAddressError(false);
+
+        if (!eventCity) setCityError(true);
+        else setCityError(false);
+
+        if (!eventCountry) setCountryError(true);
+        else setCountryError(false);
+
+        if (!eventState) setStateError(true);
+        else setStateError(false);
+
+        if (!eventPostCode) setPostcodeError(true);
+        else setPostcodeError(false);
+
+        if (
+          venueName &&
+          suburb &&
+          eventAddress1 &&
+          eventCity &&
+          eventCountry &&
+          eventState &&
+          eventPostCode
+        ) {
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        }
+
+        break;
+      // RULES: Start date cannot be earlier than end date. All fields required. End time needs to be at least one hour later than start time
+      case 3:
+        if (eventStartDate && eventEndDate && eventStartTime && eventEndTime)
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        else alert("All date and time fields are required to continue.");
+        break;
+      // RULES: At least general admission price required if the event is paid. Once a ticket type is enabled, name and price are required.
+      case 4:
+        if (eventPaid && eventPrice1 === parseFloat(0.0).toFixed(2))
+          setPrice1Error(true);
+        else setPrice1Error(false);
+
+        if (eventPaid && enableTicket2) {
+          if (eventPrice2 === parseFloat(0.0).toFixed(2)) setPrice2Error(true);
+          else setPrice2Error(false);
+
+          if (!eventTierName2) setTicket2Error(true);
+          else setTicket2Error(false);
+        }
+
+        if (eventPaid && enableTicket3) {
+          if (eventPrice3 === parseFloat(0.0).toFixed(2)) setPrice3Error(true);
+          else setPrice3Error(false);
+
+          if (!eventTierName3) setTicket3Error(true);
+          else setTicket3Error(false);
+        }
+
+        if (eventPaid && enableTicket4) {
+          if (eventPrice4 === parseFloat(0.0).toFixed(2)) setPrice4Error(true);
+          else setPrice4Error(false);
+
+          if (!eventTierName4) setTicket4Error(true);
+          else setTicket4Error(false);
+        }
+
+        if (eventFree) setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        if (
+          !eventFree &&
+          canProceed(enableArtist2, eventPrice2, eventTierName2) &&
+          canProceed(enableArtist3, eventPrice3, eventTierName3) &&
+          canProceed(enableArtist4, eventPrice4, eventTierName4) &&
+          eventPrice1 !== parseFloat(0.0).toFixed(2)
+        ) {
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        }
+        break;
+      // RULES: Image upload is required.
+      case 5:
+        if (!selectedImage) alert("Please upload an image to proceed");
+        else setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        break;
+      default:
+        console.log("Event preview");
     }
   };
 
@@ -208,7 +364,7 @@ function EditEvent() {
       startDate: startDateTime.toISOString(),
       endDate: endDateTime.toISOString(),
       suburb: suburb,
-      address: eventAddress1 + " " + eventAddress2,
+      address: eventAddress1,
       city: eventCity,
       region: eventState,
       postcode: eventPostCode,
@@ -306,7 +462,7 @@ function EditEvent() {
         ticketTypes: ticketTypes,
         newTicketTypes: newTicketTypes,
         tags: formattedTags,
-        eventImg: selectedImage
+        eventImg: selectedImage,
       };
       console.log(formData);
       await updateEvent(formData);
@@ -383,13 +539,26 @@ function EditEvent() {
                           <h3>Date and time</h3>
                         </span>
                         <p className="strong-string-prev">
-                          {eventStartDate.toDateString()}{" "}
-                          {eventStartTime.toLocaleString("en-US", {
+                          {mergeDateTime(
+                            dayjs(eventStartDate),
+                            dayjs(eventStartTime)
+                          ).toDateString()}{" "}
+                          {mergeDateTime(
+                            dayjs(eventStartDate),
+                            dayjs(eventStartTime)
+                          ).toLocaleString("en-US", {
                             hour: "2-digit",
                             minute: "2-digit",
                           })}{" "}
-                          - {eventEndDate.toDateString()}{" "}
-                          {eventEndTime.toLocaleString("en-US", {
+                          -{" "}
+                          {mergeDateTime(
+                            dayjs(eventEndDate),
+                            dayjs(eventEndTime)
+                          ).toDateString()}{" "}
+                          {mergeDateTime(
+                            dayjs(eventEndDate),
+                            dayjs(eventEndTime)
+                          ).toLocaleString("en-US", {
                             hour: "2-digit",
                             minute: "2-digit",
                           })}
@@ -401,9 +570,8 @@ function EditEvent() {
                           <h3>Location</h3>
                         </span>
                         <p className="strong-string-prev">
-                          {venueName}, {eventAddress1}
-                          {eventAddress2}, {suburb}, {eventPostCode},{" "}
-                          {eventCity} {eventCountry}
+                          {venueName}, {eventAddress1}, {suburb},{" "}
+                          {eventPostCode}, {eventCity} {eventCountry}
                         </p>
                       </div>
                     </Stack>
@@ -513,9 +681,18 @@ function EditEvent() {
                           label={tag.split(",")[0]}
                         />
                       ))}
+                      {tags.length === 0 && (
+                        <p>No tags have been added for this event</p>
+                      )}
                     </div>
                   </div>
-                  <button className="event-buy-button">Buy Tickets</button>
+                  <Button
+                    href={eventURL}
+                    variant="contained"
+                    id="buy-tickets-btn"
+                  >
+                    Buy Tickets
+                  </Button>
                 </div>
               </div>
             </div>
@@ -547,13 +724,15 @@ function EditEvent() {
                       eventName={eventName}
                       setEventName={setEventName}
                       eventOrganiser={eventOrganiser}
-                      setEventOrganiser={setEventOrganiser}
                       description={description}
                       setDescription={setDescription}
                       tags={tags}
                       setTags={setTags}
                       eventURL={eventURL}
                       setEventURL={setEventURL}
+                      nameError={nameError}
+                      descriptionError={descriptionError}
+                      urlError={urlError}
                     />
                   );
                 } else if (activeStep === 1) {
@@ -583,6 +762,7 @@ function EditEvent() {
                       setArtistID3={setArtistID3}
                       artistID4={artistID4}
                       setArtistID4={setArtistID4}
+                      summaryError={summaryError}
                     />
                   );
                 } else if (activeStep === 2) {
@@ -594,8 +774,6 @@ function EditEvent() {
                       setSuburb={setSuburb}
                       eventAddress1={eventAddress1}
                       setEventAddress1={setEventAddress1}
-                      eventAddress2={eventAddress2}
-                      setEventAddress2={setEventAddress2}
                       eventCity={eventCity}
                       setEventCity={setEventCity}
                       eventCountry={eventCountry}
@@ -604,6 +782,13 @@ function EditEvent() {
                       setEventState={setEventState}
                       eventPostCode={eventPostCode}
                       setEventPostCode={setEventPostCode}
+                      venueNameError={venueNameError}
+                      suburbError={suburbError}
+                      addressError={addressError}
+                      cityError={cityError}
+                      countryError={countryError}
+                      stateError={stateError}
+                      postcodeError={postcodeError}
                     />
                   );
                 } else if (activeStep === 3) {
@@ -657,6 +842,13 @@ function EditEvent() {
                       setEventTierID3={setEventTierID3}
                       eventTierID4={eventTierID4}
                       setEventTierID4={setEventTierID4}
+                      price1Error={price1Error}
+                      price2Error={price2Error}
+                      price3Error={price3Error}
+                      price4Error={price4Error}
+                      ticket2Error={ticket2Error}
+                      ticket3Error={ticket3Error}
+                      ticket4Error={ticket4Error}
                     />
                   );
                 } else if (activeStep === 5) {

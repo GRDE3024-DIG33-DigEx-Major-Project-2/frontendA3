@@ -10,7 +10,7 @@ import {
   Chip,
   Box,
   Button,
-  Link
+  Link,
 } from "@mui/material";
 import { getFirstLetters, mergeDateTime } from "../../utils/utils";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
@@ -201,18 +201,13 @@ function CreateEvent() {
     draft && draft.selectedImage ? draft.selectedImage : null
   );
 
-
   // determines if the conditions are satisfied for users to proceed to screen six
   const canProceed = (enableArtist, eventPrice, eventTierName) => {
-    console.log("HI")
+    console.log("HI");
     if (enableArtist) {
-      if (
-        eventPrice === parseFloat(0.0).toFixed(2) ||
-        eventTierName === ""
-      ) {
+      if (eventPrice === parseFloat(0.0).toFixed(2) || eventTierName === "") {
         return false;
       } else return true;
-
     } else return true;
   };
 
@@ -539,13 +534,26 @@ function CreateEvent() {
                           <h3>Date and time</h3>
                         </span>
                         <p className="strong-string-prev">
-                          {mergeDateTime(dayjs(eventStartDate), dayjs(eventStartTime)).toDateString()}{" "}
-                          {mergeDateTime(dayjs(eventStartDate), dayjs(eventStartTime)).toLocaleString("en-US", {
+                          {mergeDateTime(
+                            dayjs(eventStartDate),
+                            dayjs(eventStartTime)
+                          ).toDateString()}{" "}
+                          {mergeDateTime(
+                            dayjs(eventStartDate),
+                            dayjs(eventStartTime)
+                          ).toLocaleString("en-US", {
                             hour: "2-digit",
                             minute: "2-digit",
                           })}{" "}
-                           - {mergeDateTime(dayjs(eventEndDate), dayjs(eventEndTime)).toDateString()}{" "}
-                          {mergeDateTime(dayjs(eventEndDate), dayjs(eventEndTime)).toLocaleString("en-US", {
+                          -{" "}
+                          {mergeDateTime(
+                            dayjs(eventEndDate),
+                            dayjs(eventEndTime)
+                          ).toDateString()}{" "}
+                          {mergeDateTime(
+                            dayjs(eventEndDate),
+                            dayjs(eventEndTime)
+                          ).toLocaleString("en-US", {
                             hour: "2-digit",
                             minute: "2-digit",
                           })}
@@ -557,7 +565,7 @@ function CreateEvent() {
                           <h3>Location</h3>
                         </span>
                         <p className="strong-string-prev">
-                          {venueName}, {eventAddress1} {suburb}, {eventPostCode}
+                          {venueName}, {eventAddress1}, {suburb}, {eventPostCode}
                           , {eventCity} {eventCountry}
                         </p>
                       </div>
@@ -668,10 +676,18 @@ function CreateEvent() {
                           label={tag.split(",")[0]}
                         />
                       ))}
-                      {tags.length === 0 && <p>No tags have been added for this event</p>}
+                      {tags.length === 0 && (
+                        <p>No tags have been added for this event</p>
+                      )}
                     </div>
                   </div>
-                  <Button href={eventURL} variant="contained" id="buy-tickets-btn">Buy Tickets</Button>
+                  <Button
+                    href={eventURL}
+                    variant="contained"
+                    id="buy-tickets-btn"
+                  >
+                    Buy Tickets
+                  </Button>
                 </div>
               </div>
             </div>
