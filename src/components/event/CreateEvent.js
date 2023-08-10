@@ -25,6 +25,8 @@ import Location from "./CE3_Location";
 import DateTime from "./CE4_DateTime";
 import Pricing from "./CE5_Pricing";
 import EventMedia from "./CE6_EventMedia";
+import { PATHS } from "../../utils/constants.util";
+
 import { addDraft, getUser, removeDraft } from "../../utils/localStorage";
 
 function CreateEvent() {
@@ -415,12 +417,12 @@ function CreateEvent() {
 
     await createEvent(formData);
 
-    navigate("/dashboard");
+    navigate(PATHS.DASHBOARD);
   };
 
   // TODO
   const deleteEvent = () => {
-    navigate("/dashboard");
+    navigate(PATHS.DASHBOARD);
   };
 
   // Draft implementation handler
@@ -472,7 +474,7 @@ function CreateEvent() {
 
     console.log(currentDraft);
     addDraft(currentDraft);
-    navigate("/dashboard");
+    navigate(PATHS.DASHBOARD);
   };
 
   return (

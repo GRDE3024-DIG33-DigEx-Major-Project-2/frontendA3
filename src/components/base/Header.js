@@ -7,6 +7,7 @@ import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/styles";
 import { resetUserSession, resetTokenSession, getUser, resetDrafts } from "../../utils/localStorage";
 import { showToast, showErrorToast, showSuccessToast } from "../shared/Toaster";
+import { PATHS } from "../../utils/constants.util";
 
 export default function Header({ isLoggedIn, setIsLoggedIn }) {
   const [menu, setMenu] = useState(false);
@@ -29,7 +30,7 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
     },
   });
 
-  const logOut = () => {
+  const logout = () => {
     // mobile menu option
     toggleDrawer(false);
     // delete data from local storage
@@ -39,7 +40,7 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
     // change user and logged in state
     setIsLoggedIn(false);
     //Show toaster for logout notification
-    showToast("You have been logged out");      
+    showToast("You have been logged out", "logout");  
   };
 
   // only for mobile menu
@@ -58,7 +59,7 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
     <header>
       <nav>
         {/* Can place the logo within a link component to have the logo routing to home */}
-        <Link id="nav-home" to="/">
+        <Link id="nav-home" to={PATHS.HOME}>
           <img
             src="../gigney_logo_white_landscape_no_bg_web.png"
             alt="Gigney Logo"
@@ -66,26 +67,26 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
           />
         </Link>
         <div className="nav-links">
-          <Link id="nav-home-txt" to="/">
+          <Link id="nav-home-txt" to={PATHS.HOME}>
             Home
           </Link>
-          <Link id="nav-events" to="/events">
+          <Link id="nav-events" to={PATHS.SEARCH_EVENTS}>
             Search
           </Link>
-          {isLoggedIn && !user.organizationName && (
-            <Link id="nav-profile" to="/profile">
+          {isLoggedIn && user && !user.organizationName && (
+            <Link id="nav-profile" to={PATHS.PROFILE}>
               Profile
             </Link>
           )}
-          {isLoggedIn && user.organizationName && (
+          {isLoggedIn && user && user.organizationName && (
             <>
-              <Link id="nav-dashboard" to="/dashboard">
+              <Link id="nav-dashboard" to={PATHS.DASHBOARD}>
                 Dashboard
               </Link>
               <Link
                 id="nav-create-event"
                 className="bttn-style-orange"
-                to="/createevent"
+                to={PATHS.CREATE_EVENT}
               >
                 Create a new event
               </Link>
@@ -93,10 +94,10 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
           )}
           {!isLoggedIn && (
             <>
-              <Link id="nav-signup" className="bttn-style-purple" to="/signup">
+              <Link id="nav-signup" className="bttn-style-purple" to={PATHS.SIGN_UP}>
                 Signup
               </Link>
-              <Link id="nav-login" className="bttn-style-orange" to="/login">
+              <Link id="nav-login" className="bttn-style-orange" to={PATHS.LOGIN}>
                 Login
               </Link>
             </>
@@ -105,8 +106,8 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
             <Link
               id="nav-logout"
               className="bttn-style-purple"
-              to="../"
-              onClick={logOut}
+              to={PATHS.HOME}
+              onClick={logout}
             >
               Logout
             </Link>
@@ -156,21 +157,21 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
                     <div id="loggedin-links-menu">
                       <Link
                         className="mobile-menu-link"
-                        to="/home"
+                        to={PATHS.HOME}
                         onClick={toggleDrawer(false)}
                       >
                         Home
                       </Link>
                       <Link
                         className="mobile-menu-link"
-                        to="/events"
+                        to={PATHS.SEARCH_EVENTS}
                         onClick={toggleDrawer(false)}
                       >
                         Search
                       </Link>
                       <Link
                         className="mobile-menu-link"
-                        to="/profile"
+                        to={PATHS.PROFILE}
                         onClick={toggleDrawer(false)}
                       >
                         Profile
@@ -178,8 +179,8 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
                     </div>
                     <Link
                       className="bttn-style-purple"
-                      to="../"
-                      onClick={logOut}
+                      to={PATHS.HOME}
+                      onClick={logout}
                     >
                       Logout
                     </Link>
@@ -190,7 +191,7 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
                     <Link
                       id="nav-signup"
                       className="bttn-style-purple"
-                      to="/signup"
+                      to={PATHS.SIGN_UP}
                       onClick={toggleDrawer(false)}
                     >
                       Signup
@@ -198,7 +199,7 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
                     <Link
                       id="nav-login"
                       className="bttn-style-orange"
-                      to="/login"
+                      to={PATHS.LOGIN}
                       onClick={toggleDrawer(false)}
                     >
                       Login
@@ -210,7 +211,7 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
                 {`© ${year}. Team X Inc. All rights reserved`} |{" "}
                 <Link
                   id="footer-tou"
-                  to="../terms-of-use"
+                  to={PATHS.TERMS_OF_USE}
                   onClick={toggleDrawer(false)}
                 >
                   Terms of Use
@@ -218,7 +219,7 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
                 |{" "}
                 <Link
                   id="footer-privpol"
-                  to="../privacy-policy"
+                  to={PATHS.PRIVACY_POLICY}
                   onClick={toggleDrawer(false)}
                 >
                   Privacy Policy

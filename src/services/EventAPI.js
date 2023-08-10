@@ -8,6 +8,7 @@ import {
 } from "../utils/constants.util";
 import { getAccessToken } from "../utils/localStorage";
 import { delay } from "../utils/utils";
+import { logoutErrorHandler } from "./AuthAPI";
 import axiosClient from "./Axios";
 
 
@@ -102,9 +103,10 @@ export const deleteEvent = async function (eventId) {
       Authorization: `Bearer ${getAccessToken()}`,
     },
   };
-
+try {
   let response = await axiosClient
-    .delete(EVENT_ENDPOINTS.deleteEventUrl + `/${eventId}`, options);
+    .delete(EVENT_ENDPOINTS.deleteEventUrl + `/${eventId}`, options)
+    .catch((error) => logoutErrorHandler(error));
 
   //Success!
   if (response.status == 200) {
@@ -117,6 +119,10 @@ export const deleteEvent = async function (eventId) {
     console.log(response);
     return response;
   }
+}
+catch(error) {
+logoutErrorHandler(error);
+}
 };
 
 
@@ -149,6 +155,9 @@ export const getAllTags = async function () {
  * @returns Array of events and number of pages that match the filter options
  */
 export const searchOwnedEvents = async function (page) {
+
+
+
   console.log("Searching for page ", page, " of owned events");
 
   const options = {
@@ -168,10 +177,11 @@ export const searchOwnedEvents = async function (page) {
   };
 
   console.log("Owned events request body: ", requestBody);
-
+  try {
   //Get the array of events and the page number
   let response = await axiosClient
     .post(EVENT_ENDPOINTS.searchOwnedEventsUrl, requestBody, options);
+
 
   //Success!
   if (response.status == 200) {
@@ -185,6 +195,11 @@ export const searchOwnedEvents = async function (page) {
     console.log(response.status);
     console.log(response);
   }    
+  }
+  catch(error) {
+logoutErrorHandler(error);
+  }
+
 
   //Return object containing API response data
   return { events: events, pageCount: pageCount };
@@ -217,7 +232,7 @@ export const createEvent = async function (formData) {
       Authorization: `Bearer ${getAccessToken()}`,
     },
   };
-
+try {
   //Perform first event create request
   let response = await axiosClient.post(
     EVENT_ENDPOINTS.createEventUrl,
@@ -235,7 +250,10 @@ export const createEvent = async function (formData) {
     console.log("Create Event Failed!");
     console.log(response.status);
   }
-
+}
+catch(error) {
+logoutErrorHandler(error);
+}
   //Return object containing API response data
   return createdEvent;
 };
@@ -248,7 +266,6 @@ export const createEvent = async function (formData) {
  * @returns Array of events and number of pages that match the filter options
  */
 export const searchFavourites = async function (page) {
-  //await delay(2000);
   console.log("Searching for page ", page, " of favourited events");
 
   const options = {
@@ -268,7 +285,7 @@ export const searchFavourites = async function (page) {
   };
 
   console.log("Favourited events request body: ", requestBody);
-
+try {
   //Get the array of favourited events and the page number
   let response = await axiosClient
     .post(EVENT_ENDPOINTS.searchFavouritesUrl, requestBody, options);
@@ -285,7 +302,10 @@ export const searchFavourites = async function (page) {
     console.log(response.status);
     console.log(response);
   }
-
+}
+catch(error) {
+logoutErrorHandler(error);
+}
   //Return object containing API response data
   return { events: events, pageCount: pageCount };
 
@@ -307,7 +327,7 @@ export const toggleFavourite = async function (eventId) {
   const requestBody = {
     eventId: eventId,
   };
-
+try {
   let response = await axiosClient
     .post(EVENT_ENDPOINTS.toggleFavouriteUrl, requestBody, options);
 
@@ -322,6 +342,10 @@ export const toggleFavourite = async function (eventId) {
     console.log(response);
     return;
   }
+}
+catch(error) {
+logoutErrorHandler(error);
+}
 };
 
 /**
@@ -346,7 +370,7 @@ export const isFavourited = async function (eventIds) {
       Authorization: `Bearer ${getAccessToken()}`,
     },
   };
-
+try {
   let response = await axiosClient
     .put(EVENT_ENDPOINTS.isFavourited, requestBody, options);
 
@@ -360,7 +384,10 @@ export const isFavourited = async function (eventIds) {
     console.log("Error while finding isFavourited");
     console.log(response);
   }
-
+}
+catch(error) {
+logoutErrorHandler(error);
+}
   //Return the array of objects with eventId and isFavourite props
   return favStatuses;
 
@@ -386,10 +413,11 @@ export const updateEvent = async function (formData) {
       Authorization: `Bearer ${getAccessToken()}`,
     },
   };
-
+try {
   //Perform first event update request
   let response = await axiosClient
-    .put(EVENT_ENDPOINTS.updateEventUrl, formData, updateEventOptions);
+    .put(EVENT_ENDPOINTS.updateEventUrl, formData, updateEventOptions)
+    .catch((error) => logoutErrorHandler(error));
 
   console.log("Performed first event update request");
 
@@ -404,5 +432,8 @@ export const updateEvent = async function (formData) {
     console.log(response);
     return;
   }
-
+}
+catch(error) {
+logoutErrorHandler(error);
+}
 };

@@ -6,6 +6,7 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import SellOutlinedIcon from "@mui/icons-material/SellOutlined";
 import { getDateRangeString, getPriceRangeString } from "../../utils/utils";
 import { useNavigate } from "react-router-dom";
+import { PATHS } from "../../utils/constants.util";
 
 const EventCardHorizontal = (props) => {
 
@@ -28,7 +29,7 @@ const EventCardHorizontal = (props) => {
   }
 
   const cardRedirect = () => {
-    navigate("/event", { state: { event: props.event } });
+    navigate(PATHS.EVENT_PAGE, { state: { event: props.event } });
   };
 
   return (

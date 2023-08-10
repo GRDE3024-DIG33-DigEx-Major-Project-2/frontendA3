@@ -18,8 +18,9 @@ const styleProps = {
      * Displays the Toaster UI for a timespan
      * @param {*} msg The message to display
      */
-  export const showToast = (msg) => {
+  export const showToast = (msg, id) => {
     toast(msg, {
+      toastId: id | "neutral",
       position: 'top-right',
       autoClose: 4000,
       hideProgressBar: false,

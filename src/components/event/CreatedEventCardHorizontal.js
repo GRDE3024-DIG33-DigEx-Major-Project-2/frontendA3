@@ -19,6 +19,7 @@ import SellOutlinedIcon from "@mui/icons-material/SellOutlined";
 import { getDateRangeString, getPriceRangeString } from "../../utils/utils";
 import { useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
+import { PATHS } from "../../utils/constants.util";
 
 const CreatedEventCardHorizontal = (props) => {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ const CreatedEventCardHorizontal = (props) => {
 
   const handleEdit = (event) => {
     setMenuOpen(false);
-    navigate("/edit-event", { state: { event: props.event } });
+    navigate(PATHS.EDIT_EVENT, { state: { event: props.event } });
   };
 
   //TODO
@@ -83,7 +84,7 @@ const CreatedEventCardHorizontal = (props) => {
   }
 
   const cardRedirect = () => {
-    navigate("/event", { state: { event: props.event } });
+    navigate(PATHS.EVENT_PAGE, { state: { event: props.event } });
   };
 
   return (

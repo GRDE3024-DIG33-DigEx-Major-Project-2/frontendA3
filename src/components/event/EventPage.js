@@ -24,7 +24,7 @@ function Event() {
   // find URL - if image not added, use default image
   let imgUrl = "../Gigney_login.png";
   if (event.eventImg) {
-    imgUrl = event.eventImg.url
+    imgUrl = event.eventImg.url;
   }
 
   return (

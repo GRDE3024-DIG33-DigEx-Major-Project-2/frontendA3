@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FormControl, TextField, InputAdornment, Button } from "@mui/material";
+import { FormControl, TextField, InputAdornment, Button, IconButton } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { useNavigate, Link } from "react-router-dom";
 import { useState, useContext } from "react";
@@ -16,6 +16,9 @@ import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined
 import { LoadingContext, useLoading } from "../../props/loading-spinner.prop";
 import {register} from "../../services/UserAPI";
 import { showSuccessToast, showErrorToast } from "../shared/Toaster";
+import { PATHS } from "../../utils/constants.util";
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 function SignUpGuest() {
 
@@ -24,6 +27,8 @@ function SignUpGuest() {
     loading,
     setLoading
   } = useContext(LoadingContext);
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -36,14 +41,14 @@ function SignUpGuest() {
   const pplabel = (
     <span>
       I accept Gigney's&nbsp;
-      <Link to="../privacy-policy">Privacy Policy</Link>
+      <Link to={PATHS.PRIVACY_POLICY}>Privacy Policy</Link>
     </span>
   );
 
   const tclabel = (
     <span>
       I agree to Gigney's&nbsp;
-      <Link to="../terms-of-use">Terms of Use</Link>
+      <Link to={PATHS.TERMS_OF_USE}>Terms of Use</Link>
     </span>
   );
 
@@ -77,7 +82,8 @@ function SignUpGuest() {
       await register(requestBody)
       .then((response) => {
         showSuccessToast("Registration Succesful");
-        navigate("/login");
+        //navigate.TO_LOGIN();
+        navigate(PATHS.LOGIN);
       })
       .catch((error) => {
         showErrorToast("Sorry, the backend server is down! Please try again later.");
@@ -185,11 +191,21 @@ function SignUpGuest() {
                   onChange={(event) => setPassword(event.target.value)}
                   id="password"
                   placeholder="Enter a new password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
                         <LockIcon color="primary" />
+                      </InputAdornment>
+                    ),
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
                       </InputAdornment>
                     ),
                   }}
@@ -205,11 +221,21 @@ function SignUpGuest() {
                   }
                   id="confirm-password"
                   placeholder="Enter your password again"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
                         <LockIcon color="primary" />
+                      </InputAdornment>
+                    ),
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
                       </InputAdornment>
                     ),
                   }}
@@ -243,7 +269,7 @@ function SignUpGuest() {
             </Grid>
             <span className="login-link">
               Already have an account?
-              <Link to="../Login">Login</Link>
+              <Link to={PATHS.LOGIN}>Login</Link>
               instead
             </span>
           </FormControl>

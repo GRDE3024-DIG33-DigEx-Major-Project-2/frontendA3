@@ -28,6 +28,13 @@ import DraftCard from "../event/DraftCard";
 import { SearchEventsContext, SearchEventFiltersContext } from "../../props/search-events.prop";
 //Partial page spinner
 import { PartialLoadSpinner } from "../shared/LoadingSpinner";
+import { PATHS } from "../../utils/constants.util";
+import { resetTokenSession, resetUserSession } from "../../utils/localStorage";
+import { showErrorToast, showSuccessToast, showToast } from "../shared/Toaster";
+import { useNavigate } from "react-router-dom";
+import { resetPassword } from "../../services/UserAPI";
+
+import AccountSettings from "./AccountSettings";
 
 
 /**
@@ -43,9 +50,14 @@ const Dashboard = () => {
   const [drafts, setDrafts] = useState(getDrafts());
   const [refresh, setRefresh] = useState(false);
 
+
+  
+
   //Get the user session data
   const user = getUser();
   console.log(drafts);
+
+  const navigate = useNavigate();
 
   /**
    * Prop context for search event data
@@ -68,23 +80,33 @@ const Dashboard = () => {
    * Load first page of events on page load
    */
   useEffect(() => {
-    async function fetchEvents() {
-      pageCount.set(0);
-      currPage.set(0);
-      //Toggle loading UI on
-      fetchStatus.set(true);
-      const data = await searchOwnedEvents(pageCount.get);
-      console.log("Owned events search results: ", data);
-      setOwnedEvents(data.events);
-      pageCount.set(data.pageCount);
-      //Toggle loading UI off
-      fetchStatus.set(false);
 
+    async function fetchEvents() {
+      try {
+        pageCount.set(0);
+        currPage.set(0);
+        //Toggle loading UI on
+        fetchStatus.set(true);
+
+        const data = await searchOwnedEvents(pageCount.get);
+        console.log("Owned events search results: ", data);
+        setOwnedEvents(data.events);
+        pageCount.set(data.pageCount);
+        //Toggle loading UI off
+        fetchStatus.set(false);
+      } catch (error) {
+        //Toggle loading UI off
+        fetchStatus.set(false);
+        navigate(PATHS.LOGIN);
+      }
     }
+
     console.log("currPage:", currPage.get)
-    console.log("pageCount:", pageCount.get) 
+    console.log("pageCount:", pageCount.get)
     fetchEvents();
-  }, [setOwnedEvents, pageCount.set, currPage.set]);
+
+  }, [setOwnedEvents]);
+
 
 
   /**
@@ -105,8 +127,8 @@ const Dashboard = () => {
   };
 
 
-      console.log("currPage:", currPage.get)
-      console.log("pageCount:", pageCount.get) 
+  console.log("currPage:", currPage.get)
+  console.log("pageCount:", pageCount.get)
 
   /**
    * Load more owned events
@@ -123,7 +145,7 @@ const Dashboard = () => {
 
     //Increment to next page
     currPage.set(currPage.get++);
-
+try {
     //Make request for owned events
     let searchResult = await searchOwnedEvents(currPage.get);
 
@@ -137,6 +159,11 @@ const Dashboard = () => {
 
     //Toggle loading UI off
     fetchStatus.set(false);
+  } catch (error) {
+    //Toggle loading UI off
+    fetchStatus.set(false);
+    navigate(PATHS.LOGIN);
+  }
   }
 
 
@@ -151,6 +178,7 @@ const Dashboard = () => {
       behavior: "smooth",
     });
   }
+
 
 
 
@@ -225,54 +253,7 @@ const Dashboard = () => {
               </Box>
             </article>
             <article className="account-settings">
-              <h2>Account settings</h2>
-              <Box className="profile-box prof-left">
-                <FormControl fullWidth>
-                  <h3>Change Password</h3>
-                  <p>Password:</p>
-                  <TextField
-                    variant="outlined"
-                    id="password"
-                    placeholder="Enter your password"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <LockOutlinedIcon color="primary" />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                  <p>Confirm Password:</p>
-                  <TextField
-                    variant="outlined"
-                    id="confirm-password"
-                    placeholder="Enter your password again"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <LockIcon color="primary" />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-
-                  <Button
-                    variant="contained"
-                    id="save-pwd-btn"
-                    type="submit"
-                    sx={{ color: "black" }}
-                  >
-                    Save new password
-                  </Button>
-                  <Link
-                    id="delete-account-profile"
-                    to="/"
-                    onClick={handleDelete}
-                  >
-                    Delete this account
-                  </Link>
-                </FormControl>
-              </Box>
+<AccountSettings></AccountSettings>
             </article>
             <article className="saved-events">
               {drafts.length > 0 && (
@@ -287,7 +268,7 @@ const Dashboard = () => {
               )}
               <div id="saved-events-header">
                 <h2>Created Events</h2>
-                <Link className="bttn-style-orange" to="/createevent">
+                <Link className="bttn-style-orange" to={PATHS.CREATE_EVENT}>
                   Create a new event
                 </Link>
               </div>
