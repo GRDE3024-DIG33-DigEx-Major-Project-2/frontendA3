@@ -11,6 +11,7 @@ import {
   Box,
   Button,
   Link,
+  Modal
 } from "@mui/material";
 import { getFirstLetters, mergeDateTime } from "../../utils/utils";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
@@ -19,12 +20,12 @@ import LocalActivityOutlinedIcon from "@mui/icons-material/LocalActivityOutlined
 import ShareIcon from "@mui/icons-material/Share";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import { createEvent } from "../../services/EventAPI";
-import BasicInfo from "./CE1_BasicInfo";
-import ArtistsAndSummary from "./CE2_ArtistsAndSummary";
-import Location from "./CE3_Location";
-import DateTime from "./CE4_DateTime";
-import Pricing from "./CE5_Pricing";
-import EventMedia from "./CE6_EventMedia";
+import BasicInfo from "./create/CE1_BasicInfo";
+import ArtistsAndSummary from "./create/CE2_ArtistsAndSummary";
+import Location from "./create/CE3_Location";
+import DateTime from "./create/CE4_DateTime";
+import Pricing from "./create/CE5_Pricing";
+import EventMedia from "./create/CE6_EventMedia";
 import { PATHS } from "../../utils/constants.util";
 
 import { addDraft, getUser, removeDraft } from "../../utils/localStorage";
@@ -44,6 +45,25 @@ function CreateEvent() {
 
   // stepper state
   const [activeStep, setActiveStep] = useState(0);
+
+  // modal for discard option
+  const [modalOpen, setModalOpen] = useState(false);
+  const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
+
+  // Modal functions
+  const handleModalOpen = () => setModalOpen(true);
+  const handleModalClose = () => setModalOpen(false);
+  const handleConfirmationModalOpen = () => setConfirmationModalOpen(true);
+  const handleConfirmationModalClose = () => setConfirmationModalOpen(false);
+
+
+  const handleDiscard = () => {
+    // set draft to null if it exists
+    if (draft) removeDraft(draftNo);
+    // open confirmation modal
+    handleConfirmationModalOpen();
+    handleModalClose();
+  };
 
   //** FIRST SCREEN - BASIC INFO **//
   const [eventName, setEventName] = useState(
@@ -420,11 +440,6 @@ function CreateEvent() {
     navigate(PATHS.DASHBOARD);
   };
 
-  // TODO
-  const deleteEvent = () => {
-    navigate(PATHS.DASHBOARD);
-  };
-
   // Draft implementation handler
   const saveExit = () => {
     if (draft) {
@@ -496,10 +511,60 @@ function CreateEvent() {
             activeStep={activeStep}
             sx={{ width: "30%" }}
           />
-          <Link id="discard-ev-btn" onClick={deleteEvent}>
+          <Link id="discard-ev-btn" onClick={handleModalOpen}>
             Discard this event
           </Link>
         </div>
+        <Modal
+        open={modalOpen}
+        onClose={handleModalClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box className="delete-event-modal">
+          <h2>Are you sure you want to discard this event?</h2>
+          <span>
+            All event data will be removed and permanently deleted, so you will
+            not be able to retrieve aby of the existing information.
+          </span>
+          <div>
+            <Button
+              id="save-exit-ev-btn"
+              variant="contained"
+              className="input-btn"
+              onClick={handleModalClose}
+            >
+              No, I've changed my mind
+            </Button>
+            <Button
+              id="save-cont-ev-btn"
+              variant="contained"
+              onClick={handleDiscard}
+            >
+              Yes, discard this event
+            </Button>
+          </div>
+        </Box>
+      </Modal>
+      <Modal
+        open={confirmationModalOpen}
+        onClose={handleConfirmationModalClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        id="confirmation-modal"
+      >
+        <Box className="delete-event-modal">
+          <h2>Success!</h2>
+          <span>This event has been permanently discarded.</span>
+            <Button
+              id="save-cont-ev-btn"
+              variant="contained"
+              href="/dashboard"
+            >
+              Go to Dashboard
+            </Button>
+        </Box>
+      </Modal>
         {/* event preview */}
         {activeStep === 6 ? (
           <div className="event-preview-screen">
@@ -567,8 +632,8 @@ function CreateEvent() {
                           <h3>Location</h3>
                         </span>
                         <p className="strong-string-prev">
-                          {venueName}, {eventAddress1}, {suburb}, {eventPostCode}
-                          , {eventCity} {eventCountry}
+                          {venueName}, {eventAddress1}, {suburb},{" "}
+                          {eventPostCode}, {eventCity} {eventCountry}
                         </p>
                       </div>
                     </Stack>
@@ -590,15 +655,22 @@ function CreateEvent() {
                       className="horizontal-stack"
                       divider={<Divider orientation="vertical" flexItem />}
                     >
-                      <div className="event-prev-price">
-                        <span className="icon-title">
-                          <LocalActivityOutlinedIcon
-                            sx={{ color: "#4B7CBE" }}
-                          />
-                          <h3>{eventTierName1}</h3>
-                        </span>
-                        <p>$ {eventPrice1}</p>
-                      </div>
+                      {eventFree && (
+                        <h2 style={{ padding: "3% 5%" }}>
+                          This event is free.
+                        </h2>
+                      )}
+                      {eventPaid && (
+                        <div className="event-prev-price">
+                          <span className="icon-title">
+                            <LocalActivityOutlinedIcon
+                              sx={{ color: "#4B7CBE" }}
+                            />
+                            <h3>{eventTierName1}</h3>
+                          </span>
+                          <p>$ {eventPrice1}</p>
+                        </div>
+                      )}
                       {eventTierName2 && (
                         <div className="event-prev-price">
                           <span className="icon-title">

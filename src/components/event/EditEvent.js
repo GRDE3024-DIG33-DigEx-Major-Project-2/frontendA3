@@ -11,6 +11,7 @@ import {
   Button,
   Link,
   Box,
+  Modal
 } from "@mui/material";
 import { getFirstLetters, mergeDateTime } from "../../utils/utils";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
@@ -18,13 +19,13 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import LocalActivityOutlinedIcon from "@mui/icons-material/LocalActivityOutlined";
 import ShareIcon from "@mui/icons-material/Share";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
-import { updateEvent } from "../../services/EventAPI";
-import EditBasicInfo from "./EE1_BasicInfo";
-import EditArtistsAndSummary from "./EE2_ArtistsAndSummary";
-import EditLocation from "./EE3_Location";
-import EditDateTime from "./EE4_DateTime";
-import EditPricing from "./EE5_Pricing";
-import EditEventMedia from "./EE6_EventMedia";
+import { updateEvent, deleteEvent } from "../../services/EventAPI";
+import EditBasicInfo from "./edit/EE1_BasicInfo";
+import EditArtistsAndSummary from "./edit/EE2_ArtistsAndSummary";
+import EditLocation from "./edit/EE3_Location";
+import EditDateTime from "./edit/EE4_DateTime";
+import EditPricing from "./edit/EE5_Pricing";
+import EditEventMedia from "./edit/EE6_EventMedia";
 import { PATHS } from "../../utils/constants.util";
 
 function EditEvent() {
@@ -39,6 +40,22 @@ function EditEvent() {
 
   const [activeStep, setActiveStep] = useState(0);
   const navigate = useNavigate();
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
+
+  // Modal functions
+  const handleModalOpen = () => setModalOpen(true);
+  const handleModalClose = () => setModalOpen(false);
+  const handleConfirmationModalOpen = () => setConfirmationModalOpen(true);
+  const handleConfirmationModalClose = () => setConfirmationModalOpen(false);
+
+  const handleEventDelete = async () => {
+    const response = await deleteEvent(event.event.id);
+    console.log(response);
+    handleConfirmationModalOpen();
+    handleModalClose();
+  };
 
   //** FIRST SCREEN - BASIC INFO **//
   const [eventID, setEventID] = useState(event.event.id);
@@ -472,10 +489,6 @@ function EditEvent() {
     navigate(PATHS.DASHBOARD);
   };
 
-  const deleteEvent = () => {
-    navigate(PATHS.DASHBOARD);
-  };
-
   return (
     <div id="create-event-main">
       <div className="create-event-header">
@@ -495,10 +508,60 @@ function EditEvent() {
             activeStep={activeStep}
             sx={{ width: "30%" }}
           />
-          <Link id="discard-ev-btn" onClick={deleteEvent}>
+          <Link id="discard-ev-btn" onClick={handleModalOpen}>
             Discard this event
           </Link>
         </div>
+        <Modal
+        open={modalOpen}
+        onClose={handleModalClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box className="delete-event-modal">
+          <h2>Are you sure you want to delete this event?</h2>
+          <span>
+            All event data will be removed and permanently deleted, so you will
+            not be able to retrieve aby of the existing information.
+          </span>
+          <div>
+            <Button
+              id="save-exit-ev-btn"
+              variant="contained"
+              className="input-btn"
+              onClick={handleModalClose}
+            >
+              No, I've changed my mind
+            </Button>
+            <Button
+              id="save-cont-ev-btn"
+              variant="contained"
+              onClick={handleEventDelete}
+            >
+              Yes, delete this event
+            </Button>
+          </div>
+        </Box>
+      </Modal>
+      <Modal
+        open={confirmationModalOpen}
+        onClose={handleConfirmationModalClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        id="confirmation-modal"
+      >
+        <Box className="delete-event-modal">
+          <h2>Success!</h2>
+          <span>This event has been permanently deleted.</span>
+            <Button
+              id="save-cont-ev-btn"
+              variant="contained"
+              href="/dashboard"
+            >
+              Go to Dashboard
+            </Button>
+        </Box>
+      </Modal>
         {/* event preview */}
         {activeStep === 6 ? (
           <div className="event-preview-screen">
@@ -594,15 +657,20 @@ function EditEvent() {
                       className="horizontal-stack"
                       divider={<Divider orientation="vertical" flexItem />}
                     >
-                      <div className="event-prev-price">
-                        <span className="icon-title">
-                          <LocalActivityOutlinedIcon
-                            sx={{ color: "#4B7CBE" }}
-                          />
-                          <h3>{eventTierName1}</h3>
-                        </span>
-                        <p>$ {eventPrice1}</p>
-                      </div>
+                      {eventFree && (
+                        <h2 style={{padding: "3% 5%"}}>This event is free.</h2>
+                      )}
+                      {eventPaid && (
+                        <div className="event-prev-price">
+                          <span className="icon-title">
+                            <LocalActivityOutlinedIcon
+                              sx={{ color: "#4B7CBE" }}
+                            />
+                            <h3>{eventTierName1}</h3>
+                          </span>
+                          <p>$ {eventPrice1}</p>
+                        </div>
+                      )}
                       {eventTierName2 && (
                         <div className="event-prev-price">
                           <span className="icon-title">

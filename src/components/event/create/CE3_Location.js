@@ -1,6 +1,6 @@
 import { Box, FormControl, Grid, TextField } from "@mui/material";
-import CreateEventMap from "../mapbox/CreateEventMap";
-import { forwardGeocoding } from "../../services/Geocoding";
+import CreateEventMap from "../../mapbox/CreateEventMap";
+import { forwardGeocoding } from "../../../services/Geocoding";
 import { useState, useEffect } from "react";
 
 const Location = (props) => {

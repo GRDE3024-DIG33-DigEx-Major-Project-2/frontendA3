@@ -43,7 +43,7 @@ export const setupAxiosInterceptors = (navigate, setIsLoggedIn) => {
           });
 
           console.log("REFRESH REQ COMPLETE");
-          if (refreshTokenResponse.status >= 200 && refreshTokenResponse.status <= 299 || refreshTokenResponse.status == 400) {
+          if (refreshTokenResponse.status >= 200 && refreshTokenResponse.status <= 299 || refreshTokenResponse.status === 400) {
             console.log('Token refresh succeeded!');
             setAccessToken(refreshTokenResponse.data.accessToken);
 
