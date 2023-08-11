@@ -645,19 +645,23 @@ footer {
   }
 }
 
-// ** Delete event modal ** //
-.delete-event-modal{
+// ** Modals ** //
+.delete-event-modal, .update-profile-modal{
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 60vw;
-  height: 300px;
   padding: 1%;
   background-color: $white !important;
   border: solid 2px $border;
-  @include flex-column(space-around, center);
+}
+
+// ** Delete event modal ** //
+.delete-event-modal{
+  width: 60vw;
+  height: 300px;
   text-align: center;
+  @include flex-column(space-around, center);
   div{
     width: 100%;
     @include flex-row(space-evenly, center);
@@ -666,6 +670,44 @@ footer {
 
 #confirmation-modal{
   background-color: $white;
+}
+
+// ** Update profile modal ** //
+.update-profile-modal{
+  width: 75vw;
+  height: fit-content;
+  min-height: 500px;
+
+  h1{
+    padding: 1% 3%;
+  }
+
+  .MuiGrid-root{
+    padding: 1% 3%;
+    text-align: left;
+  }
+
+  #update-profile-btns{
+    width: 94%;
+    @include flex-row(flex-end, center);
+    gap: 5%;
+    margin-bottom: 2%;
+    
+  }
+
+  #avatar-row{
+    margin-top: 10px;
+    @include flex-row(space-evenly, center);
+    p{
+      font-size: 14px;
+    }
+
+    #edit-avatar{
+      background-color: $lightblue;
+      height: 100px;
+      width: 100px;
+    }
+  }
 }
 
 // *********************** HOMEPAGE ************************ //

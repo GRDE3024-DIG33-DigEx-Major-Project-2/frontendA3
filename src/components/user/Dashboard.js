@@ -3,7 +3,15 @@
  */
 
 //Import dependencies
-import { Box, Avatar, Button } from "@mui/material";
+import {
+  Box,
+  Avatar,
+  Button,
+  Modal,
+  FormControl,
+  Grid,
+  TextField,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 import CreatedEventCardHorizontal from "../event/CreatedEventCardHorizontal";
 import { useState, useEffect, useContext } from "react";
@@ -43,6 +51,24 @@ const Dashboard = () => {
   console.log(drafts);
 
   const navigate = useNavigate();
+
+  const [modalOpen, setModalOpen] = useState(false);
+
+  // Modal functions
+  const handleModalOpen = () => setModalOpen(true);
+  const handleModalClose = () => setModalOpen(false);
+
+  const handleUserUpdate = async () => {
+    // const response = await deleteEvent(props.event.event.id);
+    // console.log(response);
+    handleModalClose();
+  };
+
+  // UPDATE PROFILE STATES
+  const [name, setName] = useState(user.organizationName);
+  const [phoneNo, setPhoneNo] = useState(user.phoneNo);
+  const [bio, setBio] = useState(user.bio);
+  const [newImg, setNewImg] = useState();
 
   /**
    * Prop context for search event data
@@ -206,7 +232,132 @@ const Dashboard = () => {
                 <h3>{user.organizationName}</h3>
                 <p>Organisation description</p>
                 <p>{user.bio}</p>
+                <Link onClick={handleModalOpen}>Edit account details</Link>
               </Box>
+              <Modal
+                open={modalOpen}
+                onClose={handleModalClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box className="update-profile-modal">
+                  <h1>Edit account details</h1>
+                  <FormControl fullWidth>
+                    <Grid container spacing={2}>
+                      <Grid container item xs={6} direction="column">
+                        <p>Organisation Name:</p>
+                        <TextField
+                          fullWidth
+                          value={name}
+                          required
+                          onChange={(event) => setName(event.target.value)}
+                          id="update-profile-name"
+                          placeholder="Update the organization name"
+                          variant="outlined"
+                        />
+                      </Grid>{" "}
+                      <Grid container item xs={6} direction="column">
+                        <p>Phone number:</p>
+                        <TextField
+                          fullWidth
+                          value={phoneNo}
+                          required
+                          onChange={(event) => setPhoneNo(event.target.value)}
+                          id="update-profile-phone"
+                          placeholder="Update the organization's phone number"
+                          variant="outlined"
+                        />
+                      </Grid>
+                      <Grid container item xs={12} direction="column">
+                        <p>Organization's Bio:</p>
+                        <TextField
+                          fullWidth
+                          value={bio}
+                          required
+                          multiline
+                          rows={4}
+                          onChange={(event) => setBio(event.target.value)}
+                          id="update-profile-bio"
+                          placeholder="You haven't yet added a bio. Write one now!"
+                          variant="outlined"
+                        />
+                      </Grid>
+                      <Grid
+                        container
+                        item
+                        xs={7}
+                        direction="row"
+                        id="avatar-row"
+                      >
+                        {user.imgUrl && (
+                          <>
+                            <Avatar
+                              id="edit-avatar"
+                              alt={user.organizationName}
+                              src={
+                                !newImg
+                                  ? user.imgUrl
+                                  : URL.createObjectURL(newImg)
+                              }
+                            />
+                            <p>
+                              Click on the avatar to change your organization's
+                              pic.
+                            </p>
+                          </>
+                        )}
+                        {!user.imgUrl && !newImg && (
+                          <>
+                            <Avatar id="edit-avatar">
+                              {getFirstLetters(user.organizationName)}
+                              <input
+                                id="create-ev-img-input"
+                                accept="image/*"
+                                type="file"
+                                // onChange={imageChange}
+                              />
+                            </Avatar>
+                            <p>
+                              Click on the avatar to add an image for your
+                              organization
+                            </p>
+                          </>
+                        )}
+                        {!user.imgUrl && newImg && (
+                          <>
+                            <Avatar
+                              id="edit-avatar"
+                              alt={user.organizationName}
+                              src={URL.createObjectURL(newImg)}
+                            />
+                            <p>
+                              Click on the avatar to change your organization's
+                              pic.
+                            </p>
+                          </>
+                        )}
+                      </Grid>
+                    </Grid>
+                  </FormControl>
+                  <div id="update-profile-btns">
+                    <Button
+                      id="save-exit-ev-btn"
+                      variant="contained"
+                      className="input-btn"
+                      onClick={handleModalClose}
+                    >
+                      Discard changes
+                    </Button>
+                    <Button
+                      id="save-cont-ev-btn"
+                      variant="contained"
+                      onClick={handleUserUpdate}
+                    >
+                      Update profile
+                    </Button>
+                  </div>
+                </Box>
+              </Modal>
             </article>
             <article className="account-settings">
               <AccountSettings></AccountSettings>
