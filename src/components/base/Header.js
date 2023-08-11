@@ -7,7 +7,7 @@ import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/styles";
 import { resetUserSession, resetTokenSession, getUser, resetDrafts } from "../../utils/localStorage";
 import { showToast, showErrorToast, showSuccessToast } from "../shared/Toaster";
-import { PATHS } from "../../utils/constants.util";
+import { GIGNEY_HEADER_LOGO, PATHS } from "../../utils/constants.util";
 
 export default function Header({ isLoggedIn, setIsLoggedIn }) {
   const [menu, setMenu] = useState(false);
@@ -61,7 +61,7 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
         {/* Can place the logo within a link component to have the logo routing to home */}
         <Link id="nav-home" to={PATHS.HOME}>
           <img
-            src="../gigney_logo_white_landscape_no_bg_web.png"
+            src={GIGNEY_HEADER_LOGO}
             alt="Gigney Logo"
             id="nav-logo"
           />

@@ -16,7 +16,7 @@ import ResetPassword from "./user/ResetPassword.js";
 import SearchEvent from "./event/search/SearchEvent";
 import TermsOfUse from "./base/TermsOfUse";
 import PrivacyPolicy from "./base/PrivacyPolicy";
-import EventPage from "./event/EventPage.js";
+import EventPage from "./event/display/EventPage.js";
 import SignUpGuest from "./user/SignupGuest.js";
 import SignUpOrganiser from "./user/SignupOrganiser";
 import Dashboard from "./user/Dashboard";

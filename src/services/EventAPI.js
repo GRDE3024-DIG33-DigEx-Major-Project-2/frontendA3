@@ -7,7 +7,6 @@ import {
   EVENT_ENDPOINTS,
 } from "../utils/constants.util";
 import { getAccessToken } from "../utils/localStorage";
-import { delay } from "../utils/utils";
 import { logoutErrorHandler } from "./AuthAPI";
 import axiosClient from "./Axios";
 
@@ -90,6 +89,35 @@ export const searchEvents = async function (tagIds, keywords, minDate, maxDate, 
 };
 
 
+/**
+ * Get an event by id
+ * @param {*} eventId The event's id
+ * @returns The event's data
+ */
+export const getEventById = async function (id) {
+
+  try {
+    let response = await axiosClient
+      .get(EVENT_ENDPOINTS.getByIdUrl + `/${id}`);
+
+    //Success!
+    if (response.status == 200) {
+      console.log("Event found by id!");
+      return response;
+    }
+    //Failed!
+    else {
+      console.log("Failed to find event by id!");
+      console.log(response);
+      return response;
+    }
+  }
+  catch (error) {
+    console.log("Failed to find event by id!");
+    console.log(error);
+  }
+}
+
 
 /**
  * Deletes the user's owned event by id (must be an Organizer)
@@ -113,16 +141,9 @@ try {
     console.log("Event deleted!");
     return response;
   }
-  //Failed!
-  else {
-    console.log("Failed to delete event!");
-    console.log(response);
-    return response;
+  catch (error) {
+    logoutErrorHandler(error);
   }
-}
-catch(error) {
-logoutErrorHandler(error);
-}
 };
 
 
@@ -156,8 +177,6 @@ export const getAllTags = async function () {
  */
 export const searchOwnedEvents = async function (page) {
 
-
-
   console.log("Searching for page ", page, " of owned events");
 
   const options = {
@@ -178,10 +197,9 @@ export const searchOwnedEvents = async function (page) {
 
   console.log("Owned events request body: ", requestBody);
   try {
-  //Get the array of events and the page number
-  let response = await axiosClient
-    .post(EVENT_ENDPOINTS.searchOwnedEventsUrl, requestBody, options);
-
+    //Get the array of events and the page number
+    let response = await axiosClient
+      .post(EVENT_ENDPOINTS.searchOwnedEventsUrl, requestBody, options);
 
   //Success!
   if (response.status === 200) {
@@ -196,8 +214,8 @@ export const searchOwnedEvents = async function (page) {
     console.log(response);
   }    
   }
-  catch(error) {
-logoutErrorHandler(error);
+  catch (error) {
+    logoutErrorHandler(error);
   }
 
 
@@ -245,15 +263,9 @@ try {
     console.log("Create Event Success!");
     createdEvent = response.data;
   }
-  //Failed!
-  else {
-    console.log("Create Event Failed!");
-    console.log(response.status);
+  catch (error) {
+    logoutErrorHandler(error);
   }
-}
-catch(error) {
-logoutErrorHandler(error);
-}
   //Return object containing API response data
   return createdEvent;
 };
@@ -296,16 +308,9 @@ try {
     events = response.data.events;
     pageCount = response.data.pageCount;
   }
-  //Failed!
-  else {
-    console.log("Error while searching favourited events");
-    console.log(response.status);
-    console.log(response);
+  catch (error) {
+    logoutErrorHandler(error);
   }
-}
-catch(error) {
-logoutErrorHandler(error);
-}
   //Return object containing API response data
   return { events: events, pageCount: pageCount };
 
@@ -336,16 +341,9 @@ try {
     console.log("Event favourited toggled!");
     return response;
   }
-  //Failed!
-  else {
-    console.log("Error while toggling event favourite");
-    console.log(response);
-    return;
+  catch (error) {
+    logoutErrorHandler(error);
   }
-}
-catch(error) {
-logoutErrorHandler(error);
-}
 };
 
 /**
@@ -379,15 +377,9 @@ try {
     console.log("isFavourited Success!");
     favStatuses.push(response.data.favStatuses);
   }
-  //Failed!
-  else {
-    console.log("Error while finding isFavourited");
-    console.log(response);
+  catch (error) {
+    logoutErrorHandler(error);
   }
-}
-catch(error) {
-logoutErrorHandler(error);
-}
   //Return the array of objects with eventId and isFavourite props
   return favStatuses;
 
@@ -426,14 +418,7 @@ try {
     console.log("Update Event Success!");
     return response.data;
   }
-  //Failed!
-  else {
-    console.log("Error while updating event");
-    console.log(response);
-    return;
+  catch (error) {
+    logoutErrorHandler(error);
   }
-}
-catch(error) {
-logoutErrorHandler(error);
-}
 };

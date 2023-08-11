@@ -13,7 +13,7 @@ import {
   InputAdornment,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import EventCardHorizontal from "../event/EventCardHorizontal";
+import EventCardHorizontal from "../event/display/EventCardHorizontal";
 import { useState, useEffect } from "react";
 import { getFirstLetters } from "../../utils/utils";
 //Search for favourited events

@@ -52,10 +52,18 @@ export const PATHS = {
   DASHBOARD: "/dashboard",
   TERMS_OF_USE: "/terms-of-use",
   PRIVACY_POLICY: "/privacy-policy",
-  EVENT_PAGE: "/events/event-page",
+  EVENT_PAGE: "/events/event-page/:eventId",
+  EVENT_PAGE_NO_PARAMS: "/events/event-page",
   SIGN_UP_ATTENDEE: "/signup/attendee",
   SIGN_UP_ORGANISER: "/signup/organiser",
   CREATE_EVENT: "/dashboard/create-event",
   EDIT_EVENT: "/dashboard/edit-event",
   PAGE_NOT_FOUND: "*"
 };
+
+
+//Path to placeholder event image
+export const EVENT_IMG_PLACEHOLDER = "/public/Gigney_login.png";
+
+//Path to Gigney header logo
+export const GIGNEY_HEADER_LOGO = "/gigney_logo_white_landscape_no_bg_web.png";
