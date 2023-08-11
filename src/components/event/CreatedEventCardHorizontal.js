@@ -9,7 +9,9 @@ import {
   Popper,
   Grow,
   Paper,
-  ClickAwayListener
+  ClickAwayListener,
+  Modal,
+  Button
 } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -25,6 +27,22 @@ const CreatedEventCardHorizontal = (props) => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const anchorRef = useRef(null);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  // Modal functions
+  const handleModalOpen = () => setModalOpen(true);
+  const handleModalClose = () => setModalOpen(false);
+
+  const handleDelete = (event) => {
+    console.log("..deleting event");
+    handleModalOpen();
+    setMenuOpen(false);
+  };
+  
+  const handleEventDelete = () => {
+    console.log(props.event);
+    handleModalClose();
+  }
 
   // Dropdown menu functions
   const handleToggle = () => {
@@ -52,11 +70,6 @@ const CreatedEventCardHorizontal = (props) => {
     navigate(PATHS.EDIT_EVENT, { state: { event: props.event } });
   };
 
-  //TODO
-  const handleDelete = (event) => {
-    console.log("..deleting event");
-    setMenuOpen(false);
-  };
 
   // return focus to the button when we transitioned from !open -> open
   const prevOpen = useRef(menuOpen);
@@ -157,6 +170,37 @@ const CreatedEventCardHorizontal = (props) => {
           </Popper>
         </CardContent>
       </Box>
+      <Modal
+        open={modalOpen}
+        onClose={handleModalClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box id="delete-event-modal">
+          <h2>Are you sure you want to delete this event?</h2>
+          <span>
+            All event data will be removed and permanently deleted, so you will
+            not be able to retrieve aby of the existing information.
+          </span>
+          <div>
+            <Button
+              id="save-exit-ev-btn"
+              variant="contained"
+              className="input-btn"
+              onClick={handleModalClose}
+            >
+              No, I've changed my mind
+            </Button>
+            <Button
+              id="save-cont-ev-btn"
+              variant="contained"
+              onClick={handleEventDelete}
+            >
+              Yes, discard this event
+            </Button>
+          </div>
+        </Box>
+      </Modal>
     </Card>
   );
 };

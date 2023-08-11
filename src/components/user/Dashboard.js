@@ -2,30 +2,20 @@
  * Organizer dashboard component
  */
 
-
 //Import dependencies
-import {
-  Box,
-  Avatar,
-  Button,
-  FormControl,
-  TextField,
-  InputAdornment,
-} from "@mui/material";
+import { Box, Avatar, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import CreatedEventCardHorizontal from "../event/CreatedEventCardHorizontal";
-import LockIcon from "@mui/icons-material/Lock";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useState, useEffect, useContext } from "react";
 import { getFirstLetters } from "../../utils/utils";
-import {
-  getUser,
-  getDrafts,
-} from "../../utils/localStorage";
+import { getUser, getDrafts } from "../../utils/localStorage";
 import { searchOwnedEvents } from "../../services/EventAPI";
 import DraftCard from "../event/DraftCard";
 //Import search event props
-import { SearchEventsContext, SearchEventFiltersContext } from "../../props/search-events.prop";
+import {
+  SearchEventsContext,
+  SearchEventFiltersContext,
+} from "../../props/search-events.prop";
 //Partial page spinner
 import { PartialLoadSpinner } from "../shared/LoadingSpinner";
 import { PATHS } from "../../utils/constants.util";
@@ -36,22 +26,17 @@ import { resetPassword } from "../../services/UserAPI";
 
 import AccountSettings from "./AccountSettings";
 
-
 /**
  * Builds the Dashboard react component
  * @returns The rendered react component
  */
 const Dashboard = () => {
-
   /**
    * Prop setup
    */
   const [ownedEvents, setOwnedEvents] = useState([]);
   const [drafts, setDrafts] = useState(getDrafts());
   const [refresh, setRefresh] = useState(false);
-
-
-  
 
   //Get the user session data
   const user = getUser();
@@ -62,25 +47,17 @@ const Dashboard = () => {
   /**
    * Prop context for search event data
    */
-  const {
-    fetchStatus,
-    pageCount,
-  } = useContext(SearchEventsContext);
+  const { fetchStatus, pageCount } = useContext(SearchEventsContext);
 
   /**
    * Prop context for search event filters
    */
-  const {
-    currPage
-  } = useContext(SearchEventFiltersContext);
-
-
+  const { currPage } = useContext(SearchEventFiltersContext);
 
   /**
    * Load first page of events on page load
    */
   useEffect(() => {
-
     async function fetchEvents() {
       try {
         pageCount.set(0);
@@ -101,40 +78,25 @@ const Dashboard = () => {
       }
     }
 
-    console.log("currPage:", currPage.get)
-    console.log("pageCount:", pageCount.get)
+    console.log("currPage:", currPage.get);
+    console.log("pageCount:", pageCount.get);
     fetchEvents();
-
   }, [setOwnedEvents]);
-
-
 
   /**
    * Set the event drafts
    */
   useEffect(() => {
     setDrafts(getDrafts());
-  }, [refresh])
+  }, [refresh]);
 
-
-
-
-  /**
-   * 
-   */
-  const handleDelete = () => {
-    console.log("redirecting to delete page or pop up");
-  };
-
-
-  console.log("currPage:", currPage.get)
-  console.log("pageCount:", pageCount.get)
+  console.log("currPage:", currPage.get);
+  console.log("pageCount:", pageCount.get);
 
   /**
    * Load more owned events
    */
   const loadMoreHandler = async (event) => {
-
     //Prevent default submit form behaviour
     event.preventDefault();
 
@@ -145,43 +107,37 @@ const Dashboard = () => {
 
     //Increment to next page
     currPage.set(currPage.get++);
-try {
-    //Make request for owned events
-    let searchResult = await searchOwnedEvents(currPage.get);
+    try {
+      //Make request for owned events
+      let searchResult = await searchOwnedEvents(currPage.get);
 
-    let currEvents = ownedEvents;
+      let currEvents = ownedEvents;
 
-    pageCount.set(searchResult.pageCount);
-    let newArr = [...currEvents, ...searchResult.events]
-    //Set state props of events and page count
-    setOwnedEvents(newArr);
-    pageCount.set(searchResult.pageCount);
+      pageCount.set(searchResult.pageCount);
+      let newArr = [...currEvents, ...searchResult.events];
+      //Set state props of events and page count
+      setOwnedEvents(newArr);
+      pageCount.set(searchResult.pageCount);
 
-    //Toggle loading UI off
-    fetchStatus.set(false);
-  } catch (error) {
-    //Toggle loading UI off
-    fetchStatus.set(false);
-    navigate(PATHS.LOGIN);
-  }
-  }
-
-
+      //Toggle loading UI off
+      fetchStatus.set(false);
+    } catch (error) {
+      //Toggle loading UI off
+      fetchStatus.set(false);
+      navigate(PATHS.LOGIN);
+    }
+  };
 
   /**
    * Scroll to top of page
-   * @param {*} event 
+   * @param {*} event
    */
   const scrollToTop = async (event) => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
-  }
-
-
-
-
+  };
 
   //Conditionally render events, no events message, load/back to top buttons, or loading spinner
   let eventListings = (
@@ -202,15 +158,18 @@ try {
           )}
 
           {/* Loading spinner for loading more events */}
-          {fetchStatus.get && ownedEvents.length > 0 && (
-            <PartialLoadSpinner />
-          )}
+          {fetchStatus.get && ownedEvents.length > 0 && <PartialLoadSpinner />}
 
           {/* Load More and Back To Top buttons */}
-          {((currPage.get + 1) === pageCount.get || (currPage.get === 0 && pageCount.get === 0)) ? null : (
+          {currPage.get + 1 === pageCount.get ||
+          (currPage.get === 0 && pageCount.get === 0) ? null : (
             <>
-              <Button id="load-more-events-btn" onClick={loadMoreHandler}>Load More</Button>
-              <Button id="back-to-top-btn" onClick={scrollToTop}>Back To Top</Button>
+              <Button id="load-more-events-btn" onClick={loadMoreHandler}>
+                Load More
+              </Button>
+              <Button id="back-to-top-btn" onClick={scrollToTop}>
+                Back To Top
+              </Button>
             </>
           )}
         </Box>
@@ -218,10 +177,7 @@ try {
     </>
   );
 
-
-
-  let loadingSpinner = <>
-  </>
+  let loadingSpinner = <></>;
 
   //Return the react component render
   return (
@@ -253,7 +209,7 @@ try {
               </Box>
             </article>
             <article className="account-settings">
-<AccountSettings></AccountSettings>
+              <AccountSettings></AccountSettings>
             </article>
             <article className="saved-events">
               {drafts.length > 0 && (
@@ -261,7 +217,15 @@ try {
                   <h2>Event Drafts</h2>
                   <Box className="drafts">
                     {drafts.map((draft, i) => (
-                      <DraftCard key={i} name={draft.eventName ? draft.eventName : "Draft " + (i + 1)} draftNo={i} setRefresh={setRefresh} refresh={refresh} />
+                      <DraftCard
+                        key={i}
+                        name={
+                          draft.eventName ? draft.eventName : "Draft " + (i + 1)
+                        }
+                        draftNo={i}
+                        setRefresh={setRefresh}
+                        refresh={refresh}
+                      />
                     ))}
                   </Box>
                 </div>
@@ -285,7 +249,6 @@ try {
     </>
   );
 };
-
 
 //Export the Dashboard React component
 export default Dashboard;
