@@ -11,7 +11,7 @@ import {
   Paper,
   ClickAwayListener,
   Modal,
-  Button
+  Button,
 } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -22,27 +22,32 @@ import { getDateRangeString, getPriceRangeString } from "../../utils/utils";
 import { useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import { PATHS } from "../../utils/constants.util";
+import { deleteEvent } from "../../services/EventAPI";
 
 const CreatedEventCardHorizontal = (props) => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const anchorRef = useRef(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
 
   // Modal functions
   const handleModalOpen = () => setModalOpen(true);
   const handleModalClose = () => setModalOpen(false);
+  const handleConfirmationModalOpen = () => setConfirmationModalOpen(true);
+  const handleConfirmationModalClose = () => setConfirmationModalOpen(false);
 
   const handleDelete = (event) => {
-    console.log("..deleting event");
     handleModalOpen();
     setMenuOpen(false);
   };
-  
-  const handleEventDelete = () => {
-    console.log(props.event);
+
+  const handleEventDelete = async () => {
+    const response = await deleteEvent(props.event.event.id);
+    console.log(response);
+    handleConfirmationModalOpen();
     handleModalClose();
-  }
+  };
 
   // Dropdown menu functions
   const handleToggle = () => {
@@ -69,7 +74,6 @@ const CreatedEventCardHorizontal = (props) => {
     setMenuOpen(false);
     navigate(PATHS.EDIT_EVENT, { state: { event: props.event } });
   };
-
 
   // return focus to the button when we transitioned from !open -> open
   const prevOpen = useRef(menuOpen);
@@ -176,7 +180,7 @@ const CreatedEventCardHorizontal = (props) => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box id="delete-event-modal">
+        <Box className="delete-event-modal">
           <h2>Are you sure you want to delete this event?</h2>
           <span>
             All event data will be removed and permanently deleted, so you will
@@ -196,9 +200,28 @@ const CreatedEventCardHorizontal = (props) => {
               variant="contained"
               onClick={handleEventDelete}
             >
-              Yes, discard this event
+              Yes, delete this event
             </Button>
           </div>
+        </Box>
+      </Modal>
+      <Modal
+        open={confirmationModalOpen}
+        onClose={handleConfirmationModalClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        id="confirmation-modal"
+      >
+        <Box className="delete-event-modal">
+          <h2>Success!</h2>
+          <span>This event has been permanently deleted.</span>
+            <Button
+              id="save-cont-ev-btn"
+              variant="contained"
+              href="/dashboard"
+            >
+              Go to Dashboard
+            </Button>
         </Box>
       </Modal>
     </Card>

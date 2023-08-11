@@ -11,6 +11,7 @@ import {
   Box,
   Button,
   Link,
+  Modal
 } from "@mui/material";
 import { getFirstLetters, mergeDateTime } from "../../utils/utils";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
@@ -44,6 +45,25 @@ function CreateEvent() {
 
   // stepper state
   const [activeStep, setActiveStep] = useState(0);
+
+  // modal for discard option
+  const [modalOpen, setModalOpen] = useState(false);
+  const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
+
+  // Modal functions
+  const handleModalOpen = () => setModalOpen(true);
+  const handleModalClose = () => setModalOpen(false);
+  const handleConfirmationModalOpen = () => setConfirmationModalOpen(true);
+  const handleConfirmationModalClose = () => setConfirmationModalOpen(false);
+
+
+  const handleDiscard = () => {
+    // set draft to null if it exists
+    if (draft) removeDraft(draftNo);
+    // open confirmation modal
+    handleConfirmationModalOpen();
+    handleModalClose();
+  };
 
   //** FIRST SCREEN - BASIC INFO **//
   const [eventName, setEventName] = useState(
@@ -420,11 +440,6 @@ function CreateEvent() {
     navigate(PATHS.DASHBOARD);
   };
 
-  // TODO
-  const deleteEvent = () => {
-    navigate(PATHS.DASHBOARD);
-  };
-
   // Draft implementation handler
   const saveExit = () => {
     if (draft) {
@@ -496,10 +511,60 @@ function CreateEvent() {
             activeStep={activeStep}
             sx={{ width: "30%" }}
           />
-          <Link id="discard-ev-btn" onClick={deleteEvent}>
+          <Link id="discard-ev-btn" onClick={handleModalOpen}>
             Discard this event
           </Link>
         </div>
+        <Modal
+        open={modalOpen}
+        onClose={handleModalClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box className="delete-event-modal">
+          <h2>Are you sure you want to discard this event?</h2>
+          <span>
+            All event data will be removed and permanently deleted, so you will
+            not be able to retrieve aby of the existing information.
+          </span>
+          <div>
+            <Button
+              id="save-exit-ev-btn"
+              variant="contained"
+              className="input-btn"
+              onClick={handleModalClose}
+            >
+              No, I've changed my mind
+            </Button>
+            <Button
+              id="save-cont-ev-btn"
+              variant="contained"
+              onClick={handleDiscard}
+            >
+              Yes, discard this event
+            </Button>
+          </div>
+        </Box>
+      </Modal>
+      <Modal
+        open={confirmationModalOpen}
+        onClose={handleConfirmationModalClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        id="confirmation-modal"
+      >
+        <Box className="delete-event-modal">
+          <h2>Success!</h2>
+          <span>This event has been permanently discarded.</span>
+            <Button
+              id="save-cont-ev-btn"
+              variant="contained"
+              href="/dashboard"
+            >
+              Go to Dashboard
+            </Button>
+        </Box>
+      </Modal>
         {/* event preview */}
         {activeStep === 6 ? (
           <div className="event-preview-screen">
@@ -591,7 +656,9 @@ function CreateEvent() {
                       divider={<Divider orientation="vertical" flexItem />}
                     >
                       {eventFree && (
-                        <h2 style={{padding: "3% 5%"}}>This event is free.</h2>
+                        <h2 style={{ padding: "3% 5%" }}>
+                          This event is free.
+                        </h2>
                       )}
                       {eventPaid && (
                         <div className="event-prev-price">
