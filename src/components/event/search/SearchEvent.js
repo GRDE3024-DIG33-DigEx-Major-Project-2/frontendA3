@@ -18,7 +18,7 @@ import {
   Grid,
 } from "@mui/material";
 import FindEventHeader from "./FindEventHeader";
-import EventCardHorizontal from "../EventCardHorizontal";
+import EventCardHorizontal from "../display/EventCardHorizontal";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import * as dayjs from 'dayjs';

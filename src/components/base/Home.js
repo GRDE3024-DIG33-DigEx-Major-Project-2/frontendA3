@@ -4,7 +4,7 @@
 
 //Import dependencies
 import FindEventHeader from "../event/search/FindEventHeader";
-import EventCard from "../event/EventCard";
+import EventCard from "../event/display/EventCard";
 //Import endpoint handlers for events
 import { searchEvents, getAllTags } from "../../services/EventAPI";
 import { useEffect, useState, useContext } from "react";
@@ -52,7 +52,6 @@ const Home = () => {
     async function fetchUnfilteredEventPage() {
       //Toggle loading UI on
       fetchStatus.set(true);
-      console.log("FETCH STATUS SHOULD BE TRUE: ", fetchStatus.get);
       const allEv = (await searchEvents([], null, null, null, null, null, 0));
       setAllEvents(allEv.events);
     }
@@ -98,7 +97,6 @@ const Home = () => {
 
       //Toggle loading UI off
       fetchStatus.set(false);
-      console.log("FETCH STATUS SHOULD BE FALSE: ", fetchStatus.get);
 
     }
 

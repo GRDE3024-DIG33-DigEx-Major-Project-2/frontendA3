@@ -19,7 +19,7 @@ import SellOutlinedIcon from "@mui/icons-material/SellOutlined";
 import { getDateRangeString, getPriceRangeString } from "../../utils/utils";
 import { useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
-import { PATHS } from "../../utils/constants.util";
+import { EVENT_IMG_PLACEHOLDER, PATHS } from "../../utils/constants.util";
 
 const CreatedEventCardHorizontal = (props) => {
   const navigate = useNavigate();
@@ -78,7 +78,7 @@ const CreatedEventCardHorizontal = (props) => {
   const priceString = getPriceRangeString(props.event.ticketTypes);
 
   // find URL - if image not added, use default image
-  let imgUrl = "../Gigney_login.png";
+  let imgUrl = EVENT_IMG_PLACEHOLDER;
   if (props.event.eventImg) {
     imgUrl = props.event.eventImg.url;
   }
