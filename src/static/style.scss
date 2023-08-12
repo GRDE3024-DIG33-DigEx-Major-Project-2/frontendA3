@@ -695,17 +695,30 @@ footer {
     
   }
 
+  #update-profile-remove-pic{
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  #update-profile-img-title{
+    margin-top: 30px;
+    margin-bottom: -1%;
+  }
+
   #avatar-row{
-    margin-top: 10px;
-    @include flex-row(space-evenly, center);
+    margin-top: 1%;
+    padding-left: 2%;
+    @include flex-row(flex-start, center);
+    gap: 8%;
     p{
-      font-size: 14px;
+      font-size: 16px;
     }
 
     #edit-avatar{
       background-color: $lightblue;
-      height: 100px;
-      width: 100px;
+      height: 150px;
+      width: 150px;
+      cursor: pointer;
     }
   }
 }

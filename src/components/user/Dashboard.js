@@ -17,6 +17,7 @@ import CreatedEventCardHorizontal from "../event/CreatedEventCardHorizontal";
 import { useState, useEffect, useContext } from "react";
 import { getFirstLetters } from "../../utils/utils";
 import { getUser, getDrafts } from "../../utils/localStorage";
+import { updateUser } from "../../services/UserAPI";
 import { searchOwnedEvents } from "../../services/EventAPI";
 import DraftCard from "../event/DraftCard";
 //Import search event props
@@ -48,6 +49,7 @@ const Dashboard = () => {
 
   //Get the user session data
   const user = getUser();
+  console.log(user);
   console.log(drafts);
 
   const navigate = useNavigate();
@@ -59,16 +61,53 @@ const Dashboard = () => {
   const handleModalClose = () => setModalOpen(false);
 
   const handleUserUpdate = async () => {
-    // const response = await deleteEvent(props.event.event.id);
-    // console.log(response);
+    // create formData
+    let formData = null;
+
+    if(newImg){
+      formData = {
+        bio: bio,
+        organizationName: name,
+        phoneNumber: phoneNo,
+        removeImg: false,
+        "profile-img": newImg,
+        imgFilename: newImg.name.split(".")[0],
+      }
+    } else {
+      formData = {
+        bio: bio,
+        organizationName: name,
+        phoneNumber: phoneNo,
+        removeImg: false
+      }
+    }
+
+    console.log(formData);
+    console.log(newImg);
+    const response = await updateUser(formData);
+    console.log(response);
     handleModalClose();
+
+    // TODO - Add spinner and success response
   };
 
   // UPDATE PROFILE STATES
   const [name, setName] = useState(user.organizationName);
-  const [phoneNo, setPhoneNo] = useState(user.phoneNo);
+  const [phoneNo, setPhoneNo] = useState(user.phoneNumber);
   const [bio, setBio] = useState(user.bio);
   const [newImg, setNewImg] = useState();
+
+  // change selected image
+  const imageChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setNewImg(e.target.files[0]);
+    }
+  };
+
+  // This function will be triggered when the "Remove This Image" button is clicked
+  const removeNewImg = () => {
+    setNewImg();
+  };
 
   /**
    * Prop context for search event data
@@ -281,11 +320,12 @@ const Dashboard = () => {
                           placeholder="You haven't yet added a bio. Write one now!"
                           variant="outlined"
                         />
+                        <p id="update-profile-img-title">Profile image:</p>
                       </Grid>
                       <Grid
                         container
                         item
-                        xs={7}
+                        xs={8}
                         direction="row"
                         id="avatar-row"
                       >
@@ -308,15 +348,17 @@ const Dashboard = () => {
                         )}
                         {!user.imgUrl && !newImg && (
                           <>
-                            <Avatar id="edit-avatar">
-                              {getFirstLetters(user.organizationName)}
-                              <input
-                                id="create-ev-img-input"
-                                accept="image/*"
-                                type="file"
-                                // onChange={imageChange}
-                              />
-                            </Avatar>
+                            <label>
+                              <Avatar id="edit-avatar">
+                                {getFirstLetters(user.organizationName)}
+                                <input
+                                  id="create-ev-img-input"
+                                  accept="image/*"
+                                  type="file"
+                                  onChange={imageChange}
+                                />
+                              </Avatar>
+                            </label>
                             <p>
                               Click on the avatar to add an image for your
                               organization
@@ -330,10 +372,12 @@ const Dashboard = () => {
                               alt={user.organizationName}
                               src={URL.createObjectURL(newImg)}
                             />
-                            <p>
-                              Click on the avatar to change your organization's
-                              pic.
-                            </p>
+                            <Link
+                              id="update-profile-remove-pic"
+                              onClick={removeNewImg}
+                            >
+                              Remove This Image
+                            </Link>
                           </>
                         )}
                       </Grid>
