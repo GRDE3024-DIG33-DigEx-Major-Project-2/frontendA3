@@ -62,6 +62,11 @@ a {
   border-radius: 0 !important;
 }
 
+.home-section .home-row .swiper-slide {
+  width: 347px !important;
+  padding-left: 5% !important;
+}
+
 .bttn-style-purple {
   border: 2px solid #7759a6;
   padding: 12px 25px;
@@ -144,7 +149,7 @@ a {
 
 .find-event-header-text {
   color: #ffffff;
-  font-size: 45px !important;
+  font-size: 70px !important;
   font-weight: 700;
 }
 
@@ -161,16 +166,9 @@ a {
   font-size: 14px;
 }
 
-.find-event-search {
-  margin: auto;
-  text-align: center;
-  max-width: 85%;
-}
-
 #search-form-submit-btn {
   color: #000000;
   background-color: #f58146;
-  margin-left: -5%;
   width: 10%;
 }
 
@@ -180,6 +178,14 @@ a {
   justify-content: space-around;
   align-items: center;
   padding: 25px;
+  margin: auto;
+  text-align: center;
+  max-width: 85%;
+  gap: 0.4%;
+}
+
+.find-event-search .MuiOutlinedInput-input {
+  width: 202px;
 }
 
 #location-field-search {
@@ -1126,6 +1132,7 @@ footer {
 
 .prev-event-body {
   display: block;
+  padding: 1% 2%;
 }
 
 .event-prev-card-icon-share,
@@ -1159,7 +1166,7 @@ footer {
 .event-prev-card-icon-share {
   position: absolute;
   right: 8%;
-  top: 465px;
+  top: 375px;
 }
 
 .event-prev-card-icon-bookmark {
@@ -1177,7 +1184,6 @@ footer {
 
 .event-preview {
   background-color: #ffffff;
-  padding: 1% 2%;
   height: 90%;
   position: relative;
 }
@@ -1206,7 +1212,7 @@ footer {
   cursor: pointer;
 }
 .event-prev-first-row h1 {
-  font-size: 36px;
+  font-size: 66px;
 }
 
 .outlined {
@@ -1232,17 +1238,23 @@ footer {
 .prev-date-time {
   width: 40%;
   padding: 0 4%;
+  font-size: 1.8em;
 }
 
 .prev-location {
   width: 60%;
   padding: 0 3%;
+  font-size: 1.8em;
+}
+
+.strong-string-prev {
+  font-size: 15px !important;
 }
 
 .event-prev-title {
   position: absolute;
   background-color: #ffffff;
-  top: -18%;
+  top: -21% !important;
   left: 4%;
   width: fit-content;
   height: fit-content;
@@ -1263,7 +1275,7 @@ footer {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 200px;
+  height: 300px;
   gap: 3%;
 }
 .event-prev-second-row .when-where-box {
@@ -1317,6 +1329,10 @@ footer {
 .event-prev-price p {
   font-size: 15px;
   padding: 0 10%;
+}
+
+.pricing-box .horizontal-stack h2 {
+  padding: 1% 5%;
 }
 
 .event-prev-fourth-row {
@@ -1459,6 +1475,11 @@ footer {
   .bttn-style-purple {
     padding: 6px 15px;
   }
+  /*HOME PAGE*/
+  .home-section .home-row .swiper-slide {
+    width: 340px !important;
+    padding-left: 9% !important;
+  }
   /*PROFILE PAGE*/
   .profile-container {
     grid-template-areas: "head head" "bio bio" "account account" "events events";
@@ -1529,11 +1550,11 @@ footer {
   .css-suj22h-MuiChip-root {
     height: 18px;
   }
-  .css-6od3lo-MuiChip-label {
+  .event-prev-tags .MuiChip-labelMedium {
     padding-left: 10px;
     padding-right: 9px;
-    height: 10px;
-    font-size: 0.8em;
+    height: 25px;
+    font-size: 1em;
     padding-top: 8px;
   }
 }
@@ -1551,7 +1572,7 @@ footer {
     padding: 8px 20px;
   }
   .find-event-header {
-    max-height: 60vh;
+    max-height: 121vh;
   }
   .find-event-search {
     display: flex;
@@ -1573,6 +1594,32 @@ footer {
   }
   #location-field-search {
     width: 100%;
+  }
+  /*HOMEPAGE*/
+  .home-section .find-event-header-text {
+    margin: 0;
+  }
+  .find-event-search {
+    max-height: 65vh;
+  }
+  .home-section .event-card-media {
+    width: 350px !important;
+    height: 167px !important;
+  }
+  .home-section .event-card {
+    width: 299px;
+    height: 311px;
+  }
+  .home-section .home-row .swiper-slide {
+    width: 340px !important;
+    padding-left: 3% !important;
+  }
+  .home-section .home-row #ev-share {
+    top: 48.5%;
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: calc(var(--swiper-navigation-size) / 44 * 5);
   }
   /* SIGNUP PAGE */
   .signup {
@@ -1702,6 +1749,46 @@ footer {
   }
   .find-event-header {
     min-height: 73vh;
+    max-height: 137vh;
+  }
+  .find-event-search {
+    max-height: 71vh;
+  }
+  .home-row {
+    padding: 3px;
+  }
+  .home-section .home-row .swiper-slide {
+    width: 274px !important;
+    margin-left: 0px !important;
+    padding-left: 22px !important;
+  }
+  .home-section .MuiCardMedia-img {
+    width: 100% !important;
+    height: 46% !important;
+  }
+  .home-section .event-card {
+    width: 276px !important;
+    height: 230px !important;
+  }
+  .home-section .card-date,
+  .home-section .card-location {
+    font-size: 0.8em;
+  }
+  .home-section #ev-share {
+    top: 42.5%;
+    right: 11%;
+  }
+  .home-section .card-icon {
+    width: 20px;
+    height: 20px;
+  }
+  .home-section .MuiSvgIcon-fontSizeMedium {
+    font-size: 0.8em;
+    padding-bottom: 0px;
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: calc(var(--swiper-navigation-size) / 44 * 3);
   }
   .menu-footer {
     padding: 2% 1%;
@@ -1868,6 +1955,47 @@ footer {
     margin-top: 20px;
   }
 }
+/*EVENT PAGE*/
+.prev-date-time h3,
+.prev-location h3 {
+  font-size: 0.9em;
+}
+
+.strong-string-prev {
+  font-size: 9px;
+}
+
+#event-avatar {
+  font-size: 28px;
+  height: 80px;
+  width: 80px;
+}
+
+#event-avatar h2 {
+  font-size: 1em;
+}
+
+.event-prev-second-row .when-where-box,
+.event-prev-second-row .organiser-box {
+  height: 65%;
+}
+
+.event-prev-second-row .event-prev-title {
+  top: -26%;
+}
+
+.event-prev-third-row {
+  height: 104px;
+}
+
+.event-prev-third-row .event-prev-title-2 {
+  top: -32%;
+}
+
+.pricing-box {
+  height: 97%;
+}
+
 /* Small Phone */
 @media screen and (max-width: 480px) {
   /* HEADER */
@@ -1976,8 +2104,8 @@ footer {
     text-align: center;
   }
   .home-row .MuiCardMedia-root {
-    width: 27em !important;
-    height: 13em !important;
+    width: 21em !important;
+    height: 8em !important;
   }
   .home-row #ev-share,
   .home-row #ev-bookmark {
@@ -1992,8 +2120,16 @@ footer {
     width: 20px;
     height: 20px;
   }
+  .home-section .find-event-tags {
+    margin: 0px !important;
+  }
+  .home-section .home-row .swiper-slide {
+    width: 291px !important;
+    margin-left: 0px !important;
+    padding-left: 97px !important;
+  }
   .card-name {
-    font-size: 27px;
+    font-size: 21px;
   }
   .card-date,
   .card-location {
@@ -2244,6 +2380,40 @@ footer {
   }
   .reset-pwd-form p {
     font-size: 14px;
+  }
+  /*EVENT PAGE*/
+  .event-prev-first-row h1 {
+    font-size: 1.5em;
+  }
+  .event-prev-first-row .event-buy-button {
+    padding: 8px 24px;
+  }
+  .event-prev-second-row .prev-date-time h3,
+  .event-prev-second-row .prev-location h3 {
+    font-size: 0.7em;
+  }
+  .event-prev-second-row .strong-string-prev {
+    font-size: 0.4em;
+  }
+  .event-prev-second-row .when-where-box,
+  .event-prev-second-row .organiser-box {
+    height: 54%;
+  }
+  .event-prev-second-row .event-prev-title {
+    top: -24%;
+    font-size: 1em !important;
+  }
+  .event-prev-second-row #event-avatar {
+    font-size: 26px;
+    height: 60px;
+    width: 60px;
+  }
+  .event-prev-second-row .organiser-box h2 {
+    font-size: 0.9em;
+  }
+  .event-prev-fourth-row .create-prev-lineup h2 {
+    font-size: 1em;
+    top: -13%;
   }
 }
 
