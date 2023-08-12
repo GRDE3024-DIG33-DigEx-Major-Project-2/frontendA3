@@ -187,7 +187,6 @@ function EventPage() {
             </div> </div>
           </Tooltip>
         ) : null )}
-      <h1>&nbsp;</h1>
       <div className="event-main-image">
         <img alt={event.event.title} src={imgUrl} />
       </div>
