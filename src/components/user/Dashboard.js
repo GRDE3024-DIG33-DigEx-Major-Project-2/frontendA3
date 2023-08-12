@@ -71,7 +71,7 @@ const Dashboard = () => {
         phoneNumber: phoneNo,
         removeImg: false,
         "profile-img": newImg,
-        imgFilename: newImg.name.split(".")[0],
+        filename: newImg.name.split(".")[0],
       }
     } else {
       formData = {
