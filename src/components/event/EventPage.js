@@ -85,7 +85,10 @@ function Event() {
           </div>
           <div className="organiser-box outlined">
             <h2 className="event-prev-title">Organiser</h2>
-            <Avatar id="event-avatar">{getFirstLetters(event.event.organizationName)}</Avatar>
+            {/* TODO add organization pic */}
+            <Avatar id="event-avatar">
+              {getFirstLetters(event.event.organizationName)}
+            </Avatar>
             <h2>{event.event.organizationName}</h2>
           </div>
         </div>
@@ -108,7 +111,9 @@ function Event() {
                     <p>$ {ticket.price}</p>
                   </div>
                 ))}
-              {ticketTypes.length === 0 && <h2 style={{padding: "3% 5%"}}>This event is free.</h2>}
+              {ticketTypes.length === 0 && (
+                <h2 style={{ padding: "3% 5%" }}>This event is free.</h2>
+              )}
             </Stack>
           </div>
         </div>
@@ -142,7 +147,13 @@ function Event() {
               ))}
             </div>
           </div>
-          <Button href={event.event.purchaseUrl} variant="contained" id="buy-tickets-btn">Buy Tickets</Button>
+          <Button
+            href={event.event.purchaseUrl}
+            variant="contained"
+            id="buy-tickets-btn"
+          >
+            Buy Tickets
+          </Button>
         </div>
       </div>
     </div>

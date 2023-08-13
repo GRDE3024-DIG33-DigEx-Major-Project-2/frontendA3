@@ -28,10 +28,7 @@ import {
 //Partial page spinner
 import { PartialLoadSpinner } from "../shared/LoadingSpinner";
 import { PATHS } from "../../utils/constants.util";
-import { resetTokenSession, resetUserSession } from "../../utils/localStorage";
-import { showErrorToast, showSuccessToast, showToast } from "../shared/Toaster";
 import { useNavigate } from "react-router-dom";
-import { resetPassword } from "../../services/UserAPI";
 
 import AccountSettings from "./AccountSettings";
 
@@ -55,40 +52,49 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   const [modalOpen, setModalOpen] = useState(false);
+  const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
+  const [updateSuccess, setUpdateSuccess] = useState(false);
 
   // Modal functions
   const handleModalOpen = () => setModalOpen(true);
   const handleModalClose = () => setModalOpen(false);
+  const handleConfirmationModalOpen = () => setConfirmationModalOpen(true);
+  const handleConfirmationModalClose = () => setConfirmationModalOpen(false);
 
+  // Function handling the organiser's profile update
   const handleUserUpdate = async () => {
     // create formData
     let formData = null;
 
-    if(newImg){
+    let removeImg = false;
+    if (user.imgUrl || imgDelete) removeImg = true;
+
+    if (newImg) {
       formData = {
         bio: bio,
         organizationName: name,
         phoneNumber: phoneNo,
-        removeImg: false,
+        removeImg: removeImg,
         "profile-img": newImg,
         filename: newImg.name.split(".")[0],
-      }
+      };
     } else {
       formData = {
         bio: bio,
         organizationName: name,
         phoneNumber: phoneNo,
-        removeImg: false
-      }
+        removeImg: removeImg,
+      };
     }
 
-    console.log(formData);
-    console.log(newImg);
     const response = await updateUser(formData);
-    console.log(response);
-    handleModalClose();
 
-    // TODO - Add spinner and success response
+    // if the update request was successful, show confirmation, else, show errro
+    if (response === "Success") setUpdateSuccess(true);
+    else setUpdateSuccess(false);
+
+    handleConfirmationModalOpen();
+    handleModalClose();
   };
 
   // UPDATE PROFILE STATES
@@ -96,6 +102,7 @@ const Dashboard = () => {
   const [phoneNo, setPhoneNo] = useState(user.phoneNumber);
   const [bio, setBio] = useState(user.bio);
   const [newImg, setNewImg] = useState();
+  const [imgDelete, setImgDelete] = useState(false);
 
   // change selected image
   const imageChange = (e) => {
@@ -107,6 +114,12 @@ const Dashboard = () => {
   // This function will be triggered when the "Remove This Image" button is clicked
   const removeNewImg = () => {
     setNewImg();
+  };
+
+  // remove all images and flag that the existing image needs to be removed from the bucket on update
+  const removeAllImgs = () => {
+    setNewImg();
+    setImgDelete(true);
   };
 
   /**
@@ -269,7 +282,6 @@ const Dashboard = () => {
                   </Avatar>
                 )}
                 <h3>{user.organizationName}</h3>
-                <p>Organisation description</p>
                 <p>{user.bio}</p>
                 <Link onClick={handleModalOpen}>Edit account details</Link>
               </Box>
@@ -329,7 +341,7 @@ const Dashboard = () => {
                         direction="row"
                         id="avatar-row"
                       >
-                        {user.imgUrl && (
+                        {user.imgUrl && !imgDelete && (
                           <>
                             <Avatar
                               id="edit-avatar"
@@ -341,12 +353,17 @@ const Dashboard = () => {
                               }
                             />
                             <p>
-                              Click on the avatar to change your organization's
-                              pic.
+                              Click on the avatar to change your profile pic, or
+                              click here to{" "}
+                              <Link onClick={removeAllImgs}>
+                                remove the current image
+                              </Link>
                             </p>
                           </>
                         )}
-                        {!user.imgUrl && !newImg && (
+                        {((!user.imgUrl && !newImg) ||
+                          (imgDelete && !newImg) ||
+                          (!user.imgUrl && !imgDelete && !newImg)) && (
                           <>
                             <label>
                               <Avatar id="edit-avatar">
@@ -365,7 +382,9 @@ const Dashboard = () => {
                             </p>
                           </>
                         )}
-                        {!user.imgUrl && newImg && (
+                        {((!user.imgUrl && newImg) ||
+                          (imgDelete && newImg) ||
+                          (!user.imgUrl && !imgDelete && newImg)) && (
                           <>
                             <Avatar
                               id="edit-avatar"
@@ -400,6 +419,38 @@ const Dashboard = () => {
                       Update profile
                     </Button>
                   </div>
+                </Box>
+              </Modal>
+              <Modal
+                open={confirmationModalOpen}
+                onClose={handleConfirmationModalClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+                id="confirmation-modal"
+              >
+                <Box className="delete-event-modal">
+                  {updateSuccess && (
+                    <>
+                      <h2>Success!</h2>
+                      <span>Your profile has been successfully updated.</span>
+                    </>
+                  )}
+                  {!updateSuccess && (
+                    <>
+                      <h2>Something went wrong.</h2>
+                      <span>
+                        We weren't able to process your request. Try again
+                        later!
+                      </span>
+                    </>
+                  )}
+                  <Button
+                    id="save-cont-ev-btn"
+                    variant="contained"
+                    href="/dashboard"
+                  >
+                    Go to Dashboard
+                  </Button>
                 </Box>
               </Modal>
             </article>

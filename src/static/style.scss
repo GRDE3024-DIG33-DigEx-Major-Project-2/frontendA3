@@ -101,7 +101,7 @@ a {
 
 // *********************** HOMEPAGE ************************ //
 
-.home-section .home-row .swiper-slide{
+.home-section .home-row .swiper-slide {
   width: 347px !important;
   padding-left: 5% !important;
 }
@@ -213,14 +213,15 @@ a {
   gap: 0.4%;
 }
 
-.find-event-search .MuiOutlinedInput-input{
+.find-event-search .MuiOutlinedInput-input {
   width: 202px;
 }
 
 #location-field-search {
   width: 22%;
 }
-#date-field-search-min, #date-field-search-max {
+#date-field-search-min,
+#date-field-search-max {
   width: 18%;
 }
 #events-txt-field {
@@ -635,17 +636,17 @@ footer {
     width: 100%;
   }
 
-  #event-drafts{
+  #event-drafts {
     min-height: 200px;
     max-height: fit-content;
     width: 100%;
   }
 
-  .draft-card{
+  .draft-card {
     @include flex-row(space-between, center);
     padding: 1% 2%;
     margin-bottom: 2%;
-    div{
+    div {
       width: 40%;
       @include flex-row(flex-end, center);
       gap: 4%;
@@ -654,7 +655,8 @@ footer {
 }
 
 // ** Modals ** //
-.delete-event-modal, .update-profile-modal{
+.delete-event-modal,
+.update-profile-modal {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -665,64 +667,63 @@ footer {
 }
 
 // ** Delete event modal ** //
-.delete-event-modal{
+.delete-event-modal {
   width: 60vw;
   height: 300px;
   text-align: center;
   @include flex-column(space-around, center);
-  div{
+  div {
     width: 100%;
     @include flex-row(space-evenly, center);
   }
 }
 
-#confirmation-modal{
+#confirmation-modal {
   background-color: $white;
 }
 
 // ** Update profile modal ** //
-.update-profile-modal{
+.update-profile-modal {
   width: 75vw;
   height: fit-content;
   min-height: 500px;
 
-  h1{
+  h1 {
     padding: 1% 3%;
   }
 
-  .MuiGrid-root{
+  .MuiGrid-root {
     padding: 1% 3%;
     text-align: left;
   }
 
-  #update-profile-btns{
+  #update-profile-btns {
     width: 94%;
     @include flex-row(flex-end, center);
     gap: 5%;
     margin-bottom: 2%;
-    
   }
 
-  #update-profile-remove-pic{
+  #update-profile-remove-pic {
     font-size: 18px;
     font-weight: 500;
   }
 
-  #update-profile-img-title{
+  #update-profile-img-title {
     margin-top: 30px;
     margin-bottom: -1%;
   }
 
-  #avatar-row{
+  #avatar-row {
     margin-top: 1%;
     padding-left: 2%;
     @include flex-row(flex-start, center);
     gap: 8%;
-    p{
+    p {
       font-size: 16px;
     }
 
-    #edit-avatar{
+    #edit-avatar {
       background-color: $lightblue;
       height: 150px;
       width: 150px;
@@ -1138,7 +1139,7 @@ footer {
   width: 50px;
   height: 50px;
   @include flex-row(center, center);
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .event-buy-button {
@@ -1291,7 +1292,7 @@ footer {
 
 .event-prev-third-row {
   width: 100%;
-  height: 180px;
+  height: fit-content;
 }
 
 .pricing-box {
@@ -1310,7 +1311,7 @@ footer {
   }
 }
 
-.pricing-box .horizontal-stack h2{
+.pricing-box .horizontal-stack h2 {
   padding: 1% 5%;
 }
 
@@ -1369,42 +1370,40 @@ footer {
   margin-bottom: 30px;
 }
 
-
-
 // *********************** RESET PASSWORD *********************** //
 
 .reset-password,
-.reset-pwd-form{
+.reset-pwd-form {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.reset-password h1{
+.reset-password h1 {
   font-size: 5em;
   text-align: center;
 }
 
-.reset-pwd-form{
-  margin:15px;
+.reset-pwd-form {
+  margin: 15px;
 }
 .reset-pwd-form p,
 .reset-pwd-form label {
   font-size: 20px;
 }
 
-.reset-pwd-form input{
+.reset-pwd-form input {
   width: 100%;
   height: 35px;
   margin: 10px;
 }
 
-#reset-btn{
+#reset-btn {
   background-color: $orange1;
   border: 2px solid $black;
   font-size: 20px;
   font-weight: 600;
-  height:40px;
+  height: 40px;
 }
 
 // *********************** MEDIA QUERIES *********************** //
@@ -1456,18 +1455,18 @@ footer {
 
   .bttn-style-orange {
     padding: 6px 8px;
-}
+  }
 
-.bttn-style-purple {
-  padding: 6px 15px;
-}
+  .bttn-style-purple {
+    padding: 6px 15px;
+  }
 
-/*HOME PAGE*/
+  /*HOME PAGE*/
 
-.home-section .home-row .swiper-slide{
-  width: 340px !important;
-  padding-left: 9% !important;
-}
+  .home-section .home-row .swiper-slide {
+    width: 340px !important;
+    padding-left: 9% !important;
+  }
 
   /*PROFILE PAGE*/
   .profile-container {
@@ -1559,7 +1558,7 @@ footer {
     height: 18px;
   }
 
-  .event-prev-tags .MuiChip-labelMedium{
+  .event-prev-tags .MuiChip-labelMedium {
     padding-left: 10px;
     padding-right: 9px;
     height: 25px;
@@ -1612,15 +1611,15 @@ footer {
     width: 100%;
   }
   /*HOMEPAGE*/
-  .home-section .find-event-header-text{
+  .home-section .find-event-header-text {
     margin: 0;
   }
 
-  .find-event-search{
+  .find-event-search {
     max-height: 65vh;
   }
 
-  .home-section .event-card-media{
+  .home-section .event-card-media {
     width: 350px !important;
     height: 167px !important;
   }
@@ -1630,7 +1629,7 @@ footer {
     height: 311px;
   }
 
-  .home-section .home-row .swiper-slide{
+  .home-section .home-row .swiper-slide {
     width: 340px !important;
     padding-left: 3% !important;
   }
@@ -1638,9 +1637,9 @@ footer {
   .home-section .home-row #ev-share {
     top: 48.5%;
   }
-  .swiper-button-prev, 
+  .swiper-button-prev,
   .swiper-button-next {
-  width: calc(var(--swiper-navigation-size) / 44 * 5);
+    width: calc(var(--swiper-navigation-size) / 44 * 5);
   }
   /* SIGNUP PAGE */
   .signup {
@@ -1788,52 +1787,52 @@ footer {
 
   .find-event-search {
     max-height: 71vh;
-}
+  }
 
-.home-row {
-  padding: 3px;
-}
+  .home-row {
+    padding: 3px;
+  }
 
-.home-section .home-row .swiper-slide{
-  width: 274px !important;
-  margin-left: 0px !important;
-  padding-left: 22px !important;
-}
+  .home-section .home-row .swiper-slide {
+    width: 274px !important;
+    margin-left: 0px !important;
+    padding-left: 22px !important;
+  }
 
-.home-section .MuiCardMedia-img{
-  width: 100% !important;
-  height: 46% !important;
-}
+  .home-section .MuiCardMedia-img {
+    width: 100% !important;
+    height: 46% !important;
+  }
 
-.home-section .event-card {
-  width: 276px !important;
-  height: 230px !important;
-}
+  .home-section .event-card {
+    width: 276px !important;
+    height: 230px !important;
+  }
 
-.home-section .card-date,
-.home-section .card-location{
-  font-size: 0.8em;
-}
+  .home-section .card-date,
+  .home-section .card-location {
+    font-size: 0.8em;
+  }
 
-.home-section #ev-share{
-  top: 42.5%;
-  right: 11%;
-}
+  .home-section #ev-share {
+    top: 42.5%;
+    right: 11%;
+  }
 
-.home-section .card-icon{
-  width: 20px;
-  height: 20px;
-}
+  .home-section .card-icon {
+    width: 20px;
+    height: 20px;
+  }
 
-.home-section .MuiSvgIcon-fontSizeMedium{
-  font-size: 0.8em;
-  padding-bottom: 0px;
-}
+  .home-section .MuiSvgIcon-fontSizeMedium {
+    font-size: 0.8em;
+    padding-bottom: 0px;
+  }
 
-.swiper-button-prev, 
-.swiper-button-next{
-  width: calc(var(--swiper-navigation-size) / 44 * 3);
-}
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: calc(var(--swiper-navigation-size) / 44 * 3);
+  }
 
   // FOOTER
   .menu-footer {
@@ -2031,60 +2030,56 @@ footer {
 
   /*CREATE EVENTS PAGE*/
 
-.create-event-screen h2{
-  margin: 0 12px 0 12px;
-}
+  .create-event-screen h2 {
+    margin: 0 12px 0 12px;
+  }
 
-.create-event-media{
-  margin-top: 20px;
-}
-}
+  .create-event-media {
+    margin-top: 20px;
+  }
 
-/*EVENT PAGE*/
-.prev-date-time h3,
-.prev-location h3{
-  font-size: 0.9em;
-}
+  /*EVENT PAGE*/
+  .prev-date-time h3,
+  .prev-location h3 {
+    font-size: 0.9em;
+  }
 
-.strong-string-prev{
-  font-size: 9px;
-}
+  .strong-string-prev {
+    font-size: 9px;
+  }
 
-#event-avatar{
-  font-size: 28px;
-  height: 80px;
-   width: 80px;
-}
+  #event-avatar {
+    font-size: 28px;
+    height: 80px;
+    width: 80px;
+  }
 
-#event-avatar h2{
-  font-size: 1em;
-}
+  #event-avatar h2 {
+    font-size: 1em;
+  }
 
-.event-prev-second-row .when-where-box,
-.event-prev-second-row .organiser-box {
-  height: 65%;
-}
+  .event-prev-second-row .when-where-box,
+  .event-prev-second-row .organiser-box {
+    height: 65%;
+  }
 
-.event-prev-second-row .event-prev-title{
-  top: -26%;
-}
+  .event-prev-second-row .event-prev-title {
+    top: -26%;
+  }
 
-.event-prev-third-row{
-  height: 104px;
-}
+  .event-prev-third-row .event-prev-title-2 {
+    top: -32%;
+  }
 
-.event-prev-third-row .event-prev-title-2{
-  top: -32%;
-}
-
-.pricing-box{
-  height: 97%;
+  .pricing-box {
+    height: 97%;
+  }
 }
 
 /* Small Phone */
 @media screen and (max-width: 480px) {
   /* HEADER */
-  header{
+  header {
     height: 3em;
   }
   .find-event-header {
@@ -2096,11 +2091,11 @@ footer {
     min-height: 35vh;
   }
 
-  #nav-logo{
+  #nav-logo {
     padding-bottom: 2em;
   }
 
-  #mobile-menu .MuiButtonBase-root{
+  #mobile-menu .MuiButtonBase-root {
     padding: 0 8px 8px 8px;
     margin-bottom: 15px;
   }
@@ -2110,8 +2105,8 @@ footer {
   }
   #gigney-menu-logo {
     width: 52%;
-}
-  #gigney-menu-logo img{
+  }
+  #gigney-menu-logo img {
     width: 7em;
     height: 4em;
   }
@@ -2119,137 +2114,138 @@ footer {
     font-size: 1.5em;
     margin-bottom: 10px;
     margin-top: 0px;
-}
+  }
 
-#menu-drawer .MuiDrawer-paper{
-  width: 50%;
-}
+  #menu-drawer .MuiDrawer-paper {
+    width: 50%;
+  }
 
-#loggedin-links-menu {
-  font-size: 1em;
-  margin: 5px 0 12px 0;
-}
+  #loggedin-links-menu {
+    font-size: 1em;
+    margin: 5px 0 12px 0;
+  }
 
-.mobile-menu-link{
-  padding: 6px;
-}
+  .mobile-menu-link {
+    padding: 6px;
+  }
 
-#menu-drawer .MuiDrawer-root{
-  font-size: 0.4em;
-}
+  #menu-drawer .MuiDrawer-root {
+    font-size: 0.4em;
+  }
 
-.bttn-style-purple, 
-.bttn-style-orange {
-  width: 25vw;
-  height: 3vw;
-  padding: 3px 9px;
-  font-size: 10px;
-  margin: 5px;
-}
+  .bttn-style-purple,
+  .bttn-style-orange {
+    width: 25vw;
+    height: 3vw;
+    padding: 3px 9px;
+    font-size: 10px;
+    margin: 5px;
+  }
 
-.menu-footer{
-  font-size: 0.3em;
-}
+  .menu-footer {
+    font-size: 0.3em;
+  }
 
-/*FIND AN EVENT*/
+  /*FIND AN EVENT*/
 
-#location-field-search{
-  justify-content: center;
-  align-items: center;
-  width: 98%;
-}
+  #location-field-search {
+    justify-content: center;
+    align-items: center;
+    width: 98%;
+  }
 
-.find-event-header-text{
-  margin: 0;
-  font-size: 35px !important;
-}
+  .find-event-header-text {
+    margin: 0;
+    font-size: 35px !important;
+  }
 
-#search-event-form .MuiInputBase-root {
-  height: 29px;
-  margin: 3px;
-}
+  #search-event-form .MuiInputBase-root {
+    height: 29px;
+    margin: 3px;
+  }
 
-#search-event-form .MuiTextField-root{
-  background-color: transparent !important;
-}
+  #search-event-form .MuiTextField-root {
+    background-color: transparent !important;
+  }
 
-#search-event-form .MuiOutlinedInput-root{
-  background-color: $white;
-  padding: 0 13px;
-}
+  #search-event-form .MuiOutlinedInput-root {
+    background-color: $white;
+    padding: 0 13px;
+  }
 
-#search-event-form .find-event-search{
-  padding-top: 2px;
-}
+  #search-event-form .find-event-search {
+    padding-top: 2px;
+  }
 
-.search-form-els, #search-form-submit-btn{
-  width: 87%;
-}
-#search-form-submit-btn{
-  height: 24px;
-  margin: 5px;
-}
+  .search-form-els,
+  #search-form-submit-btn {
+    width: 87%;
+  }
+  #search-form-submit-btn {
+    height: 24px;
+    margin: 5px;
+  }
 
-#search-event-form .MuiChip-sizeMedium{
-  text-align: center;
-  font-size: 0.5em;
-  height: 16px;
-}
-#search-event-form .MuiChip-labelMedium{
-  height: 15px;
-}
+  #search-event-form .MuiChip-sizeMedium {
+    text-align: center;
+    font-size: 0.5em;
+    height: 16px;
+  }
+  #search-event-form .MuiChip-labelMedium {
+    height: 15px;
+  }
 
-.find-event-tags{
-  margin: 25px;
-}
+  .find-event-tags {
+    margin: 25px;
+  }
 
-#events-txt-field {
-  min-width: 50vw;
-}
+  #events-txt-field {
+    min-width: 50vw;
+  }
 
-.home-row h1{
-  text-align: center;
-}
+  .home-row h1 {
+    text-align: center;
+  }
 
-.home-row .MuiCardMedia-root{
-  width: 21em !important;
-  height: 8em !important;
-}
+  .home-row .MuiCardMedia-root {
+    width: 21em !important;
+    height: 8em !important;
+  }
 
-.home-row #ev-share,
-.home-row #ev-bookmark{
-  top: 40.5%;
-}
+  .home-row #ev-share,
+  .home-row #ev-bookmark {
+    top: 40.5%;
+  }
 
-.home-row .MuiSvgIcon-root{
-  width: 1em;
-  height: 1.3em;
-  font-size: 1em;
-}
+  .home-row .MuiSvgIcon-root {
+    width: 1em;
+    height: 1.3em;
+    font-size: 1em;
+  }
 
-.home-row .card-icon{
-  width: 20px;
-  height: 20px;
-}
+  .home-row .card-icon {
+    width: 20px;
+    height: 20px;
+  }
 
-.home-section .find-event-tags{
-  margin: 0px !important;
-}
+  .home-section .find-event-tags {
+    margin: 0px !important;
+  }
 
-.home-section .home-row .swiper-slide {
-  width: 291px !important;
-  margin-left: 0px !important;
-  padding-left: 97px !important;
-}
+  .home-section .home-row .swiper-slide {
+    width: 291px !important;
+    margin-left: 0px !important;
+    padding-left: 97px !important;
+  }
 
-.card-name{
-  font-size: 21px;
-}
+  .card-name {
+    font-size: 21px;
+  }
 
-.card-date,
-.card-location {
-  font-size: 17px;
-}
+  .card-date,
+  .card-location {
+    font-size: 17px;
+  }
 
   /*CREATE EVENTS PAGE*/
   #save-exit-ev-btn {
@@ -2265,7 +2261,7 @@ footer {
     height: 2.5em;
   }
 
-  #show{
+  #show {
     padding: 3px 5px;
     width: 12em;
   }
@@ -2292,8 +2288,7 @@ footer {
   #create-event-name,
   #create-event-organiser,
   #create-event-eventURL,
-  #create-event-an1
-   {
+  #create-event-an1 {
     font-size: 0.8em;
     padding: 7.5px 8px;
   }
@@ -2336,7 +2331,7 @@ footer {
   .create-event-screen .MuiGrid-container,
   .create-event-pricing .MuiGrid-container,
   #stepper-box,
-  #discard-ev-btn{
+  #discard-ev-btn {
     display: flex !important;
     justify-content: center !important;
     flex-direction: column !important;
@@ -2350,14 +2345,14 @@ footer {
 
   #stepper-box,
   #discard-ev-btn,
-  #stepper-box h2{
+  #stepper-box h2 {
     align-items: center !important;
     padding: 0 !important;
     right: 0 !important;
     margin-top: 5px;
   }
 
-  .create-event-pricing .MuiGrid-spacing-xs-1{
+  .create-event-pricing .MuiGrid-spacing-xs-1 {
     flex-direction: row !important;
     flex-wrap: wrap !important;
     padding: 0px;
@@ -2365,48 +2360,48 @@ footer {
 
   .create-event-pricing .MuiGrid-grid-xs-6,
   .artist-and-summary .MuiGrid-grid-xs-5,
-  .artist-and-summary .MuiGrid-grid-xs-11{
+  .artist-and-summary .MuiGrid-grid-xs-11 {
     padding-top: 0 !important;
   }
 
-  .artist-and-summary .MuiGrid-item{
+  .artist-and-summary .MuiGrid-item {
     width: 100% !important;
   }
 
-  .create-event-location-div .MuiGrid-container{
+  .create-event-location-div .MuiGrid-container {
     padding-left: 20px !important;
   }
 
-  .artist-and-summary .MuiInputBase-multiline{
+  .artist-and-summary .MuiInputBase-multiline {
     width: 19em;
   }
-  .basic-information .MuiInputBase-formControl{
+  .basic-information .MuiInputBase-formControl {
     width: 21em !important;
   }
 
-  .artist-and-summary .fab-container{
+  .artist-and-summary .fab-container {
     flex-direction: row !important;
     justify-content: flex-end !important;
   }
 
-  .create-event-pricing .fab-container-tickets{
+  .create-event-pricing .fab-container-tickets {
     flex-direction: row !important;
     padding-top: 4px !important;
   }
 
   .create-event-pricing .add-artist-fab-disabled,
   .create-event-pricing .remove-artist-fab-disabled,
-  .create-event-pricing .add-ticket-fab-disabled, 
+  .create-event-pricing .add-ticket-fab-disabled,
   .create-event-pricing .remove-ticket-fab-disabled,
-  .create-event-pricing .add-artist-fab, 
-  .create-event-pricing .remove-artist-fab, 
-  .create-event-pricing .add-ticket-fab, 
-  .create-event-pricing .remove-ticket-fab{
+  .create-event-pricing .add-artist-fab,
+  .create-event-pricing .remove-artist-fab,
+  .create-event-pricing .add-ticket-fab,
+  .create-event-pricing .remove-ticket-fab {
     left: 8em !important;
   }
 
-  #create-ev-summary{
-    width: 50%
+  #create-ev-summary {
+    width: 50%;
   }
   .map-container {
     height: 18em;
@@ -2415,10 +2410,10 @@ footer {
   }
 
   .create-event-location-div .MuiOutlinedInput-notchedOutline,
-  .artist-and-summary .MuiOutlinedInput-notchedOutline{
+  .artist-and-summary .MuiOutlinedInput-notchedOutline {
     width: 100%;
   }
-  .create-event-location-div .MuiGrid-grid-xs-3{
+  .create-event-location-div .MuiGrid-grid-xs-3 {
     padding-left: 0 !important;
     margin-bottom: 2px;
   }
@@ -2428,11 +2423,11 @@ footer {
     margin-bottom: 2px;
   }
 
-  .create-event-pricing .form-label-active{
+  .create-event-pricing .form-label-active {
     margin: 2px;
   }
 
-  .create-event-pricing .MuiOutlinedInput-root{
+  .create-event-pricing .MuiOutlinedInput-root {
     height: 30px;
   }
 
@@ -2455,139 +2450,139 @@ footer {
     width: 38%;
     top: 27%;
     left: 29%;
-}
+  }
 
-.signup-left h1 {
-  font-size: 2em;
-}
+  .signup-left h1 {
+    font-size: 2em;
+  }
 
-.signup-left{
-  min-height: 70% !important;
-}
+  .signup-left {
+    min-height: 70% !important;
+  }
 
-.signup-form {
-  height: 60%;
-}
+  .signup-form {
+    height: 60%;
+  }
 
-.signup-left .MuiInputLabel-root{
-  line-height: 1em;
-}
+  .signup-left .MuiInputLabel-root {
+    line-height: 1em;
+  }
 
-#demo-simple-select-label{
-color: $white;
-text-shadow: -0.5px -0.5px 0 $black, 0.5px -0.5px 0 $black, -0.5px 0.5px 0 $black,
-0.5px 0.5px 0 $black;
-  font-size: 0.7em;
-  top: -14px;
-}
+  #demo-simple-select-label {
+    color: $white;
+    text-shadow: -0.5px -0.5px 0 $black, 0.5px -0.5px 0 $black,
+      -0.5px 0.5px 0 $black, 0.5px 0.5px 0 $black;
+    font-size: 0.7em;
+    top: -14px;
+  }
 
-.signup-left #next-button{
-  height: 2.5em;
-}
+  .signup-left #next-button {
+    height: 2.5em;
+  }
 
-.signup-left .MuiSelect-outlined{
-  line-height: 1em;
-  padding: 9.5px 9px;
-}
+  .signup-left .MuiSelect-outlined {
+    line-height: 1em;
+    padding: 9.5px 9px;
+  }
 
-.login-link {
-  font-size: 0.8em;
-}
-.signup-left .signup-form{
-  row-gap: 7em;
-}
+  .login-link {
+    font-size: 0.8em;
+  }
+  .signup-left .signup-form {
+    row-gap: 7em;
+  }
 
- /*SIGNUP PAGE - ATTENDEE*/
- .signup-second-page-logo img {
-  width: 59vh;
- }
- .signup-second-page {
-  padding: 3% 0;
-}
+  /*SIGNUP PAGE - ATTENDEE*/
+  .signup-second-page-logo img {
+    width: 59vh;
+  }
+  .signup-second-page {
+    padding: 3% 0;
+  }
 
-/*LOGIN PAGE*/
-.login-page{
-  height: 198vh;
-}
+  /*LOGIN PAGE*/
+  .login-page {
+    height: 198vh;
+  }
 
-.left {
-  height: 33%;
-}
+  .left {
+    height: 33%;
+  }
 
-.right{
-  margin-bottom: 110px;
-}
+  .right {
+    margin-bottom: 110px;
+  }
 
-.mobile-login-logo {
-  top: 22%;
-}
+  .mobile-login-logo {
+    top: 22%;
+  }
 
-.right .login-form{
-  row-gap: 0em;
-}
+  .right .login-form {
+    row-gap: 0em;
+  }
 
-.login-logo h1{
-  margin-bottom: 0px;
-  margin-top: 0%;
-}
+  .login-logo h1 {
+    margin-bottom: 0px;
+    margin-top: 0%;
+  }
 
-.login-page footer{
-  margin-top: 35px;
-}
+  .login-page footer {
+    margin-top: 35px;
+  }
 
-.right .MuiOutlinedInput-input{
-  padding: 6px 14px;
-}
-/*RESET PASSWORD*/
+  .right .MuiOutlinedInput-input {
+    padding: 6px 14px;
+  }
+  /*RESET PASSWORD*/
 
-.reset-password h1{
-  font-size: 3em;
-  text-align: center;
-}
-.reset-pwd-form p{
-  font-size: 14px;
-}
+  .reset-password h1 {
+    font-size: 3em;
+    text-align: center;
+  }
+  .reset-pwd-form p {
+    font-size: 14px;
+  }
 
-/*EVENT PAGE*/
+  /*EVENT PAGE*/
 
-.event-prev-first-row h1{
-  font-size: 1.5em;
-}
+  .event-prev-first-row h1 {
+    font-size: 1.5em;
+  }
 
-.event-prev-first-row .event-buy-button{
-  padding: 8px 24px;
-}
+  .event-prev-first-row .event-buy-button {
+    padding: 8px 24px;
+  }
 
-.event-prev-second-row .prev-date-time h3, 
-.event-prev-second-row .prev-location h3 {
-  font-size: 0.7em;
-}
+  .event-prev-second-row .prev-date-time h3,
+  .event-prev-second-row .prev-location h3 {
+    font-size: 0.7em;
+  }
 
-.event-prev-second-row .strong-string-prev{
-  font-size: 0.4em;
-}
+  .event-prev-second-row .strong-string-prev {
+    font-size: 0.4em;
+  }
 
-.event-prev-second-row .when-where-box, 
-.event-prev-second-row .organiser-box {
-  height: 54%;
-}
+  .event-prev-second-row .when-where-box,
+  .event-prev-second-row .organiser-box {
+    height: 54%;
+  }
 
-.event-prev-second-row .event-prev-title {
-  top: -24%;
-  font-size: 1em !important;
-}
-.event-prev-second-row  #event-avatar {
-  font-size: 26px;
-  height: 60px;
-  width: 60px;
-}
+  .event-prev-second-row .event-prev-title {
+    top: -24%;
+    font-size: 1em !important;
+  }
+  .event-prev-second-row #event-avatar {
+    font-size: 26px;
+    height: 60px;
+    width: 60px;
+  }
 
-.event-prev-second-row .organiser-box h2{
-  font-size: 0.9em;
-}
+  .event-prev-second-row .organiser-box h2 {
+    font-size: 0.9em;
+  }
 
-.event-prev-fourth-row .create-prev-lineup h2{
-  font-size: 1em;
-  top: -13%;
-}
+  .event-prev-fourth-row .create-prev-lineup h2 {
+    font-size: 1em;
+    top: -13%;
+  }
 }
