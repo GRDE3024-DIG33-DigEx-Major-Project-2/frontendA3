@@ -4,26 +4,8 @@
 
 //Import dependencies
 import { React, createContext, useState } from 'react';
+import { GENRES } from '../utils/constants.util';
 
-//Pre-defined event genres
-const genres = {
-    rock: "Rock",
-    country: "Country",
-    jazz: "Jazz",
-    electronic: "Electronic",
-    reggae: "Reggae",
-    dance: "Dance",
-    metal: "Metal",
-    hiphop: "Hip-hop",
-    pop: "Pop",
-    solo: "Solo",
-    instrumental: "Instrumental",
-    rap: "Rap",
-    international: "International",
-    blues: "Blues",
-    indie: "Indie",
-    classical: "Classical",
-  };
 
 //Create the Context instance
 const SearchEventsContext = createContext();
@@ -37,67 +19,67 @@ const SearchEventsProvider = ({ children }) => {
     const [tags, setTags] = useState([
         {
             id: "40e6215d-b5c6-4896-987c-f30f3678f608",
-            name: genres.rock
+            name: GENRES.rock
         },
         {
             id: "6ecd8c99-4036-403d-bf84-c2c23a4de7ed",
-            name: genres.blues
+            name: GENRES.blues
         },
         {
             id: "3d3d8cd6-58e7-452b-a17f-80b7958b3b5d",
-            name: genres.hiphop
+            name: GENRES.hiphop
         },
         {
             id: "a4f1e8c8-8cfb-4a96-9cf3-a2c1e0f90f1b",
-            name: genres.indie
+            name: GENRES.indie
         },
         {
             id: "e7cd5752-bc0d-4cc8-acdf-3aeadf5cb3e6",
-            name: genres.country
+            name: GENRES.country
         },
         {
             id: "1b2277e2-7c20-4ad6-99fd-253a15f3ca1f",
-            name: genres.dance
+            name: GENRES.dance
         },
         {
             id: "1e6c706e-7fb1-4e4e-8e1f-0573f1dba088",
-            name: genres.classical
+            name: GENRES.classical
         },
         {
             id: "e2dc8b34-314d-4098-9b2f-3f64fa5f7cda",
-            name: genres.jazz
+            name: GENRES.jazz
         },
         {
             id: "f7177163-14e8-4b54-845c-c0e2c2eeb9f9",
-            name: genres.reggae
+            name: GENRES.reggae
         },
         {
             id: "6fa459ea-ee8a-3ca4-894e-db77e160355e",
-            name: genres.electronic
+            name: GENRES.electronic
         },
         {
             id: "0a40017f-eddb-41b8-ae88-5abe027bf3b3",
-            name: genres.pop
+            name: GENRES.pop
         },
         {
             id: "0f7d0d90-4b6b-4f8f-98d6-3c096f3e673a",
-            name: genres.metal
+            name: GENRES.metal
         },
         {
             id: "1b3d6f7a-9b1f-4d5d-9257-12fa52a1ad63",
-            name: genres.solo
+            name: GENRES.solo
         },
         {
             id: "32e7f9a4-75b8-45c6-a9d3-67b2e83a794a",
-            name: genres.instrumental
+            name: GENRES.instrumental
         },
         {
             id: "82e5e124-8b10-401b-a5c9-177701090d21",
-            name: genres.rap
+            name: GENRES.rap
         },
         {
             id: "6dfc3e23-ef20-414a-8cfe-1f57533e716a",
-            name: genres.international
+            name: GENRES.international
         }
     ]);
     //Used for flagging in-progress async operation. True if running, else false

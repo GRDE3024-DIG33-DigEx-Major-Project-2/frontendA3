@@ -339,13 +339,14 @@ export const toggleFavourite = async function (eventId) {
 /**
  * Checks favourited status of several events by id
  * @param {*} eventIds Array of event ids to find the favourite status of
- * @returns {[]} Array of objects with eventId and isFavourite props
+ * @returns 
  */
 export const isFavourited = async function (eventIds) {
   //Array of objects with eventId and isFavourite props
-  let favStatuses = [];
+  //let favStatuses = [];
 
   console.log("Inside isFavourited endpoint handler");
+  console.log(eventIds);
 
   let requestBody = {
     eventIds: eventIds,
@@ -356,23 +357,25 @@ export const isFavourited = async function (eventIds) {
       Authorization: `Bearer ${getAccessToken()}`,
     },
   };
-  try {
-    let response = await axiosClient.put(
+  //try {
+    let response = await axiosClient.post(
       EVENT_ENDPOINTS.isFavourited,
       requestBody,
       options
     );
+    console.log(response.data);
+    return response;
 
-    //Success!
-    if (response.status === 200) {
-      console.log("isFavourited Success!");
-      favStatuses.push(response.data.favStatuses);
-    }
-  } catch (error) {
-    logoutErrorHandler(error);
-  }
-  //Return the array of objects with eventId and isFavourite props
-  return favStatuses;
+  //   //Success!
+  //   if (response.status === 200) {
+  //     console.log("isFavourited Success!");
+  //     favStatuses.push(response.data.favStatuses);
+  //   }
+  // } catch (error) {
+  //   logoutErrorHandler(error);
+  // }
+  // //Return the array of objects with eventId and isFavourite props
+  // return favStatuses;
 };
 
 /**

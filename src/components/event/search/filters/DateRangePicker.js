@@ -152,10 +152,10 @@ const DateRangePicker = () => {
   
     if (isSameDay) {
       //If same day, show date once followed by time range
-      return `${start.format('MM/DD/YYYY HH:mm')} - ${end.format('HH:mm')}`;
+      return `${start.format('DD/MM/YYYY HH:mm')} - ${end.format('HH:mm')}`;
     } else {
       //If different days, show full date-time range for both start and end
-      return `${start.format('MM/DD/YYYY HH:mm')} - ${end.format('MM/DD/YYYY HH:mm')}`;
+      return `${start.format('DD/MM/YYYY HH:mm')} - ${end.format('DD/MM/YYYY HH:mm')}`;
     }
   };
   

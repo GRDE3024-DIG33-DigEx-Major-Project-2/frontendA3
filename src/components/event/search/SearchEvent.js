@@ -220,8 +220,14 @@ fetchStatus.set(true);
         location.get,
         { minPrice: Number(priceRange.minPrice.get), maxPrice: Number(priceRange.maxPrice.get) },
         currPage.get);
-      //Set events
-      events.set(data.events);
+        let currEvents = events.get;
+
+        console.log("Curr Events " + currEvents);
+        console.log("New Events " + data.events);
+        pageCount.set(data.pageCount);
+        let newArr = [...events.get, ...data.events];
+        //Set state props of events and page count
+        events.set(newArr);
       //Set total page count
       pageCount.set(data.pageCount);
       fetchStatus.set(false);

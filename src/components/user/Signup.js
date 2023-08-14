@@ -10,7 +10,7 @@ import { useState } from "react";
 import InputAdornment from "@mui/material/InputAdornment";
 import { Button } from "@mui/material";
 import { useLoading } from "../../props/loading-spinner.prop";
-import { PATHS } from "../../utils/constants.util";
+import { GIGNEY_SIGNUP_LOGO, PATHS, GIGNEY_SIGNUP_LEFT_LOGO, GIGNEY_SIGNUP_RIGHT_LOGO } from "../../utils/constants.util";
 
 function SignUp() {
   const [accountType, setAccountType] = useState("");
@@ -36,7 +36,7 @@ function SignUp() {
         <div className="signup-left">
           <div className="signup-logo">
             <img
-              src="../gigney_logo_black_square_no_bg_web.png"
+              src={GIGNEY_SIGNUP_LEFT_LOGO}
               alt="gigney logo"
             />
             <h1>Create an account</h1>
@@ -89,10 +89,10 @@ function SignUp() {
 
         <div className="signup-right">
         {" "}
-          <img src="Gigney-signup-img.png" alt="live concert" id="signup-right-img" />{" "}
+          <img src={GIGNEY_SIGNUP_LOGO} alt="live concert" id="signup-right-img" />{" "}
           <div className="mobile-signup-logo">
             <img
-              src="./gigney_logo_white_square_no_bg_web.png"
+              src={GIGNEY_SIGNUP_RIGHT_LOGO}
               alt="live concert"
               className="signup-logo-img"
             />

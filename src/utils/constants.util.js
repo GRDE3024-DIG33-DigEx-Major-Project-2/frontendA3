@@ -67,3 +67,34 @@ export const EVENT_IMG_PLACEHOLDER = "/public/Gigney_login.png";
 
 //Path to Gigney header logo
 export const GIGNEY_HEADER_LOGO = "/gigney_logo_white_landscape_no_bg_web.png";
+
+
+//Path to Gigney signup left-side logo
+export const GIGNEY_SIGNUP_LEFT_LOGO = "/gigney_logo_black_square_no_bg_web.png";
+//Path to Gigney signup right-side logo
+export const GIGNEY_SIGNUP_RIGHT_LOGO = "/gigney_logo_white_square_no_bg_web.png";
+//Path to Gigney signup logo
+export const GIGNEY_SIGNUP_LOGO = "Gigney-signup-img.png";
+
+
+
+
+//Pre-defined event genres
+export const GENRES = {
+  rock: "Rock",
+  country: "Country",
+  jazz: "Jazz",
+  electronic: "Electronic",
+  reggae: "Reggae",
+  dance: "Dance",
+  metal: "Metal",
+  hiphop: "Hip-hop",
+  pop: "Pop",
+  solo: "Solo",
+  instrumental: "Instrumental",
+  rap: "Rap",
+  international: "International",
+  blues: "Blues",
+  indie: "Indie",
+  classical: "Classical",
+};

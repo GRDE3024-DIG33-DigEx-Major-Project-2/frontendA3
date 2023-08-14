@@ -31,22 +31,24 @@ const EventCardHorizontal = (props) => {
   const user = getUser();
   const [tooltipMessage, setTooltipMessage] = useState('Share this event');
 
+  console.log("THIS IS THE OWNED EVENT EVENT");
+  console.log(props.event.event.isFavourite);
 
   /**
    * Set favourite status of event onload
    */
   useEffect(() => {
-    async function setIsFavourite() {
-      const isFav = await isFavourited([props.event.event.id]);
-      if (isFav.length > 0)
-        if (isFav[0].isFavourite)
-          setFavourite(isFav[0].isFavourite);
-    }
     if (user)
-      if (user.userType == "Attendee") {
-        setIsFavourite();
-      }
-  }, [setFavourite]);
+    if (user.type == "attendee") {
+      console.log("IS AN ATTENDEE");
+      console.log(props.event.event.isFavourite);
+      let val = props.event.event.isFavourite;
+      if (val == true || val == "true")
+      setFavourite(true);
+      else if (val == false || val == "false")
+      setFavourite(false);
+    }
+}, []);
 
 
   /**
@@ -144,7 +146,7 @@ const EventCardHorizontal = (props) => {
             </div>
       </Tooltip>
             {user !== null && (
-              !user.organizationName ? (
+              user.type === "attendee" ? (
                 <Tooltip
                   title={!favourite ? "Add to favourites" : "Remove from favourites"}
                 >

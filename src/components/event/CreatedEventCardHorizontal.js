@@ -23,6 +23,8 @@ import { useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import { EVENT_IMG_PLACEHOLDER, PATHS } from "../../utils/constants.util";
 import { deleteEvent } from "../../services/EventAPI";
+import { getUser } from "../../utils/localStorage";
+import { toggleFavourite } from "../../services/EventAPI";
 
 const CreatedEventCardHorizontal = (props) => {
   const navigate = useNavigate();
@@ -30,6 +32,9 @@ const CreatedEventCardHorizontal = (props) => {
   const anchorRef = useRef(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
+
+  const [favourite, setFavourite] = useState(false);
+  const user = getUser();
 
   // Modal functions
   const handleModalOpen = () => setModalOpen(true);
@@ -103,6 +108,41 @@ const CreatedEventCardHorizontal = (props) => {
   const cardRedirect = () => {
     navigate(PATHS.EVENT_PAGE, { state: { event: props.event } });
   };
+
+
+  /**
+   * Set favourite status of event onload
+   */
+  useEffect(() => {
+    if (user.type == "attendee") {
+      console.log("IS AN ATTENDEE");
+      console.log(props.event.event.isFavourite);
+      let val = props.event.event.isFavourite;
+      if (val == true || val == "true")
+      setFavourite(true);
+      else if (val == false || val == "false")
+      setFavourite(false);
+    }
+}, []);
+
+    /**
+   * Toggle favourite status of event
+   */
+    const handleFavourite = (event) => {
+      //Prevent parent element events from propagating
+      event.stopPropagation();
+      if (favourite) {
+        console.log("removing from favourite events");
+        setFavourite(false);
+      } else {
+        console.log("adding to favourite events");
+        setFavourite(true);
+      }
+      toggleFavourite(props.event.event.id);
+    };
+
+
+
 
   return (
     <Card className="horizontal-card">

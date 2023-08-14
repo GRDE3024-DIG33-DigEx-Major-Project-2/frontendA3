@@ -30,6 +30,9 @@ import ByKeywords from "./filters/ByKeywords";
 import { HeaderSelectedTags } from "./filters/TagSelection";
 import { getTodayISODates, getTomorrowISODates, getWeekendISODates } from "../../../utils/utils";
 import { PATHS } from "../../../utils/constants.util";
+import { isFavourited } from "../../../services/EventAPI";
+import { getUser } from "../../../utils/localStorage";
+import { logoutErrorHandler } from "../../../services/AuthAPI";
 
 
 /**
@@ -68,6 +71,7 @@ const FindEventHeader = () => {
   //Location specifier
   const spaLocation = useLocation();
 
+  const user = getUser();
 
   /**
    * Fetch api data on load
@@ -87,6 +91,29 @@ const FindEventHeader = () => {
     fetchTags();
   }, [tags.set]);
 
+
+  //Extract the logic to fetch favorite status of events into a reusable function
+async function fetchEventsWithFavouriteStatus(events) {
+  if (!user || user.type !== "attendee") {
+    return events;
+  }
+
+  try {
+    const response = await isFavourited(events.map(x => x.event.id));
+    return events.map(eventContainer => {
+      const favEvent = response.data.favStatuses.find(fav => fav.eventId === eventContainer.event.id);
+      return {
+        ...eventContainer,
+        event: favEvent ? { ...eventContainer.event, ...favEvent } : eventContainer.event
+      };
+    });
+  } catch (error) {
+    logoutErrorHandler(error);
+    return events;
+  }
+};
+
+
   /**
    * Search for first page of filtered events
    */
@@ -101,7 +128,6 @@ const FindEventHeader = () => {
 
     //Toggle loading UI on
     fetchStatus.set(true);
-    console.log("FETCH STATUS SHOULD BE TRUE: ", fetchStatus.get);
 
     console.log("Search event fired");
     console.log(tagSelection.get, keywords.get, dateRange.minDate.get, dateRange.maxDate.get, location.get, 0);
@@ -123,9 +149,12 @@ const FindEventHeader = () => {
     );
 
 
+    const searchEventsWithFavourites = await fetchEventsWithFavouriteStatus(searchResult.events);
+
+
 
     //Set state props of events and page count
-    events.set(searchResult.events);
+    events.set(searchEventsWithFavourites);
     pageCount.set(searchResult.pageCount);
 
     console.log("After search result found");
@@ -134,7 +163,6 @@ const FindEventHeader = () => {
 
     //Toggle loading UI off
     fetchStatus.set(false);
-    console.log("FETCH STATUS SHOULD BE FALSE: ", fetchStatus.get);
 
     console.log(spaLocation.pathname);
 

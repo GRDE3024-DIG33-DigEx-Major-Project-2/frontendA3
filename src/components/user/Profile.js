@@ -144,7 +144,17 @@ const Profile = () => {
 
         const data = await searchFavourites(currPage.get);
         console.log("Favourited events search results: ", data);
-        setFavouritedEvents(data.events);
+        //Modify the events to include isFavourited event property set to true
+        const modifiedEvents = data.events.map(eventContainer => ({
+          ...eventContainer,
+          event: {
+            ...eventContainer.event,
+            isFavourite: true
+          }
+        }));
+        setFavouritedEvents(modifiedEvents);
+        console.log("THE MODIFIED EVENTS");
+        console.log(modifiedEvents);
         pageCount.set(data.pageCount);
         //Toggle loading UI off
         fetchStatus.set(false);
@@ -157,6 +167,9 @@ const Profile = () => {
 
     fetchEvents();
   }, [setFavouritedEvents]); 
+
+
+
 
   /**
    * Load more favourited events
@@ -175,15 +188,24 @@ const Profile = () => {
 
     //Make request for favourited events
     try {
-      let searchResult = await searchFavourites(currPage.get);
+      let data = await searchFavourites(currPage.get);
 
       let currEvents = favouritedEvents;
+              //Modify the events to include isFavourited event property set to true
+              const modifiedEvents = data.events.map(eventContainer => ({
+                ...eventContainer,
+                event: {
+                  ...eventContainer.event,
+                  isFavourite: true
+                }
+              }));
+              setFavouritedEvents(modifiedEvents);
 
-      pageCount.set(searchResult.pageCount);
-      let newArr = [...currEvents, ...searchResult.events];
+      pageCount.set(data.pageCount);
+      let newArr = [...currEvents, ...data.events];
       //Set state props of events and page count
       setFavouritedEvents(newArr);
-      pageCount.set(searchResult.pageCount);
+      pageCount.set(data.pageCount);
 
       //Toggle loading UI off
       fetchStatus.set(false);
@@ -196,36 +218,6 @@ const Profile = () => {
 
 
 
-  // //Favourited events listings
-  // let eventListings;
-  // //Conditionally render events, no events message, load/back to top buttons, or loading spinner
-  // if (!fetchStatus.get) {
-  //   eventListings = (
-  //     <Box className="events-profile">
-  //       {favouritedEvents.map((event, i) => (
-  //         <EventCardHorizontal key={i} event={event} />
-  //       ))}
-  //       {favouritedEvents.length === 0 && (
-  //         <>
-  //           <h2>You have not bookmarked any events.</h2>
-  //         </>
-  //       )}
-  //       {currPage.get + 1 == pageCount.get ||
-  //       (currPage.get == 0 && pageCount.get == 0) ? null : (
-  //         <>
-  //           <Button id="load-more-events-btn" onClick={loadMoreHandler}>
-  //             Load More
-  //           </Button>
-  //           <Button id="back-to-top-btn" onClick={scrollToTop}>
-  //             Back To Top
-  //           </Button>
-  //         </>
-  //       )}
-  //     </Box>
-  //   );
-  // } else {
-  //   eventListings = <PartialLoadSpinner />;
-  // }
 
 
   let eventListings = (

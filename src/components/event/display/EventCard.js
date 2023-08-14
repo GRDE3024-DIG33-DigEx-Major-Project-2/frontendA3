@@ -17,11 +17,11 @@ import { useNavigate } from "react-router-dom";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import { getDateRangeString } from "../../../utils/utils";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import { toggleFavourite, isFavourited } from "../../../services/EventAPI";
 import { getUser } from "../../../utils/localStorage";
 import { EVENT_IMG_PLACEHOLDER, PATHS } from "../../../utils/constants.util";
-
+import { logoutErrorHandler } from "../../../services/AuthAPI";
 
 /**
  * Builds the event listing component for homepage
@@ -36,22 +36,21 @@ const EventCard = (props) => {
   const user = getUser();
   const [tooltipMessage, setTooltipMessage] = useState('Share this event');
 
-
   /**
    * Set favourite status of event onload
    */
   useEffect(() => {
-    async function setIsFavourite() {
-      const isFav = await isFavourited([props.event.event.id]);
-      if (isFav.length > 0)
-        if (isFav[0].isFavourite)
-          setFavourite(isFav[0].isFavourite);
-    }
-    if (user)
-      if (user.userType == "Attendee") {
-        setIsFavourite();
+      if (user)
+      if (user.type == "attendee") {
+        console.log("IS AN ATTENDEE");
+        console.log(props.event.event.isFavourite);
+        let val = props.event.event.isFavourite;
+        if (val == true || val == "true")
+        setFavourite(true);
+        else if (val == false || val == "false")
+        setFavourite(false);
       }
-  }, [setFavourite]);
+  }, []);
 
 
   /**
@@ -148,13 +147,13 @@ const EventCard = (props) => {
         </div>
       </Tooltip>
       {user !== null && (
-        !user.organizationName ? (
+        user.type === "attendee" ? (
           <Tooltip
             title={!favourite ? "Add to favourites" : "Remove from favourites"}
           >
             <div
               id={favourite ? 'ev-bookmark-selected' : 'ev-bookmark'}
-              className={favourite ? 'card-icon-selected' : 'card-icon'}
+              className={props.event.event.isFavourited ? 'card-icon-selected' : 'card-icon'}
               onClick={handleFavourite}
             >
               <BookmarkBorderOutlinedIcon

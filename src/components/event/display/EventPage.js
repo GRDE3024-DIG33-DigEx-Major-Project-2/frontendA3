@@ -47,27 +47,28 @@ function EventPage() {
   const { eventId } = useParams();
   const [tooltipMessage, setTooltipMessage] = useState('Share this event');
   const [favourite, setFavourite] = useState(false);
-  
+
+
+      /**
+   * Set favourite status of event onload
+   */
+  useEffect(() => {
+    if (user)
+    if (user.type == "attendee") {
+      let val = event.event.isFavourite;
+      if (val == true || val == "true")
+      setFavourite(true);
+      else if (val == false || val == "false")
+      setFavourite(false);
+    }
+}, []);
+
 
   /**
    * Onload hook handling
    */
   useEffect(() => {
-    /**
-     * Set favourite status of event
-     */
-    async function setIsFavourite() {
-      if (event) {
-      const isFav = await isFavourited([event.id]);
-      if (isFav.length > 0)
-        if (isFav[0].isFavourite)
-          setFavourite(isFav[0].isFavourite);
-    if (user)
-      if (user.userType == "Attendee") {
-        setIsFavourite();
-      }     
-        }     
-    }
+
 
     //If event is not passed through location state, fetch by id
     if (!event && eventId) {
@@ -165,8 +166,8 @@ function EventPage() {
         <ShareIcon sx={{ fontSize: 22, color: "black" }} />
       </div>
       </Tooltip>
-      {user && user !== null && (
-        !user.organizationName ? (
+      {user !== null && (
+        user.type === "attendee" ? (
           <Tooltip
             title={!favourite ? "Add to favourites" : "Remove from favourites"}
           >
