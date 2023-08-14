@@ -180,7 +180,8 @@ const SearchEventFiltersProvider = ({ children }) => {
     TOMORROW:"Tomorrow",
     WEEKEND:"This Weekend",
     WEEK:"This Week",
-    MONTH:"This Month"
+    MONTH:"This Month",
+    CUSTOM:"Custom"
   };
   //Filter chip UI selected date range
     const [selectedDateRange, setSelectedDateRange] = useState(DATE_RANGES.ANY);

@@ -29,9 +29,7 @@ import * as dayjs from 'dayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-// import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
-// import { SingleInputDateRangeField } from '@mui/x-date-pickers-pro/SingleInputDateRangeField';
-// import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { v4 as uuidv4 } from 'uuid';
 
 
 const DateRangePicker = () => {
@@ -51,154 +49,175 @@ const DateRangePicker = () => {
   const {
     dateRange,
     change,
-    chipData
+    chipData,
+    selectedDateRange,
+    DATE_RANGES
   } = useContext(SearchEventFiltersContext);
 
 
-/**
- * Disable invalid dates for min-max datetime picker
- * @param {*} date 
- * @returns 
- */
-const ShouldDisableDate = (date, dateVal) => {
+  const [selectedMinDate, setSelectedMinDate] = useState(getTodayISODates().minDate);
+  const [selectedMaxDate, setSelectedMaxDate] = useState(getTodayISODates().maxDate);
 
-  console.log("inside ShouldDisableDate", date, dateVal);
+  /**
+   * Disable invalid dates for min-max datetime picker
+   * @param {*} date 
+   * @returns 
+   */
+  const ShouldDisableDate = (date, dateVal) => {
+    if (dateVal === "maxDate" && dateRange.minDate.get) {
+      return dayjs(date).isBefore(dayjs(dateRange.minDate.get));
+    } else if (dateVal === "minDate" && dateRange.maxDate.get) {
+      return dayjs(date).isAfter(dayjs(dateRange.maxDate.get));
+    }
+    return false;
+  };
+
+
+  /**
+   * Set the date range values
+   * @param {*} selectedDate 
+   * @param {*} dateVal 
+   */
+  const SetDateHandler = (selectedDate, dateVal) => {
+    if (dateVal === "minDate" && dayjs(selectedDate).isBefore(dayjs(dateRange.maxDate.get))) {
+      setSelectedMinDate(selectedDate);
+    } else if (dateVal === "maxDate" && dayjs(selectedDate).isAfter(dayjs(dateRange.minDate.get))) {
+      setSelectedMaxDate(selectedDate);
+    }
+  };
+
+
+
+  /**
+   * Update the date range prop values and filter diaplay
+   */
+  useEffect(() => {
+    dateRange.minDate.set(selectedMinDate);
+
+    dateRange.maxDate.set(selectedMaxDate);
+
+    const replaceDateChip = () => {
+      //Filter chip key
+      let newKey = chipData.get.length + 1;
+      //Filter chips
+      let temp = chipData.get;
+
+      //Date range specified
+      let tempDateRange = { minDate: selectedMinDate, maxDate: selectedMaxDate };
+
+
+      //Set the value for the date range radio buttons
+      selectedDateRange.set(formatDateRange(selectedMinDate, selectedMaxDate));
+
+      //Remove old date filter chip
+      temp = temp.filter(x => x.searchCategory !== "date");
+
+      //Add chip to temp filter chips
+      temp.push({
+        //Set key
+        key: newKey,
+        //Set search category
+        searchCategory: "date",
+        //Set label
+        label: tempDateRange.minDate + "-" + tempDateRange.maxDate,
+        //Set the value
+        value: tempDateRange.minDate + "-" + tempDateRange.maxDate,
+      });
+
+      //Set chip data
+      chipData.set(temp);
+      //Flag the filter options as having changed
+      change.set(!change.get);
+    };
+
+    replaceDateChip();
+
+  }, [selectedMinDate, selectedMaxDate]);
+
+
+
+  /**
+   * Formats the date range filter chip into readable text
+   * @param {*} minDate 
+   * @param {*} maxDate 
+   * @returns 
+   */
+  const formatDateRange = (minDate, maxDate) => {
+    const formatString = 'YYYY-MM-DD HH:mm:ss';
+    const start = dayjs(minDate, formatString);
+    const end = dayjs(maxDate, formatString);
+  
+    //Check if both dates are the same
+    const isSameDay = start.format('YYYY-MM-DD') === end.format('YYYY-MM-DD');
+  
+    if (isSameDay) {
+      //If same day, show date once followed by time range
+      return `${start.format('MM/DD/YYYY HH:mm')} - ${end.format('HH:mm')}`;
+    } else {
+      //If different days, show full date-time range for both start and end
+      return `${start.format('MM/DD/YYYY HH:mm')} - ${end.format('MM/DD/YYYY HH:mm')}`;
+    }
+  };
   
 
-  //const currentDate = date.toDate();
-  const currentDate = date;
-
-  //console.log("curr date ", currentDate);console.log("The minDate: " + dateRange.minDate.get);
-  //Disable dates less than minDate for maxDate
-  if (dateVal === "maxDate" && dateRange.minDate.get !== null) {
-    const selectedDate = dateRange.minDate.get;
-    console.log("Min Date to compare against: " + selectedDate);
-    //console.log("result ", currentDate <= dateRange.minDate.get);
-    return currentDate <= selectedDate;
-  } 
-  //Disable dates greater than maxDate for minDate
-  else if (dateVal === "minDate" && dateRange.maxDate.get !== null) { 
-    const selectedDate = dateRange.maxDate.get;
-    console.log("Max Date to compare against: " + selectedDate);
-    //console.log("The maxDate: " + dateRange.maxDate.get);
-    //console.log("result ", currentDate >= dateRange.maxDate.get);
-  return currentDate >= selectedDate;
-  }
-  //Enable all other dates
-  else {
-    console.log("INVALID DATE COMPARISON");
-    console.log("The currentDate: " + currentDate);
-    console.log("The min Date: " + dateRange.minDate.get);
-    console.log("The max Date: " + dateRange.maxDate.get);
-    console.log("What we are trying to config: " + dateVal);
-return false;   
-  }
-};
-
-const SetDateHandler = (selectedDate, dateVal) => {
-  console.log("in setDateHandler");
-
-  const formattedDate = selectedDate ? dayjs(selectedDate).format("YYYY-MM-DD HH:mm:ss") : null;
-
-  if (dateVal === "minDate" && dayjs(formattedDate).isBefore(dayjs(dateRange.maxDate.get))) {
-    dateRange.minDate.set(formattedDate);
-  } else if (dateVal === "maxDate" && dayjs(formattedDate).isAfter(dayjs(dateRange.minDate.get))) {
-    dateRange.maxDate.set(formattedDate);
-  }
-}
-
-//   const SetDateHandler = (selectedDate, dateVal) => {
-//     console.log("in setDateHandler");
-
-  
-//     const selectedDateObj = selectedDate.toDate();
-//     const selectedDateISO = selectedDateObj.toISOString();
-
-//     const formattedDate = selectedDate ? dayjs(selectedDateISO).format("YYYY-MM-DD HH:mm:ss") : null;
-
-//     //minDate change attempt -- validate it and complete
-//     if (dateVal == "minDate") {
-//       //Make sure minDate change is less/equal maxDate
-//       if (dateRange.maxDate.get >= formattedDate) {
-//         console.log("Setting minDate");
-//         dateRange.minDate.set(formattedDate);
-//       }
-//     //Invalid -- revert
-//     else {
-//       selectedDate.value = dayjs(dateRange.minDate.get);
-//     }      
-//     }
-//     //maxDate change attempt -- validate it and complete
-//     else if (dateVal == "maxDate") {
-//   //Make sure maxDate change is greater/equal minDate
-//   if (dateRange.minDate.get <= formattedDate) {
-//     console.log("Setting maxDate");
-//     dateRange.maxDate.set(formattedDate);
-//   }
-//   //Invalid -- revert
-//   else {
-//     selectedDate.value = dayjs(dateRange.maxDate.get);
-//   }
-// }
-//   }
 
 
 
-//The HTML template
-return (
-  <>
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DateTimePicker
-        id="date-field-search-min"
-        className="search-form-els"
-        label="Minimum Date"
-        dateFormat="YYYY-MM-DD HH:MM:SS"
-        placeholder="Minimum Date"
-        value={dayjs(dateRange.minDate.get)}
-        onChange={(minDate) => SetDateHandler(minDate, 'minDate')}
-        shouldDisableDate={(minDate) => ShouldDisableDate(minDate, 'minDate')}
-        slots={{
-          openPickerIcon: ArrowDropDownOutlinedIcon
-        }}
-        slotProps={{
-          textField: {
-            InputProps: {
-              startAdornment: (
-                <InputAdornment position="start">
-                  <CalendarMonthIcon color="primary" />
-                </InputAdornment>
-              ),
+  //The HTML template
+  return (
+    <>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DateTimePicker
+          id="date-field-search-min"
+          className="search-form-els"
+          label="Minimum Date"
+          dateFormat="YYYY-MM-DD HH:MM:SS"
+          placeholder="Minimum Date"
+          value={dayjs(selectedMinDate)}
+          onChange={(minDate) => SetDateHandler(minDate, 'minDate')}
+          shouldDisableDate={(minDate) => ShouldDisableDate(minDate, 'minDate')}
+          slots={{
+            openPickerIcon: ArrowDropDownOutlinedIcon
+          }}
+          slotProps={{
+            textField: {
+              InputProps: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <CalendarMonthIcon color="primary" />
+                  </InputAdornment>
+                ),
+              },
             },
-          },
-        }}
-      />
-      <DateTimePicker
-        id="date-field-search-max"
-        className="search-form-els"
-        label="Maximum Date"
-        dateFormat="YYYY-MM-DD HH:MM:SS"
-        placeholder="Maximum Date"
-        value={dayjs(dateRange.maxDate.get)}
-        onChange={(maxDate) => SetDateHandler(maxDate, 'maxDate')}
-        shouldDisableDate={(maxDate) => ShouldDisableDate(maxDate, 'maxDate')}
-        slots={{
-          openPickerIcon: ArrowDropDownOutlinedIcon
-        }}
-        slotProps={{
-          textField: {
-            InputProps: {
-              startAdornment: (
-                <InputAdornment position="start">
-                  <CalendarMonthIcon color="primary" />
-                </InputAdornment>
-              ),
+          }}
+        />
+        <DateTimePicker
+          id="date-field-search-max"
+          className="search-form-els"
+          label="Maximum Date"
+          dateFormat="YYYY-MM-DD HH:MM:SS"
+          placeholder="Maximum Date"
+          value={dayjs(selectedMaxDate)}
+          onChange={(maxDate) => SetDateHandler(maxDate, 'maxDate')}
+          shouldDisableDate={(maxDate) => ShouldDisableDate(maxDate, 'maxDate')}
+          slots={{
+            openPickerIcon: ArrowDropDownOutlinedIcon
+          }}
+          slotProps={{
+            textField: {
+              InputProps: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <CalendarMonthIcon color="primary" />
+                  </InputAdornment>
+                ),
+              },
             },
-          },
-        }}
-      />
-    </LocalizationProvider>
-  </>
-);
+          }}
+        />
+      </LocalizationProvider>
+    </>
+  );
 };
 
 
