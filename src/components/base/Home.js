@@ -6,7 +6,7 @@
 import FindEventHeader from "../event/search/FindEventHeader";
 import EventCard from "../event/display/EventCard";
 //Import endpoint handlers for events
-import { searchEvents, getAllTags } from "../../services/EventAPI";
+import { searchEvents } from "../../services/EventAPI";
 import { useEffect, useState, useContext } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -67,10 +67,7 @@ const Home = () => {
 
       //Fetch all possible pre-defined tags if none have been retrieved
       if (tags.get.length == 0) {
-        await getAllTags()
-          .then(async (data) => {
-            tags.set(data);
-            for (let tag of data) {
+            for (let tag of tags.get) {
               if (tag.name == "Rock") {
                 rockTagId = tag.id;
                 break;
@@ -79,8 +76,6 @@ const Home = () => {
             //Find and load the rock events
             const rockEv = await searchEvents([rockTagId], null, null, null, null, null, 0);
             setRockEvents(rockEv.events);
-          });
-
       }
       //Tags already fetched, find the Rock tag id
       else {
@@ -112,7 +107,7 @@ const Home = () => {
   let rockEventsView =
     <> 
           <div className="home-row">
-            <h1>Rock music events</h1>
+            <h1>Rock Events</h1>
            { (!fetchStatus.get) ?
             <Swiper
               modules={[Navigation, Pagination, Scrollbar, A11y]}
@@ -140,7 +135,7 @@ const Home = () => {
 
   let nearbyEventsView = <>
   <div className="home-row">
-    <h1>Music events nearby</h1>
+    <h1>Nearby Events</h1>
     { (!fetchStatus.get) ?
     <Swiper
       modules={[Navigation, Pagination, Scrollbar, A11y]}
@@ -170,7 +165,7 @@ const Home = () => {
 
   let allEventsView = <>
     <div className="home-row">
-      <h1>All events</h1>
+      <h1>All Events</h1>
       { (!fetchStatus.get) ?
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y]}

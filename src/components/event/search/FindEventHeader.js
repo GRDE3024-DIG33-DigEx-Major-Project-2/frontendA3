@@ -83,6 +83,7 @@ const FindEventHeader = () => {
     }
 
     //Get tags
+    if (tags.get == 0)
     fetchTags();
   }, [tags.set]);
 

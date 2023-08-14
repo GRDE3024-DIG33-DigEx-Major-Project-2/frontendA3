@@ -120,7 +120,7 @@ const EventCardHorizontal = (props) => {
 
   //Return render of component
   return (
-    <CardActionArea onClick={cardRedirect} sx={{ height: "100%" }}>
+    <CardActionArea onClick={cardRedirect}>
       <Card className="horizontal-card">
         <CardMedia component="img" image={imgUrl} alt={props.event.event.title} />
         <Box className="horizontal-card-box">

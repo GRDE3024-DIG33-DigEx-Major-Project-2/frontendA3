@@ -846,7 +846,7 @@ footer {
 
 .horizontal-card {
   position: relative;
-  width: 100%;
+  width: 80%;
   height: 220px;
   min-height: 220px;
   display: flex;
@@ -2585,4 +2585,20 @@ footer {
     font-size: 1em;
     top: -13%;
   }
+}
+
+
+
+
+
+
+/*LOADERS*/
+
+.partial-loader {
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+  height: 100%;
 }

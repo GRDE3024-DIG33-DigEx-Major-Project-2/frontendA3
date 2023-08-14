@@ -31,6 +31,7 @@ import { getUser } from "../../utils/localStorage";
 import { PATHS } from "../../utils/constants.util";
 import { useNavigate } from "react-router-dom";
 import AccountSettings from "./AccountSettings";
+import { scrollToTop } from "../../utils/utils";
 
 /**
  * Builds the Profile react component
@@ -111,10 +112,6 @@ const Profile = () => {
   const [bio, setBio] = useState(user.bio);
   const [newImg, setNewImg] = useState();
   const [imgDelete, setImgDelete] = useState(false);
-  console.log("HERE");
-  console.log(user.imgUrl);
-  console.log(newImg);
-  console.log(imgDelete);
 
   // change selected image
   const imageChange = (e) => {
@@ -140,11 +137,15 @@ const Profile = () => {
   useEffect(() => {
     async function fetchEvents() {
       try {
+        pageCount.set(0);
+        currPage.set(0);
         //Toggle loading UI on
         fetchStatus.set(true);
-        const data = await searchFavourites(0);
+
+        const data = await searchFavourites(currPage.get);
         console.log("Favourited events search results: ", data);
         setFavouritedEvents(data.events);
+        pageCount.set(data.pageCount);
         //Toggle loading UI off
         fetchStatus.set(false);
       } catch (error) {
@@ -155,14 +156,7 @@ const Profile = () => {
     }
 
     fetchEvents();
-  }, [setFavouritedEvents]);
-
-  /**
-   *
-   */
-  const handleDelete = () => {
-    console.log("redirecting to delete page or pop up");
-  };
+  }, [setFavouritedEvents]); 
 
   /**
    * Load more favourited events
@@ -200,47 +194,77 @@ const Profile = () => {
     }
   };
 
-  /**
-   * Scroll to top of page
-   * @param {*} event
-   */
-  const scrollToTop = async (event) => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
 
-  //Favourited events listings
-  let eventListings;
-  //Conditionally render events, no events message, load/back to top buttons, or loading spinner
-  if (!fetchStatus.get) {
-    eventListings = (
-      <Box className="events-profile">
-        {favouritedEvents.map((event, i) => (
-          <EventCardHorizontal key={i} event={event} />
-        ))}
-        {favouritedEvents.length === 0 && (
-          <>
-            <h2>You have not bookmarked any events.</h2>
-          </>
-        )}
-        {currPage.get + 1 == pageCount.get ||
-        (currPage.get == 0 && pageCount.get == 0) ? null : (
-          <>
-            <Button id="load-more-events-btn" onClick={loadMoreHandler}>
-              Load More
-            </Button>
-            <Button id="back-to-top-btn" onClick={scrollToTop}>
-              Back To Top
-            </Button>
-          </>
-        )}
-      </Box>
-    );
-  } else {
-    eventListings = <PartialLoadSpinner />;
-  }
+
+  // //Favourited events listings
+  // let eventListings;
+  // //Conditionally render events, no events message, load/back to top buttons, or loading spinner
+  // if (!fetchStatus.get) {
+  //   eventListings = (
+  //     <Box className="events-profile">
+  //       {favouritedEvents.map((event, i) => (
+  //         <EventCardHorizontal key={i} event={event} />
+  //       ))}
+  //       {favouritedEvents.length === 0 && (
+  //         <>
+  //           <h2>You have not bookmarked any events.</h2>
+  //         </>
+  //       )}
+  //       {currPage.get + 1 == pageCount.get ||
+  //       (currPage.get == 0 && pageCount.get == 0) ? null : (
+  //         <>
+  //           <Button id="load-more-events-btn" onClick={loadMoreHandler}>
+  //             Load More
+  //           </Button>
+  //           <Button id="back-to-top-btn" onClick={scrollToTop}>
+  //             Back To Top
+  //           </Button>
+  //         </>
+  //       )}
+  //     </Box>
+  //   );
+  // } else {
+  //   eventListings = <PartialLoadSpinner />;
+  // }
+
+
+  let eventListings = (
+    <>
+      {fetchStatus.get ? (
+        <PartialLoadSpinner />
+      ) : (
+        <Box className="events-profile">
+          {favouritedEvents.length !== 0 &&
+            favouritedEvents.map((event, i) => (
+              <EventCardHorizontal key={i} event={event} />
+            ))}
+          {favouritedEvents.length === 0 && (
+            <>
+              <h2>You have not bookmarked any events.</h2>
+            </>
+          )}
+
+          {/* Loading spinner for loading more events */}
+          {fetchStatus.get && favouritedEvents.length > 0 && <PartialLoadSpinner />}
+
+          {/* Load More and Back To Top buttons */}
+          {currPage.get + 1 === pageCount.get ||
+          (currPage.get === 0 && pageCount.get === 0) ? null : (
+            <>
+              <Button id="load-more-events-btn" onClick={loadMoreHandler}>
+                Load More
+              </Button>
+              <Button id="back-to-top-btn" onClick={scrollToTop}>
+                Back To Top
+              </Button>
+            </>
+          )}
+        </Box>
+      )}
+    </>
+  );
+
+
 
   //Return the react component render
   return (

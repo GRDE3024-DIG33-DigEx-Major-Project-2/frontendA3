@@ -5,6 +5,7 @@
 //Import dependencies
 import { EVENT_ENDPOINTS } from "../utils/constants.util";
 import { getAccessToken } from "../utils/localStorage";
+import { delay } from "../utils/utils";
 import { logoutErrorHandler } from "./AuthAPI";
 import axiosClient from "./Axios";
 
@@ -28,6 +29,7 @@ export const searchEvents = async function (
   priceRange,
   page
 ) {
+  await delay(2000);
   //The sanitized price range for request body
   let priceSetting = null;
 
@@ -163,6 +165,8 @@ export const getAllTags = async function () {
  * @returns Array of events and number of pages that match the filter options
  */
 export const searchOwnedEvents = async function (page) {
+  await delay(2000);
+  console.clear();
   console.log("Searching for page ", page, " of owned events");
 
   const options = {
@@ -260,6 +264,7 @@ export const createEvent = async function (formData) {
  * @returns Array of events and number of pages that match the filter options
  */
 export const searchFavourites = async function (page) {
+  await delay(2000);
   console.log("Searching for page ", page, " of favourited events");
 
   const options = {
