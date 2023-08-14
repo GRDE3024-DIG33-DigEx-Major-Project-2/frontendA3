@@ -24,7 +24,7 @@ import { useState, useEffect } from "react";
 import * as dayjs from 'dayjs';
 //Import endpoint handlers for events
 import { searchEvents, getAllTags } from "../../../services/EventAPI";
-import { getTodayISODates, getTomorrowISODates, getWeekendISODates } from "../../../utils/utils";
+import { scrollToTop } from "../../../utils/utils";
 import { useContext } from "react";
 //Import search event props
 import { SearchEventsContext, SearchEventFiltersContext } from "../../../props/search-events.prop";
@@ -70,7 +70,8 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
     chipData,
     currPage,
     selectedVenue,
-    isFree
+    isFree,
+    IMMUTABLE_CHIP_VALUES
   } = useContext(SearchEventFiltersContext);
 
 
@@ -130,27 +131,14 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
 
 
 
-  /**
-   * Scroll to top of page
-   * @param {*} event 
-   */
-  const scrollToTop = async (event) => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  }
-
-
-
-
 
   /**
-   * Removes selected filter option
+   * Removes selected filter option if applicable
    * @param {*} chipToDelete 
    * @returns 
    */
   const handleDelete = (chipToDelete) => () => {
+    if (chipToDelete !== "All Venues")
     chipData.set((chips) =>
       chips.filter((chip) => chip.key !== chipToDelete.key)
     );
@@ -183,29 +171,31 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
   /**
    * Event listing display container
    */
-  let eventListings = <>
-    {
-      (!fetchStatus.get) ?
-        <Box className="events-result">
-          {events.get.map((event, i) => {
-            //Filter out event display results by venue selected
-            if (event.event.venueName === selectedVenue.get || selectedVenue.get === "All Venues")
-              return (<EventCardHorizontal key={i} event={event} />)
-          })
-          }
-          {((currPage.get + 1) == pageCount.get) || (currPage.get == 0 && pageCount.get == 0) ? null : <>
-            <Button id="load-more-events-btn" onClick={loadMoreHandler}>Load More</Button>
-            <Button id="back-to-top-btn" onClick={scrollToTop}>Back To Top</Button>
-          </>}
-        </Box>
-        : <><PartialLoadSpinner></PartialLoadSpinner></>
-    }</>;
+  let eventListings = <Box className="events-result">
+  {events.get.map((event, i) => {
+    //Filter out event display results by venue selected
+    if (event.event.venueName === selectedVenue.get || selectedVenue.get === "All Venues")
+      return (<EventCardHorizontal key={i} event={event} />)
+  })
+  }
+  {(((currPage.get + 1) == pageCount.get) || (currPage.get == 0 && pageCount.get == 0)) ? null : <>
+    {!fetchStatus.get ? 
+    <Button id="load-more-events-btn" onClick={loadMoreHandler}>Load More</Button>
+      : <PartialLoadSpinner className="partial-loader"></PartialLoadSpinner>
+    }
+    
+    <Button id="back-to-top-btn" onClick={scrollToTop}>Back To Top</Button>
+  </>}
+</Box>;
 
 
   /**
    * React hook that is used for fetching data on load
    */
   useEffect(() => {
+
+
+    
 
     /**
      * Find all pre-defined tag/genre options
@@ -221,7 +211,7 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
     async function fetchEvents() {
 
       currPage.set(0);
-
+fetchStatus.set(true);
       const data = await searchEvents(
         tagSelection.get,
         keywords.get,
@@ -234,6 +224,7 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
       events.set(data.events);
       //Set total page count
       pageCount.set(data.pageCount);
+      fetchStatus.set(false);
     }
 
     //Fetch all possible pre-defined tags if none have been retrieved
@@ -294,7 +285,7 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
                 }}
                 key={data.key}
                 label={data.label}
-                onDelete={handleDelete(data)}
+                {...(!Object.values(IMMUTABLE_CHIP_VALUES).some(value => value === data.label) ? { onDelete: handleDelete(data) } : {})}
               />
             ))}
             {chipData.get < 1 ? null : <><Link onClick={clearFilters}>Clear all filters</Link></>}

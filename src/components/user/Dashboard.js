@@ -31,6 +31,9 @@ import { PATHS } from "../../utils/constants.util";
 import { useNavigate } from "react-router-dom";
 
 import AccountSettings from "./AccountSettings";
+import { scrollToTop } from "../../utils/utils";
+
+
 
 /**
  * Builds the Dashboard react component
@@ -143,7 +146,7 @@ const Dashboard = () => {
         //Toggle loading UI on
         fetchStatus.set(true);
 
-        const data = await searchOwnedEvents(pageCount.get);
+        const data = await searchOwnedEvents(currPage.get);
         console.log("Owned events search results: ", data);
         setOwnedEvents(data.events);
         pageCount.set(data.pageCount);
@@ -155,9 +158,7 @@ const Dashboard = () => {
         navigate(PATHS.LOGIN);
       }
     }
-
-    console.log("currPage:", currPage.get);
-    console.log("pageCount:", pageCount.get);
+    
     fetchEvents();
   }, [setOwnedEvents]);
 
@@ -206,21 +207,11 @@ const Dashboard = () => {
     }
   };
 
-  /**
-   * Scroll to top of page
-   * @param {*} event
-   */
-  const scrollToTop = async (event) => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
 
   //Conditionally render events, no events message, load/back to top buttons, or loading spinner
   let eventListings = (
     <>
-      {fetchStatus.get ? ( // Show loading spinner when fetching
+      {fetchStatus.get ? (
         <PartialLoadSpinner />
       ) : (
         <Box className="events-profile">
@@ -254,8 +245,6 @@ const Dashboard = () => {
       )}
     </>
   );
-
-  let loadingSpinner = <></>;
 
   //Return the react component render
   return (

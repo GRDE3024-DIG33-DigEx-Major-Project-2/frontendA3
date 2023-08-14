@@ -11,22 +11,16 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { getTodayISODates, getTomorrowISODates, getWeekendISODates, getThisWeekISODates, getThisMonthsISODates } from "../../../../utils/utils";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 //Import search event props
 import { SearchEventsContext, SearchEventFiltersContext } from "../../../../props/search-events.prop";
+import { v4 as uuidv4 } from 'uuid';
 
 
 const DateRadioBtns = () => {
 
 
-  /**
-   * Prop context for search event data
-   */
-  const {
-    events,
-    pageCount,
-    tags
-  } = useContext(SearchEventsContext);
+
 
   /**
    * Prop context for search event filters
@@ -34,9 +28,40 @@ const DateRadioBtns = () => {
   const {
     dateRange,
     change,
-    chipData
+    chipData,
+    DATE_RANGES,
+    selectedDateRange
   } = useContext(SearchEventFiltersContext);
 
+  
+
+    //Handle chip data changes when selectedDateRange changes
+    useEffect(() => {
+      let temp = chipData.get;
+      temp = temp.filter((x) => x.searchCategory !== "date");
+      const newKey = uuidv4();
+      temp.push({
+        key: newKey,
+        searchCategory: "date",
+        label: selectedDateRange.get,
+        value: selectedDateRange.get,
+      });
+  
+      //Delay setting the chip data to the next render cycle
+      setTimeout(() => {
+        chipData.set(temp, false);
+        change.set(!change.get);
+      }, 0);
+
+      //Set initial default chip on page load
+      if (temp.filter((x) => x.searchCategory === "date") == null)
+      temp.push({
+        key: newKey,
+        searchCategory: "date",
+        label: selectedDateRange.get,
+        value: selectedDateRange.get,
+      });
+    }, [selectedDateRange.get]);
 
 
   /**
@@ -53,36 +78,39 @@ const DateRadioBtns = () => {
     let tempDateRange = null;
 
     //Disable date range filtering
-    if (value === "None") {
+    if (value === DATE_RANGES.ANY) {
       console.log("Disabling date range filtering");
       tempDateRange = {minDate: null, maxDate: null};
     }
     //Get ISO range for today
-    else if (value === "Today") {
+    else if (value === DATE_RANGES.TODAY) {
       console.log("Getting Today's date range");
       tempDateRange = getTodayISODates();
     }
     //Get ISO range for tomorrow
-    else if (value === "Tomorrow") {
+    else if (value === DATE_RANGES.TOMORROW) {
       console.log("Getting Tomorrow's date range");
       tempDateRange = getTomorrowISODates();
     }
     //Get ISO range for this weekend
-    else if (value === "Weekend") {
+    else if (value === DATE_RANGES.WEEKEND) {
       console.log("Getting Weekend's date range");
       tempDateRange = getWeekendISODates();
     }
     //Get ISO range for this week
-    else if (value === "Week") {
+    else if (value === DATE_RANGES.WEEK) {
       console.log("Getting this Week's date range");
       tempDateRange = getThisWeekISODates();
     }
     //Get ISO range for this month 
-    else if (value === "Month") {
+    else if (value === DATE_RANGES.MONTH) {
       console.log("Getting this Month's date range");
       tempDateRange = getThisMonthsISODates();
     }
     else return;
+
+    //Set the value for the date range radio buttons
+    selectedDateRange.set(value);
 
     console.log("Result: ", tempDateRange);
 
@@ -90,7 +118,6 @@ const DateRadioBtns = () => {
     temp = temp.filter(x => x.searchCategory !== "date");
 
     //Add chip to temp filter chips
-    if (value !== "None")
     temp.push({
       //Set key
       key: newKey,
@@ -99,7 +126,7 @@ const DateRadioBtns = () => {
       //Set label
       label: value,
       //Set the value
-      value: tempDateRange.minDate + "-" + tempDateRange.maxDate,
+      value: (value === DATE_RANGES.ANY) ? DATE_RANGES.ANY : tempDateRange.minDate + "-" + tempDateRange.maxDate,
     });
 
     //Set filter props
@@ -119,42 +146,41 @@ const DateRadioBtns = () => {
     <div>
       <h2>Date</h2>
       <RadioGroup
-        defaultValue="None"
+        value={selectedDateRange.get}
         name="date-radio"
         onChange={(event) => chipSelectDate(event.target.value)}
       >
         <FormControlLabel
-          value="None"
+          value={DATE_RANGES.ANY}
           control={<Radio />}
-          label="None"
+          label={DATE_RANGES.ANY}
         />
         <FormControlLabel
-          value="Today"
+          value={DATE_RANGES.TODAY}
           control={<Radio />}
-          label="Today"
+          label={DATE_RANGES.TODAY}
         />
         <FormControlLabel
-          value="Tomorrow"
+          value={DATE_RANGES.TOMORROW}
           control={<Radio />}
-          label="Tomorrow"
+          label={DATE_RANGES.TOMORROW}
         />
         <FormControlLabel
-          value="Weekend"
+          value={DATE_RANGES.WEEKEND}
           control={<Radio />}
-          label="This weekend"
+          label={DATE_RANGES.WEEKEND}
         />
         <FormControlLabel
-          value="Week"
+          value={DATE_RANGES.WEEK}
           control={<Radio />}
-          label="This week"
+          label={DATE_RANGES.WEEK}
         />
         <FormControlLabel
-          value="Month"
+          value={DATE_RANGES.MONTH}
           control={<Radio />}
-          label="This month"
+          label={DATE_RANGES.MONTH}
         />
       </RadioGroup>
-      {/* <Link>View more</Link> */}
     </div>
   );
 };

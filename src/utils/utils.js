@@ -269,7 +269,7 @@ export const getAustralianTimezones = () => {
   return timezones;
 };
 
-// get date range for event cards
+//Get date range for event cards
 export const getDateRangeString = (startDate, endDate) => {
   const dateOptions = { year: "numeric", month: "long", day: "numeric" };
   const currentStartDate = new Date(Date.parse(startDate));
@@ -297,7 +297,7 @@ export const getDateRangeString = (startDate, endDate) => {
   );
 };
 
-// get price range for event cards
+//Get price range for event cards
 export const getPriceRangeString = (tickets) => {
   if (tickets.length === 0) return "No price data";
   if (tickets.length === 1) return "$" + tickets[0].price;
@@ -314,7 +314,7 @@ export const getPriceRangeString = (tickets) => {
   return "$" + min.toFixed(2) + " - " + "$" + max.toFixed(2);
 };
 
-// creates a single date given a date and a time field
+//Creates a single date given a date and a time field
 export const mergeDateTime = (date, time) => {
   const paramDate = date.toDate();
   const paramTime = time.toDate();
@@ -329,3 +329,17 @@ export const mergeDateTime = (date, time) => {
   );
   return result;
 };
+
+
+
+
+  /**
+   * Scroll to top of page
+   * @param {*} event
+   */
+  export const scrollToTop = async (event) => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
