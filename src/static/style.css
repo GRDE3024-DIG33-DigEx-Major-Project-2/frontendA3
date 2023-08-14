@@ -759,6 +759,41 @@ footer {
   padding: 15px;
 }
 
+.swiper {
+  padding: 4% 0 0 0 !important;
+  margin-left: -5% !important;
+  margin-top: -3% !important;
+  width: 110% !important;
+  max-width: 110% !important;
+}
+
+.swiper-button-prev {
+  left: 86% !important;
+  right: 0 !important;
+  top: 5% !important;
+  padding: 8px 16px;
+  border-radius: 50% !important;
+  border: 2px solid #5b5be6;
+  height: 25px !important;
+  width: 10px !important;
+}
+
+.swiper-button-next {
+  left: 90% !important;
+  right: 0 !important;
+  top: 5% !important;
+  padding: 8px 16px;
+  border-radius: 50% !important;
+  border: 2px solid #5b5be6;
+  height: 25px !important;
+  width: 10px !important;
+}
+
+.swiper-button-prev:after, .swiper-button-next:after {
+  font-size: 24px !important;
+  color: #5b5be6 !important;
+}
+
 .event-card {
   width: 350px;
   height: 400px;
@@ -830,7 +865,7 @@ footer {
 
 .horizontal-card {
   position: relative;
-  width: 100%;
+  width: 80%;
   height: 220px;
   min-height: 220px;
   display: flex;
@@ -2406,6 +2441,15 @@ footer {
     font-size: 1em;
     top: -13%;
   }
+}
+/*LOADERS*/
+.partial-loader {
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+  height: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */

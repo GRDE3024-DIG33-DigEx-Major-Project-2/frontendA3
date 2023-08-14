@@ -774,6 +774,41 @@ footer {
   padding: 15px;
 }
 
+.swiper{
+  padding: 4% 0 0 0 !important;
+  margin-left: -5% !important;
+  margin-top: -3% !important;
+  width: 110% !important;
+  max-width: 110% !important;
+}
+
+.swiper-button-prev{
+  left: 86% !important;
+  right: 0 !important;
+  top: 5% !important;
+  padding: 8px 16px;
+  border-radius: 50% !important;
+  border: 2px solid $purple;
+  height: 25px !important;
+  width: 10px !important;
+}
+
+.swiper-button-next{    
+  left: 90% !important;
+  right: 0 !important;
+  top: 5% !important;
+  padding: 8px 16px;
+  border-radius: 50% !important;
+  border: 2px solid $purple;
+  height: 25px !important;
+  width: 10px !important;
+}
+
+.swiper-button-prev:after, .swiper-button-next:after{
+  font-size: 24px !important;
+  color:$purple !important;
+}
+
 // *********************** EVENT CARDS *********************** //
 .event-card {
   width: 350px;
