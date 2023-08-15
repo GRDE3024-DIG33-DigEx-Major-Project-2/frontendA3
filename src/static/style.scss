@@ -536,42 +536,41 @@ footer {
   #view-more-tags {
     margin: 2%;
   }
+}
 
-  .search-buttons{
-    @include flex-row(flex-end, center);
-    gap: 5%;
-    width: 100%;
-  }
+.search-buttons {
+  @include flex-row(flex-end, center);
+  gap: 5%;
+  width: 100%;
+}
 
-  #back-to-top-btn {
-    background-color: $orange1;
-    color: $black;
-    border: solid 2px $orange1;
-  }
+#back-to-top-btn {
+  background-color: $orange1;
+  color: $black;
+  border: solid 2px $orange1;
+}
 
-  #back-to-top-btn:hover,
-  #load-more-events-btn:hover {
-    @include interaction-expand-on-hover();
-  }
+#back-to-top-btn:hover,
+#load-more-events-btn:hover {
+  @include interaction-expand-on-hover();
+}
 
- #load-more-events-btn {
-    background-color: $white;
-    color: $purple1;
-    border: solid 2px $purple1;
-  }
+#load-more-events-btn {
+  background-color: $white;
+  color: $purple1;
+  border: solid 2px $purple1;
 }
 
 // *********************** PROFILE PAGE & ORGANIZER DASHBOARD ************************ //
 
 .profile-container {
   min-height: 1000px;
-  max-height: 2500px;
   display: grid;
   grid-template-areas:
     "head head"
     "bio events"
     "account events";
-  grid-template-rows: 100px fit-content(300px) fit-content(400px);
+  grid-template-rows: 100px fit-content(300px) fit-content;
   grid-template-columns: 30% 70%;
   background-color: $lightgrey;
 
@@ -586,6 +585,10 @@ footer {
 
   h3 {
     font-size: 1.5em;
+  }
+
+  p {
+    font-size: 1em;
   }
 
   .profile-banner {
@@ -606,9 +609,13 @@ footer {
     grid-area: account;
     margin: 2em;
   }
+
   .saved-events {
     grid-area: events;
     margin: 2em;
+    min-height: 10%;
+    height: fit-content;
+    max-height: 94%;
 
     #saved-events-header {
       @include flex-row(space-between, center);

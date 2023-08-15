@@ -527,7 +527,8 @@ footer {
 .search-results-grid #view-more-tags {
   margin: 2%;
 }
-.search-results-grid .search-buttons {
+
+.search-buttons {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -535,17 +536,20 @@ footer {
   gap: 5%;
   width: 100%;
 }
-.search-results-grid #back-to-top-btn {
+
+#back-to-top-btn {
   background-color: #f58146;
   color: #000000;
   border: solid 2px #f58146;
 }
-.search-results-grid #back-to-top-btn:hover,
-.search-results-grid #load-more-events-btn:hover {
+
+#back-to-top-btn:hover,
+#load-more-events-btn:hover {
   transform: scale(1.05);
   cursor: pointer;
 }
-.search-results-grid #load-more-events-btn {
+
+#load-more-events-btn {
   background-color: #ffffff;
   color: #7759a6;
   border: solid 2px #7759a6;
@@ -553,10 +557,9 @@ footer {
 
 .profile-container {
   min-height: 1000px;
-  max-height: 2500px;
   display: grid;
   grid-template-areas: "head head" "bio events" "account events";
-  grid-template-rows: 100px fit-content(300px) fit-content(400px);
+  grid-template-rows: 100px fit-content(300px) fit-content;
   grid-template-columns: 30% 70%;
   background-color: #e6e2e2;
 }
@@ -569,6 +572,9 @@ footer {
 }
 .profile-container h3 {
   font-size: 1.5em;
+}
+.profile-container p {
+  font-size: 1em;
 }
 .profile-container .profile-banner {
   grid-area: head;
@@ -594,6 +600,9 @@ footer {
 .profile-container .saved-events {
   grid-area: events;
   margin: 2em;
+  min-height: 10%;
+  height: fit-content;
+  max-height: 94%;
 }
 .profile-container .saved-events #saved-events-header {
   display: flex;

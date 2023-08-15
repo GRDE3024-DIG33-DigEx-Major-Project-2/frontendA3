@@ -225,19 +225,20 @@ const Dashboard = () => {
         {/* Show the spinner during fetching, under the already loaded events */}
         {fetchStatus.get && <PartialLoadSpinner className="partial-loader" />}
       </Box>
-  
+      <div className="search-buttons">
       {/* Conditionally render the Load More button */}
       {ownedEvents.length > 0 &&
         (currPage.get + 1 < pageCount.get) && !fetchStatus.get && (
-          <Button id="load-more-events-btn" onClick={loadMoreHandler}>
+          <Button variant="contained" id="load-more-events-btn" onClick={loadMoreHandler}>
             Load More
           </Button>
         )}
   
       {/* Always render the Back To Top button */}
-      <Button id="back-to-top-btn" onClick={scrollToTop}>
+      <Button variant="contained" id="back-to-top-btn" onClick={scrollToTop}>
         Back To Top
       </Button>
+      </div>
     </>
   );
   
