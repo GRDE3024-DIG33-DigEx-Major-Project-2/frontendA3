@@ -530,6 +530,35 @@ footer {
   #view-more-tags {
     margin: 2%;
   }
+
+  .back-to-top-btn {
+    position: fixed; 
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+
+    background-color: rgba(0, 0, 0, 0.7); 
+    color: #ffffff;   
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: opacity 0.3s;  
+
+    /* Hide by default and only show after a certain scroll threshold */
+    opacity: 0;
+    visibility: hidden;
+}
+
+.back-to-top-btn.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top-btn:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
 }
 
 // *********************** PROFILE PAGE & ORGANIZER DASHBOARD ************************ //

@@ -62,6 +62,24 @@ import { Link } from "react-router-dom";
 
     
 
+  // //Handle chip data changes when selectedVenue changes
+  // useEffect(() => {
+  //   let temp = chipData.get;
+  //   temp = temp.filter((x) => x.searchCategory !== "venue");
+  //   const newKey = uuidv4();
+  //   temp.push({
+  //     key: newKey,
+  //     searchCategory: "venue",
+  //     label: selectedVenue.get,
+  //     value: selectedVenue.get,
+  //   });
+
+  //   //Delay setting the chip data to the next render cycle
+  //   setTimeout(() => {
+  //     chipData.set(temp, false);
+  //     change.set(!change.get);
+  //   }, 0);
+  // }, [selectedVenue.get]);
 
 
     useEffect(() => {   

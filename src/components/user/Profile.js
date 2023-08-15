@@ -218,41 +218,36 @@ const Profile = () => {
 
 
 
-
-
+  /**
+   * Event listing display container
+   */
   let eventListings = (
     <>
-      {fetchStatus.get ? (
-        <PartialLoadSpinner />
-      ) : (
-        <Box className="events-profile">
-          {favouritedEvents.length !== 0 &&
-            favouritedEvents.map((event, i) => (
-              <EventCardHorizontal key={i} event={event} />
-            ))}
-          {favouritedEvents.length === 0 && (
-            <>
-              <h2>You have not bookmarked any events.</h2>
-            </>
-          )}
-
-          {/* Loading spinner for loading more events */}
-          {fetchStatus.get && favouritedEvents.length > 0 && <PartialLoadSpinner />}
-
-          {/* Load More and Back To Top buttons */}
-          {currPage.get + 1 === pageCount.get ||
-          (currPage.get === 0 && pageCount.get === 0) ? null : (
-            <>
-              <Button id="load-more-events-btn" onClick={loadMoreHandler}>
-                Load More
-              </Button>
-              <Button id="back-to-top-btn" onClick={scrollToTop}>
-                Back To Top
-              </Button>
-            </>
-          )}
-        </Box>
-      )}
+      <Box className="events-profile">
+        {/*Map through the favourited events and render them */}
+        {favouritedEvents.map((event, i) => (
+          <EventCardHorizontal key={i} event={event} />
+        ))}
+  
+        {/*If there are no favourited events, display this message */}
+        {favouritedEvents.length === 0 && <h2>You have not bookmarked any events.</h2>}
+        
+        {/*Show the spinner during fetching, under the already loaded events */}
+        {fetchStatus.get && <PartialLoadSpinner className="partial-loader" />}
+      </Box>
+  
+      {/*Conditionally render the Load More button */}
+      {favouritedEvents.length !== 0 &&
+        (currPage.get + 1 < pageCount.get) && !fetchStatus.get && (
+          <Button id="load-more-events-btn" onClick={loadMoreHandler}>
+            Load More
+          </Button>
+        )}
+  
+      {/*Always render the Back To Top button */}
+      <Button id="back-to-top-btn" onClick={scrollToTop}>
+        Back To Top
+      </Button>
     </>
   );
 

@@ -171,23 +171,29 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
   /**
    * Event listing display container
    */
-  let eventListings = <Box className="events-result">
-  {events.get.map((event, i) => {
+  let eventListings = <>
+<Box className="events-result">
+  {events.length !== 0 && events.get.map((event, i) => {
     //Filter out event display results by venue selected
     if (event.event.venueName === selectedVenue.get || selectedVenue.get === "All Venues")
       return (<EventCardHorizontal key={i} event={event} />)
   })
   }
+            {events.length === 0 && (
+            <>
+              <h2>No results found</h2>
+            </>
+          )}
   {(((currPage.get + 1) == pageCount.get) || (currPage.get == 0 && pageCount.get == 0)) ? null : <>
     {!fetchStatus.get ? 
     <Button id="load-more-events-btn" onClick={loadMoreHandler}>Load More</Button>
       : <PartialLoadSpinner className="partial-loader"></PartialLoadSpinner>
     }
     
-    <Button id="back-to-top-btn" onClick={scrollToTop}>Back To Top</Button>
   </>}
-</Box>;
-
+</Box>  
+  <Button id="back-to-top-btn" onClick={scrollToTop}>Back To Top</Button>
+  </>;
 
   /**
    * React hook that is used for fetching data on load

@@ -208,43 +208,77 @@ const Dashboard = () => {
   };
 
 
-  //Conditionally render events, no events message, load/back to top buttons, or loading spinner
+  // //Conditionally render events, no events message, load/back to top buttons, or loading spinner
+  // let eventListings = (
+  //   <>
+  //     {fetchStatus.get ? (
+  //       <PartialLoadSpinner />
+  //     ) : (
+  //       <Box className="events-profile">
+  //         {/* Render existing owned events */}
+  //         {ownedEvents.length !== 0 &&
+  //           ownedEvents.map((event, i) => (
+  //             <CreatedEventCardHorizontal key={i} event={event} />
+  //           ))}
+  //         {ownedEvents.length === 0 && (
+  //           <>
+  //             <h2>You have not created any events.</h2>
+  //           </>
+  //         )}
+
+  //         {/* Loading spinner for loading more events */}
+  //         {fetchStatus.get && ownedEvents.length > 0 && <PartialLoadSpinner />}
+
+  //         {/* Load More and Back To Top buttons */}
+  //         {currPage.get + 1 === pageCount.get ||
+  //         (currPage.get === 0 && pageCount.get === 0) ? null : (
+  //           <>
+  //             <Button id="load-more-events-btn" onClick={loadMoreHandler}>
+  //               Load More
+  //             </Button>
+  //             <Button id="back-to-top-btn" onClick={scrollToTop}>
+  //               Back To Top
+  //             </Button>
+  //           </>
+  //         )}
+  //       </Box>
+  //     )}
+  //   </>
+  // );
+
+  /**
+   * Event listing display container
+   */
   let eventListings = (
     <>
-      {fetchStatus.get ? (
-        <PartialLoadSpinner />
-      ) : (
-        <Box className="events-profile">
-          {/* Render existing owned events */}
-          {ownedEvents.length !== 0 &&
-            ownedEvents.map((event, i) => (
-              <CreatedEventCardHorizontal key={i} event={event} />
-            ))}
-          {ownedEvents.length === 0 && (
-            <>
-              <h2>You have not created any events.</h2>
-            </>
-          )}
-
-          {/* Loading spinner for loading more events */}
-          {fetchStatus.get && ownedEvents.length > 0 && <PartialLoadSpinner />}
-
-          {/* Load More and Back To Top buttons */}
-          {currPage.get + 1 === pageCount.get ||
-          (currPage.get === 0 && pageCount.get === 0) ? null : (
-            <>
-              <Button id="load-more-events-btn" onClick={loadMoreHandler}>
-                Load More
-              </Button>
-              <Button id="back-to-top-btn" onClick={scrollToTop}>
-                Back To Top
-              </Button>
-            </>
-          )}
-        </Box>
-      )}
+      <Box className="events-profile">
+        {/* Map through the owned events and render them */}
+        {ownedEvents.map((event, i) => (
+          <CreatedEventCardHorizontal key={i} event={event} />
+        ))}
+  
+        {/* If there are no owned events, display this message */}
+        {ownedEvents.length === 0 && <h2>You have not created any events.</h2>}
+        
+        {/* Show the spinner during fetching, under the already loaded events */}
+        {fetchStatus.get && <PartialLoadSpinner className="partial-loader" />}
+      </Box>
+  
+      {/* Conditionally render the Load More button */}
+      {ownedEvents.length > 0 &&
+        (currPage.get + 1 < pageCount.get) && !fetchStatus.get && (
+          <Button id="load-more-events-btn" onClick={loadMoreHandler}>
+            Load More
+          </Button>
+        )}
+  
+      {/* Always render the Back To Top button */}
+      <Button id="back-to-top-btn" onClick={scrollToTop}>
+        Back To Top
+      </Button>
     </>
   );
+  
 
   //Return the react component render
   return (
