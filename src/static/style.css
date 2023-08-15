@@ -525,6 +525,29 @@ footer {
 .search-results-grid #view-more-tags {
   margin: 2%;
 }
+.search-results-grid .back-to-top-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+  /* Hide by default and only show after a certain scroll threshold */
+  opacity: 0;
+  visibility: hidden;
+}
+.search-results-grid .back-to-top-btn.show {
+  opacity: 1;
+  visibility: visible;
+}
+.search-results-grid .back-to-top-btn:hover {
+  background-color: rgba(0, 0, 0, 0.9);
+}
 
 .profile-container {
   min-height: 1000px;
@@ -770,8 +793,8 @@ footer {
   padding: 4% 0 0 0 !important;
   margin-left: -5% !important;
   margin-top: -3% !important;
-  width: 110% !important;
-  max-width: 110% !important;
+  width: 106% !important;
+  max-width: 106% !important;
 }
 
 .swiper-button-prev {
