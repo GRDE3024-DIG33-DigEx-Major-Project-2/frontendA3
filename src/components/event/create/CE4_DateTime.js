@@ -61,7 +61,6 @@ const DateTime = (props) => {
                     <DatePicker
                       id="start-date-field-create-event"
                       className="search-form-els"
-                      placeholder="Event Start Date"
                       minDate={today}
                       value={
                         props.eventStartDate
@@ -93,7 +92,6 @@ const DateTime = (props) => {
                     <DatePicker
                       id="start-date-field-create-event"
                       className="search-form-els"
-                      placeholder="Event End Date"
                       minDate={
                         props.eventStartDate
                           ? dayjs(props.eventStartDate)

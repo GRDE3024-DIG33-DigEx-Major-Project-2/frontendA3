@@ -185,20 +185,27 @@ a {
 }
 
 .find-event-search .MuiOutlinedInput-input {
-  width: 202px;
+  width: 100%;
 }
 
 #location-field-search {
-  width: 22%;
+  width: 25%;
 }
 
-#date-field-search-min,
-#date-field-search-max {
-  width: 18%;
+#date-field-search {
+  width: 55%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2%;
+}
+#date-field-search .date-picker {
+  width: 48.5%;
 }
 
 #events-txt-field {
-  width: 50%;
+  width: 25%;
 }
 
 .login-page {
@@ -759,6 +766,42 @@ footer {
   padding: 15px;
 }
 
+.swiper {
+  padding: 4% 0 0 0 !important;
+  margin-left: -5% !important;
+  margin-top: -3% !important;
+  width: 110% !important;
+  max-width: 110% !important;
+}
+
+.swiper-button-prev {
+  left: 86% !important;
+  right: 0 !important;
+  top: 5% !important;
+  padding: 8px 16px;
+  border-radius: 50% !important;
+  border: 2px solid #5b5be6;
+  height: 25px !important;
+  width: 10px !important;
+}
+
+.swiper-button-next {
+  left: 90% !important;
+  right: 0 !important;
+  top: 5% !important;
+  padding: 8px 16px;
+  border-radius: 50% !important;
+  border: 2px solid #5b5be6;
+  height: 25px !important;
+  width: 10px !important;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: 24px !important;
+  color: #5b5be6 !important;
+}
+
 .event-card {
   width: 350px;
   height: 400px;
@@ -830,7 +873,7 @@ footer {
 
 .horizontal-card {
   position: relative;
-  width: 100%;
+  width: 80%;
   height: 220px;
   min-height: 220px;
   display: flex;
@@ -1459,17 +1502,9 @@ footer {
     max-height: 40vw;
   }
   .find-event-search {
-    width: 90vw;
-    max-width: 90vw;
-  }
-  #location-field-search {
-    width: 20%;
-  }
-  #date-field-search {
-    width: 15vw;
-  }
-  #events-txt-field {
-    width: 40%;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 0;
   }
   .bttn-style-orange {
     padding: 6px 8px;
@@ -1582,8 +1617,9 @@ footer {
     justify-content: space-between;
     align-items: center;
     width: 80%;
-    min-height: 30vh;
-    max-height: 40vh;
+    min-height: 35vh;
+    max-height: 45vh;
+    padding: 4% 0;
   }
   .find-event-tags {
     min-height: 20%;
@@ -1594,7 +1630,18 @@ footer {
     width: 100%;
     margin: 0;
   }
-  #location-field-search {
+  #search-form-submit-btn {
+    margin-top: 2%;
+  }
+  #location-field-search, #events-txt-field {
+    width: 100%;
+  }
+  #date-field-search {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+  #date-field-search .date-picker {
     width: 100%;
   }
   /*HOMEPAGE*/
@@ -1995,10 +2042,6 @@ footer {
   .find-event-header {
     min-height: 100vh;
   }
-  .find-event-search {
-    width: 90%;
-    min-height: 35vh;
-  }
   #nav-logo {
     padding-bottom: 2em;
   }
@@ -2046,47 +2089,45 @@ footer {
     font-size: 0.3em;
   }
   /*FIND AN EVENT*/
+  .find-event-search {
+    padding: 10vh 0;
+    max-height: 50vh;
+  }
   #location-field-search {
-    justify-content: center;
-    align-items: center;
-    width: 98%;
+    width: 100%;
   }
   .find-event-header-text {
-    margin: 0;
-    font-size: 35px !important;
+    margin: 15% 0 0 0 !important;
+    font-size: 45px !important;
   }
   #search-event-form .MuiInputBase-root {
-    height: 29px;
-    margin: 3px;
+    height: 40px;
+    margin: 2% 0;
   }
   #search-event-form .MuiTextField-root {
     background-color: transparent !important;
   }
   #search-event-form .MuiOutlinedInput-root {
     background-color: #ffffff;
-    padding: 0 13px;
-  }
-  #search-event-form .find-event-search {
-    padding-top: 2px;
   }
   .search-form-els,
   #search-form-submit-btn {
-    width: 87%;
+    width: 100%;
   }
   #search-form-submit-btn {
-    height: 24px;
-    margin: 5px;
+    height: 40px;
   }
   #search-event-form .MuiChip-sizeMedium {
     text-align: center;
-    font-size: 0.5em;
-    height: 16px;
+    font-size: 0.8em;
+    height: 30px;
   }
   #search-event-form .MuiChip-labelMedium {
     height: 15px;
   }
   .find-event-tags {
-    margin: 25px;
+    margin: 10px 0;
+    width: 100%;
   }
   #events-txt-field {
     min-width: 50vw;
@@ -2111,7 +2152,7 @@ footer {
     width: 20px;
     height: 20px;
   }
-  .home-section .find-event-tags {
+  .home-section {
     margin: 0px !important;
   }
   .home-section .home-row .swiper-slide {
@@ -2406,6 +2447,15 @@ footer {
     font-size: 1em;
     top: -13%;
   }
+}
+/*LOADERS*/
+.partial-loader {
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+  height: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */
