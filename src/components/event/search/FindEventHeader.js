@@ -2,25 +2,14 @@
  * Main event search filter component that handles location, date, and keywords
  */
 
-
 //Import dependencies
 import { useEffect, useContext } from "react";
-import {
-  MenuItem,
-  Select,
-  Chip,
-  TextField,
-  Button,
-  FormControl,
-  Box,
-} from "@mui/material";
+import { Button } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
-import { SearchEventFiltersContext, SearchEventsContext } from "../../../props/search-events.prop";
-//MUI imports
-import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
-import SvgIcon from "@mui/material/SvgIcon";
-import InputAdornment from "@mui/material/InputAdornment";
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import {
+  SearchEventFiltersContext,
+  SearchEventsContext,
+} from "../../../props/search-events.prop";
 //Import endpoint handlers for events
 import { searchEvents, getAllTags } from "../../../services/EventAPI";
 //Import JSX components
@@ -28,28 +17,21 @@ import DateRangePicker from "./filters/DateRangePicker";
 import ByLocation from "./filters/ByLocation";
 import ByKeywords from "./filters/ByKeywords";
 import { HeaderSelectedTags } from "./filters/TagSelection";
-import { getTodayISODates, getTomorrowISODates, getWeekendISODates } from "../../../utils/utils";
 import { PATHS } from "../../../utils/constants.util";
 import { isFavourited } from "../../../services/EventAPI";
 import { getUser } from "../../../utils/localStorage";
 import { logoutErrorHandler } from "../../../services/AuthAPI";
 
-
 /**
  * React component for main event filter UI
- * @returns 
+ * @returns
  */
 const FindEventHeader = () => {
-
   /**
- * Prop context for search event data
- */
-  const {
-    events,
-    pageCount,
-    tags,
-    fetchStatus
-  } = useContext(SearchEventsContext);
+   * Prop context for search event data
+   */
+  const { events, pageCount, tags, fetchStatus } =
+    useContext(SearchEventsContext);
 
   /**
    * Prop context for search event filters
@@ -62,7 +44,7 @@ const FindEventHeader = () => {
     change,
     tagSelection,
     chipData,
-    currPage
+    currPage,
   } = useContext(SearchEventFiltersContext);
 
   //React navigator
@@ -77,7 +59,6 @@ const FindEventHeader = () => {
    * Fetch api data on load
    */
   useEffect(() => {
-
     /**
      * Get all pre-defined tags/genres
      */
@@ -87,50 +68,56 @@ const FindEventHeader = () => {
     }
 
     //Get tags
-    if (tags.get == 0)
-    fetchTags();
+    if (tags.get == 0) fetchTags();
   }, [tags.set]);
 
-
   //Extract the logic to fetch favorite status of events into a reusable function
-async function fetchEventsWithFavouriteStatus(events) {
-  if (!user || user.type !== "attendee") {
-    return events;
-  }
+  async function fetchEventsWithFavouriteStatus(events) {
+    if (!user || user.type !== "attendee") {
+      return events;
+    }
 
-  try {
-    const response = await isFavourited(events.map(x => x.event.id));
-    return events.map(eventContainer => {
-      const favEvent = response.data.favStatuses.find(fav => fav.eventId === eventContainer.event.id);
-      return {
-        ...eventContainer,
-        event: favEvent ? { ...eventContainer.event, ...favEvent } : eventContainer.event
-      };
-    });
-  } catch (error) {
-    logoutErrorHandler(error);
-    return events;
+    try {
+      const response = await isFavourited(events.map((x) => x.event.id));
+      return events.map((eventContainer) => {
+        const favEvent = response.data.favStatuses.find(
+          (fav) => fav.eventId === eventContainer.event.id
+        );
+        return {
+          ...eventContainer,
+          event: favEvent
+            ? { ...eventContainer.event, ...favEvent }
+            : eventContainer.event,
+        };
+      });
+    } catch (error) {
+      logoutErrorHandler(error);
+      return events;
+    }
   }
-};
-
 
   /**
    * Search for first page of filtered events
    */
   const searchHandler = async (event) => {
-
     //Reset currPage to 0
     currPage.set(0);
 
     //Prevent default submit form behaviour
     event.preventDefault();
 
-
     //Toggle loading UI on
     fetchStatus.set(true);
 
     console.log("Search event fired");
-    console.log(tagSelection.get, keywords.get, dateRange.minDate.get, dateRange.maxDate.get, location.get, 0);
+    console.log(
+      tagSelection.get,
+      keywords.get,
+      dateRange.minDate.get,
+      dateRange.maxDate.get,
+      location.get,
+      0
+    );
     console.log(priceRange.minPrice.get);
     console.log(priceRange.maxPrice.get);
 
@@ -143,15 +130,14 @@ async function fetchEventsWithFavouriteStatus(events) {
       location.get,
       {
         minPrice: Number(priceRange.minPrice.get),
-        maxPrice: Number(priceRange.maxPrice.get)
+        maxPrice: Number(priceRange.maxPrice.get),
       },
       currPage.get
     );
 
-
-    const searchEventsWithFavourites = await fetchEventsWithFavouriteStatus(searchResult.events);
-
-
+    const searchEventsWithFavourites = await fetchEventsWithFavouriteStatus(
+      searchResult.events
+    );
 
     //Set state props of events and page count
     events.set(searchEventsWithFavourites);
@@ -167,11 +153,8 @@ async function fetchEventsWithFavouriteStatus(events) {
     console.log(spaLocation.pathname);
 
     //Navigate to the event search component
-    if (spaLocation.pathname !== "/events")
-      navigate(PATHS.SEARCH_EVENTS);
+    if (spaLocation.pathname !== "/events") navigate(PATHS.SEARCH_EVENTS);
   };
-
-
 
   //The HTML template
   return (
@@ -179,7 +162,6 @@ async function fetchEventsWithFavouriteStatus(events) {
       <h1 className="find-event-header-text">Find an event</h1>
       <form id="search-event-form" onSubmit={searchHandler}>
         <div className="find-event-search">
-
           <ByLocation />
           <DateRangePicker />
           <ByKeywords></ByKeywords>
