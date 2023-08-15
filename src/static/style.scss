@@ -75,8 +75,12 @@ nav {
   }
 
   .nav-links {
-    width: 50vw;
-    @include flex-nav;
+    min-width: 60%;
+    width: fit-content;
+    max-width: 80%;
+    @include flex-row(flex-end, center);
+    gap: 5%;
+    padding-right: 1%;
     font-size: 1.2em;
   }
 }
@@ -2163,34 +2167,22 @@ footer {
   .find-event-header {
     min-height: 100vh;
   }
-
-  #nav-logo {
-    padding-bottom: 2em;
-  }
-
-  #mobile-menu .MuiButtonBase-root {
-    padding: 0 8px 8px 8px;
-    margin-bottom: 15px;
-  }
-
-  .mobile-menu-box {
-    width: 50vw;
-  }
   #gigney-menu-logo {
-    width: 52%;
+    width: 100%;
+    padding-top: 5%;
+    text-align: center;
   }
   #gigney-menu-logo img {
-    width: 7em;
-    height: 4em;
+    width: 12em;
   }
   .mobile-menu-box h1 {
-    font-size: 1.5em;
+    font-size: 2em;
     margin-bottom: 10px;
     margin-top: 0px;
   }
 
   #menu-drawer .MuiDrawer-paper {
-    width: 50%;
+    width: 100%;
   }
 
   #loggedin-links-menu {
@@ -2208,15 +2200,13 @@ footer {
 
   .bttn-style-purple,
   .bttn-style-orange {
-    width: 25vw;
-    height: 3vw;
-    padding: 3px 9px;
-    font-size: 10px;
-    margin: 5px;
+    width: 40vw;
+    height: 5vw;
+    font-size: 15px;
   }
 
   .menu-footer {
-    font-size: 0.3em;
+    font-size: 0.7em;
   }
 
   /*FIND AN EVENT*/
