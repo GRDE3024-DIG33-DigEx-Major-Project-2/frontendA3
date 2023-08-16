@@ -11,7 +11,7 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import SellOutlinedIcon from "@mui/icons-material/SellOutlined";
 import { getDateRangeString, getPriceRangeString } from "../../../utils/utils";
 import { useNavigate } from "react-router-dom";
-import { toggleFavourite, isFavourited } from "../../../services/EventAPI";
+import { toggleFavourite } from "../../../services/EventAPI";
 import { useState, useEffect } from "react";
 import { getUser } from "../../../utils/localStorage";
 import { EVENT_IMG_PLACEHOLDER, PATHS } from "../../../utils/constants.util";
@@ -31,17 +31,12 @@ const EventCardHorizontal = (props) => {
   const user = getUser();
   const [tooltipMessage, setTooltipMessage] = useState('Share this event');
 
-  console.log("THIS IS THE OWNED EVENT EVENT");
-  console.log(props.event.event.isFavourite);
-
   /**
    * Set favourite status of event onload
    */
   useEffect(() => {
     if (user)
     if (user.type == "attendee") {
-      console.log("IS AN ATTENDEE");
-      console.log(props.event.event.isFavourite);
       let val = props.event.event.isFavourite;
       if (val == true || val == "true")
       setFavourite(true);

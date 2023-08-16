@@ -77,7 +77,7 @@ const FindEventHeader = () => {
       return events;
     }
 
-    try {
+    //try {
       const response = await isFavourited(events.map((x) => x.event.id));
       return events.map((eventContainer) => {
         const favEvent = response.data.favStatuses.find(
@@ -90,10 +90,10 @@ const FindEventHeader = () => {
             : eventContainer.event,
         };
       });
-    } catch (error) {
-      logoutErrorHandler(error);
-      return events;
-    }
+    //} catch (error) {
+     // logoutErrorHandler(error);
+    //  return events;
+    //}
   }
 
   /**

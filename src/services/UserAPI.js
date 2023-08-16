@@ -33,10 +33,10 @@ export const updateUser = async function (formData) {
       Authorization: `Bearer ${getAccessToken()}`,
     },
   };
-  try {
+ // try {
     let response = await axiosClient
-      .put(USER_ENDPOINTS.updateUrl, formData, options)
-      .catch((error) => logoutErrorHandler(error));
+      .put(USER_ENDPOINTS.updateUrl, formData, options);
+     // .catch((error) => logoutErrorHandler(error));
 
     //Success! Set new user and access token
     if (response.status === 200) {
@@ -51,9 +51,9 @@ export const updateUser = async function (formData) {
       console.log(response.status);
       return "Error";
     }
-  } catch (error) {
-    logoutErrorHandler(error);
-  }
+ // } catch (error) {
+ //   logoutErrorHandler(error);
+ // }
 };
 
 /**
@@ -97,7 +97,7 @@ export const resetPassword = async function (oldPassword, newPassword) {
       showErrorToast("Password reset failed!");
     }
 
-    logoutErrorHandler(error);
+   // logoutErrorHandler(error);
   }
 };
 
@@ -110,7 +110,7 @@ export const deleteUser = async function () {
       Authorization: `Bearer ${getAccessToken()}`,
     },
   };
-  try {
+ // try {
     let response = await axiosClient.delete(USER_ENDPOINTS.deleteUrl, options);
 
     //Success! Set new user and access token
@@ -128,8 +128,8 @@ export const deleteUser = async function () {
       console.log(response);
       return response;
     }
-  } catch (error) {
-    logoutErrorHandler(error);
-    return error.response;
-  }
+  //} catch (error) {
+ //   logoutErrorHandler(error);
+ //   return error.response;
+ // }
 };

@@ -22,9 +22,8 @@ import { getDateRangeString, getPriceRangeString } from "../../utils/utils";
 import { useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import { EVENT_IMG_PLACEHOLDER, PATHS } from "../../utils/constants.util";
-import { deleteEvent } from "../../services/EventAPI";
 import { getUser } from "../../utils/localStorage";
-import { toggleFavourite } from "../../services/EventAPI";
+import { toggleFavourite, deleteEvent } from "../../services/EventAPI";
 
 const CreatedEventCardHorizontal = (props) => {
   const navigate = useNavigate();

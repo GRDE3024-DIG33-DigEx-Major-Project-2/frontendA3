@@ -125,7 +125,7 @@ export const deleteEvent = async function (eventId) {
       Authorization: `Bearer ${getAccessToken()}`,
     },
   };
-  try {
+  //try {
     let response = await axiosClient
       .delete(EVENT_ENDPOINTS.deleteEventUrl + `/${eventId}`, options)
       .catch((error) => logoutErrorHandler(error));
@@ -135,9 +135,9 @@ export const deleteEvent = async function (eventId) {
       console.log("Event deleted!");
       return response;
     }
-  } catch (error) {
-    logoutErrorHandler(error);
-  }
+ // } catch (error) {
+ //   logoutErrorHandler(error);
+ // }
 };
 
 /**
@@ -186,7 +186,7 @@ export const searchOwnedEvents = async function (page) {
   };
 
   console.log("Owned events request body: ", requestBody);
-  try {
+ // try {
     //Get the array of events and the page number
     let response = await axiosClient.post(
       EVENT_ENDPOINTS.searchOwnedEventsUrl,
@@ -206,9 +206,9 @@ export const searchOwnedEvents = async function (page) {
       console.log(response.status);
       console.log(response);
     }
-  } catch (error) {
-    logoutErrorHandler(error);
-  }
+ // } catch (error) {
+ //   logoutErrorHandler(error);
+ // }
 
   //Return object containing API response data
   return { events: events, pageCount: pageCount };
@@ -238,7 +238,7 @@ export const createEvent = async function (formData) {
       Authorization: `Bearer ${getAccessToken()}`,
     },
   };
-  try {
+  //try {
     //Perform first event create request
     let response = await axiosClient.post(
       EVENT_ENDPOINTS.createEventUrl,
@@ -251,9 +251,9 @@ export const createEvent = async function (formData) {
       console.log("Create Event Success!");
       createdEvent = response.data;
     }
-  } catch (error) {
-    logoutErrorHandler(error);
-  }
+//  } catch (error) {
+ //   logoutErrorHandler(error);
+  //}
   //Return object containing API response data
   return createdEvent;
 };
@@ -284,7 +284,7 @@ export const searchFavourites = async function (page) {
   };
 
   console.log("Favourited events request body: ", requestBody);
-  try {
+  //try {
     //Get the array of favourited events and the page number
     let response = await axiosClient.post(
       EVENT_ENDPOINTS.searchFavouritesUrl,
@@ -298,9 +298,9 @@ export const searchFavourites = async function (page) {
       events = response.data.events;
       pageCount = response.data.pageCount;
     }
-  } catch (error) {
-    logoutErrorHandler(error);
-  }
+ // } catch (error) {
+   // logoutErrorHandler(error);
+  //}
   //Return object containing API response data
   return { events: events, pageCount: pageCount };
 };
@@ -319,7 +319,7 @@ export const toggleFavourite = async function (eventId) {
   const requestBody = {
     eventId: eventId,
   };
-  try {
+  //try {
     let response = await axiosClient.post(
       EVENT_ENDPOINTS.toggleFavouriteUrl,
       requestBody,
@@ -331,9 +331,9 @@ export const toggleFavourite = async function (eventId) {
       console.log("Event favourited toggled!");
       return response;
     }
-  } catch (error) {
-    logoutErrorHandler(error);
-  }
+ // } catch (error) {
+  //  logoutErrorHandler(error);
+ // }
 };
 
 /**
@@ -395,11 +395,11 @@ export const updateEvent = async function (formData) {
       Authorization: `Bearer ${getAccessToken()}`,
     },
   };
-  try {
+  //try {
     //Perform first event update request
     let response = await axiosClient
-      .put(EVENT_ENDPOINTS.updateEventUrl, formData, updateEventOptions)
-      .catch((error) => logoutErrorHandler(error));
+      .put(EVENT_ENDPOINTS.updateEventUrl, formData, updateEventOptions);
+   //   .catch((error) => logoutErrorHandler(error));
 
     console.log("Performed first event update request");
 
@@ -408,7 +408,7 @@ export const updateEvent = async function (formData) {
       console.log("Update Event Success!");
       return response.data;
     }
-  } catch (error) {
-    logoutErrorHandler(error);
-  }
+ // } catch (error) {
+ //   logoutErrorHandler(error);
+ // }
 };
