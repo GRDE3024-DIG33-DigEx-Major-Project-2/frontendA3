@@ -49,10 +49,6 @@ export const setupAxiosInterceptors = (navigate, setIsLoggedIn) => {
                 Authorization: `Bearer ${getAccessToken()}`,
                 withCredentials: true
               },
-            })
-            .catch((error) => {
-              console.log("THIS ERROR CAUGHT");
-              logoutAndRedirect(navigate, setIsLoggedIn);
             });
 
           console.log("REFRESH REQ COMPLETE");

@@ -25,7 +25,7 @@ export const login = async function (email, password) {
 
     //Return promise for user login
     return await axiosClient
-        .post(AUTH_ENDPOINTS.loginUrl, requestBody);
+        .post(AUTH_ENDPOINTS.loginUrl, requestBody, {withCredentials:true});
 };
 
 
