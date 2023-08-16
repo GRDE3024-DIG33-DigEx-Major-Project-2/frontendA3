@@ -889,6 +889,10 @@ footer {
   height: 400px;
   position: relative;
   margin: 2%;
+
+  p{
+    font-size: 14px;
+  }
 }
 
 #card-name-link {
@@ -926,17 +930,21 @@ footer {
 
 #ev-share {
   top: 51.5%;
-  right: 20%;
+  right: 5%;
 }
 
 #ev-bookmark {
   top: 51.5%;
-  right: 5%;
+  right: 20%;
 }
 
 #ev-bookmark-selected {
   top: 51%;
-  right: 5%;
+  right: 20%;
+  background-color: $white !important;
+  border: solid 3px $orange1;
+  width: 21.2px;
+  height: 21px;
 }
 
 #bookmark-show {
