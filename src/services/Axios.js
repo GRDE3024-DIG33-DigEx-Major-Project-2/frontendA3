@@ -56,6 +56,8 @@ export const setupAxiosInterceptors = (navigate, setIsLoggedIn) => {
             });
 
           console.log("REFRESH REQ COMPLETE");
+          console.log("REFRESH TOKEN RESPONSE: ", refreshTokenResponse.data);
+          console.log(refreshTokenResponse.status);
           if (
             (refreshTokenResponse.status >= 200 &&
               refreshTokenResponse.status <= 299) ||
@@ -83,7 +85,7 @@ export const setupAxiosInterceptors = (navigate, setIsLoggedIn) => {
           }
         } catch (refreshError) {
           console.log("Error refreshing token:", refreshError);
-          logoutAndRedirect(navigate, setIsLoggedIn);
+          //logoutAndRedirect(navigate, setIsLoggedIn);
           return Promise.resolve();
         }
       }
