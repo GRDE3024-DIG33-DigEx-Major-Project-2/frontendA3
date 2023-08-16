@@ -1244,8 +1244,24 @@ footer {
   cursor: pointer;
 }
 
-.event-preview .event-prev-card-icon-share{
+.event-preview .event-prev-card-icon-share,
+.event-preview .event-prev-card-icon-bookmark{
   top: 376px;
+}
+
+.event-preview #ev-share {
+  top: 51.5%;
+  right: 20%;
+}
+
+.event-preview #ev-bookmark {
+  top: 27.5%;
+  right: 22%;
+}
+
+.event-preview #ev-bookmark-selected {
+  top: 19.5%;
+  right: 20%;
 }
 
 .event-buy-button {
