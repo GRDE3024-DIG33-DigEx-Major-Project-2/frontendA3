@@ -38,6 +38,7 @@ $border: #dfdfdf;
 
 @mixin interaction-expand-on-hover() {
   transform: scale(1.05);
+  transition: transform  0.25s ease-out;
   cursor: pointer;
 }
 
@@ -51,17 +52,21 @@ body {
 }
 
 header {
-  padding: 1%;
+  padding: 1% 2%;
   max-height: 8vh;
   background-color: $black;
 
   a {
     color: $white;
+    padding: 5px 0px;
   }
 }
 
+a#nav-home {
+  padding: 0;
+}
+
 a:hover {
-  cursor: pointer;
   @include interaction-expand-on-hover();
 }
 
@@ -79,10 +84,33 @@ nav {
     width: fit-content;
     max-width: 80%;
     @include flex-row(flex-end, center);
-    gap: 5%;
-    padding-right: 1%;
-    font-size: 1.2em;
+    gap: 7%;
+    font-size: 1.1em;
+    font-weight: 700;
   }
+}
+
+// I tried to convert this animation snippet into scss but to no avail - Cara
+.hover-underline-animation {
+  display: inline-block;
+  position: relative;
+  transform: none !important;
+}
+.hover-underline-animation::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 3px;
+  bottom: 0;
+  left: 0;
+  background-color: #ffffff;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+.hover-underline-animation:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
 
 p {
@@ -114,15 +142,15 @@ a {
 
 .bttn-style-purple {
   border: 2px solid $purple1;
-  padding: 12px 25px;
-  font-weight: bold;
+  padding: 10px 30px;
+  font-weight: 700;
   color: $white;
 }
 
 .bttn-style-orange {
   border: 2px solid $orange1;
   background-color: $orange1;
-  padding: 12px 25px;
+  padding: 10px 30px;
   font-weight: bold;
   color: $black;
 }

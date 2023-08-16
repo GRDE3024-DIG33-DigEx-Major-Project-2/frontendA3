@@ -67,20 +67,20 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
           />
         </Link>
         <div className="nav-links">
-          <Link id="nav-home-txt" to={PATHS.HOME}>
+          <Link id="nav-home-txt" className="hover-underline-animation" to={PATHS.HOME}>
             Home
           </Link>
-          <Link id="nav-events" to={PATHS.SEARCH_EVENTS}>
+          <Link id="nav-events" className="hover-underline-animation" to={PATHS.SEARCH_EVENTS}>
             Search
           </Link>
           {isLoggedIn && user && !user.organizationName && (
-            <Link id="nav-profile" to={PATHS.PROFILE}>
+            <Link id="nav-profile" className="hover-underline-animation" to={PATHS.PROFILE}>
               Profile
             </Link>
           )}
           {isLoggedIn && user && user.organizationName && (
             <>
-              <Link id="nav-dashboard" to={PATHS.DASHBOARD}>
+              <Link id="nav-dashboard" className="hover-underline-animation" to={PATHS.DASHBOARD}>
                 Dashboard
               </Link>
               <Link
