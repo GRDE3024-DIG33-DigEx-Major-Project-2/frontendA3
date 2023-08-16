@@ -42,7 +42,6 @@ nav #nav-logo {
 }
 nav .nav-links {
   min-width: 60%;
-  width: -moz-fit-content;
   width: fit-content;
   max-width: 80%;
   display: flex;
@@ -129,8 +128,7 @@ a {
   width: 50%;
 }
 #gigney-menu-logo img {
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   width: 100%;
   max-height: 100%;
 }
@@ -299,8 +297,7 @@ a {
 .left-img {
   height: 100%;
   max-width: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 .forgot-btn {
@@ -368,8 +365,7 @@ a {
 .signup-right img {
   height: 100%;
   width: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 .signup-next-button {
@@ -513,7 +509,6 @@ footer {
 
 .search-results-grid {
   min-height: 90%;
-  height: -moz-fit-content;
   height: fit-content;
   max-height: 100%;
   display: grid;
@@ -644,7 +639,6 @@ footer {
   grid-area: events;
   margin: 2em;
   min-height: 10%;
-  height: -moz-fit-content;
   height: fit-content;
   max-height: 94%;
 }
@@ -703,7 +697,6 @@ footer {
 }
 .profile-container #event-drafts {
   min-height: 200px;
-  max-height: -moz-fit-content;
   max-height: fit-content;
   width: 100%;
 }
@@ -758,7 +751,6 @@ footer {
 
 .update-profile-modal {
   width: 75vw;
-  height: -moz-fit-content;
   height: fit-content;
   min-height: 500px;
 }
@@ -1232,8 +1224,7 @@ footer {
   align-items: center;
 }
 .create-ev-img-box img {
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   width: 100%;
   height: 100%;
 }
@@ -1297,9 +1288,7 @@ footer {
 }
 
 .event-preview-screen {
-  max-height: -moz-fit-content;
   max-height: fit-content;
-  height: -moz-fit-content;
   height: fit-content;
   min-height: 1600px;
   padding: 2% 1%;
@@ -1317,8 +1306,7 @@ footer {
   width: 100%;
 }
 .event-main-image img {
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   width: 100%;
   height: 100%;
 }
@@ -1381,9 +1369,7 @@ footer {
   background-color: #ffffff;
   top: -13% !important;
   left: 4%;
-  width: -moz-fit-content;
   width: fit-content;
-  height: -moz-fit-content;
   height: fit-content;
 }
 
@@ -1392,9 +1378,7 @@ footer {
   background-color: #ffffff;
   top: -13% !important;
   left: 3%;
-  width: -moz-fit-content;
   width: fit-content;
-  height: -moz-fit-content;
   height: fit-content;
 }
 
@@ -1442,7 +1426,6 @@ footer {
 
 .event-prev-third-row {
   width: 100%;
-  height: -moz-fit-content;
   height: fit-content;
 }
 
@@ -1475,10 +1458,8 @@ footer {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  min-height: -moz-fit-content;
   min-height: fit-content;
   height: 200px;
-  max-height: -moz-fit-content;
   max-height: fit-content;
   margin: 2% 0;
 }
@@ -1829,8 +1810,7 @@ footer {
   .mobile-signup-logo .login-logo-img,
   .mobile-login-logo .signup-logo-img,
   .mobile-login-logo .login-logo-img {
-    -o-object-fit: cover;
-       object-fit: cover;
+    object-fit: cover;
     max-width: 100%;
     max-height: 100%;
     filter: brightness(0) invert(1);
@@ -2559,4 +2539,6 @@ footer {
   align-items: center;
   background-color: red;
   height: 100%;
-}/*# sourceMappingURL=style.css.map */
+}
+
+/*# sourceMappingURL=style.css.map */
