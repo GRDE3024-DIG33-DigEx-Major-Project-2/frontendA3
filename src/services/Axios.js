@@ -18,7 +18,9 @@ import {
 } from "../components/shared/Toaster";
 
 //Init Axios instance
-const axiosClient = axios.create();
+const axiosClient = axios.create({
+  withCredentials: true
+});
 
 export const setupAxiosInterceptors = (navigate, setIsLoggedIn) => {
   //Interceptor for refreshing JWT token
