@@ -47,6 +47,7 @@ export const setupAxiosInterceptors = (navigate, setIsLoggedIn) => {
             .get(AUTH_ENDPOINTS.refreshTokenUrl, {
               headers: {
                 Authorization: `Bearer ${getAccessToken()}`,
+                withCredentials: true
               },
             })
             .catch((error) => {
