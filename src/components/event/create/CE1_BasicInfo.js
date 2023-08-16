@@ -88,7 +88,7 @@ const BasicInfo = (props) => {
                     variant="outlined"
                   />
                 </Grid>
-                <Grid container item l={12} direction="row">
+                <Grid container item l={12} direction="row" className="event-description">
                   <p>Event description:</p>
                   <TextField
                     fullWidth
