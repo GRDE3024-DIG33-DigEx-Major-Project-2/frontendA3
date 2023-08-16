@@ -2,7 +2,6 @@
  * Main search component for events
  */
 
-
 //Import dependencies
 import {
   Box,
@@ -21,13 +20,16 @@ import FindEventHeader from "./FindEventHeader";
 import EventCardHorizontal from "../display/EventCardHorizontal";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import * as dayjs from 'dayjs';
+import * as dayjs from "dayjs";
 //Import endpoint handlers for events
 import { searchEvents, getAllTags } from "../../../services/EventAPI";
 import { scrollToTop } from "../../../utils/utils";
 import { useContext } from "react";
 //Import search event props
-import { SearchEventsContext, SearchEventFiltersContext } from "../../../props/search-events.prop";
+import {
+  SearchEventsContext,
+  SearchEventFiltersContext,
+} from "../../../props/search-events.prop";
 //Import JSX components
 import DateRangePicker from "./filters/DateRangePicker";
 import VenueInput from "./filters/VenueInput";
@@ -40,22 +42,15 @@ import { PartialLoadSpinner } from "../../shared/LoadingSpinner";
 
 /**
  * The event search component
- * @param {*} param0 
+ * @param {*} param0
  * @returns The event search component
  */
 const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
-
-
-
   /**
    * Prop context for search event data
    */
-  const {
-    events,
-    pageCount,
-    tags,
-    fetchStatus
-  } = useContext(SearchEventsContext);
+  const { events, pageCount, tags, fetchStatus } =
+    useContext(SearchEventsContext);
 
   /**
    * Prop context for search event filters
@@ -71,16 +66,14 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
     currPage,
     selectedVenue,
     isFree,
-    IMMUTABLE_CHIP_VALUES
+    IMMUTABLE_CHIP_VALUES,
   } = useContext(SearchEventFiltersContext);
-
 
   /**
    * Load more events
-   * @param {*} event 
+   * @param {*} event
    */
   const loadMoreHandler = async (event) => {
-
     //Prevent default submit form behaviour
     event.preventDefault();
 
@@ -102,7 +95,7 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
       location.get,
       {
         minPrice: Number(priceRange.minPrice.get),
-        maxPrice: Number(priceRange.maxPrice.get)
+        maxPrice: Number(priceRange.maxPrice.get),
       },
       currPage.get
     );
@@ -116,7 +109,7 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
     console.log("Curr Events " + currEvents);
     console.log("New Events " + searchResult.events);
     pageCount.set(searchResult.pageCount);
-    let newArr = [...events.get, ...searchResult.events]
+    let newArr = [...events.get, ...searchResult.events];
     //Set state props of events and page count
     events.set(newArr);
     pageCount.set(searchResult.pageCount);
@@ -126,22 +119,18 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
     //Toggle loading UI off
     fetchStatus.set(false);
     console.log("FETCH STATUS SHOULD BE FALSE: ", fetchStatus.get);
-  }
-
-
-
-
+  };
 
   /**
    * Removes selected filter option if applicable
-   * @param {*} chipToDelete 
-   * @returns 
+   * @param {*} chipToDelete
+   * @returns
    */
   const handleDelete = (chipToDelete) => () => {
     if (chipToDelete !== "All Venues")
-    chipData.set((chips) =>
-      chips.filter((chip) => chip.key !== chipToDelete.key)
-    );
+      chipData.set((chips) =>
+        chips.filter((chip) => chip.key !== chipToDelete.key)
+      );
     change.set(!change.get);
   };
 
@@ -163,46 +152,62 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
     priceRange.minPrice.set(null);
     priceRange.maxPrice.set(null);
     isFree.set("free");
-    console.log(tagSelection.get, keywords.get, dateRange.minDate.get, dateRange.maxDate.get, priceRange.minPrice.get, priceRange.maxPrice.get, location.get, currPage.get);
+    console.log(
+      tagSelection.get,
+      keywords.get,
+      dateRange.minDate.get,
+      dateRange.maxDate.get,
+      priceRange.minPrice.get,
+      priceRange.maxPrice.get,
+      location.get,
+      currPage.get
+    );
     change.set(!change.get);
   };
-
 
   /**
    * Event listing display container
    */
-  let eventListings = <>
-<Box className="events-result">
-  {events.length !== 0 && events.get.map((event, i) => {
-    //Filter out event display results by venue selected
-    if (event.event.venueName === selectedVenue.get || selectedVenue.get === "All Venues")
-      return (<EventCardHorizontal key={i} event={event} />)
-  })
-  }
-            {events.length === 0 && (
-            <>
-              <h2>No results found</h2>
-            </>
-          )}
-  {(((currPage.get + 1) == pageCount.get) || (currPage.get == 0 && pageCount.get == 0)) ? null : <>
-    {!fetchStatus.get ? 
-    <Button id="load-more-events-btn" onClick={loadMoreHandler}>Load More</Button>
-      : <PartialLoadSpinner className="partial-loader"></PartialLoadSpinner>
-    }
-    
-  </>}
-</Box>  
-  <Button id="back-to-top-btn" onClick={scrollToTop}>Back To Top</Button>
-  </>;
+  let eventListings = (
+    <>
+      <Box className="events-result">
+        {events.length !== 0 &&
+          events.get.map((event, i) => {
+            //Filter out event display results by venue selected
+            if (
+              event.event.venueName === selectedVenue.get ||
+              selectedVenue.get === "All Venues"
+            )
+              return <EventCardHorizontal key={i} event={event} />;
+          })}
+        {events.length === 0 && (
+          <>
+            <h2>No results found</h2>
+          </>
+        )}
+        {currPage.get + 1 == pageCount.get ||
+        (currPage.get == 0 && pageCount.get == 0) ? null : (
+          <div className="search-buttons">
+            {!fetchStatus.get ? (
+              <Button variant="contained" id="load-more-events-btn" onClick={loadMoreHandler}>
+                Load More
+              </Button>
+            ) : (
+              <PartialLoadSpinner className="partial-loader"></PartialLoadSpinner>
+            )}
+            <Button variant="contained" id="back-to-top-btn" onClick={scrollToTop}>
+              Back To Top
+            </Button>
+          </div>
+        )}
+      </Box>
+    </>
+  );
 
   /**
    * React hook that is used for fetching data on load
    */
   useEffect(() => {
-
-
-    
-
     /**
      * Find all pre-defined tag/genre options
      */
@@ -215,33 +220,35 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
      * Fetcgh a page of events that match the filter options
      */
     async function fetchEvents() {
-
       currPage.set(0);
-fetchStatus.set(true);
+      fetchStatus.set(true);
       const data = await searchEvents(
         tagSelection.get,
         keywords.get,
         null,
         null,
         location.get,
-        { minPrice: Number(priceRange.minPrice.get), maxPrice: Number(priceRange.maxPrice.get) },
-        currPage.get);
-        let currEvents = events.get;
+        {
+          minPrice: Number(priceRange.minPrice.get),
+          maxPrice: Number(priceRange.maxPrice.get),
+        },
+        currPage.get
+      );
+      let currEvents = events.get;
 
-        console.log("Curr Events " + currEvents);
-        console.log("New Events " + data.events);
-        pageCount.set(data.pageCount);
-        let newArr = [...events.get, ...data.events];
-        //Set state props of events and page count
-        events.set(newArr);
+      console.log("Curr Events " + currEvents);
+      console.log("New Events " + data.events);
+      pageCount.set(data.pageCount);
+      let newArr = [...events.get, ...data.events];
+      //Set state props of events and page count
+      events.set(newArr);
       //Set total page count
       pageCount.set(data.pageCount);
       fetchStatus.set(false);
     }
 
     //Fetch all possible pre-defined tags if none have been retrieved
-    if (tags.get.length == 0)
-      fetchTags();
+    if (tags.get.length == 0) fetchTags();
 
     //No events have been retrieved -- fetching events
     if (events.get.length == 0) {
@@ -252,13 +259,7 @@ fetchStatus.set(true);
     else {
       console.log("Events have already been retrieved");
     }
-
   }, [tags.set, events.set]);
-
-
-
-
-
 
   //HTML Template for searching events
   return (
@@ -297,11 +298,18 @@ fetchStatus.set(true);
                 }}
                 key={data.key}
                 label={data.label}
-                {...(!Object.values(IMMUTABLE_CHIP_VALUES).some(value => value === data.label) ? { onDelete: handleDelete(data) } : {})}
+                {...(!Object.values(IMMUTABLE_CHIP_VALUES).some(
+                  (value) => value === data.label
+                )
+                  ? { onDelete: handleDelete(data) }
+                  : {})}
               />
             ))}
-            {chipData.get < 1 ? null : <><Link onClick={clearFilters}>Clear all filters</Link></>}
-
+            {chipData.get < 1 ? null : (
+              <>
+                <Link onClick={clearFilters}>Clear all filters</Link>
+              </>
+            )}
           </Stack>
           {eventListings}
         </div>

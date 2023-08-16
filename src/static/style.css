@@ -36,11 +36,15 @@ nav #nav-logo {
   align-items: center;
 }
 nav .nav-links {
-  width: 50vw;
+  min-width: 60%;
+  width: fit-content;
+  max-width: 80%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
+  gap: 5%;
+  padding-right: 1%;
   font-size: 1.2em;
 }
 
@@ -475,10 +479,12 @@ footer {
 }
 
 .search-results-grid {
-  min-height: 90vh;
+  min-height: 90%;
+  height: fit-content;
+  max-height: 100%;
   display: grid;
-  grid-template-areas: "filters results";
-  grid-template-columns: 35% 65%;
+  grid-template-areas: "filters gap results";
+  grid-template-columns: 34% 1% 65%;
 }
 .search-results-grid .search-filters {
   grid-area: filters;
@@ -499,6 +505,7 @@ footer {
 }
 .search-results-grid .search-results {
   grid-area: results;
+  height: 100%;
   margin: 2em;
 }
 .search-results-grid #price-select-box {
@@ -513,7 +520,6 @@ footer {
   background-color: #ffffff;
 }
 .search-results-grid .events-result {
-  height: 91%;
   width: 96%;
   display: flex;
   flex-direction: column;
@@ -526,12 +532,38 @@ footer {
   margin: 2%;
 }
 
+.search-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 5%;
+  width: 100%;
+}
+
+#back-to-top-btn {
+  background-color: #f58146;
+  color: #000000;
+  border: solid 2px #f58146;
+}
+
+#back-to-top-btn:hover,
+#load-more-events-btn:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+#load-more-events-btn {
+  background-color: #ffffff;
+  color: #7759a6;
+  border: solid 2px #7759a6;
+}
+
 .profile-container {
   min-height: 1000px;
-  max-height: 2500px;
   display: grid;
   grid-template-areas: "head head" "bio events" "account events";
-  grid-template-rows: 100px fit-content(300px) fit-content(400px);
+  grid-template-rows: 100px fit-content(300px) fit-content;
   grid-template-columns: 30% 70%;
   background-color: #e6e2e2;
 }
@@ -544,6 +576,9 @@ footer {
 }
 .profile-container h3 {
   font-size: 1.5em;
+}
+.profile-container p {
+  font-size: 1em;
 }
 .profile-container .profile-banner {
   grid-area: head;
@@ -569,6 +604,9 @@ footer {
 .profile-container .saved-events {
   grid-area: events;
   margin: 2em;
+  min-height: 10%;
+  height: fit-content;
+  max-height: 94%;
 }
 .profile-container .saved-events #saved-events-header {
   display: flex;
@@ -770,8 +808,8 @@ footer {
   padding: 4% 0 0 0 !important;
   margin-left: -5% !important;
   margin-top: -3% !important;
-  width: 110% !important;
-  max-width: 110% !important;
+  width: 106% !important;
+  max-width: 106% !important;
 }
 
 .swiper-button-prev {
@@ -873,7 +911,7 @@ footer {
 
 .horizontal-card {
   position: relative;
-  width: 80%;
+  width: 100%;
   height: 220px;
   min-height: 220px;
   display: flex;
@@ -1633,7 +1671,8 @@ footer {
   #search-form-submit-btn {
     margin-top: 2%;
   }
-  #location-field-search, #events-txt-field {
+  #location-field-search,
+  #events-txt-field {
     width: 100%;
   }
   #date-field-search {
@@ -2042,30 +2081,21 @@ footer {
   .find-event-header {
     min-height: 100vh;
   }
-  #nav-logo {
-    padding-bottom: 2em;
-  }
-  #mobile-menu .MuiButtonBase-root {
-    padding: 0 8px 8px 8px;
-    margin-bottom: 15px;
-  }
-  .mobile-menu-box {
-    width: 50vw;
-  }
   #gigney-menu-logo {
-    width: 52%;
+    width: 100%;
+    padding-top: 5%;
+    text-align: center;
   }
   #gigney-menu-logo img {
-    width: 7em;
-    height: 4em;
+    width: 12em;
   }
   .mobile-menu-box h1 {
-    font-size: 1.5em;
+    font-size: 2em;
     margin-bottom: 10px;
     margin-top: 0px;
   }
   #menu-drawer .MuiDrawer-paper {
-    width: 50%;
+    width: 100%;
   }
   #loggedin-links-menu {
     font-size: 1em;
@@ -2079,14 +2109,12 @@ footer {
   }
   .bttn-style-purple,
   .bttn-style-orange {
-    width: 25vw;
-    height: 3vw;
-    padding: 3px 9px;
-    font-size: 10px;
-    margin: 5px;
+    width: 40vw;
+    height: 5vw;
+    font-size: 15px;
   }
   .menu-footer {
-    font-size: 0.3em;
+    font-size: 0.7em;
   }
   /*FIND AN EVENT*/
   .find-event-search {
