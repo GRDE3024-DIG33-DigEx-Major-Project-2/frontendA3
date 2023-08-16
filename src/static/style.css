@@ -7,17 +7,22 @@ body {
 }
 
 header {
-  padding: 1%;
+  padding: 1% 2%;
   max-height: 8vh;
   background-color: #000000;
 }
 header a {
   color: #ffffff;
+  padding: 5px 0px;
+}
+
+a#nav-home {
+  padding: 0;
 }
 
 a:hover {
-  cursor: pointer;
   transform: scale(1.05);
+  transition: transform 0.25s ease-out;
   cursor: pointer;
 }
 
@@ -37,15 +42,40 @@ nav #nav-logo {
 }
 nav .nav-links {
   min-width: 60%;
+  width: -moz-fit-content;
   width: fit-content;
   max-width: 80%;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  gap: 5%;
-  padding-right: 1%;
-  font-size: 1.2em;
+  gap: 7%;
+  font-size: 1.1em;
+  font-weight: 700;
+}
+
+.hover-underline-animation {
+  display: inline-block;
+  position: relative;
+  transform: none !important;
+}
+
+.hover-underline-animation::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 3px;
+  bottom: 0;
+  left: 0;
+  background-color: #ffffff;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.hover-underline-animation:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
 
 p {
@@ -73,15 +103,15 @@ a {
 
 .bttn-style-purple {
   border: 2px solid #7759a6;
-  padding: 12px 25px;
-  font-weight: bold;
+  padding: 10px 30px;
+  font-weight: 700;
   color: #ffffff;
 }
 
 .bttn-style-orange {
   border: 2px solid #f58146;
   background-color: #f58146;
-  padding: 12px 25px;
+  padding: 10px 30px;
   font-weight: bold;
   color: #000000;
 }
@@ -99,7 +129,8 @@ a {
   width: 50%;
 }
 #gigney-menu-logo img {
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   width: 100%;
   max-height: 100%;
 }
@@ -268,7 +299,8 @@ a {
 .left-img {
   height: 100%;
   max-width: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .forgot-btn {
@@ -336,7 +368,8 @@ a {
 .signup-right img {
   height: 100%;
   width: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .signup-next-button {
@@ -480,6 +513,7 @@ footer {
 
 .search-results-grid {
   min-height: 90%;
+  height: -moz-fit-content;
   height: fit-content;
   max-height: 100%;
   display: grid;
@@ -550,6 +584,7 @@ footer {
 #back-to-top-btn:hover,
 #load-more-events-btn:hover {
   transform: scale(1.05);
+  transition: transform 0.25s ease-out;
   cursor: pointer;
 }
 
@@ -605,6 +640,7 @@ footer {
   grid-area: events;
   margin: 2em;
   min-height: 10%;
+  height: -moz-fit-content;
   height: fit-content;
   max-height: 94%;
 }
@@ -663,6 +699,7 @@ footer {
 }
 .profile-container #event-drafts {
   min-height: 200px;
+  max-height: -moz-fit-content;
   max-height: fit-content;
   width: 100%;
 }
@@ -717,6 +754,7 @@ footer {
 
 .update-profile-modal {
   width: 75vw;
+  height: -moz-fit-content;
   height: fit-content;
   min-height: 500px;
 }
@@ -1175,6 +1213,7 @@ footer {
 .add-ticket-fab:hover,
 .remove-ticket-fab:hover {
   transform: scale(1.05);
+  transition: transform 0.25s ease-out;
   cursor: pointer;
 }
 
@@ -1196,7 +1235,8 @@ footer {
   align-items: center;
 }
 .create-ev-img-box img {
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   width: 100%;
   height: 100%;
 }
@@ -1260,7 +1300,9 @@ footer {
 }
 
 .event-preview-screen {
+  max-height: -moz-fit-content;
   max-height: fit-content;
+  height: -moz-fit-content;
   height: fit-content;
   min-height: 1600px;
   padding: 2% 1%;
@@ -1278,7 +1320,8 @@ footer {
   width: 100%;
 }
 .event-main-image img {
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   width: 100%;
   height: 100%;
 }
@@ -1293,6 +1336,7 @@ footer {
 }
 .event-prev-first-row button:hover {
   transform: scale(1.05);
+  transition: transform 0.25s ease-out;
   cursor: pointer;
 }
 .event-prev-first-row h1 {
@@ -1340,7 +1384,9 @@ footer {
   background-color: #ffffff;
   top: -21% !important;
   left: 4%;
+  width: -moz-fit-content;
   width: fit-content;
+  height: -moz-fit-content;
   height: fit-content;
 }
 
@@ -1349,7 +1395,9 @@ footer {
   background-color: #ffffff;
   top: -22%;
   left: 3%;
+  width: -moz-fit-content;
   width: fit-content;
+  height: -moz-fit-content;
   height: fit-content;
 }
 
@@ -1393,6 +1441,7 @@ footer {
 
 .event-prev-third-row {
   width: 100%;
+  height: -moz-fit-content;
   height: fit-content;
 }
 
@@ -1425,8 +1474,10 @@ footer {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  min-height: -moz-fit-content;
   min-height: fit-content;
   height: 200px;
+  max-height: -moz-fit-content;
   max-height: fit-content;
   margin: 2% 0;
 }
@@ -1777,7 +1828,8 @@ footer {
   .mobile-signup-logo .login-logo-img,
   .mobile-login-logo .signup-logo-img,
   .mobile-login-logo .login-logo-img {
-    object-fit: cover;
+    -o-object-fit: cover;
+       object-fit: cover;
     max-width: 100%;
     max-height: 100%;
     filter: brightness(0) invert(1);
@@ -2506,6 +2558,4 @@ footer {
   align-items: center;
   background-color: red;
   height: 100%;
-}
-
-/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */
