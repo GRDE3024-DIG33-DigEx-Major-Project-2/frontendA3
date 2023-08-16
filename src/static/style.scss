@@ -175,7 +175,7 @@ a {
 
 .find-event-header {
   width: 90%;
-  max-height: 30vw;
+  max-height: 500px;
   text-align: center;
   background-image: url("https://gigney.s3.ap-southeast-2.amazonaws.com/frontend/Homepage-background.jpeg");
   padding: 3% 5%;
@@ -812,6 +812,7 @@ footer {
 
 .home-row {
   padding: 15px;
+  min-height: 350px;
 }
 
 .swiper {
@@ -823,25 +824,25 @@ footer {
 }
 
 .swiper-button-prev {
-  left: 86% !important;
+  left: 89.5% !important;
   right: 0 !important;
   top: 5% !important;
-  padding: 8px 16px;
+  padding: 8px;
   border-radius: 50% !important;
   border: 2px solid $purple;
-  height: 25px !important;
-  width: 10px !important;
+  height: 20px !important;
+  width: 20px !important;
 }
 
 .swiper-button-next {
-  left: 90% !important;
+  left: 93% !important;
   right: 0 !important;
   top: 5% !important;
-  padding: 8px 16px;
+  padding: 8px;
   border-radius: 50% !important;
   border: 2px solid $purple;
-  height: 25px !important;
-  width: 10px !important;
+  height: 20px !important;
+  width: 20px !important;
 }
 
 .swiper-button-prev:after,
@@ -1511,7 +1512,11 @@ footer {
   }
 
   .find-event-header {
-    max-height: 40vw;
+    max-height: 450px;
+  }
+
+  .find-event-tags{
+    margin-top: 2%;
   }
 
   .find-event-search {
@@ -1535,6 +1540,27 @@ footer {
     padding-left: 9% !important;
   }
 
+
+  .swiper-button-prev {
+    left: 87% !important;
+    padding: 6px;
+    height: 18px !important;
+    width: 18px !important;
+  }
+  
+  .swiper-button-next {
+    left: 92% !important;
+    right: 0 !important;
+    padding: 6px;
+    height: 18px !important;
+    width: 18px !important;
+  }
+  
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    font-size: 20px !important;
+    color: $purple !important;
+  }
   /*PROFILE PAGE*/
   .profile-container {
     grid-template-areas:
@@ -2208,6 +2234,7 @@ footer {
   .menu-footer {
     font-size: 0.7em;
   }
+
 
   /*FIND AN EVENT*/
 
