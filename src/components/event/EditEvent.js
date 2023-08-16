@@ -356,21 +356,21 @@ function EditEvent() {
   const submitEvent = async () => {
     // merge date and time into single date field
     var startDateTime = new Date(
-      eventStartDate.getFullYear(),
-      eventStartDate.getMonth(),
-      eventStartDate.getDate(),
-      eventStartTime.getHours(),
-      eventStartTime.getMinutes(),
-      eventStartTime.getSeconds()
+      eventStartDate.year(),
+      eventStartDate.month(),
+      eventStartDate.date(),
+      eventStartTime.hour(),
+      eventStartTime.minute(),
+      eventStartTime.second()
     );
 
     var endDateTime = new Date(
       eventEndDate.getFullYear(),
       eventEndDate.getMonth(),
       eventEndDate.getDate(),
-      eventEndTime.getHours(),
-      eventEndTime.getMinutes(),
-      eventEndTime.getSeconds()
+      eventEndTime.hour(),
+      eventEndTime.minute(),
+      eventEndTime.second()
     );
 
     const event = {
