@@ -98,7 +98,7 @@ useEffect(() => {
   let rockEventsView =
     <> 
           <div className="home-row">
-            <h1>Rock Events</h1>
+            <h1>Rock events</h1>
            { (!fetchStatus.get) ?
             <Swiper
               modules={[Navigation, Pagination, Scrollbar, A11y]}
@@ -126,7 +126,7 @@ useEffect(() => {
 
   let nearbyEventsView = <>
   <div className="home-row">
-    <h1>Nearby Events</h1>
+    <h1>Nearby events</h1>
     { (!fetchStatus.get) ?
     <Swiper
       modules={[Navigation, Pagination, Scrollbar, A11y]}
@@ -156,7 +156,7 @@ useEffect(() => {
 
   let allEventsView = <>
     <div className="home-row">
-      <h1>All Events</h1>
+      <h1>All events</h1>
       { (!fetchStatus.get) ?
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y]}
