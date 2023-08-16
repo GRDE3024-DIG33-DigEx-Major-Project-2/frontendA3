@@ -62,7 +62,7 @@ async function fetchEventsWithFavouriteStatus(events) {
 //Extract the logic to get the Rock tag ID
 function getTagId() {
   for (let tag of tags.get) {
-    if (tag.name === "Rock") {
+    if (tag.name === GENRES.rock) {
       return tag.id;
     }
   }
