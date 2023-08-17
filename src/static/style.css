@@ -7,17 +7,22 @@ body {
 }
 
 header {
-  padding: 1%;
+  padding: 1% 2%;
   max-height: 8vh;
   background-color: #000000;
 }
 header a {
   color: #ffffff;
+  padding: 5px 0px;
+}
+
+a#nav-home {
+  padding: 0;
 }
 
 a:hover {
-  cursor: pointer;
   transform: scale(1.05);
+  transition: transform 0.25s ease-out;
   cursor: pointer;
 }
 
@@ -43,9 +48,33 @@ nav .nav-links {
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  gap: 5%;
-  padding-right: 1%;
-  font-size: 1.2em;
+  gap: 7%;
+  font-size: 1.1em;
+  font-weight: 700;
+}
+
+.hover-underline-animation {
+  display: inline-block;
+  position: relative;
+  transform: none !important;
+}
+
+.hover-underline-animation::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 3px;
+  bottom: 0;
+  left: 0;
+  background-color: #ffffff;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.hover-underline-animation:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
 
 p {
@@ -73,17 +102,22 @@ a {
 
 .bttn-style-purple {
   border: 2px solid #7759a6;
-  padding: 12px 25px;
-  font-weight: bold;
+  padding: 10px 30px;
+  font-weight: 700;
   color: #ffffff;
 }
 
 .bttn-style-orange {
   border: 2px solid #f58146;
   background-color: #f58146;
-  padding: 12px 25px;
+  padding: 10px 30px;
   font-weight: bold;
   color: #000000;
+}
+
+#nav-create-event {
+  min-width: fit-content;
+  max-width: 40%;
 }
 
 #mobile-menu {
@@ -548,8 +582,13 @@ footer {
 }
 
 #back-to-top-btn:hover,
-#load-more-events-btn:hover {
+#load-more-events-btn:hover,
+#save-pwd-btn:hover,
+#search-form-submit-btn:hover,
+#next-button:hover,
+#login-btn:hover {
   transform: scale(1.05);
+  transition: transform 0.25s ease-out;
   cursor: pointer;
 }
 
@@ -563,7 +602,7 @@ footer {
   min-height: 1000px;
   display: grid;
   grid-template-areas: "head head" "bio events" "account events";
-  grid-template-rows: 100px fit-content(300px) fit-content;
+  grid-template-rows: 100px fit-content(200px) auto;
   grid-template-columns: 30% 70%;
   background-color: #e6e2e2;
 }
@@ -777,12 +816,12 @@ footer {
   font-weight: 500;
 }
 
-.css-1oe4rwd-MuiSvgIcon-root {
+.card-location .MuiSvgIcon-root {
   color: #4b7cbe;
   margin-bottom: -3px;
 }
 
-.css-o69gx8-MuiCardMedia-root {
+.swiper-slide .MuiCardMedia-root {
   width: 360px !important;
   height: 223px !important;
 }
@@ -847,6 +886,9 @@ footer {
   position: relative;
   margin: 2%;
 }
+.event-card p {
+  font-size: 14px;
+}
 
 #card-name-link {
   text-decoration: none;
@@ -883,17 +925,21 @@ footer {
 
 #ev-share {
   top: 51.5%;
-  right: 20%;
+  right: 5%;
 }
 
 #ev-bookmark {
   top: 51.5%;
-  right: 5%;
+  right: 20%;
 }
 
 #ev-bookmark-selected {
   top: 51%;
-  right: 5%;
+  right: 20%;
+  background-color: #ffffff !important;
+  border: solid 3px #f58146;
+  width: 21.2px;
+  height: 21px;
 }
 
 #bookmark-show {
@@ -933,7 +979,7 @@ footer {
 }
 
 .ev-bookmark-h {
-  bottom: 10%;
+  bottom: 9%;
   right: 20%;
 }
 
@@ -1079,9 +1125,7 @@ footer {
   font-size: 3em;
 }
 
-.css-12z1287-MuiGrid-root p,
-.css-1f064cs-MuiGrid-root p,
-.css-1qeq9aw-MuiGrid-root p {
+.basic-information p {
   font-size: 18px;
 }
 
@@ -1090,20 +1134,15 @@ footer {
   padding: 13px;
 }
 
-.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
+.basic-information .MuiOutlinedInput-notchedOutline {
   height: 50px;
 }
 
-.css-suj22h-MuiChip-root {
-  font-size: 1.5rem;
-  height: 30px;
+.event-description fieldset {
+  height: 243px !important;
 }
 
-.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root {
-  font-size: 1rem;
-}
-
-.css-sghohy-MuiButtonBase-root-MuiButton-root {
+.create-ev-bttns-right .save-exit-ev-btn {
   font-size: 2rem;
 }
 
@@ -1175,6 +1214,7 @@ footer {
 .add-ticket-fab:hover,
 .remove-ticket-fab:hover {
   transform: scale(1.05);
+  transition: transform 0.25s ease-out;
   cursor: pointer;
 }
 
@@ -1232,6 +1272,26 @@ footer {
   cursor: pointer;
 }
 
+.event-preview .event-prev-card-icon-share,
+.event-preview .event-prev-card-icon-bookmark {
+  top: 376px;
+}
+
+.event-preview #ev-share {
+  top: 51.5%;
+  right: 20%;
+}
+
+.event-preview #ev-bookmark {
+  top: 27.5%;
+  right: 22%;
+}
+
+.event-preview #ev-bookmark-selected {
+  top: 19.5%;
+  right: 20%;
+}
+
 .event-buy-button {
   margin-right: 0px;
   margin-top: 20px;
@@ -1250,13 +1310,13 @@ footer {
 .event-prev-card-icon-share {
   position: absolute;
   right: 8%;
-  top: 375px;
+  top: 430px;
 }
 
 .event-prev-card-icon-bookmark {
   position: absolute;
   right: 4%;
-  top: 465px;
+  top: 430px;
 }
 
 .event-preview-screen {
@@ -1293,6 +1353,7 @@ footer {
 }
 .event-prev-first-row button:hover {
   transform: scale(1.05);
+  transition: transform 0.25s ease-out;
   cursor: pointer;
 }
 .event-prev-first-row h1 {
@@ -1338,7 +1399,7 @@ footer {
 .event-prev-title {
   position: absolute;
   background-color: #ffffff;
-  top: -21% !important;
+  top: -13% !important;
   left: 4%;
   width: fit-content;
   height: fit-content;
@@ -1347,10 +1408,14 @@ footer {
 .event-prev-title-2 {
   position: absolute;
   background-color: #ffffff;
-  top: -22%;
+  top: -13% !important;
   left: 3%;
   width: fit-content;
   height: fit-content;
+}
+
+.create-prev-lineup .event-prev-title {
+  top: -18% !important;
 }
 
 .event-prev-second-row {
@@ -1663,6 +1728,7 @@ footer {
   }
   nav .nav-links {
     width: 75vw;
+    gap: 2%;
   }
   .bttn-style-purple,
   .bttn-style-orange {
@@ -1977,6 +2043,7 @@ footer {
   }
   .profile-container .events-profile {
     height: auto;
+    margin: 40px 0;
   }
   .profile-box {
     padding: 2%;
@@ -1989,13 +2056,6 @@ footer {
   .profile-banner h1 {
     font-size: 1.2em;
   }
-  .css-o69gx8-MuiCardMedia-root {
-    width: 10em !important;
-    height: 7em !important;
-  }
-  .profile-container h3 {
-    font-size: 0.7em;
-  }
   p {
     font-size: 0.4em;
   }
@@ -2003,35 +2063,42 @@ footer {
     margin-top: 0px;
     margin-bottom: 5px;
   }
+  .card-price {
+    display: none;
+  }
   .horizontal-card {
     margin-bottom: 0;
     margin-top: 5%;
-    height: 150px;
-    min-height: 150px;
+    height: 170px !important;
+    max-height: fit-content !important;
   }
   .horizontal-card-box {
-    width: 130%;
+    width: 100% !important;
+    min-height: 100%;
+    height: fit-content !important;
+    max-height: 150% !important;
   }
   .ev-share-h {
     bottom: 5%;
     right: 5%;
   }
-  .ev-share-h {
-    bottom: 5%;
-    right: 5%;
+  .ev-share-h-2 {
+    bottom: 9%;
+    right: 20%;
+    padding: 2%;
   }
   .card-icon {
-    width: 15px;
-    height: 15px;
-    padding: 0.5%;
+    width: 25px;
+    height: 25px;
+    padding: 2%;
   }
   .ev-bookmark-h {
-    bottom: 5%;
-    right: 20%;
+    bottom: 4%;
+    right: 27%;
   }
   .card-icon svg {
-    font-size: 0.7em;
-    padding-bottom: 2px;
+    font-size: 16px;
+    margin-top: 18%;
   }
   .card-date svg,
   .card-location svg,
@@ -2050,12 +2117,10 @@ footer {
     flex-direction: column;
   }
   .ev-menu-h {
-    height: 13px;
+    bottom: 12%;
   }
   .ev-menu-h svg {
-    font-size: 1.6em;
-    width: 1.5em;
-    height: 1em;
+    font-size: 2.2em;
   }
   /*CREATE EVENTS PAGE*/
   .create-event-screen h2 {

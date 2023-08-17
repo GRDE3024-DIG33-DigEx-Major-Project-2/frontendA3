@@ -25,33 +25,29 @@ import { logoutErrorHandler } from "../../../services/AuthAPI";
 
 /**
  * Builds the event listing component for homepage
- * @param {*} props 
+ * @param {*} props
  * @returns The rendered evcent listing component for homepage
  */
 const EventCard = (props) => {
-
   //Setup props
   const navigate = useNavigate();
   const [favourite, setFavourite] = useState(false);
   const user = getUser();
-  const [tooltipMessage, setTooltipMessage] = useState('Share this event');
+  const [tooltipMessage, setTooltipMessage] = useState("Share this event");
 
   /**
    * Set favourite status of event onload
    */
   useEffect(() => {
-      if (user)
+    if (user)
       if (user.type == "attendee") {
         console.log("IS AN ATTENDEE");
         console.log(props.event.event.isFavourite);
         let val = props.event.event.isFavourite;
-        if (val == true || val == "true")
-        setFavourite(true);
-        else if (val == false || val == "false")
-        setFavourite(false);
+        if (val == true || val == "true") setFavourite(true);
+        else if (val == false || val == "false") setFavourite(false);
       }
   }, []);
-
 
   /**
    * Redirect to the event's page
@@ -59,7 +55,6 @@ const EventCard = (props) => {
   const cardRedirect = () => {
     navigate(PATHS.EVENT_PAGE, { state: { event: props.event } });
   };
-
 
   /**
    * Toggle favourite status of event
@@ -85,7 +80,6 @@ const EventCard = (props) => {
     props.event.event.endDate
   );
 
-
   /**
    * Constructs shareable link and saves it to clipboard
    * @param {*} event The event to generate a link for
@@ -97,28 +91,28 @@ const EventCard = (props) => {
     const linkToCopy = `${window.location.origin}${PATHS.EVENT_PAGE_NO_PARAMS}/${props.event.event.id}`;
 
     //Copy link to clipboard
-    navigator.clipboard.writeText(linkToCopy).then(() => {
-      //Update tooltip message
-      setTooltipMessage('Copied!');
-      //The ms delay after event url is copied to revert the tooltip message
-      const MS_TIL_REVERT_MSG = 2200;
+    navigator.clipboard
+      .writeText(linkToCopy)
+      .then(() => {
+        //Update tooltip message
+        setTooltipMessage("Copied!");
+        //The ms delay after event url is copied to revert the tooltip message
+        const MS_TIL_REVERT_MSG = 2200;
 
-      //Revert back to the original message after 2 seconds
-      setTimeout(() => {
-        setTooltipMessage('Share this event');
-      }, MS_TIL_REVERT_MSG);
-    }).catch(err => {
-      console.error('Failed to copy link: ', err);
-    });
+        //Revert back to the original message after 2 seconds
+        setTimeout(() => {
+          setTooltipMessage("Share this event");
+        }, MS_TIL_REVERT_MSG);
+      })
+      .catch((err) => {
+        console.error("Failed to copy link: ", err);
+      });
   };
-
-
 
   //Init image url as placeholder image
   let imgUrl = EVENT_IMG_PLACEHOLDER;
   //Assign the event's image url if found
-  if (props.event.eventImg)
-    imgUrl = props.event.eventImg.url;
+  if (props.event.eventImg) imgUrl = props.event.eventImg.url;
 
   //Return render of component
   return (
@@ -133,10 +127,13 @@ const EventCard = (props) => {
         <CardContent sx={{ minHeight: "50%" }}>
           <h3 className="card-name">{props.event.event.title}</h3>
           <p className="card-date">
-            <CalendarTodayIcon sx={{ fontSize: 15 }} /> {stringDate}
+            <CalendarTodayIcon sx={{ fontSize: 15, marginRight: "2%" }} />{" "}
+            {stringDate}
           </p>
           <p className="card-location">
-            <LocationOnOutlinedIcon sx={{ fontSize: 15 }} />{" "}
+            <LocationOnOutlinedIcon
+              sx={{ fontSize: 18, marginLeft: "-0.5%", marginRight: "2%" }}
+            />
             {props.event.event.venueName}
           </p>
         </CardContent>
@@ -146,14 +143,18 @@ const EventCard = (props) => {
           <ShareIcon sx={{ fontSize: 22, color: "black" }} />
         </div>
       </Tooltip>
-      {user !== null && (
-        user.type === "attendee" ? (
+      {user !== null &&
+        (user.type === "attendee" ? (
           <Tooltip
             title={!favourite ? "Add to favourites" : "Remove from favourites"}
           >
             <div
-              id={favourite ? 'ev-bookmark-selected' : 'ev-bookmark'}
-              className={props.event.event.isFavourited ? 'card-icon-selected' : 'card-icon'}
+              id={favourite ? "ev-bookmark-selected" : "ev-bookmark"}
+              className={
+                props.event.event.isFavourited
+                  ? "card-icon-selected"
+                  : "card-icon"
+              }
               onClick={handleFavourite}
             >
               <BookmarkBorderOutlinedIcon
@@ -166,12 +167,10 @@ const EventCard = (props) => {
               />
             </div>
           </Tooltip>
-        ) : null
-      )}
+        ) : null)}
     </Card>
   );
 };
-
 
 //Export the event listing
 export default EventCard;
