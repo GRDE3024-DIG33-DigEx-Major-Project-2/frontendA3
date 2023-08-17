@@ -6,14 +6,11 @@
 import axios from "axios";
 import { AUTH_ENDPOINTS, PATHS } from "../utils/constants.util";
 import {
-  getAccessToken,
   setAccessToken,
   resetTokenSession,
   resetUserSession,
 } from "../utils/localStorage";
 import {
-  showErrorToast,
-  showSuccessToast,
   showToast,
 } from "../components/shared/Toaster";
 
@@ -22,80 +19,66 @@ const axiosClient = axios.create({
   withCredentials: true
 });
 
+/**
+ * Sets up Axios client's interceptors
+ * @param {*} navigate 
+ * @param {*} setIsLoggedIn 
+ * @returns The Axios client after interceptor setup 
+ */
 export const setupAxiosInterceptors = (navigate, setIsLoggedIn) => {
-  //Interceptor for refreshing JWT token
+  
+  /**
+   * Setup refresh JWT interceptor
+   */
   axiosClient.interceptors.response.use(
-    async (response) => {
-      console.log("Interceptor: Response onfulfilled");
-      return response;
-    },
-    async (error) => {
-      console.log("Interceptor: Response onerror");
+    //Return response if it was initially successful
+    response => response,
+    //Handle error if initial request failed
+    async error => {
+      //Deconstruct original request instance
       const originalRequest = error.config;
 
-      //If the response status is 403 (Forbidden) and it's not the initial token request
+      //If the error is not 403 or it's a retry or the URL is the refresh token URL, reject the promise
+      //Reject promise if it is not 403, it's a retry, or it's a refresh token request
       if (
-        error.response.status === 403 &&
-        !originalRequest._retry &&
-        originalRequest.url !== AUTH_ENDPOINTS.refreshTokenUrl
+        error.response.status !== 403 ||
+        originalRequest._retry ||
+        originalRequest.url === AUTH_ENDPOINTS.refreshTokenUrl
       ) {
-        originalRequest._retry = true;
-        console.log(AUTH_ENDPOINTS.refreshTokenUrl);
-        console.log("PASSES CONDITIONAL");
-
-        try {
-          console.log("PASSES CONDITIONAL2");
-          const refreshTokenResponse = await axios
-            .get(AUTH_ENDPOINTS.refreshTokenUrl, {
-              headers: {
-                Authorization: `Bearer ${getAccessToken()}`,
-                withCredentials: true
-              },
-            });
-
-          console.log("REFRESH REQ COMPLETE");
-          console.log("REFRESH TOKEN RESPONSE: ", refreshTokenResponse.data);
-          console.log(refreshTokenResponse.status);
-          if (
-            (refreshTokenResponse.status >= 200 &&
-              refreshTokenResponse.status <= 299) ||
-            refreshTokenResponse.status === 400
-          ) {
-            console.log("Token refresh succeeded!");
-            setAccessToken(refreshTokenResponse.data.accessToken);
-
-            //Retry the original request with the new token
-            originalRequest.headers[
-              "Authorization"
-            ] = `Bearer ${refreshTokenResponse.data.accessToken}`;
-
-            //Retry the request and if it fails again, logout
-            return axiosClient(originalRequest).catch((retryError) => {
-              console.log("Retry failed after token refresh: ", retryError);
-              logoutAndRedirect(navigate, setIsLoggedIn);
-            });
-          } else {
-            console.log(
-              "Refresh token responded failed status: ",
-              refreshTokenResponse.status
-            );
-            logoutAndRedirect(navigate, setIsLoggedIn);
-          }
-        } catch (refreshError) {
-          console.log("Error refreshing token:", refreshError);
-          //logoutAndRedirect(navigate, setIsLoggedIn);
-          return Promise.resolve();
-        }
+        return Promise.reject(error);
       }
 
-      //If it's not a 403 error or it's already been retried, let it propagate normally.
-      return Promise.reject(error);
+      //Conditions met for refresh token attempt
+      originalRequest._retry = true;
+
+      //Attempt refresh token request, then original request
+      try {
+        const refreshTokenResponse = await axiosClient.get(AUTH_ENDPOINTS.refreshTokenUrl);
+        if (
+          (refreshTokenResponse.status >= 200 && refreshTokenResponse.status <= 299) ||
+          refreshTokenResponse.status === 400
+        ) {
+          setAccessToken(refreshTokenResponse.data.accessToken);
+          originalRequest.headers["Authorization"] = `Bearer ${refreshTokenResponse.data.accessToken}`;
+          return axiosClient(originalRequest);
+        }
+        
+        //Logout user and reject promise on failed requests
+        logoutAndRedirect(navigate, setIsLoggedIn);
+        return Promise.reject(new Error("Refresh token responded with a failed status"));
+
+        //Logout user and reject promise on caught error
+      } catch (refreshError) {
+        logoutAndRedirect(navigate, setIsLoggedIn);
+        return Promise.reject(refreshError);
+      }
     }
   );
 
-  //Return the axios instance
+  //Return axios instance with the interceptors configured
   return axiosClient;
 };
+
 
 /**
  * Handles normal logout procedures
