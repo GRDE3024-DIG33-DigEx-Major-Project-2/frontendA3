@@ -115,6 +115,11 @@ a {
   color: #000000;
 }
 
+#nav-create-event {
+  min-width: fit-content;
+  max-width: 40%;
+}
+
 #mobile-menu {
   display: none;
 }
@@ -597,7 +602,7 @@ footer {
   min-height: 1000px;
   display: grid;
   grid-template-areas: "head head" "bio events" "account events";
-  grid-template-rows: 100px fit-content(300px) fit-content;
+  grid-template-rows: 100px fit-content(200px) auto;
   grid-template-columns: 30% 70%;
   background-color: #e6e2e2;
 }
@@ -974,7 +979,7 @@ footer {
 }
 
 .ev-bookmark-h {
-  bottom: 10%;
+  bottom: 9%;
   right: 20%;
 }
 
@@ -1723,6 +1728,7 @@ footer {
   }
   nav .nav-links {
     width: 75vw;
+    gap: 2%;
   }
   .bttn-style-purple,
   .bttn-style-orange {
@@ -2037,6 +2043,7 @@ footer {
   }
   .profile-container .events-profile {
     height: auto;
+    margin: 40px 0;
   }
   .profile-box {
     padding: 2%;
@@ -2049,13 +2056,6 @@ footer {
   .profile-banner h1 {
     font-size: 1.2em;
   }
-  .css-o69gx8-MuiCardMedia-root {
-    width: 10em !important;
-    height: 7em !important;
-  }
-  .profile-container h3 {
-    font-size: 0.7em;
-  }
   p {
     font-size: 0.4em;
   }
@@ -2063,35 +2063,42 @@ footer {
     margin-top: 0px;
     margin-bottom: 5px;
   }
+  .card-price {
+    display: none;
+  }
   .horizontal-card {
     margin-bottom: 0;
     margin-top: 5%;
-    height: 150px;
-    min-height: 150px;
+    height: 170px !important;
+    max-height: fit-content !important;
   }
   .horizontal-card-box {
-    width: 130%;
+    width: 100% !important;
+    min-height: 100%;
+    height: fit-content !important;
+    max-height: 150% !important;
   }
   .ev-share-h {
     bottom: 5%;
     right: 5%;
   }
-  .ev-share-h {
-    bottom: 5%;
-    right: 5%;
+  .ev-share-h-2 {
+    bottom: 9%;
+    right: 20%;
+    padding: 2%;
   }
   .card-icon {
-    width: 15px;
-    height: 15px;
-    padding: 0.5%;
+    width: 25px;
+    height: 25px;
+    padding: 2%;
   }
   .ev-bookmark-h {
-    bottom: 5%;
-    right: 20%;
+    bottom: 4%;
+    right: 27%;
   }
   .card-icon svg {
-    font-size: 0.7em;
-    padding-bottom: 2px;
+    font-size: 16px;
+    margin-top: 18%;
   }
   .card-date svg,
   .card-location svg,
@@ -2110,12 +2117,10 @@ footer {
     flex-direction: column;
   }
   .ev-menu-h {
-    height: 13px;
+    bottom: 12%;
   }
   .ev-menu-h svg {
-    font-size: 1.6em;
-    width: 1.5em;
-    height: 1em;
+    font-size: 2.2em;
   }
   /*CREATE EVENTS PAGE*/
   .create-event-screen h2 {
