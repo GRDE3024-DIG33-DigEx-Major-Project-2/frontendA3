@@ -89,11 +89,18 @@ const DateRangePicker = () => {
    * Update the date range prop values and filter diaplay
    */
   useEffect(() => {
+    if(!selectedMinDate || !selectedMaxDate) {
+      return;
+   }
+
     dateRange.minDate.set(selectedMinDate);
 
     dateRange.maxDate.set(selectedMaxDate);
 
     const replaceDateChip = () => {
+      if(!selectedMinDate || !selectedMaxDate) {
+        return;
+     }
       //Filter chip key
       let newKey = chipData.get.length + 1;
       //Filter chips

@@ -174,7 +174,9 @@ const SearchEventFiltersProvider = ({ children }) => {
         VENUE:"All Venues",
         DATE:DATE_RANGES.ANY,
         FREE:"free",
-        PAID:"paid"
+        PAID:"paid",
+        CAP_FREE:"Free",
+        CAP_PAID:"Paid"
     };
 
 

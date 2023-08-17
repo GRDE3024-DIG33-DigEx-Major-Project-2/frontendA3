@@ -36,7 +36,7 @@ import VenueInput from "./filters/VenueInput";
 import DateRadioBtns from "./filters/DateRadioButtons";
 import TicketPriceRange from "./filters/TicketPriceRange";
 import { SearchSelectedTags } from "./filters/TagSelection";
-
+import { v4 as uuidv4 } from 'uuid';
 //Partial page spinner
 import { PartialLoadSpinner } from "../../shared/LoadingSpinner";
 
@@ -67,6 +67,8 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
     selectedVenue,
     isFree,
     IMMUTABLE_CHIP_VALUES,
+    selectedDateRange,
+    DATE_RANGES
   } = useContext(SearchEventFiltersContext);
 
   /**
@@ -127,7 +129,7 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
    * @returns
    */
   const handleDelete = (chipToDelete) => () => {
-    if (chipToDelete !== "All Venues")
+    if (chipToDelete !== "All Venues" || chipToDelete !== "Any Date")
       chipData.set((chips) =>
         chips.filter((chip) => chip.key !== chipToDelete.key)
       );

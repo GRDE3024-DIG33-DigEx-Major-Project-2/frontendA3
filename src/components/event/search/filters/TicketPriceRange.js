@@ -29,7 +29,7 @@ import { Link } from "react-router-dom";
   //Import search event props
   import { SearchEventsContext, SearchEventFiltersContext } from "../../../../props/search-events.prop";
   import * as dayjs from 'dayjs';
-
+  import { v4 as uuidv4 } from 'uuid';
 
   const TicketPriceRange = () => {
 
@@ -53,37 +53,52 @@ import { Link } from "react-router-dom";
   const {
     priceRange,
     isFree,
+    change,
+    chipData,
+    IMMUTABLE_CHIP_VALUES
   } = useContext(SearchEventFiltersContext);
 
 
     //Ticket price range UI values
     const [minPrice, setMinPrice] = useState(priceRange.minPrice.get);
-    const [maxPrice, setMaxPrice] = useState();
+    const [maxPrice, setMaxPrice] = useState(priceRange.maxPrice.get);
 
     
 
-  // //Handle chip data changes when selectedVenue changes
-  // useEffect(() => {
-  //   let temp = chipData.get;
-  //   temp = temp.filter((x) => x.searchCategory !== "venue");
-  //   const newKey = uuidv4();
-  //   temp.push({
-  //     key: newKey,
-  //     searchCategory: "venue",
-  //     label: selectedVenue.get,
-  //     value: selectedVenue.get,
-  //   });
+  //Handle chip data changes when free/paid toggle changes
+  useEffect(() => {
+    let temp = chipData.get;
+    temp = temp.filter((x) => x.searchCategory !== "isFree");
+    const newKey = uuidv4();
+    if (isFree.get === "free") {
+    temp.push({
+      key: newKey,
+      searchCategory: "isFree",
+      label: "Free",
+      value: "free",
+    });   
+    }
+    else if (isFree.get === "paid") {
+    temp.push({
+      key: newKey,
+      searchCategory: "isFree",
+      label: "Paid",
+      value: "paid",
+    });          
+    }
 
-  //   //Delay setting the chip data to the next render cycle
-  //   setTimeout(() => {
-  //     chipData.set(temp, false);
-  //     change.set(!change.get);
-  //   }, 0);
-  // }, [selectedVenue.get]);
+
+    //Delay setting the chip data to the next render cycle
+    setTimeout(() => {
+      chipData.set(temp, false);
+      change.set(!change.get);
+    }, 0);
+  }, [isFree.get]);
+
 
 
     useEffect(() => {   
-      if (isFree.get == "free") {
+      if (isFree.get == IMMUTABLE_CHIP_VALUES.FREE) {
         setMinPrice(1);
         setMaxPrice(200);
       }

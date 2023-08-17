@@ -44,7 +44,6 @@ async function fetchEventsWithFavouriteStatus(events) {
     return events;
   }
 
-  //try {
     const response = await isFavourited(events.map(x => x.event.id));
     return events.map(eventContainer => {
       const favEvent = response.data.favStatuses.find(fav => fav.eventId === eventContainer.event.id);
@@ -53,10 +52,6 @@ async function fetchEventsWithFavouriteStatus(events) {
         event: favEvent ? { ...eventContainer.event, ...favEvent } : eventContainer.event
       };
     });
-  // } catch (error) {
-  //   logoutErrorHandler(error);
-  //   return events;
-  // }
 }
 
 //Extract the logic to get the Rock tag ID
@@ -79,7 +74,7 @@ useEffect(() => {
     setAllEvents(allEventsWithFavourites);
 
     //Fetch genre-specific events
-    const specificTagId = getTagId(GENRES.rock);
+    const specificTagId = getTagId();
     if (specificTagId) {
       const rockEv = await searchEvents([specificTagId], null, null, null, null, null, 0);
       const rockEventsWithFavourites = await fetchEventsWithFavouriteStatus(rockEv.events);

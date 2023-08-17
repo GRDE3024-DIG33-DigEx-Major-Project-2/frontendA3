@@ -33,35 +33,56 @@ const DateRadioBtns = () => {
     selectedDateRange
   } = useContext(SearchEventFiltersContext);
 
-  
+  useEffect(() => {
+    //Filter chip key
+    const newKey = uuidv4();
+    //Filter chips
+    let temp = chipData.get;
+    //Remove old date filter chip
+    temp = temp.filter(x => x.searchCategory !== "date");
 
-    //Handle chip data changes when selectedDateRange changes
-    useEffect(() => {
-      let temp = chipData.get;
-      temp = temp.filter((x) => x.searchCategory !== "date");
-      const newKey = uuidv4();
+    //Add chip to temp filter chips
+    temp.push({
+      //Set key
+      key: newKey,
+      //Set search category
+      searchCategory: "date",
+      //Set label
+      label: DATE_RANGES.ANY,
+      //Set the value
+      value: DATE_RANGES.ANY,
+    });
+  }, []);
+
+
+
+  //Handle chip data changes when selectedDateRange changes
+  useEffect(() => {
+    let temp = chipData.get;
+    temp = temp.filter((x) => x.searchCategory !== "date");
+    const newKey = uuidv4();
+    temp.push({
+      key: newKey,
+      searchCategory: "date",
+      label: selectedDateRange.get,
+      value: selectedDateRange.get,
+    });
+
+    //Delay setting the chip data to the next render cycle
+    setTimeout(() => {
+      chipData.set(temp, false);
+      change.set(!change.get);
+    }, 0);
+
+    //Set initial default chip on page load
+    if (temp.filter((x) => x.searchCategory === "date") == null)
       temp.push({
         key: newKey,
         searchCategory: "date",
         label: selectedDateRange.get,
         value: selectedDateRange.get,
       });
-  
-      //Delay setting the chip data to the next render cycle
-      setTimeout(() => {
-        chipData.set(temp, false);
-        change.set(!change.get);
-      }, 0);
-
-      //Set initial default chip on page load
-      if (temp.filter((x) => x.searchCategory === "date") == null)
-      temp.push({
-        key: newKey,
-        searchCategory: "date",
-        label: selectedDateRange.get,
-        value: selectedDateRange.get,
-      });
-    }, [selectedDateRange.get]);
+  }, [selectedDateRange.get]);
 
 
   /**
@@ -70,7 +91,7 @@ const DateRadioBtns = () => {
    */
   const chipSelectDate = (value) => {
     //Filter chip key
-    let newKey = chipData.get.length + 1;
+    const newKey = uuidv4();
     //Filter chips
     let temp = chipData.get;
 
@@ -80,7 +101,7 @@ const DateRadioBtns = () => {
     //Disable date range filtering
     if (value === DATE_RANGES.ANY) {
       console.log("Disabling date range filtering");
-      tempDateRange = {minDate: null, maxDate: null};
+      tempDateRange = { minDate: null, maxDate: null };
     }
     //Get ISO range for today
     else if (value === DATE_RANGES.TODAY) {
