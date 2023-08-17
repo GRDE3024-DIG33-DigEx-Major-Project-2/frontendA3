@@ -33,31 +33,39 @@ const DateRadioBtns = () => {
     selectedDateRange
   } = useContext(SearchEventFiltersContext);
 
-  useEffect(() => {
-    //Filter chip key
-    const newKey = uuidv4();
-    //Filter chips
-    let temp = chipData.get;
-    //Remove old date filter chip
-    temp = temp.filter(x => x.searchCategory !== "date");
+//   useEffect(() => {
+//     //Filter chip key
+//     const newKey = uuidv4();
+//     //Filter chips
+//     let temp = chipData.get;
+//     //Remove old date filter chip
+//     temp = temp.filter(x => x.searchCategory !== "date");
 
-    //Add chip to temp filter chips
-    temp.push({
-      //Set key
-      key: newKey,
-      //Set search category
-      searchCategory: "date",
-      //Set label
-      label: DATE_RANGES.ANY,
-      //Set the value
-      value: DATE_RANGES.ANY,
-    });
-  }, []);
+//     //Add chip to temp filter chips
+//     temp.push({
+//       //Set key
+//       key: newKey,
+//       //Set search category
+//       searchCategory: "date",
+//       //Set label
+//       label: DATE_RANGES.ANY,
+//       //Set the value
+//       value: DATE_RANGES.ANY,
+//     });
+
+// console.log("SETTING DEFAULT ANY DATE");
+// console.log(DATE_RANGES.ANY);
+// console.log(temp);
+// console.log(chipData.get);
+//     chipData.set(...temp);
+//     console.log(chipData.get);
+//   }, []);
 
 
 
   //Handle chip data changes when selectedDateRange changes
   useEffect(() => {
+    console.log("TEST SELECTED DATE RANGE: ",selectedDateRange.get);
     let temp = chipData.get;
     temp = temp.filter((x) => x.searchCategory !== "date");
     const newKey = uuidv4();
@@ -74,15 +82,15 @@ const DateRadioBtns = () => {
       change.set(!change.get);
     }, 0);
 
-    //Set initial default chip on page load
-    if (temp.filter((x) => x.searchCategory === "date") == null)
-      temp.push({
-        key: newKey,
-        searchCategory: "date",
-        label: selectedDateRange.get,
-        value: selectedDateRange.get,
-      });
-  }, [selectedDateRange.get]);
+    // //Set initial default chip on page load
+    // if (temp.filter((x) => x.searchCategory === "date") == null)
+    //   temp.push({
+    //     key: newKey,
+    //     searchCategory: "date",
+    //     label: selectedDateRange.get,
+    //     value: selectedDateRange.get,
+    //   });
+  }, []);
 
 
   /**
@@ -90,6 +98,7 @@ const DateRadioBtns = () => {
    * @param {*} value 
    */
   const chipSelectDate = (value) => {
+    console.log("Ran the chip select date");
     //Filter chip key
     const newKey = uuidv4();
     //Filter chips

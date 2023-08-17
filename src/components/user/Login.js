@@ -194,9 +194,6 @@ const Login = ({ setIsLoggedIn }) => {
             >
               Login
             </Button>
-            <Link to={PATHS.RESET_PASSWORD} className="forgot-btn">
-              Forgot your password?
-            </Link>
           </FormControl>
         </form>
       </div>

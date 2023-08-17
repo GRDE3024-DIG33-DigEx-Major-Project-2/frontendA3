@@ -141,10 +141,14 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
    */
   const clearFilters = () => {
     console.log("CLEARING ALL FILTERS");
-    //Reset selected chips
-    chipData.set([]);
+
+    //Only remove chips that aren't immutable
+    const remainingChips = chipData.get.filter(chip => Object.values(IMMUTABLE_CHIP_VALUES).includes(chip.label));
+    chipData.set(remainingChips);
+
     //Reset pagination
     currPage.set(0);
+
     //Reset filter props
     tagSelection.set([]);
     keywords.set("");
@@ -154,6 +158,7 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
     priceRange.minPrice.set(null);
     priceRange.maxPrice.set(null);
     isFree.set("free");
+
     console.log(
       tagSelection.get,
       keywords.get,
@@ -164,8 +169,10 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
       location.get,
       currPage.get
     );
+
     change.set(!change.get);
-  };
+};
+
 
   /**
    * Event listing display container
@@ -188,7 +195,7 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
           </>
         )}
         {currPage.get + 1 == pageCount.get ||
-        (currPage.get == 0 && pageCount.get == 0) ? null : (
+          (currPage.get == 0 && pageCount.get == 0) ? null : (
           <div className="search-buttons">
             {!fetchStatus.get ? (
               <Button variant="contained" id="load-more-events-btn" onClick={loadMoreHandler}>
@@ -263,6 +270,10 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
     }
   }, [tags.set, events.set]);
 
+  //Check for mutable chips in chip data
+  const hasMutableChip = chipData.get
+    .some(chip => !Object.values(IMMUTABLE_CHIP_VALUES).includes(chip.label));
+
   //HTML Template for searching events
   return (
     <section className="home-section">
@@ -307,10 +318,8 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
                   : {})}
               />
             ))}
-            {chipData.get < 1 ? null : (
-              <>
-                <Link onClick={clearFilters}>Clear all filters</Link>
-              </>
+            {hasMutableChip && (
+              <Link onClick={clearFilters}>Clear all filters</Link>
             )}
           </Stack>
           {eventListings}
