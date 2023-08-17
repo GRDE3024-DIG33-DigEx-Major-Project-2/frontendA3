@@ -161,7 +161,7 @@ function SignUpGuest() {
                   }}
                   variant="outlined"
                 />
-                <p>Date:</p>
+                <p>Date of birth:</p>
                 <DatePicker
                   sx={{ marginBottom: "5%" }}
                   onChange={(newDob) => setDob(newDob)}
