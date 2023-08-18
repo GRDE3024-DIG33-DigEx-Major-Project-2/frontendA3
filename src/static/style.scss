@@ -143,6 +143,13 @@ a {
   padding-left: 5% !important;
 }
 
+.home-row{
+  h2{
+    margin-left: 1%;
+    font-size: 40px;
+  }
+}
+
 // *********************** HEADER ************************ //
 
 .bttn-style-purple {
@@ -1978,6 +1985,10 @@ footer {
 
   .home-row {
     padding: 3px;
+    h2{
+      font-size: 33px;
+      margin-left: 4%;
+    }
   }
 
   .home-section .home-row .swiper-slide {
