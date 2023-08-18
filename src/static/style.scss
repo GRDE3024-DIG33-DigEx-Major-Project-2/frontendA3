@@ -38,7 +38,7 @@ $border: #dfdfdf;
 
 @mixin interaction-expand-on-hover() {
   transform: scale(1.05);
-  transition: transform  0.25s ease-out;
+  transition: transform 0.25s ease-out;
   cursor: pointer;
 }
 
@@ -60,10 +60,6 @@ header {
     color: $white;
     padding: 5px 0px;
   }
-}
-
-a#nav-home {
-  padding: 0;
 }
 
 a:hover {
@@ -96,15 +92,24 @@ nav {
   position: relative;
   transform: none !important;
 }
+
+.hover-underline-animation.active {
+  background-color: transparent;
+  border: 0;
+  width: fit-content;
+  color: $orange1;
+  border-bottom: solid 4px $orange1;
+}
+
 .hover-underline-animation::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 100%;
   transform: scaleX(0);
   height: 3px;
-  bottom: 0;
+  bottom: -10%;
   left: 0;
-  background-color: #ffffff;
+  background-color: $orange1;
   transform-origin: bottom right;
   transition: transform 0.25s ease-out;
 }
@@ -155,7 +160,7 @@ a {
   color: $black;
 }
 
-#nav-create-event{
+#nav-create-event {
   min-width: fit-content;
   max-width: 40%;
 }
@@ -341,7 +346,7 @@ a {
 
 // *********************** SIGNUP PAGE ************************ //
 .signup {
-@include flex-row;
+  @include flex-row;
   width: 100%;
   min-height: fit-content;
   height: 700px;
@@ -372,12 +377,12 @@ a {
     font-size: 3em;
   }
 
-  .login-link{
+  .login-link {
     font-size: 1.1em;
   }
 }
 
-.select-span{
+.select-span {
   color: $white;
   font-weight: 500;
 }
@@ -907,7 +912,7 @@ footer {
   position: relative;
   margin: 2%;
 
-  p{
+  p {
     font-size: 14px;
   }
 }
@@ -1150,8 +1155,8 @@ footer {
   height: 50px;
 }
 
-.event-description fieldset{
-    height: 243px !important;
+.event-description fieldset {
+  height: 243px !important;
 }
 
 .create-ev-bttns-right .save-exit-ev-btn {
@@ -1270,7 +1275,7 @@ footer {
 }
 
 .event-preview .event-prev-card-icon-share,
-.event-preview .event-prev-card-icon-bookmark{
+.event-preview .event-prev-card-icon-bookmark {
   top: 376px;
 }
 
@@ -1403,7 +1408,7 @@ footer {
   height: fit-content;
 }
 
-.create-prev-lineup .event-prev-title{
+.create-prev-lineup .event-prev-title {
   top: -18% !important;
 }
 
@@ -1589,7 +1594,7 @@ footer {
     max-height: 450px;
   }
 
-  .find-event-tags{
+  .find-event-tags {
     margin-top: 2%;
   }
 
@@ -1614,14 +1619,13 @@ footer {
     padding-left: 9% !important;
   }
 
-
   .swiper-button-prev {
     left: 87% !important;
     padding: 6px;
     height: 18px !important;
     width: 18px !important;
   }
-  
+
   .swiper-button-next {
     left: 92% !important;
     right: 0 !important;
@@ -1629,7 +1633,7 @@ footer {
     height: 18px !important;
     width: 18px !important;
   }
-  
+
   .swiper-button-prev:after,
   .swiper-button-next:after {
     font-size: 20px !important;
@@ -2308,7 +2312,6 @@ footer {
   .menu-footer {
     font-size: 0.7em;
   }
-
 
   /*FIND AN EVENT*/
 

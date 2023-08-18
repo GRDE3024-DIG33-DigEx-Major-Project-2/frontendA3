@@ -16,10 +16,6 @@ header a {
   padding: 5px 0px;
 }
 
-a#nav-home {
-  padding: 0;
-}
-
 a:hover {
   transform: scale(1.05);
   transition: transform 0.25s ease-out;
@@ -59,15 +55,23 @@ nav .nav-links {
   transform: none !important;
 }
 
+.hover-underline-animation.active {
+  background-color: transparent;
+  border: 0;
+  width: fit-content;
+  color: #f58146;
+  border-bottom: solid 4px #f58146;
+}
+
 .hover-underline-animation::after {
   content: "";
   position: absolute;
   width: 100%;
   transform: scaleX(0);
   height: 3px;
-  bottom: 0;
+  bottom: -10%;
   left: 0;
-  background-color: #ffffff;
+  background-color: #f58146;
   transform-origin: bottom right;
   transition: transform 0.25s ease-out;
 }

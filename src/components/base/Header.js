@@ -1,11 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Drawer, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/styles";
-import { resetUserSession, resetTokenSession, getUser, resetDrafts } from "../../utils/localStorage";
+import {
+  resetUserSession,
+  resetTokenSession,
+  getUser,
+  resetDrafts,
+} from "../../utils/localStorage";
 import { showToast, showErrorToast, showSuccessToast } from "../shared/Toaster";
 import { GIGNEY_HEADER_LOGO, PATHS } from "../../utils/constants.util";
 
@@ -15,7 +20,7 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
   const user = getUser();
 
   useEffect(() => {
-    if(user) setIsLoggedIn(true);
+    if (user) setIsLoggedIn(true);
     else setIsLoggedIn(false);
   }, [user]);
 
@@ -40,7 +45,7 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
     // change user and logged in state
     setIsLoggedIn(false);
     //Show toaster for logout notification
-    showToast("You have been logged out", "logout");  
+    showToast("You have been logged out", "logout");
   };
 
   // only for mobile menu
@@ -59,58 +64,78 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
     <header>
       <nav>
         {/* Can place the logo within a link component to have the logo routing to home */}
-        <Link id="nav-home" to={PATHS.HOME}>
-          <img
-            src={GIGNEY_HEADER_LOGO}
-            alt="Gigney Logo"
-            id="nav-logo"
-          />
-        </Link>
+        <NavLink id="nav-home" to={PATHS.HOME}>
+          <img src={GIGNEY_HEADER_LOGO} alt="Gigney Logo" id="nav-logo" />
+        </NavLink>
         <div className="nav-links">
-          <Link id="nav-home-txt" className="hover-underline-animation" to={PATHS.HOME}>
+          <NavLink
+            id="nav-home-txt"
+            className="hover-underline-animation"
+            to={PATHS.HOME}
+          >
             Home
-          </Link>
-          <Link id="nav-events" className="hover-underline-animation" to={PATHS.SEARCH_EVENTS}>
+          </NavLink>
+          <NavLink
+            id="nav-events"
+            className="hover-underline-animation"
+            to={PATHS.SEARCH_EVENTS}
+          >
             Search
-          </Link>
+          </NavLink>
           {isLoggedIn && user && !user.organizationName && (
-            <Link id="nav-profile" className="hover-underline-animation" to={PATHS.PROFILE}>
+            <NavLink
+              id="nav-profile"
+              className="hover-underline-animation"
+              to={PATHS.PROFILE}
+            >
               Profile
-            </Link>
+            </NavLink>
           )}
           {isLoggedIn && user && user.organizationName && (
             <>
-              <Link id="nav-dashboard" className="hover-underline-animation" to={PATHS.DASHBOARD}>
+              <NavLink
+                id="nav-dashboard"
+                className="hover-underline-animation"
+                to={PATHS.DASHBOARD}
+              >
                 Dashboard
-              </Link>
-              <Link
+              </NavLink>
+              <NavLink
                 id="nav-create-event"
                 className="bttn-style-orange"
                 to={PATHS.CREATE_EVENT}
               >
                 Create a new event
-              </Link>
+              </NavLink>
             </>
           )}
           {!isLoggedIn && (
             <>
-              <Link id="nav-signup" className="bttn-style-purple" to={PATHS.SIGN_UP}>
+              <NavLink
+                id="nav-signup"
+                className="bttn-style-purple"
+                to={PATHS.SIGN_UP}
+              >
                 Signup
-              </Link>
-              <Link id="nav-login" className="bttn-style-orange" to={PATHS.LOGIN}>
+              </NavLink>
+              <NavLink
+                id="nav-login"
+                className="bttn-style-orange"
+                to={PATHS.LOGIN}
+              >
                 Login
-              </Link>
+              </NavLink>
             </>
           )}
           {isLoggedIn && (
-            <Link
+            <NavLink
               id="nav-logout"
               className="bttn-style-purple"
               to={PATHS.HOME}
               onClick={logout}
             >
               Logout
-            </Link>
+            </NavLink>
           )}
         </div>
 
@@ -148,7 +173,10 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
                   onClick={toggleDrawer(false)}
                 />
                 <div id="gigney-menu-logo">
-                  <img src="../gigney_logo_white_square_no_bg_web.png" alt="gigney logo" />
+                  <img
+                    src="../gigney_logo_white_square_no_bg_web.png"
+                    alt="gigney logo"
+                  />
                 </div>
                 <h1>Menu</h1>
 
