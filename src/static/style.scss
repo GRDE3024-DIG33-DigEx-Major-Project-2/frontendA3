@@ -1812,10 +1812,9 @@ footer {
   .home-section .home-row .swiper-slide {
     width: 340px !important;
     padding-left: 3% !important;
-  }
-
-  .home-section .home-row #ev-share {
-    top: 48.5%;
+    #ev-share, #ev-bookmark, #ev-bookmark-selected {
+      top: 48.5%;
+    }
   }
 
   .swiper {
