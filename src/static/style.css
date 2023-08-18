@@ -1647,8 +1647,11 @@ footer {
     width: 340px !important;
     padding-left: 9% !important;
   }
+  .swiper {
+    padding-top: 6% !important;
+  }
   .swiper-button-prev {
-    left: 87% !important;
+    left: 86% !important;
     padding: 6px;
     height: 18px !important;
     width: 18px !important;
@@ -1663,7 +1666,6 @@ footer {
   .swiper-button-prev:after,
   .swiper-button-next:after {
     font-size: 20px !important;
-    color: #5b5be6 !important;
   }
   /*PROFILE PAGE*/
   .profile-container {
@@ -1684,11 +1686,6 @@ footer {
   }
   .profile-container h3 {
     font-size: 1em;
-  }
-  .css-1sx3qbl-MuiSvgIcon-root,
-  .css-pnaxc6-MuiSvgIcon-root {
-    font-size: 0.7em;
-    padding-bottom: 2px;
   }
   /*CREATE EVENTS PAGE*/
   .create-event-header h1 {
@@ -1725,15 +1722,6 @@ footer {
   }
   .create-event-screen h2 {
     text-align: center;
-  }
-  .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
-    font-size: 5em;
-  }
-  .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
-    height: 25px;
-  }
-  .css-suj22h-MuiChip-root {
-    height: 18px;
   }
   .event-prev-tags .MuiChip-labelMedium {
     padding-left: 10px;
@@ -1816,9 +1804,15 @@ footer {
   .home-section .home-row #ev-share {
     top: 48.5%;
   }
+  .swiper {
+    padding-top: 8% !important;
+  }
   .swiper-button-prev,
   .swiper-button-next {
-    width: calc(var(--swiper-navigation-size) / 44 * 5);
+    top: 7% !important;
+  }
+  .swiper-button-prev {
+    left: 86% !important;
   }
   /* SIGNUP PAGE */
   .signup {
@@ -1965,33 +1959,49 @@ footer {
     margin-left: 0px !important;
     padding-left: 22px !important;
   }
+  .home-section .home-row .swiper-slide #ev-share,
+  .home-section .home-row .swiper-slide #ev-bookmark,
+  .home-section .home-row .swiper-slide #ev-bookmark-selected {
+    top: 40%;
+  }
+  .home-section .home-row .swiper-slide #ev-bookmark-selected {
+    width: 16px;
+    height: 16px;
+  }
+  .home-section .home-row .swiper-slide #ev-bookmark-selected .MuiSvgIcon-root {
+    width: auto;
+    height: auto;
+    margin-top: -1%;
+  }
+  .home-section .home-row .swiper-slide .card-icon {
+    width: 20px;
+    height: 20px;
+  }
   .home-section .MuiCardMedia-img {
     width: 100% !important;
     height: 46% !important;
   }
   .home-section .event-card {
-    width: 276px !important;
-    height: 230px !important;
+    width: 280px !important;
+    height: 260px !important;
   }
   .home-section .card-date,
   .home-section .card-location {
     font-size: 0.8em;
   }
-  .home-section #ev-share {
-    top: 42.5%;
-    right: 11%;
-  }
-  .home-section .card-icon {
-    width: 20px;
-    height: 20px;
-  }
   .home-section .MuiSvgIcon-fontSizeMedium {
     font-size: 0.8em;
     padding-bottom: 0px;
   }
-  .swiper-button-prev,
+  .swiper {
+    margin-left: -1% !important;
+    width: 101.5% !important;
+  }
+  .swiper-button-prev {
+    left: 82% !important;
+  }
   .swiper-button-next {
-    width: calc(var(--swiper-navigation-size) / 44 * 3);
+    left: 91% !important;
   }
   .menu-footer {
     padding: 2% 1%;
@@ -2274,41 +2284,6 @@ footer {
   #events-txt-field {
     min-width: 50vw;
   }
-  .home-row h1 {
-    text-align: center;
-  }
-  .home-row .MuiCardMedia-root {
-    width: 21em !important;
-    height: 8em !important;
-  }
-  .home-row #ev-share,
-  .home-row #ev-bookmark {
-    top: 40.5%;
-  }
-  .home-row .MuiSvgIcon-root {
-    width: 1em;
-    height: 1.3em;
-    font-size: 1em;
-  }
-  .home-row .card-icon {
-    width: 20px;
-    height: 20px;
-  }
-  .home-section {
-    margin: 0px !important;
-  }
-  .home-section .home-row .swiper-slide {
-    width: 291px !important;
-    margin-left: 0px !important;
-    padding-left: 97px !important;
-  }
-  .card-name {
-    font-size: 21px;
-  }
-  .card-date,
-  .card-location {
-    font-size: 17px;
-  }
   /*CREATE EVENTS PAGE*/
   #save-exit-ev-btn {
     padding: 5px 6px;
@@ -2348,31 +2323,11 @@ footer {
     font-size: 0.8em;
     padding: 7.5px 8px;
   }
-  .css-8ewcdo-MuiInputBase-root-MuiOutlinedInput-root {
-    padding: 7.5px 7px;
-    font-size: 0.8rem;
-  }
-  .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
-    font-size: 0.1rem;
-  }
-  .css-sghohy-MuiButtonBase-root-MuiButton-root {
-    font-size: 0.5em;
-  }
   .create-event-header {
     height: 26vh;
   }
   .create-event-header h1 {
     font-size: 2.2em;
-  }
-  .css-17clsp4-MuiPaper-root-MuiMobileStepper-root {
-    width: 44%;
-  }
-  .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root {
-    font-size: 0.6rem;
-    min-height: 30px;
-  }
-  .css-yi3mkw {
-    flex-wrap: nowrap;
   }
   .artist-and-summary .MuiGrid-container,
   .basic-information .MuiGrid-container,
@@ -2588,6 +2543,40 @@ footer {
   .event-prev-fourth-row .create-prev-lineup h2 {
     font-size: 1em;
     top: -13%;
+  }
+  .swiper {
+    margin-left: -14% !important;
+    width: 101.5% !important;
+    padding-top: 10% !important;
+  }
+  .swiper-button-prev {
+    left: 79% !important;
+  }
+  .swiper-button-next {
+    left: 90% !important;
+  }
+  .card-icon .MuiSvgIcon-root {
+    width: auto;
+    height: auto;
+    margin-top: -0.5%;
+  }
+  .home-row h1 {
+    text-align: center;
+  }
+  .home-section {
+    margin: 0px !important;
+  }
+  .home-section .home-row .swiper-slide {
+    width: 291px !important;
+    margin-left: 0px !important;
+    padding-left: 97px !important;
+  }
+  .card-name {
+    font-size: 21px;
+  }
+  .card-date,
+  .card-location {
+    font-size: 17px;
   }
 }
 /*LOADERS*/
