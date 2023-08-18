@@ -271,7 +271,9 @@ a {
 
 // *********************** LOGIN PAGE  ************************ //
 .login-page {
-  height: 90vh;
+  min-height: 82vh;
+  height: 700px;
+  max-height: fit-content;
   width: 100%;
   @include flex-row;
 }
@@ -339,10 +341,11 @@ a {
 
 // *********************** SIGNUP PAGE ************************ //
 .signup {
-  display: flex;
-  flex-direction: row;
+@include flex-row;
   width: 100%;
-  height: 85vh;
+  min-height: fit-content;
+  height: 700px;
+  max-height: fit-content;
 }
 
 .signup-left,
@@ -354,25 +357,29 @@ a {
 .signup-left {
   @include flex-column(center, center);
   min-height: 100%;
-  gap: 12%;
+  gap: 8%;
   padding: 5% 0 0 0;
+  margin: 2% 0;
   .signup-logo {
     width: 100%;
     @include flex-column;
     img {
-      width: 30%;
+      width: 40%;
     }
   }
 
   h1 {
     font-size: 3em;
   }
+
+  .login-link{
+    font-size: 1.1em;
+  }
 }
 
-#demo-simple-select-label {
+.select-span{
   color: $white;
-  text-shadow: -1px -1px 0 $black, 1px -1px 0 $black, -1px 1px 0 $black,
-    1px 1px 0 $black;
+  font-weight: 500;
 }
 
 .signup-right {
@@ -399,13 +406,9 @@ a {
 }
 
 .signup-form {
-  height: 50%;
+  height: 40%;
   width: 34vw;
   @include flex-column(center, center);
-
-  label {
-    font-size: 1.1em;
-  }
 }
 
 .l-o-2 {
@@ -424,10 +427,7 @@ a {
 
 #demo-simple-select {
   background-color: $purple1;
-}
-
-#demo-simple-select-label {
-  color: $white;
+  font-size: 1.1em;
 }
 
 .mobile-signup-logo,
@@ -440,16 +440,22 @@ a {
 .signup-second-page {
   @include flex-column(start, center);
   width: 100%;
-  height: 110vh;
+  min-height: fit-content;
+  max-height: fit-content;
   gap: 10%;
   padding: 5% 0 0 0;
+  margin-bottom: 3%;
+}
+
+#guest-height {
+  height: 850px;
 }
 
 .signup-second-page-logo {
   width: 100%;
   @include flex-column;
   img {
-    width: 30vh;
+    width: 250px;
   }
   h1 {
     margin: 2% 0 0 0;
@@ -497,6 +503,10 @@ a {
 
 .link-organizer {
   padding-top: 6%;
+}
+
+#organiser-height {
+  height: 750px;
 }
 
 // *********************** FOOTER ************************ //

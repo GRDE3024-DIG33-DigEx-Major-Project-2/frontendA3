@@ -10,7 +10,12 @@ import { useState } from "react";
 import InputAdornment from "@mui/material/InputAdornment";
 import { Button } from "@mui/material";
 import { useLoading } from "../../props/loading-spinner.prop";
-import { GIGNEY_SIGNUP_LOGO, PATHS, GIGNEY_SIGNUP_LEFT_LOGO, GIGNEY_SIGNUP_RIGHT_LOGO } from "../../utils/constants.util";
+import {
+  GIGNEY_SIGNUP_LOGO,
+  PATHS,
+  GIGNEY_SIGNUP_LEFT_LOGO,
+  GIGNEY_SIGNUP_RIGHT_LOGO,
+} from "../../utils/constants.util";
 
 function SignUp() {
   const [accountType, setAccountType] = useState("");
@@ -21,36 +26,37 @@ function SignUp() {
   };
   const navigate = useNavigate();
   const handleClick = () => {
-    if (accountType == "attendee")
-    navigate(PATHS.SIGN_UP_ATTENDEE);
-  else if (accountType == "organiser")
-  navigate(PATHS.SIGN_UP_ORGANISER);
+    if (accountType == "attendee") navigate(PATHS.SIGN_UP_ATTENDEE);
+    else if (accountType == "organiser") navigate(PATHS.SIGN_UP_ORGANISER);
   };
-
-
-
 
   return (
     <>
       <div className="signup">
         <div className="signup-left">
           <div className="signup-logo">
-            <img
-              src={GIGNEY_SIGNUP_LEFT_LOGO}
-              alt="gigney logo"
-            />
+            <img src={GIGNEY_SIGNUP_LEFT_LOGO} alt="gigney logo" />
             <h1>Create an account</h1>
           </div>
           <FormControl onSubmit={handleChange} className="signup-form">
-            <InputLabel id="demo-simple-select-label">
-              What would you like to do on this site?
-            </InputLabel>
             <Select
               fullWidth
-              labelId="demo-simple-select-label"
+              displayEmpty
               id="demo-simple-select"
               value={accountType}
               onChange={(event) => setAccountType(event.target.value)}
+              renderValue={(selected) => {
+                if (selected.length === 0) {
+                  return (
+                    <span className="select-span">
+                      What would you like to do on this site?
+                    </span>
+                  );
+                } else if (selected === "attendee") {
+                  return <span className="select-span">Search for events</span>;
+                } else
+                  return <span className="select-span">Create an event</span>;
+              }}
             >
               <MenuItem id="guest" value={"attendee"}>
                 <LocationOnIcon color="primary" className="dropdown-icon" />
@@ -77,19 +83,21 @@ function SignUp() {
               </Button>
               <p>&nbsp;</p>
               <span className="login-link">
-              Already have an account?
-              <Link to={PATHS.LOGIN}>
-                 Login
-              </Link>
-              instead
-            </span>
+                Already have an account?
+                <Link to={PATHS.LOGIN}>Login</Link>
+                instead
+              </span>
             </div>
           </FormControl>
         </div>
 
         <div className="signup-right">
-        {" "}
-          <img src={GIGNEY_SIGNUP_LOGO} alt="live concert" id="signup-right-img" />{" "}
+          {" "}
+          <img
+            src={GIGNEY_SIGNUP_LOGO}
+            alt="live concert"
+            id="signup-right-img"
+          />{" "}
           <div className="mobile-signup-logo">
             <img
               src={GIGNEY_SIGNUP_RIGHT_LOGO}

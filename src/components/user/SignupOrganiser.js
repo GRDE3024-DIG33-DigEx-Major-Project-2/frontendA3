@@ -82,7 +82,7 @@ function SignUpOrganiser() {
 
   return (
     <>
-      <div className="signup-second-page">
+      <div id="organsier-height" className="signup-second-page">
         <div className="signup-second-page-logo">
           <img
             src="../gigney_logo_black_square_no_bg_web.png"
