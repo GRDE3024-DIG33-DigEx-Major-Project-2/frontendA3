@@ -2492,14 +2492,14 @@ footer {
   }
   /*SIGNUP PAGE*/
   .signup {
-    height: 200vh;
+    height: 82.6vh;
   }
   .signup #signup-right-img {
     height: 35vw;
   }
   .mobile-signup-logo {
     width: 38%;
-    top: 27%;
+    top: 13%;
     left: 29%;
   }
   .signup-left h1 {
@@ -2535,10 +2535,16 @@ footer {
   }
   /*SIGNUP PAGE - ATTENDEE*/
   .signup-second-page-logo img {
-    width: 59vh;
+    width: 45vh;
   }
   .signup-second-page {
-    padding: 3% 0;
+    padding: 5.5% 0;
+  }
+  #guest-height {
+    height: 1200px;
+  }
+  .login-link {
+    margin-top: 117px;
   }
   /*LOGIN PAGE*/
   .login-page {
@@ -2575,18 +2581,33 @@ footer {
     font-size: 14px;
   }
   /*EVENT PAGE*/
+  .event-main-image img {
+    object-fit: fill;
+  }
+  .event-prev-second-row {
+    flex-direction: column;
+    height: 400px;
+  }
   .event-prev-first-row h1 {
     font-size: 30px;
   }
   .event-prev-first-row .event-buy-button {
     padding: 8px 24px;
   }
+  .event-prev-second-row .prev-date-time {
+    width: 50%;
+    padding: 0 2%;
+  }
   .event-prev-second-row .prev-date-time h3,
   .event-prev-second-row .prev-location h3 {
     font-size: 0.7em;
   }
   .event-prev-second-row .strong-string-prev {
+    padding-left: 18px;
     font-size: 13px;
+  }
+  .prev-date-time .strong-string-prev {
+    font-size: 12px;
   }
   .event-prev-second-row .when-where-box,
   .event-prev-second-row .organiser-box {
@@ -2594,10 +2615,13 @@ footer {
     height: fit-content;
   }
   .event-prev-second-row .event-prev-title {
+    top: -21% !important;
+  }
+  .event-prev-second-row .event-prev-title {
     font-size: 1em !important;
   }
   .event-prev-second-row .when-where-box .event-prev-title {
-    top: -12% !important;
+    top: -17% !important;
   }
   .event-prev-second-row #event-avatar {
     font-size: 26px;
@@ -2606,6 +2630,12 @@ footer {
   }
   .event-prev-second-row .organiser-box h2 {
     font-size: 0.9em;
+  }
+  .event-prev-fourth-row .create-prev-lineup {
+    width: 40%;
+  }
+  .event-prev-title-2 {
+    top: -31% !important;
   }
   .create-prev-lineup {
     margin-top: 13%;
@@ -2625,6 +2655,10 @@ footer {
   }
   .event-preview .event-prev-card-icon-share {
     right: 4%;
+  }
+  .home-section .home-row .event-card-media {
+    width: 100% !important;
+    height: 48% !important;
   }
   .swiper {
     margin-left: -14% !important;
