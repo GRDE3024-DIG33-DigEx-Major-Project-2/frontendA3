@@ -2483,6 +2483,11 @@ footer {
   }
 
   /*CREATE EVENTS PAGE*/
+  #create-event-main {
+    background-color: #f5f5f5;
+    padding-bottom: 1%;
+    max-height: 250vh;
+}
   #save-exit-ev-btn {
     padding: 5px 6px;
     margin: 10px;
@@ -2514,27 +2519,47 @@ footer {
     margin-bottom: 12px;
     font-size: 2em;
   }
-
   #create-event-description {
     font-size: 1em;
     padding: 7.5px 8px;
   }
-
+  #create-event-multiple-tags{
+    padding: 6.5px 14px;
+  }
+  #create-event-multiple-tags .MuiChip-filled{
+    height: 24px;
+  }
+  .basic-information .MuiOutlinedInput-notchedOutline {
+    height: 40px;
+}
   #create-event-name,
   #create-event-organiser,
   #create-event-eventURL,
-  #create-event-an1 {
+  #create-event-an1,
+  #create-event-an2,
+  #create-event-an3,
+  #create-event-an4 {
     font-size: 0.8em;
-    padding: 7.5px 8px;
+    padding: 2.5px 8px;
   }
-
+  #create-event-name-helper-text,
+  #create-event-description-helper-text,
+  #create-event-eventURL-helper-text{
+    margin-top: 12px;
+  }
   .create-event-header {
     height: 26vh;
   }
   .create-event-header h1 {
     font-size: 2.2em;
   }
-
+  .create-event-location-div {
+    height: 134vh;
+}
+.create-event-screen {
+  max-height: 190vh;
+  height: 117vh;
+}
   .artist-and-summary .MuiGrid-container,
   .basic-information .MuiGrid-container,
   .create-event-location-div .MuiGrid-container,
@@ -2647,6 +2672,19 @@ footer {
     flex-direction: column;
   }
 
+  .create-ev-img-box img {
+    object-fit: fit;
+}
+.event-preview-screen .event-prev-card-icon-share,
+.event-preview-screen .event-prev-card-icon-bookmark{
+  height: 40px;
+  width: 40px;
+  top: 434px !important;
+}
+.event-preview-screen #buy-tickets-btn{
+  margin-top: 30px;
+}
+
   /*SIGNUP PAGE*/
 
   .signup {
@@ -2719,24 +2757,24 @@ footer {
   /*LOGIN PAGE*/
   .login-page {
     height: 198vh;
+    justify-content: flex-start;
+    min-height: 83vh;
   }
 
   .left {
     height: 33%;
   }
 
-  .right {
-    margin-bottom: 110px;
-  }
-
   .mobile-login-logo {
-    top: 22%;
+    top: 15%;
   }
 
   .right .login-form {
     row-gap: 0em;
   }
-
+.right .login-link{
+  margin: 0;
+}
   .login-logo h1 {
     margin-bottom: 0px;
     margin-top: 0%;
@@ -2805,7 +2843,7 @@ footer {
       font-size: 1em !important;
     }
     .when-where-box .event-prev-title {
-      top: -17% !important;
+      top: -12% !important;
     }
   }
   .event-prev-second-row #event-avatar {
@@ -2822,13 +2860,16 @@ footer {
     width: 40%;
   }
   .event-prev-title-2 {
-    top: -31% !important;
+    top: -20% !important;
+}
+.create-prev-lineup .event-prev-title {
+  top: -15% !important;
 }
   .create-prev-lineup {
     margin-top: 13%;
     h2 {
       font-size: 1em;
-      top: -13%;
+      top: -15% !important;
     }
   }
 
@@ -2837,7 +2878,7 @@ footer {
     .event-prev-card-icon-bookmark {
       height: 40px;
       width: 40px;
-      top: 380px;
+      top: 381px;
     }
 
     .event-prev-card-icon-bookmark {
@@ -2908,6 +2949,24 @@ footer {
   .update-profile-modal #avatar-row {
     justify-content: flex-end;
   }
+  .profile-container .saved-events .ev-share-h {
+    bottom: 4%;
+    right: 8%;
+}
+  .profile-container .saved-events .card-icon{
+  width: 23px;
+  height: 23px;
+  padding: 3%;
+}
+.profile-container .saved-events .card-icon-selected {
+  width: 23px;
+  height: 23px;
+  padding: 2%;
+}
+#event-drafts #save-cont-ev-btn,
+#event-drafts #save-exit-ev-btn{
+  height: 3.5em;
+}
 
   /*SEARCH EVENT*/
   .search-results-grid {
@@ -2993,6 +3052,11 @@ footer {
 }
 .search-results-grid #bookmark-show{
   bottom:1%;
+}
+/*DELETE ACCOUNT*/
+.delete-event-modal #save-exit-ev-btn,
+.delete-event-modal #save-cont-ev-btn{
+  height: 3.5em;
 }
 }
 
