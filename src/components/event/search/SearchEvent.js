@@ -136,6 +136,33 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
     change.set(!change.get);
   };
 
+
+  /**
+   * Fetch new events by search filters
+   */
+  const fetchEvents = async () => {
+    events.set([]);
+    currPage.set(0);
+    fetchStatus.set(true);
+    //Make request for filtered events
+    const data = await searchEvents(
+      tagSelection.get,
+      keywords,
+      dateRange.minDate.get,
+      dateRange.maxDate.get,
+      location.get,
+      {
+        minPrice: Number(priceRange.minPrice.get),
+        maxPrice: Number(priceRange.maxPrice.get),
+      },
+      currPage.get
+    );
+    let newArr = [...events.get, ...data.events];
+    events.set(newArr);
+    pageCount.set(data.pageCount);
+    fetchStatus.set(false);
+  };
+
   /**
    * Clear search filters
    */
@@ -172,6 +199,25 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
 
     change.set(!change.get);
 };
+
+//Fetch a new batch of events when filter options change
+useEffect(() => {
+      //Delay setting the chip data to the next render cycle
+      setTimeout(() => {
+      }, 1000);
+  fetchEvents();
+}, [
+  keywords.get, 
+  dateRange.minDate.get, 
+  dateRange.maxDate.get, 
+  priceRange.minPrice.get, 
+  priceRange.maxPrice.get, 
+  location.get,
+  tagSelection.get,
+  change.get,
+  isFree.get
+  ]);
+
 
 
   /**

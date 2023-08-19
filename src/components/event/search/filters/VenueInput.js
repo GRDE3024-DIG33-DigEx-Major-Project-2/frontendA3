@@ -76,7 +76,7 @@ const VenueInput = () => {
     setTimeout(() => {
       chipData.set(temp, false);
       change.set(!change.get);
-    }, 0);
+    }, 100);
   }, [selectedVenue.get]);
 
 

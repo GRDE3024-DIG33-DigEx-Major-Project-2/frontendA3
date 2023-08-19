@@ -63,6 +63,7 @@ import { Link } from "react-router-dom";
     const [minPrice, setMinPrice] = useState(priceRange.minPrice.get);
     const [maxPrice, setMaxPrice] = useState(priceRange.maxPrice.get);
 
+    isFree.set("free");
     
 
   //Handle chip data changes when free/paid toggle changes
@@ -128,19 +129,23 @@ import { Link } from "react-router-dom";
    * @param {*} option 
    */
   const handleIsFree = (option) => {
-    //Set ticket price filter to free
-    if (option == "free") {
-      priceRange.minPrice.set(null);
-      priceRange.maxPrice.set(null);
+    if (option === "free") {
+      priceRange.minPrice.set(0);
+      priceRange.maxPrice.set(0);
+      setMinPrice(0);
+      setMaxPrice(0);
       isFree.set("free");
-    }
-    //Set ticket price filter to paid
-    else if (option == "paid") {
+    } else if (option === "paid") {
       priceRange.minPrice.set(1);
       priceRange.maxPrice.set(200);
+      setMinPrice(1);
+      setMaxPrice(200);
       isFree.set("paid");
     }
-  }
+
+    //Trigger the change for the search
+    change.set(!change.get);
+  };
 
   
   /**
@@ -159,36 +164,23 @@ import { Link } from "react-router-dom";
     <div>
     <h2>Price</h2>
     <RadioGroup
-      aria-labelledby="price-radio-label"
-      name="price-radio"
-      value={isFree.get}
-      onChange={(event) => {
-        //Set price range to default paid
-        if (event.target.value == false) {
-          priceRange.minPrice.set(1); priceRange.maxPrice.set(200);
-        }
-        //Set price range to free 
-        else {
-          priceRange.minPrice.set(0); priceRange.maxPrice.set(0);
-        }
-        //Set paid flag
-        isFree.set(event.target.value)
-      }}
-    >
-      <FormControlLabel
-        value="free"
-        defaultChecked={true}
-        control={<Radio />}
-        label="Free"
-        onClick={() => handleIsFree("free")}
-      />
-      <FormControlLabel
-        value="paid"
-        control={<Radio />}
-        label="Paid"
-        onClick={() => handleIsFree("paid")}
-      />
-    </RadioGroup>
+        aria-labelledby="price-radio-label"
+        name="price-radio"
+        value={isFree.get}
+        onChange={(event) => handleIsFree(event.target.value)}
+      >
+        <FormControlLabel
+          value="free"
+          defaultChecked={true}
+          control={<Radio />}
+          label="Free"
+        />
+        <FormControlLabel
+          value="paid"
+          control={<Radio />}
+          label="Paid"
+        />
+      </RadioGroup>
     {isFree.get === "paid" && (
       <Stack
         id="price-select-box"
