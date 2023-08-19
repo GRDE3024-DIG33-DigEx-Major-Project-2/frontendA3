@@ -2578,18 +2578,17 @@ footer {
   /*LOGIN PAGE*/
   .login-page {
     height: 198vh;
+    justify-content: flex-start;
+    min-height: 83vh;
   }
   .left {
     height: 33%;
-  }
-  .right {
-    margin-bottom: 110px;
   }
   .mobile-login-logo {
     top: 15%;
   }
   .right .login-form {
-    row-gap: 1em;
+    row-gap: 0em;
   }
   .right .login-link {
     margin: 0;
