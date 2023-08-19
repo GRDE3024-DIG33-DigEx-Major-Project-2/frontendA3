@@ -601,6 +601,7 @@ footer {
   @include flex-row(flex-end, center);
   gap: 5%;
   width: 100%;
+  margin-top: 3%;
 }
 
 #back-to-top-btn {
@@ -735,6 +736,8 @@ footer {
   .events-profile {
     height: 100%;
     width: 100%;
+    @include flex-column(flex-start, flex-start);
+    gap: 12px;
   }
 
   #event-drafts {
@@ -986,25 +989,48 @@ footer {
 
 .horizontal-card-box {
   width: 130%;
+  height: 100%;
   position: relative;
   padding-left: 3%;
+  h3{
+    font-size: 2vw;
+  }
+  p{
+    font-size: 1.3vw;
+  }
+}
+
+.horizontal-card-action{
+  width: 100%;
+  aspect-ratio: 3.5 / 1;
+}
+
+.horizontal-card-created{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3.5 / 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: left;
+
+  .MuiCardMedia-root {
+    width: 45% !important;
+    height: 100%;
+  }
 }
 
 .horizontal-card {
   position: relative;
   width: 100%;
-  height: 220px;
-  min-height: 220px;
+  height: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: left;
-  margin-bottom: 3%;
 
   .MuiCardMedia-root {
     width: 45% !important;
-    min-width: 45%;
-    height: 100% !important;
   }
 }
 
@@ -1663,10 +1689,6 @@ footer {
     font-size: 1.5em;
   }
 
-  .profile-container h3 {
-    font-size: 1em;
-  }
-
   /*CREATE EVENTS PAGE*/
 
   .create-event-header h1 {
@@ -2102,6 +2124,20 @@ footer {
     color: $white;
   }
 
+  // EVENT CARDS HORIZONTAL
+  .horizontal-card-created, .horizontal-card-action{
+    aspect-ratio: 2.2/1;
+  }
+
+  .horizontal-card-box {
+    h3{
+      font-size: 14px;
+    }
+    p{
+      font-size: 11px;
+    }
+  }
+
   //SIGNUP
   .mobile-signup-logo {
     width: 60%;
@@ -2218,20 +2254,6 @@ footer {
     display: none;
   }
 
-  .horizontal-card {
-    margin-bottom: 0;
-    margin-top: 5%;
-    height: 170px !important;
-    max-height: fit-content !important;
-  }
-
-  .horizontal-card-box {
-    width: 100% !important;
-    min-height: 100%;
-    height: fit-content !important;
-    max-height: 150% !important;
-  }
-
   .ev-share-h {
     bottom: 5%;
     right: 5%;
@@ -2244,19 +2266,27 @@ footer {
   }
 
   .card-icon {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     padding: 2%;
+
+    svg{
+      font-size: 17px;
+    }
+  }
+
+  .card-icon-selected {
+    width: 17px;
+    height: 17px;
+
+    svg{
+      font-size: 17px;
+    }
   }
 
   .ev-bookmark-h {
     bottom: 4%;
     right: 27%;
-  }
-
-  .card-icon svg {
-    font-size: 16px;
-    margin-top: 18%;
   }
 
   .card-date svg,
@@ -2805,14 +2835,6 @@ footer {
     left: 90% !important;
   }
 
-  .card-icon {
-    .MuiSvgIcon-root {
-      width: auto;
-      height: auto;
-      margin-top: -0.5%;
-    }
-  }
-
   .home-row h1 {
     text-align: center;
   }
@@ -2827,6 +2849,8 @@ footer {
     padding-left: 97px !important;
   }
 
+  // CARDS
+
   .card-name {
     font-size: 21px;
   }
@@ -2834,6 +2858,10 @@ footer {
   .card-date,
   .card-location {
     font-size: 17px;
+  }
+
+  .horizontal-card-created, .horizontal-card-action{
+    aspect-ratio: 1.7/1;
   }
 }
 
