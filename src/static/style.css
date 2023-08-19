@@ -1305,6 +1305,11 @@ footer {
   align-items: center;
 }
 
+#create-event-main .event-preview-screen .event-prev-card-icon-share,
+#create-event-main .event-preview-screen .event-prev-card-icon-bookmark {
+  top: 428px;
+}
+
 .prev-event-body {
   display: block;
   padding: 1% 2%;
