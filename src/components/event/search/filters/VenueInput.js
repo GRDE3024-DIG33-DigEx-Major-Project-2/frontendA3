@@ -71,6 +71,27 @@ const VenueInput = () => {
       label: selectedVenue.get,
       value: selectedVenue.get,
     });
+    //Render initial price filter chip
+    if (!temp.find(x => x.searchCategory === "isFree")) {
+    const priceKey = uuidv4();
+    temp.push({
+      key: priceKey,
+      searchCategory: "isFree",
+      label: "Free",
+      value: "free",
+    });        
+    }
+    //Render initial date range chip
+    if (!temp.find(x => x.searchCategory === "date")) {
+      const dateKey = uuidv4();
+      temp.push({
+        key: dateKey,
+        searchCategory: "date",
+        label: "Any Date",
+        value: "Any Date",
+      });
+    }
+
 
     //Delay setting the chip data to the next render cycle
     setTimeout(() => {

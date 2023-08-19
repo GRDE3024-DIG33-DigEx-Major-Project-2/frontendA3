@@ -63,7 +63,12 @@ import { Link } from "react-router-dom";
     const [minPrice, setMinPrice] = useState(priceRange.minPrice.get);
     const [maxPrice, setMaxPrice] = useState(priceRange.maxPrice.get);
 
-    isFree.set("free");
+    useEffect(() => {
+      let temp = chipData.get;
+      temp = temp.filter((x) => x.searchCategory !== "isFree");
+
+    }, []);
+    
     
 
   //Handle chip data changes when free/paid toggle changes
