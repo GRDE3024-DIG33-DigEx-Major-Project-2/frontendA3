@@ -194,6 +194,12 @@ const Login = ({ setIsLoggedIn }) => {
             >
               Login
             </Button>
+            <p>&nbsp;</p>
+              <span className="login-link">
+                Need to create an account?
+                <Link to={PATHS.SIGN_UP}>Register</Link>
+                here
+              </span>
           </FormControl>
         </form>
       </div>

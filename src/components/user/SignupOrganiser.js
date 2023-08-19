@@ -8,7 +8,6 @@ import Checkbox from "@mui/material/Checkbox";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import LockIcon from "@mui/icons-material/Lock";
 import Grid from "@mui/material/Grid";
-import axios from "axios";
 import { LoadingContext, useLoading } from "../../props/loading-spinner.prop";
 import {register} from "../../services/UserAPI";
 import { showSuccessToast, showErrorToast } from "../shared/Toaster";
@@ -82,7 +81,7 @@ function SignUpOrganiser() {
 
   return (
     <>
-      <div className="signup-second-page">
+      <div id="organsier-height" className="signup-second-page">
         <div className="signup-second-page-logo">
           <img
             src="../gigney_logo_black_square_no_bg_web.png"

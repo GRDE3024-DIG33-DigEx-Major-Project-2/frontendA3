@@ -5,7 +5,6 @@
 //Import dependencies
 import { Card, CardContent, CardMedia, CardActionArea, Box, Link, Tooltip, } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
-import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import SellOutlinedIcon from "@mui/icons-material/SellOutlined";
@@ -117,7 +116,7 @@ const EventCardHorizontal = (props) => {
 
   //Return render of component
   return (
-    <CardActionArea onClick={cardRedirect}>
+    <CardActionArea onClick={cardRedirect} className="horizontal-card-action">
       <Card className="horizontal-card">
         <CardMedia component="img" image={imgUrl} alt={props.event.event.title} />
         <Box className="horizontal-card-box">

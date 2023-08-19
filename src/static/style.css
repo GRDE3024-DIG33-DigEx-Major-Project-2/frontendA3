@@ -16,10 +16,6 @@ header a {
   padding: 5px 0px;
 }
 
-a#nav-home {
-  padding: 0;
-}
-
 a:hover {
   transform: scale(1.05);
   transition: transform 0.25s ease-out;
@@ -59,15 +55,23 @@ nav .nav-links {
   transform: none !important;
 }
 
+.hover-underline-animation.active {
+  background-color: transparent;
+  border: 0;
+  width: fit-content;
+  color: #f58146;
+  border-bottom: solid 4px #f58146;
+}
+
 .hover-underline-animation::after {
   content: "";
   position: absolute;
   width: 100%;
   transform: scaleX(0);
   height: 3px;
-  bottom: 0;
+  bottom: -10%;
   left: 0;
-  background-color: #ffffff;
+  background-color: #f58146;
   transform-origin: bottom right;
   transition: transform 0.25s ease-out;
 }
@@ -98,6 +102,11 @@ a {
 .home-section .home-row .swiper-slide {
   width: 347px !important;
   padding-left: 5% !important;
+}
+
+.home-row h2 {
+  margin-left: 1%;
+  font-size: 40px;
 }
 
 .bttn-style-purple {
@@ -247,7 +256,9 @@ a {
 }
 
 .login-page {
-  height: 90vh;
+  min-height: 82vh;
+  height: 700px;
+  max-height: fit-content;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -326,8 +337,12 @@ a {
 .signup {
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
   width: 100%;
-  height: 85vh;
+  min-height: fit-content;
+  height: 700px;
+  max-height: fit-content;
 }
 
 .signup-left,
@@ -342,8 +357,9 @@ a {
   justify-content: center;
   align-items: center;
   min-height: 100%;
-  gap: 12%;
+  gap: 8%;
   padding: 5% 0 0 0;
+  margin: 2% 0;
 }
 .signup-left .signup-logo {
   width: 100%;
@@ -353,15 +369,18 @@ a {
   align-items: center;
 }
 .signup-left .signup-logo img {
-  width: 30%;
+  width: 40%;
 }
 .signup-left h1 {
   font-size: 3em;
 }
+.signup-left .login-link {
+  font-size: 1.1em;
+}
 
-#demo-simple-select-label {
+.select-span {
   color: #ffffff;
-  text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
+  font-weight: 500;
 }
 
 .signup-right {
@@ -388,15 +407,12 @@ a {
 }
 
 .signup-form {
-  height: 50%;
+  height: 40%;
   width: 34vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-.signup-form label {
-  font-size: 1.1em;
 }
 
 .l-o-2 {
@@ -415,10 +431,7 @@ a {
 
 #demo-simple-select {
   background-color: #7759a6;
-}
-
-#demo-simple-select-label {
-  color: #ffffff;
+  font-size: 1.1em;
 }
 
 .mobile-signup-logo,
@@ -432,9 +445,15 @@ a {
   justify-content: start;
   align-items: center;
   width: 100%;
-  height: 110vh;
+  min-height: fit-content;
+  max-height: fit-content;
   gap: 10%;
   padding: 5% 0 0 0;
+  margin-bottom: 3%;
+}
+
+#guest-height {
+  height: 850px;
 }
 
 .signup-second-page-logo {
@@ -445,7 +464,7 @@ a {
   align-items: center;
 }
 .signup-second-page-logo img {
-  width: 30vh;
+  width: 250px;
 }
 .signup-second-page-logo h1 {
   margin: 2% 0 0 0;
@@ -491,6 +510,10 @@ a {
 
 .link-organizer {
   padding-top: 6%;
+}
+
+#organiser-height {
+  height: 750px;
 }
 
 footer {
@@ -559,7 +582,7 @@ footer {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 2%;
+  gap: 12px;
   padding: 4% 0;
 }
 .search-results-grid #view-more-tags {
@@ -573,6 +596,7 @@ footer {
   align-items: center;
   gap: 5%;
   width: 100%;
+  margin-top: 3%;
 }
 
 #back-to-top-btn {
@@ -699,6 +723,11 @@ footer {
 .profile-container .events-profile {
   height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 12px;
 }
 .profile-container #event-drafts {
   min-height: 200px;
@@ -952,25 +981,47 @@ footer {
 
 .horizontal-card-box {
   width: 130%;
+  height: 100%;
   position: relative;
   padding-left: 3%;
+}
+.horizontal-card-box h3 {
+  font-size: 2vw;
+}
+.horizontal-card-box p {
+  font-size: 1.3vw;
+}
+
+.horizontal-card-action {
+  width: 100%;
+  aspect-ratio: 3.5/1;
+}
+
+.horizontal-card-created {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3.5/1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: left;
+}
+.horizontal-card-created .MuiCardMedia-root {
+  width: 45% !important;
+  height: 100%;
 }
 
 .horizontal-card {
   position: relative;
   width: 100%;
-  height: 220px;
-  min-height: 220px;
+  height: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: left;
-  margin-bottom: 3%;
 }
 .horizontal-card .MuiCardMedia-root {
   width: 45% !important;
-  min-width: 45%;
-  height: 100% !important;
 }
 
 .ev-share-h {
@@ -1259,8 +1310,13 @@ footer {
   padding: 1% 2%;
 }
 
-.event-prev-card-icon-share,
-.event-prev-card-icon-bookmark {
+.event-preview p {
+  font-size: 18px;
+}
+.event-preview .event-prev-card-icon-share,
+.event-preview .event-prev-card-icon-bookmark {
+  top: 375px;
+  position: absolute;
   border-radius: 50%;
   background-color: #f58146;
   width: 50px;
@@ -1271,25 +1327,24 @@ footer {
   align-items: center;
   cursor: pointer;
 }
-
-.event-preview .event-prev-card-icon-share,
 .event-preview .event-prev-card-icon-bookmark {
-  top: 376px;
+  right: 9%;
 }
-
-.event-preview #ev-share {
-  top: 51.5%;
-  right: 20%;
+.event-preview .event-prev-card-icon-share {
+  right: 4%;
 }
-
+.event-preview #evpage-bookmark-selected {
+  background-color: #ffffff;
+  border-radius: 50%;
+  width: 80%;
+  height: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
 .event-preview #ev-bookmark {
-  top: 27.5%;
-  right: 22%;
-}
-
-.event-preview #ev-bookmark-selected {
-  top: 19.5%;
-  right: 20%;
+  margin-top: 2%;
 }
 
 .event-buy-button {
@@ -1305,18 +1360,6 @@ footer {
   background-color: #f58146;
   color: #000000;
   font-weight: bold;
-}
-
-.event-prev-card-icon-share {
-  position: absolute;
-  right: 8%;
-  top: 430px;
-}
-
-.event-prev-card-icon-bookmark {
-  position: absolute;
-  right: 4%;
-  top: 430px;
 }
 
 .event-preview-screen {
@@ -1371,7 +1414,7 @@ footer {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  gap: 2%;
+  gap: 15px;
 }
 
 .horizontal-stack {
@@ -1392,10 +1435,6 @@ footer {
   font-size: 1.8em;
 }
 
-.strong-string-prev {
-  font-size: 15px !important;
-}
-
 .event-prev-title {
   position: absolute;
   background-color: #ffffff;
@@ -1408,7 +1447,7 @@ footer {
 .event-prev-title-2 {
   position: absolute;
   background-color: #ffffff;
-  top: -13% !important;
+  top: -17% !important;
   left: 3%;
   width: fit-content;
   height: fit-content;
@@ -1443,8 +1482,7 @@ footer {
 }
 
 .strong-string-prev {
-  font-size: 16px;
-  padding-left: 11%;
+  padding-left: 39px;
   color: #f58146;
   font-weight: 500;
 }
@@ -1476,7 +1514,6 @@ footer {
   padding: 1% 3%;
 }
 .event-prev-price p {
-  font-size: 15px;
   padding: 0 10%;
 }
 
@@ -1489,14 +1526,12 @@ footer {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 99%;
   min-height: fit-content;
   height: 200px;
   max-height: fit-content;
   margin: 2% 0;
-}
-.event-prev-fourth-row p {
-  font-size: 15px;
+  padding-left: 1%;
 }
 
 .create-prev-about {
@@ -1504,10 +1539,14 @@ footer {
   height: 100%;
   padding-right: 5%;
 }
+.create-prev-about p {
+  padding-left: 2%;
+}
 
 .create-prev-lineup {
   width: 25%;
-  height: 100%;
+  min-height: 90%;
+  max-height: fit-content;
 }
 .create-prev-lineup ul {
   margin-top: 10%;
@@ -1517,8 +1556,9 @@ footer {
 }
 
 .event-prev-fifth-row {
-  width: 100%;
-  height: 200px;
+  width: 99%;
+  height: fit-content;
+  padding: 4% 1%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -1593,10 +1633,6 @@ footer {
   h3 {
     font-size: 1.2em;
   }
-  /* Event && Event Preview */
-  .event-buy-button {
-    margin: 10px auto;
-  }
   /* HEADER */
   nav .nav-links {
     width: 65vw;
@@ -1624,8 +1660,11 @@ footer {
     width: 340px !important;
     padding-left: 9% !important;
   }
+  .swiper {
+    padding-top: 6% !important;
+  }
   .swiper-button-prev {
-    left: 87% !important;
+    left: 86% !important;
     padding: 6px;
     height: 18px !important;
     width: 18px !important;
@@ -1640,7 +1679,6 @@ footer {
   .swiper-button-prev:after,
   .swiper-button-next:after {
     font-size: 20px !important;
-    color: #5b5be6 !important;
   }
   /*PROFILE PAGE*/
   .profile-container {
@@ -1658,14 +1696,6 @@ footer {
   }
   .profile-banner h1 {
     font-size: 1.5em;
-  }
-  .profile-container h3 {
-    font-size: 1em;
-  }
-  .css-1sx3qbl-MuiSvgIcon-root,
-  .css-pnaxc6-MuiSvgIcon-root {
-    font-size: 0.7em;
-    padding-bottom: 2px;
   }
   /*CREATE EVENTS PAGE*/
   .create-event-header h1 {
@@ -1703,21 +1733,34 @@ footer {
   .create-event-screen h2 {
     text-align: center;
   }
-  .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
-    font-size: 5em;
-  }
-  .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
-    height: 25px;
-  }
-  .css-suj22h-MuiChip-root {
-    height: 18px;
-  }
+  /* Event page & preview */
   .event-prev-tags .MuiChip-labelMedium {
     padding-left: 10px;
     padding-right: 9px;
     height: 25px;
     font-size: 1em;
     padding-top: 8px;
+  }
+  .event-preview p {
+    font-size: 16px;
+  }
+  .event-preview .event-prev-card-icon-bookmark {
+    right: 11%;
+  }
+  .event-preview .event-prev-card-icon-share {
+    right: 4%;
+  }
+  .event-buy-button {
+    margin: 4px 0 0 0;
+  }
+  .event-prev-first-row {
+    margin-top: 3%;
+  }
+  .event-prev-second-row {
+    margin-top: 5%;
+  }
+  .icon-title h3 {
+    font-size: 1em;
   }
 }
 /* Small Tablet */
@@ -1790,12 +1833,20 @@ footer {
     width: 340px !important;
     padding-left: 3% !important;
   }
-  .home-section .home-row #ev-share {
+  .home-section .home-row .swiper-slide #ev-share,
+  .home-section .home-row .swiper-slide #ev-bookmark,
+  .home-section .home-row .swiper-slide #ev-bookmark-selected {
     top: 48.5%;
+  }
+  .swiper {
+    padding-top: 8% !important;
   }
   .swiper-button-prev,
   .swiper-button-next {
-    width: calc(var(--swiper-navigation-size) / 44 * 5);
+    top: 7% !important;
+  }
+  .swiper-button-prev {
+    left: 86% !important;
   }
   /* SIGNUP PAGE */
   .signup {
@@ -1889,6 +1940,27 @@ footer {
     height: 45vh;
     width: 80vw;
   }
+  /* Event preview & page */
+  .event-preview .event-prev-card-icon-bookmark {
+    right: 13%;
+  }
+  .event-prev-second-row {
+    flex-direction: column;
+    height: 500px;
+  }
+  .event-prev-second-row .when-where-box {
+    width: 99%;
+  }
+  .event-prev-second-row .organiser-box {
+    width: 95%;
+    padding-left: 4%;
+  }
+  .event-prev-second-row .event-prev-title {
+    top: -16% !important;
+  }
+  .event-prev-title-2 {
+    top: -23% !important;
+  }
 }
 /* Phone */
 @media screen and (max-width: 640px) {
@@ -1933,38 +2005,58 @@ footer {
   .home-row {
     padding: 3px;
   }
+  .home-row h2 {
+    font-size: 33px;
+    margin-left: 4%;
+  }
   .home-section .home-row .swiper-slide {
     width: 274px !important;
     margin-left: 0px !important;
     padding-left: 22px !important;
+  }
+  .home-section .home-row .swiper-slide #ev-share,
+  .home-section .home-row .swiper-slide #ev-bookmark,
+  .home-section .home-row .swiper-slide #ev-bookmark-selected {
+    top: 40%;
+  }
+  .home-section .home-row .swiper-slide #ev-bookmark-selected {
+    width: 16px;
+    height: 16px;
+  }
+  .home-section .home-row .swiper-slide #ev-bookmark-selected .MuiSvgIcon-root {
+    width: auto;
+    height: auto;
+    margin-top: -1%;
+  }
+  .home-section .home-row .swiper-slide .card-icon {
+    width: 20px;
+    height: 20px;
   }
   .home-section .MuiCardMedia-img {
     width: 100% !important;
     height: 46% !important;
   }
   .home-section .event-card {
-    width: 276px !important;
-    height: 230px !important;
+    width: 280px !important;
+    height: 260px !important;
   }
   .home-section .card-date,
   .home-section .card-location {
     font-size: 0.8em;
   }
-  .home-section #ev-share {
-    top: 42.5%;
-    right: 11%;
-  }
-  .home-section .card-icon {
-    width: 20px;
-    height: 20px;
-  }
   .home-section .MuiSvgIcon-fontSizeMedium {
     font-size: 0.8em;
     padding-bottom: 0px;
   }
-  .swiper-button-prev,
+  .swiper {
+    margin-left: -1% !important;
+    width: 101.5% !important;
+  }
+  .swiper-button-prev {
+    left: 82% !important;
+  }
   .swiper-button-next {
-    width: calc(var(--swiper-navigation-size) / 44 * 3);
+    left: 91% !important;
   }
   .menu-footer {
     padding: 2% 1%;
@@ -1972,6 +2064,15 @@ footer {
     width: 98%;
     text-align: center;
     color: #ffffff;
+  }
+  .horizontal-card-created, .horizontal-card-action {
+    aspect-ratio: 2.2/1;
+  }
+  .horizontal-card-box h3 {
+    font-size: 14px;
+  }
+  .horizontal-card-box p {
+    font-size: 11px;
   }
   .mobile-signup-logo {
     width: 60%;
@@ -2066,18 +2167,6 @@ footer {
   .card-price {
     display: none;
   }
-  .horizontal-card {
-    margin-bottom: 0;
-    margin-top: 5%;
-    height: 170px !important;
-    max-height: fit-content !important;
-  }
-  .horizontal-card-box {
-    width: 100% !important;
-    min-height: 100%;
-    height: fit-content !important;
-    max-height: 150% !important;
-  }
   .ev-share-h {
     bottom: 5%;
     right: 5%;
@@ -2088,17 +2177,23 @@ footer {
     padding: 2%;
   }
   .card-icon {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     padding: 2%;
+  }
+  .card-icon svg {
+    font-size: 17px;
+  }
+  .card-icon-selected {
+    width: 17px;
+    height: 17px;
+  }
+  .card-icon-selected svg {
+    font-size: 17px;
   }
   .ev-bookmark-h {
     bottom: 4%;
     right: 27%;
-  }
-  .card-icon svg {
-    font-size: 16px;
-    margin-top: 18%;
   }
   .card-date svg,
   .card-location svg,
@@ -2145,6 +2240,9 @@ footer {
   #event-avatar h2 {
     font-size: 1em;
   }
+  .event-prev-first-row h1 {
+    font-size: 45px;
+  }
   .event-prev-second-row .when-where-box,
   .event-prev-second-row .organiser-box {
     height: 65%;
@@ -2157,6 +2255,9 @@ footer {
   }
   .pricing-box {
     height: 97%;
+  }
+  .event-preview .event-prev-card-icon-bookmark {
+    right: 15%;
   }
 }
 /* Small Phone */
@@ -2247,41 +2348,6 @@ footer {
   #events-txt-field {
     min-width: 50vw;
   }
-  .home-row h1 {
-    text-align: center;
-  }
-  .home-row .MuiCardMedia-root {
-    width: 21em !important;
-    height: 8em !important;
-  }
-  .home-row #ev-share,
-  .home-row #ev-bookmark {
-    top: 40.5%;
-  }
-  .home-row .MuiSvgIcon-root {
-    width: 1em;
-    height: 1.3em;
-    font-size: 1em;
-  }
-  .home-row .card-icon {
-    width: 20px;
-    height: 20px;
-  }
-  .home-section {
-    margin: 0px !important;
-  }
-  .home-section .home-row .swiper-slide {
-    width: 291px !important;
-    margin-left: 0px !important;
-    padding-left: 97px !important;
-  }
-  .card-name {
-    font-size: 21px;
-  }
-  .card-date,
-  .card-location {
-    font-size: 17px;
-  }
   /*CREATE EVENTS PAGE*/
   #save-exit-ev-btn {
     padding: 5px 6px;
@@ -2321,31 +2387,11 @@ footer {
     font-size: 0.8em;
     padding: 7.5px 8px;
   }
-  .css-8ewcdo-MuiInputBase-root-MuiOutlinedInput-root {
-    padding: 7.5px 7px;
-    font-size: 0.8rem;
-  }
-  .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
-    font-size: 0.1rem;
-  }
-  .css-sghohy-MuiButtonBase-root-MuiButton-root {
-    font-size: 0.5em;
-  }
   .create-event-header {
     height: 26vh;
   }
   .create-event-header h1 {
     font-size: 2.2em;
-  }
-  .css-17clsp4-MuiPaper-root-MuiMobileStepper-root {
-    width: 44%;
-  }
-  .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root {
-    font-size: 0.6rem;
-    min-height: 30px;
-  }
-  .css-yi3mkw {
-    flex-wrap: nowrap;
   }
   .artist-and-summary .MuiGrid-container,
   .basic-information .MuiGrid-container,
@@ -2446,14 +2492,14 @@ footer {
   }
   /*SIGNUP PAGE*/
   .signup {
-    height: 200vh;
+    height: 82.6vh;
   }
   .signup #signup-right-img {
     height: 35vw;
   }
   .mobile-signup-logo {
     width: 38%;
-    top: 27%;
+    top: 13%;
     left: 29%;
   }
   .signup-left h1 {
@@ -2489,10 +2535,16 @@ footer {
   }
   /*SIGNUP PAGE - ATTENDEE*/
   .signup-second-page-logo img {
-    width: 59vh;
+    width: 45vh;
   }
   .signup-second-page {
-    padding: 3% 0;
+    padding: 5.5% 0;
+  }
+  #guest-height {
+    height: 1200px;
+  }
+  .login-link {
+    margin-top: 117px;
   }
   /*LOGIN PAGE*/
   .login-page {
@@ -2529,26 +2581,47 @@ footer {
     font-size: 14px;
   }
   /*EVENT PAGE*/
+  .event-main-image img {
+    object-fit: fill;
+  }
+  .event-prev-second-row {
+    flex-direction: column;
+    height: 400px;
+  }
   .event-prev-first-row h1 {
-    font-size: 1.5em;
+    font-size: 30px;
   }
   .event-prev-first-row .event-buy-button {
     padding: 8px 24px;
+  }
+  .event-prev-second-row .prev-date-time {
+    width: 50%;
+    padding: 0 2%;
   }
   .event-prev-second-row .prev-date-time h3,
   .event-prev-second-row .prev-location h3 {
     font-size: 0.7em;
   }
   .event-prev-second-row .strong-string-prev {
-    font-size: 0.4em;
+    padding-left: 18px;
+    font-size: 13px;
+  }
+  .prev-date-time .strong-string-prev {
+    font-size: 12px;
   }
   .event-prev-second-row .when-where-box,
   .event-prev-second-row .organiser-box {
-    height: 54%;
+    min-height: 30%;
+    height: fit-content;
   }
   .event-prev-second-row .event-prev-title {
-    top: -24%;
+    top: -21% !important;
+  }
+  .event-prev-second-row .event-prev-title {
     font-size: 1em !important;
+  }
+  .event-prev-second-row .when-where-box .event-prev-title {
+    top: -17% !important;
   }
   .event-prev-second-row #event-avatar {
     font-size: 26px;
@@ -2558,9 +2631,156 @@ footer {
   .event-prev-second-row .organiser-box h2 {
     font-size: 0.9em;
   }
-  .event-prev-fourth-row .create-prev-lineup h2 {
+  .event-prev-fourth-row .create-prev-lineup {
+    width: 40%;
+  }
+  .event-prev-title-2 {
+    top: -31% !important;
+  }
+  .create-prev-lineup {
+    margin-top: 13%;
+  }
+  .create-prev-lineup h2 {
     font-size: 1em;
     top: -13%;
+  }
+  .event-preview .event-prev-card-icon-share,
+  .event-preview .event-prev-card-icon-bookmark {
+    height: 40px;
+    width: 40px;
+    top: 380px;
+  }
+  .event-preview .event-prev-card-icon-bookmark {
+    right: 20%;
+  }
+  .event-preview .event-prev-card-icon-share {
+    right: 4%;
+  }
+  .home-section .home-row .event-card-media {
+    width: 100% !important;
+    height: 48% !important;
+  }
+  .swiper {
+    margin-left: -14% !important;
+    width: 101.5% !important;
+    padding-top: 10% !important;
+  }
+  .swiper-button-prev {
+    left: 79% !important;
+  }
+  .swiper-button-next {
+    left: 90% !important;
+  }
+  .home-row h1 {
+    text-align: center;
+  }
+  .home-section {
+    margin: 0px !important;
+  }
+  .home-section .home-row .swiper-slide {
+    width: 291px !important;
+    margin-left: 0px !important;
+    padding-left: 97px !important;
+  }
+  .card-name {
+    font-size: 21px;
+  }
+  .card-date,
+  .card-location {
+    font-size: 17px;
+  }
+  .horizontal-card-created, .horizontal-card-action {
+    aspect-ratio: 1.7/1;
+  }
+  .content-body {
+    font-size: 2em;
+  }
+  /*Profile*/
+  .update-profile-modal p {
+    font-size: 0.8em;
+  }
+  .update-profile-modal #avatar-row {
+    justify-content: flex-end;
+  }
+  /*SEARCH EVENT*/
+  .search-results-grid {
+    display: grid;
+    grid-template-areas: "filters" "gap" "results";
+    grid-template-columns: 100%;
+  }
+  .search-filters .MuiTypography-root {
+    font-size: 1em;
+  }
+  .search-results-grid .search-filters {
+    margin: 3em;
+  }
+  .search-results-grid .search-filters .MuiGrid-grid-xs-4 {
+    flex-basis: 33%;
+  }
+  .search-results-grid .search-filters .filter-box {
+    padding: 3%;
+  }
+  .search-filters-top {
+    flex-wrap: wrap;
+  }
+  .search-filters-top .MuiChip-deletable {
+    margin: 2px;
+  }
+  #price-select-box p {
+    font-size: 0.7em;
+  }
+  .search-results-grid .search-results {
+    margin: 1.6em;
+    margin-right: 0.3em;
+  }
+  .search-results-grid .search-results .MuiChip-label {
+    font-size: 0.6rem;
+  }
+  .search-results-grid .search-results .search-filters-top a {
+    font-size: 0.8rem;
+    padding: 2%;
+  }
+  .home-section .search-results-grid .MuiCardMedia-img {
+    width: 50% !important;
+    height: 100% !important;
+    object-fit: fit;
+  }
+  .search-results-grid .card-icon {
+    width: 26px;
+    height: 26px;
+  }
+  .search-results-grid .MuiSvgIcon-fontSizeMedium {
+    font-size: 1.5em;
+  }
+  .ev-share-h .MuiSvgIcon-fontSizeMedium,
+  .ev-bookmark-h .MuiSvgIcon-fontSizeMedium {
+    font-size: 1.8em;
+  }
+  .ev-share-h {
+    bottom: 4%;
+    right: 4%;
+  }
+  .ev-bookmark-h {
+    bottom: 4%;
+    right: 29%;
+  }
+  .search-buttons {
+    padding-top: 1em;
+  }
+  #card-name-link h3 {
+    font-size: 19px;
+  }
+  .search-results-grid .card-date,
+  .search-results-grid .card-location {
+    font-size: 1em;
+  }
+  .search-results-grid #ev-bookmark-h-selected {
+    padding: 2%;
+    width: 24px;
+    height: 24px;
+  }
+  .search-results-grid #bookmark-show {
+    bottom: 1%;
   }
 }
 /*LOADERS*/

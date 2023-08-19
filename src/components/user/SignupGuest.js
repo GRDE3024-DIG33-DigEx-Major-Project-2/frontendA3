@@ -8,7 +8,6 @@ import Checkbox from "@mui/material/Checkbox";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import LockIcon from "@mui/icons-material/Lock";
 import Grid from "@mui/material/Grid";
-import axios from "axios";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
@@ -98,7 +97,7 @@ function SignUpGuest() {
 
   return (
     <>
-      <div className="signup-second-page">
+      <div id="guest-height" className="signup-second-page">
         <div className="signup-second-page-logo">
           <img
             src="../gigney_logo_black_square_no_bg_web.png"
@@ -161,7 +160,7 @@ function SignUpGuest() {
                   }}
                   variant="outlined"
                 />
-                <p>Date:</p>
+                <p>Date of birth:</p>
                 <DatePicker
                   sx={{ marginBottom: "5%" }}
                   onChange={(newDob) => setDob(newDob)}
