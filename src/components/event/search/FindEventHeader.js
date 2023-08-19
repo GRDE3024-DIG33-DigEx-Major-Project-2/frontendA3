@@ -21,6 +21,7 @@ import { PATHS } from "../../../utils/constants.util";
 import { isFavourited } from "../../../services/EventAPI";
 import { getUser } from "../../../utils/localStorage";
 import { logoutErrorHandler } from "../../../services/AuthAPI";
+import { LoadingContext } from "../../../props/loading-spinner.prop";
 
 /**
  * React component for main event filter UI
@@ -46,6 +47,11 @@ const FindEventHeader = () => {
     chipData,
     currPage,
   } = useContext(SearchEventFiltersContext);
+
+
+  const {
+    isLoading,
+  } = useContext(LoadingContext);
 
   //React navigator
   const navigate = useNavigate();
@@ -106,8 +112,12 @@ const FindEventHeader = () => {
     //Prevent default submit form behaviour
     event.preventDefault();
 
+    console.log(spaLocation.pathname);
+
+    //Navigate to the event search component
+    if (spaLocation.pathname !== "/events") navigate(PATHS.SEARCH_EVENTS);
     //Toggle loading UI on
-    fetchStatus.set(true);
+    isLoading.set(true);
 
     console.log("Search event fired");
     console.log(
@@ -148,12 +158,9 @@ const FindEventHeader = () => {
     console.log("Page Count: " + pageCount.get);
 
     //Toggle loading UI off
-    fetchStatus.set(false);
+    isLoading.set(false);
 
-    console.log(spaLocation.pathname);
 
-    //Navigate to the event search component
-    if (spaLocation.pathname !== "/events") navigate(PATHS.SEARCH_EVENTS);
   };
 
   //The HTML template

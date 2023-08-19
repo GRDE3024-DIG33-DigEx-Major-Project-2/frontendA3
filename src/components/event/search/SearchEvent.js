@@ -138,44 +138,18 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
 
 
   /**
-   * Fetch new events by search filters
-   */
-  const fetchEvents = async () => {
-    events.set([]);
-    currPage.set(0);
-    fetchStatus.set(true);
-    //Make request for filtered events
-    const data = await searchEvents(
-      tagSelection.get,
-      keywords,
-      dateRange.minDate.get,
-      dateRange.maxDate.get,
-      location.get,
-      {
-        minPrice: Number(priceRange.minPrice.get),
-        maxPrice: Number(priceRange.maxPrice.get),
-      },
-      currPage.get
-    );
-    let newArr = [...events.get, ...data.events];
-    events.set(newArr);
-    pageCount.set(data.pageCount);
-    fetchStatus.set(false);
-  };
-
-  /**
    * Clear search filters
    */
   const clearFilters = () => {
     console.log("CLEARING ALL FILTERS");
-
+  
     //Only remove chips that aren't immutable
     const remainingChips = chipData.get.filter(chip => Object.values(IMMUTABLE_CHIP_VALUES).includes(chip.label));
     chipData.set(remainingChips);
-
+  
     //Reset pagination
     currPage.set(0);
-
+  
     //Reset filter props
     tagSelection.set([]);
     keywords.set("");
@@ -185,38 +159,42 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
     priceRange.minPrice.set(null);
     priceRange.maxPrice.set(null);
     isFree.set("free");
-
-    console.log(
-      tagSelection.get,
-      keywords.get,
-      dateRange.minDate.get,
-      dateRange.maxDate.get,
-      priceRange.minPrice.get,
-      priceRange.maxPrice.get,
-      location.get,
-      currPage.get
-    );
-
+  
+    //Render initial chips only if they don't already exist in the current chips
+    const chipValues = chipData.get.map(chip => chip.label);
+    
+    if (!chipValues.includes("All Venues")) {
+      chipData.set(prev => [...prev, {
+        key: uuidv4(),
+        searchCategory: "venue",
+        label: "All Venues",
+        value: "All Venues",
+      }]);
+    }
+  
+    if (!chipValues.includes("Free")) {
+      chipData.set(prev => [...prev, {
+        key: uuidv4(),
+        searchCategory: "isFree",
+        label: "Free",
+        value: "free",
+      }]);
+    }
+  
+    if (!chipValues.includes("Any Date")) {
+      chipData.set(prev => [...prev, {
+        key: uuidv4(),
+        searchCategory: "date",
+        label: "Any Date",
+        value: "Any Date",
+      }]);
+    }
+  
     change.set(!change.get);
-};
+  };
+  
 
-//Fetch a new batch of events when filter options change
-useEffect(() => {
-      //Delay setting the chip data to the next render cycle
-      setTimeout(() => {
-      }, 1000);
-  fetchEvents();
-}, [
-  keywords.get, 
-  dateRange.minDate.get, 
-  dateRange.maxDate.get, 
-  priceRange.minPrice.get, 
-  priceRange.maxPrice.get, 
-  location.get,
-  tagSelection.get,
-  change.get,
-  isFree.get
-  ]);
+
 
 
 
@@ -263,20 +241,10 @@ useEffect(() => {
    * React hook that is used for fetching data on load
    */
   useEffect(() => {
-    /**
-     * Find all pre-defined tag/genre options
-     */
-    async function fetchTags() {
+    async function fetchTagsAndEvents() {
       const fetchedTags = await getAllTags();
       tags.set(fetchedTags);
-    }
-
-    /**
-     * Fetcgh a page of events that match the filter options
-     */
-    async function fetchEvents() {
-      currPage.set(0);
-      fetchStatus.set(true);
+  
       const data = await searchEvents(
         tagSelection.get,
         keywords.get,
@@ -289,32 +257,57 @@ useEffect(() => {
         },
         currPage.get
       );
-      let currEvents = events.get;
-
-      console.log("Curr Events " + currEvents);
-      console.log("New Events " + data.events);
-      pageCount.set(data.pageCount);
-      let newArr = [...events.get, ...data.events];
-      //Set state props of events and page count
+  
+      let newArr = [...data.events];
       events.set(newArr);
-      //Set total page count
+      pageCount.set(data.pageCount);
+    }
+  
+    if (tags.get.length === 0) {
+      fetchTagsAndEvents();
+    }
+  }, [tags, events]);
+  
+  //For the dynamic search
+  useEffect(() => {
+    async function fetchFilteredEvents() {
+      fetchStatus.set(true);
+  
+      const data = await searchEvents(
+        tagSelection.get,
+        keywords.get,
+        dateRange.minDate.get,
+        dateRange.maxDate.get,
+        location.get,
+        {
+          minPrice: Number(priceRange.minPrice.get),
+          maxPrice: Number(priceRange.maxPrice.get),
+        },
+        currPage.get
+      );
+  
+      events.set(prevEvents => [...data.events]);
       pageCount.set(data.pageCount);
       fetchStatus.set(false);
     }
 
-    //Fetch all possible pre-defined tags if none have been retrieved
-    if (tags.get.length == 0) fetchTags();
+  
+    fetchFilteredEvents();
 
-    //No events have been retrieved -- fetching events
-    if (events.get.length == 0) {
-      console.log("No events have been retrieved -- fetching events");
-      fetchEvents();
-    }
-    //Events have already been retrieved
-    else {
-      console.log("Events have already been retrieved");
-    }
-  }, [tags.set, events.set]);
+    console.log("Filtered events test");
+    console.log(events.get);
+
+  }, [
+    keywords.get, 
+    dateRange.minDate.get, 
+    dateRange.maxDate.get, 
+    priceRange.minPrice.get, 
+    priceRange.maxPrice.get, 
+    location.get,
+    tagSelection.get,
+    change.get,
+    isFree.get
+  ]);
 
   //Check for mutable chips in chip data
   const hasMutableChip = chipData.get
