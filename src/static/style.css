@@ -2553,18 +2553,33 @@ footer {
     font-size: 14px;
   }
   /*EVENT PAGE*/
+  .event-main-image img {
+    object-fit: fill;
+  }
+  .event-prev-second-row {
+    flex-direction: column;
+    height: 400px;
+  }
   .event-prev-first-row h1 {
     font-size: 30px;
   }
   .event-prev-first-row .event-buy-button {
     padding: 8px 24px;
   }
+  .event-prev-second-row .prev-date-time {
+    width: 50%;
+    padding: 0 2%;
+  }
   .event-prev-second-row .prev-date-time h3,
   .event-prev-second-row .prev-location h3 {
     font-size: 0.7em;
   }
   .event-prev-second-row .strong-string-prev {
+    padding-left: 18px;
     font-size: 13px;
+  }
+  .prev-date-time .strong-string-prev {
+    font-size: 12px;
   }
   .event-prev-second-row .when-where-box,
   .event-prev-second-row .organiser-box {
@@ -2572,10 +2587,13 @@ footer {
     height: fit-content;
   }
   .event-prev-second-row .event-prev-title {
+    top: -21% !important;
+  }
+  .event-prev-second-row .event-prev-title {
     font-size: 1em !important;
   }
   .event-prev-second-row .when-where-box .event-prev-title {
-    top: -12% !important;
+    top: -17% !important;
   }
   .event-prev-second-row #event-avatar {
     font-size: 26px;
@@ -2584,6 +2602,12 @@ footer {
   }
   .event-prev-second-row .organiser-box h2 {
     font-size: 0.9em;
+  }
+  .event-prev-fourth-row .create-prev-lineup {
+    width: 40%;
+  }
+  .event-prev-title-2 {
+    top: -31% !important;
   }
   .create-prev-lineup {
     margin-top: 13%;
