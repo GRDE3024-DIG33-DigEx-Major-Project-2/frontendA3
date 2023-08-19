@@ -19,6 +19,7 @@ import { useContext, useState } from "react";
 import { deleteUser } from "../../services/UserAPI";
 import { showSuccessToast, showToast, showErrorToast } from "../shared/Toaster";
 import { logoutErrorHandler } from "../../services/AuthAPI";
+import { PartialLoadSpinner } from "../shared/LoadingSpinner";
 
 const AccountSettings = () => {
   //Loading spinner props
@@ -28,6 +29,8 @@ const AccountSettings = () => {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
+  const [modalSpinner, setModalSpinner] = useState(false);
+  
 
   // Modal functions
   const handleModalOpen = () => setModalOpen(true);
@@ -47,7 +50,7 @@ const AccountSettings = () => {
     // );
     // if (userConfirmation) {
       try {
-        setLoading(true);
+        setModalSpinner(true);
 
         let response = await deleteUser();
         handleConfirmationModalOpen();
@@ -55,7 +58,7 @@ const AccountSettings = () => {
       } catch (error) {
         console.log(error);
       } finally {
-        setLoading(false);
+        setModalSpinner(false);
       }
     // }
   };
@@ -75,36 +78,42 @@ const AccountSettings = () => {
         </FormControl>
       </Box>
       <Modal
-        open={modalOpen}
-        onClose={handleModalClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box className="delete-event-modal">
-          <h2>Are you sure you want to delete your Gigney account?</h2>
-          <span>
-            All your data will be removed and permanently deleted, so you will
-            not be able to retrieve any of your existing information.
-          </span>
-          <div>
-            <Button
-              id="save-exit-ev-btn"
-              variant="contained"
-              className="input-btn"
-              onClick={handleModalClose}
-            >
-              No, I've changed my mind
-            </Button>
-            <Button
-              id="save-cont-ev-btn"
-              variant="contained"
-              onClick={handleDelete}
-            >
-              Yes, delete my account
-            </Button>
-          </div>
-        </Box>
-      </Modal>
+  open={modalOpen}
+  onClose={handleModalClose}
+  aria-labelledby="modal-modal-title"
+  aria-describedby="modal-modal-description"
+>
+  <Box className="delete-event-modal">
+    <h2>Are you sure you want to delete your Gigney account?</h2>
+    <span>
+      All your data will be removed and permanently deleted, so you will
+      not be able to retrieve any of your existing information.
+    </span>
+    <div>
+      {modalSpinner ? (
+        <PartialLoadSpinner></PartialLoadSpinner>
+      ) : (
+        <>
+          <Button
+            id="save-exit-ev-btn"
+            variant="contained"
+            className="input-btn"
+            onClick={handleModalClose}
+          >
+            No, I've changed my mind
+          </Button>
+          <Button
+            id="save-cont-ev-btn"
+            variant="contained"
+            onClick={handleDelete}
+          >
+            Yes, delete my account
+          </Button>
+        </>
+      )}
+    </div>
+  </Box>
+</Modal>
       <Modal
         open={confirmationModalOpen}
         onClose={handleConfirmationModalClose}

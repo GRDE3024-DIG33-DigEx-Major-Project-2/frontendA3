@@ -32,6 +32,7 @@ import { PATHS } from "../../utils/constants.util";
 import { useNavigate } from "react-router-dom";
 import AccountSettings from "./AccountSettings";
 import { scrollToTop } from "../../utils/utils";
+import { LoadingContext } from "../../props/loading-spinner.prop";
 
 /**
  * Builds the Profile react component
@@ -48,10 +49,15 @@ const Profile = () => {
    */
   const { fetchStatus, pageCount } = useContext(SearchEventsContext);
 
+
   /**
    * Prop context for search event filters
    */
   const { currPage } = useContext(SearchEventFiltersContext);
+
+  const { isLoading } = useContext(LoadingContext);
+
+  const [modalSpinner, setModalSpinner] = useState(false);
 
   const navigate = useNavigate();
 
@@ -96,14 +102,22 @@ const Profile = () => {
       };
     }
 
-    const response = await updateUser(formData);
 
-    // if the update request was successful, show confirmation, else, show errro
-    if (response === "Success") setUpdateSuccess(true);
-    else setUpdateSuccess(false);
-
-    handleConfirmationModalOpen();
-    handleModalClose();
+    try {
+      setModalSpinner(true);
+      const response = await updateUser(formData);
+      //If the update request was successful, show confirmation, else, show error
+      if (response === "Success") setUpdateSuccess(true);
+      else setUpdateSuccess(false);
+    }
+    catch (error) {
+      console.log(error);
+    }
+    finally {
+      setModalSpinner(false);
+      handleConfirmationModalOpen();
+      handleModalClose();
+    }
   };
 
   // UPDATE PROFILE STATES
@@ -166,7 +180,7 @@ const Profile = () => {
     }
 
     fetchEvents();
-  }, [setFavouritedEvents]); 
+  }, [setFavouritedEvents]);
 
 
 
@@ -191,15 +205,15 @@ const Profile = () => {
       let data = await searchFavourites(currPage.get);
 
       let currEvents = favouritedEvents;
-              //Modify the events to include isFavourited event property set to true
-              const modifiedEvents = data.events.map(eventContainer => ({
-                ...eventContainer,
-                event: {
-                  ...eventContainer.event,
-                  isFavourite: true
-                }
-              }));
-              setFavouritedEvents(modifiedEvents);
+      //Modify the events to include isFavourited event property set to true
+      const modifiedEvents = data.events.map(eventContainer => ({
+        ...eventContainer,
+        event: {
+          ...eventContainer.event,
+          isFavourite: true
+        }
+      }));
+      setFavouritedEvents(modifiedEvents);
 
       pageCount.set(data.pageCount);
       let newArr = [...currEvents, ...data.events];
@@ -228,26 +242,26 @@ const Profile = () => {
         {favouritedEvents.map((event, i) => (
           <EventCardHorizontal key={i} event={event} />
         ))}
-  
+
         {/*If there are no favourited events, display this message */}
         {favouritedEvents.length === 0 && <h2>You have not bookmarked any events.</h2>}
-        
+
         {/*Show the spinner during fetching, under the already loaded events */}
         {fetchStatus.get && <PartialLoadSpinner className="partial-loader" />}
       </Box>
       <div className="search-buttons">
-      {/*Conditionally render the Load More button */}
-      {favouritedEvents.length !== 0 &&
-        (currPage.get + 1 < pageCount.get) && !fetchStatus.get && (
-          <Button variant="contained" id="load-more-events-btn" onClick={loadMoreHandler}>
-            Load More
-          </Button>
-        )}
-  
-      {/*Always render the Back To Top button */}
-      <Button variant="contained" id="back-to-top-btn" onClick={scrollToTop}>
-        Back To Top
-      </Button>
+        {/*Conditionally render the Load More button */}
+        {favouritedEvents.length !== 0 &&
+          (currPage.get + 1 < pageCount.get) && !fetchStatus.get && (
+            <Button variant="contained" id="load-more-events-btn" onClick={loadMoreHandler}>
+              Load More
+            </Button>
+          )}
+
+        {/*Always render the Back To Top button */}
+        <Button variant="contained" id="back-to-top-btn" onClick={scrollToTop}>
+          Back To Top
+        </Button>
       </div>
     </>
   );
@@ -361,60 +375,66 @@ const Profile = () => {
                         {((!user.imgUrl && !newImg) ||
                           (imgDelete && !newImg) ||
                           (!user.imgUrl && !imgDelete && !newImg)) && (
-                          <>
-                            <label>
-                              <Avatar id="edit-avatar">
-                                {getFirstLetters(fullName)}
-                                <input
-                                  id="create-ev-img-input"
-                                  accept="image/*"
-                                  type="file"
-                                  onChange={imageChange}
-                                />
-                              </Avatar>
-                            </label>
-                            <p>
-                              Click on the avatar to add an image for your
-                              organization
-                            </p>
-                          </>
-                        )}
+                            <>
+                              <label>
+                                <Avatar id="edit-avatar">
+                                  {getFirstLetters(fullName)}
+                                  <input
+                                    id="create-ev-img-input"
+                                    accept="image/*"
+                                    type="file"
+                                    onChange={imageChange}
+                                  />
+                                </Avatar>
+                              </label>
+                              <p>
+                                Click on the avatar to add an image for your
+                                organization
+                              </p>
+                            </>
+                          )}
                         {((!user.imgUrl && newImg) ||
                           (imgDelete && newImg) ||
                           (!user.imgUrl && !imgDelete && newImg)) && (
-                          <>
-                            <Avatar
-                              id="edit-avatar"
-                              alt={fullName}
-                              src={URL.createObjectURL(newImg)}
-                            />
-                            <Link
-                              id="update-profile-remove-pic"
-                              onClick={removeNewImg}
-                            >
-                              Remove This Image
-                            </Link>
-                          </>
-                        )}
+                            <>
+                              <Avatar
+                                id="edit-avatar"
+                                alt={fullName}
+                                src={URL.createObjectURL(newImg)}
+                              />
+                              <Link
+                                id="update-profile-remove-pic"
+                                onClick={removeNewImg}
+                              >
+                                Remove This Image
+                              </Link>
+                            </>
+                          )}
                       </Grid>
                     </Grid>
                   </FormControl>
                   <div id="update-profile-btns">
-                    <Button
-                      id="save-exit-ev-btn"
-                      variant="contained"
-                      className="input-btn"
-                      onClick={handleModalClose}
-                    >
-                      Discard changes
-                    </Button>
-                    <Button
-                      id="save-cont-ev-btn"
-                      variant="contained"
-                      onClick={handleUserUpdate}
-                    >
-                      Update profile
-                    </Button>
+                    {modalSpinner ? (
+                      <PartialLoadSpinner></PartialLoadSpinner>
+                    ) : (
+                      <>
+                        <Button
+                          id="save-exit-ev-btn"
+                          variant="contained"
+                          className="input-btn"
+                          onClick={handleModalClose}
+                        >
+                          Discard changes
+                        </Button>
+                        <Button
+                          id="save-cont-ev-btn"
+                          variant="contained"
+                          onClick={handleUserUpdate}
+                        >
+                          Update profile
+                        </Button>
+                      </>
+                    )}
                   </div>
                 </Box>
               </Modal>

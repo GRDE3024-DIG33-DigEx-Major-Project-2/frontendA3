@@ -21,10 +21,12 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import SellOutlinedIcon from "@mui/icons-material/SellOutlined";
 import { getDateRangeString, getPriceRangeString } from "../../utils/utils";
 import { useNavigate } from "react-router-dom";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import { EVENT_IMG_PLACEHOLDER, PATHS } from "../../utils/constants.util";
 import { getUser } from "../../utils/localStorage";
 import { deleteEvent } from "../../services/EventAPI";
+import { LoadingContext } from "../../props/loading-spinner.prop";
+import { PartialLoadSpinner } from "../shared/LoadingSpinner";
 
 const CreatedEventCardHorizontal = (props) => {
   const navigate = useNavigate();
@@ -32,8 +34,9 @@ const CreatedEventCardHorizontal = (props) => {
   const anchorRef = useRef(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
-
+  const [modalSpinner, setModalSpinner] = useState(false);
   const [favourite, setFavourite] = useState(false);
+  const { isLoading } = useContext(LoadingContext);
   const user = getUser();
 
   // Modal functions
@@ -48,10 +51,20 @@ const CreatedEventCardHorizontal = (props) => {
   };
 
   const handleEventDelete = async () => {
-    const response = await deleteEvent(props.event.event.id);
-    console.log(response);
-    handleConfirmationModalOpen();
-    handleModalClose();
+    try {
+      setModalSpinner(true);
+      const response = await deleteEvent(props.event.event.id);
+      console.log(response);
+      handleConfirmationModalOpen();
+      handleModalClose();
+    }
+    catch (error) {
+      console.log(error);
+    }
+    finally {
+      setModalSpinner(false);
+    }
+
   };
 
   // Dropdown menu functions
@@ -123,122 +136,128 @@ const CreatedEventCardHorizontal = (props) => {
   }, []);
 
   return (
-      <Card className="horizontal-card-created">
-        <CardMedia
-          component="img"
-          height="200"
-          image={imgUrl}
-          alt={props.event.event.title}
-        />
-        <Box className="horizontal-card-box">
-          <CardContent>
-            <Link id="card-name-link" onClick={cardRedirect}>
-              <h3>{props.event.event.title}</h3>
-            </Link>
-            <p className="card-date">
-              <CalendarTodayIcon sx={{ fontSize: 15 }} /> {stringDate}
-            </p>
-            <p className="card-location">
-              <LocationOnOutlinedIcon sx={{ fontSize: 15 }} />{" "}
-              {props.event.event.venueName}
-            </p>
-            <p className="card-price">
-              <SellOutlinedIcon sx={{ fontSize: 15 }} /> {priceString}
-            </p>
-            <div className="card-icon ev-share-h-2">
-              <ShareIcon sx={{ fontSize: 23, color: "black" }} />
-            </div>
-            <div
-              className="ev-menu-h"
-              ref={anchorRef}
-              aria-controls={menuOpen ? "composition-menu" : undefined}
-              aria-expanded={menuOpen ? "true" : undefined}
-              aria-haspopup="true"
-              onClick={handleToggle}
-            >
-              <MoreVertIcon sx={{ fontSize: 45, color: "#f58146" }} />
-            </div>
-            <Popper
-              open={menuOpen}
-              anchorEl={anchorRef.current}
-              role={undefined}
-              placement="bottom-start"
-              transition
-              disablePortal
-            >
-              {({ TransitionProps, placement }) => (
-                <Grow
-                  {...TransitionProps}
-                  style={{
-                    transformOrigin:
-                      placement === "bottom-start" ? "left top" : "left bottom",
-                  }}
-                >
-                  <Paper>
-                    <ClickAwayListener onClickAway={handleClose}>
-                      <MenuList
-                        autoFocusItem={menuOpen}
-                        id="composition-menu"
-                        aria-labelledby="composition-button"
-                        onKeyDown={handleListKeyDown}
-                      >
-                        <MenuItem onClick={handleEdit}>Edit event</MenuItem>
-                        <MenuItem onClick={handleDelete}>Delete event</MenuItem>
-                      </MenuList>
-                    </ClickAwayListener>
-                  </Paper>
-                </Grow>
-              )}
-            </Popper>
-          </CardContent>
+    <Card className="horizontal-card-created">
+      <CardMedia
+        component="img"
+        height="200"
+        image={imgUrl}
+        alt={props.event.event.title}
+      />
+      <Box className="horizontal-card-box">
+        <CardContent>
+          <Link id="card-name-link" onClick={cardRedirect}>
+            <h3>{props.event.event.title}</h3>
+          </Link>
+          <p className="card-date">
+            <CalendarTodayIcon sx={{ fontSize: 15 }} /> {stringDate}
+          </p>
+          <p className="card-location">
+            <LocationOnOutlinedIcon sx={{ fontSize: 15 }} />{" "}
+            {props.event.event.venueName}
+          </p>
+          <p className="card-price">
+            <SellOutlinedIcon sx={{ fontSize: 15 }} /> {priceString}
+          </p>
+          <div className="card-icon ev-share-h-2">
+            <ShareIcon sx={{ fontSize: 23, color: "black" }} />
+          </div>
+          <div
+            className="ev-menu-h"
+            ref={anchorRef}
+            aria-controls={menuOpen ? "composition-menu" : undefined}
+            aria-expanded={menuOpen ? "true" : undefined}
+            aria-haspopup="true"
+            onClick={handleToggle}
+          >
+            <MoreVertIcon sx={{ fontSize: 45, color: "#f58146" }} />
+          </div>
+          <Popper
+            open={menuOpen}
+            anchorEl={anchorRef.current}
+            role={undefined}
+            placement="bottom-start"
+            transition
+            disablePortal
+          >
+            {({ TransitionProps, placement }) => (
+              <Grow
+                {...TransitionProps}
+                style={{
+                  transformOrigin:
+                    placement === "bottom-start" ? "left top" : "left bottom",
+                }}
+              >
+                <Paper>
+                  <ClickAwayListener onClickAway={handleClose}>
+                    <MenuList
+                      autoFocusItem={menuOpen}
+                      id="composition-menu"
+                      aria-labelledby="composition-button"
+                      onKeyDown={handleListKeyDown}
+                    >
+                      <MenuItem onClick={handleEdit}>Edit event</MenuItem>
+                      <MenuItem onClick={handleDelete}>Delete event</MenuItem>
+                    </MenuList>
+                  </ClickAwayListener>
+                </Paper>
+              </Grow>
+            )}
+          </Popper>
+        </CardContent>
+      </Box>
+      <Modal
+  open={modalOpen}
+  onClose={handleModalClose}
+  aria-labelledby="modal-modal-title"
+  aria-describedby="modal-modal-description"
+>
+  <Box className="delete-event-modal">
+    <h2>Are you sure you want to delete this event?</h2>
+    <span>
+      All event data will be removed and permanently deleted, so you
+      will not be able to retrieve any of the existing information.
+    </span>
+    <div>
+      {modalSpinner ? (
+        <PartialLoadSpinner></PartialLoadSpinner>
+      ) : (
+        <>
+          <Button
+            id="save-exit-ev-btn"
+            variant="contained"
+            className="input-btn"
+            onClick={handleModalClose}
+          >
+            No, I've changed my mind
+          </Button>
+          <Button
+            id="save-cont-ev-btn"
+            variant="contained"
+            onClick={handleEventDelete}
+          >
+            Yes, delete this event
+          </Button>
+        </>
+      )}
+    </div>
+  </Box>
+</Modal>
+      <Modal
+        open={confirmationModalOpen}
+        onClose={handleConfirmationModalClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        id="confirmation-modal"
+      >
+        <Box className="delete-event-modal">
+          <h2>Success!</h2>
+          <span>This event has been permanently deleted.</span>
+          <Button id="save-cont-ev-btn" variant="contained" href="/dashboard">
+            Go to Dashboard
+          </Button>
         </Box>
-        <Modal
-          open={modalOpen}
-          onClose={handleModalClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box className="delete-event-modal">
-            <h2>Are you sure you want to delete this event?</h2>
-            <span>
-              All event data will be removed and permanently deleted, so you
-              will not be able to retrieve aby of the existing information.
-            </span>
-            <div>
-              <Button
-                id="save-exit-ev-btn"
-                variant="contained"
-                className="input-btn"
-                onClick={handleModalClose}
-              >
-                No, I've changed my mind
-              </Button>
-              <Button
-                id="save-cont-ev-btn"
-                variant="contained"
-                onClick={handleEventDelete}
-              >
-                Yes, delete this event
-              </Button>
-            </div>
-          </Box>
-        </Modal>
-        <Modal
-          open={confirmationModalOpen}
-          onClose={handleConfirmationModalClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-          id="confirmation-modal"
-        >
-          <Box className="delete-event-modal">
-            <h2>Success!</h2>
-            <span>This event has been permanently deleted.</span>
-            <Button id="save-cont-ev-btn" variant="contained" href="/dashboard">
-              Go to Dashboard
-            </Button>
-          </Box>
-        </Modal>
-      </Card>
+      </Modal>
+    </Card>
   );
 };
 

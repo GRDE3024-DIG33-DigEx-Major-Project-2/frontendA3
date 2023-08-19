@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import dayjs from "dayjs";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
@@ -29,6 +29,7 @@ import EventMedia from "./create/CE6_EventMedia";
 import { PATHS } from "../../utils/constants.util";
 
 import { addDraft, getUser, removeDraft } from "../../utils/localStorage";
+import { LoadingContext } from "../../props/loading-spinner.prop";
 
 function CreateEvent() {
   const navigate = useNavigate();
@@ -55,6 +56,9 @@ function CreateEvent() {
   const handleModalClose = () => setModalOpen(false);
   const handleConfirmationModalOpen = () => setConfirmationModalOpen(true);
   const handleConfirmationModalClose = () => setConfirmationModalOpen(false);
+
+
+  const {isLoading} = useContext(LoadingContext);
 
 
   const handleDiscard = () => {
@@ -436,7 +440,17 @@ function CreateEvent() {
 
     console.log(formData);
 
-    await createEvent(formData);
+    try {
+      isLoading.set(true);
+      await createEvent(formData);
+    }
+    catch(error) {
+      console.log(error);
+    }
+    finally {
+      isLoading.set(false);
+    }
+    
 
     navigate(PATHS.DASHBOARD);
   };

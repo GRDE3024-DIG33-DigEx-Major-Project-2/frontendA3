@@ -120,6 +120,7 @@ export const getEventById = async function (id) {
  * @param {*} user
  */
 export const deleteEvent = async function (eventId) {
+  await delay(2000);
   const options = {
     headers: {
       Authorization: `Bearer ${getAccessToken()}`,
@@ -222,6 +223,7 @@ export const searchOwnedEvents = async function (page) {
  * @returns Event creation result
  */
 export const createEvent = async function (formData) {
+  await delay(2000);
   //The created event
   let createdEvent = null;
 
@@ -386,7 +388,7 @@ export const isFavourited = async function (eventIds) {
 export const updateEvent = async function (formData) {
   console.log("Inside updateEvent");
   console.log(formData);
-
+  await delay(2000);
   //Event Update request options
   const updateEventOptions = {
     //Set to multipart/form-data

@@ -32,6 +32,7 @@ import { useNavigate } from "react-router-dom";
 
 import AccountSettings from "./AccountSettings";
 import { scrollToTop } from "../../utils/utils";
+import { LoadingContext } from "../../props/loading-spinner.prop";
 
 
 
@@ -57,6 +58,20 @@ const Dashboard = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
   const [updateSuccess, setUpdateSuccess] = useState(false);
+
+  /**
+ * Prop context for search event data
+ */
+  const { fetchStatus, pageCount } = useContext(SearchEventsContext);
+
+  const [modalSpinner, setModalSpinner] = useState(false);
+
+  /**
+   * Prop context for search event filters
+   */
+  const { currPage } = useContext(SearchEventFiltersContext);
+
+
 
   // Modal functions
   const handleModalOpen = () => setModalOpen(true);
@@ -90,14 +105,21 @@ const Dashboard = () => {
       };
     }
 
-    const response = await updateUser(formData);
-
-    // if the update request was successful, show confirmation, else, show errro
-    if (response === "Success") setUpdateSuccess(true);
-    else setUpdateSuccess(false);
-
-    handleConfirmationModalOpen();
-    handleModalClose();
+    try {
+      setModalSpinner(true);
+      const response = await updateUser(formData);
+      //If the update request was successful, show confirmation, else, show error
+      if (response === "Success") setUpdateSuccess(true);
+      else setUpdateSuccess(false);
+    }
+    catch (error) {
+      console.log(error);
+    }
+    finally {
+      setModalSpinner(false);
+      handleConfirmationModalOpen();
+      handleModalClose();
+    }
   };
 
   // UPDATE PROFILE STATES
@@ -125,15 +147,7 @@ const Dashboard = () => {
     setImgDelete(true);
   };
 
-  /**
-   * Prop context for search event data
-   */
-  const { fetchStatus, pageCount } = useContext(SearchEventsContext);
 
-  /**
-   * Prop context for search event filters
-   */
-  const { currPage } = useContext(SearchEventFiltersContext);
 
   /**
    * Load first page of events on page load
@@ -158,7 +172,7 @@ const Dashboard = () => {
         navigate(PATHS.LOGIN);
       }
     }
-    
+
     fetchEvents();
   }, [setOwnedEvents]);
 
@@ -218,30 +232,30 @@ const Dashboard = () => {
         {ownedEvents.map((event, i) => (
           <CreatedEventCardHorizontal key={i} event={event} />
         ))}
-  
+
         {/* If there are no owned events, display this message */}
         {ownedEvents.length === 0 && <h2>You have not created any events.</h2>}
-        
+
         {/* Show the spinner during fetching, under the already loaded events */}
         {fetchStatus.get && <PartialLoadSpinner className="partial-loader" />}
       </Box>
       <div className="search-buttons">
-      {/* Conditionally render the Load More button */}
-      {ownedEvents.length > 0 &&
-        (currPage.get + 1 < pageCount.get) && !fetchStatus.get && (
-          <Button variant="contained" id="load-more-events-btn" onClick={loadMoreHandler}>
-            Load More
-          </Button>
-        )}
-  
-      {/* Always render the Back To Top button */}
-      <Button variant="contained" id="back-to-top-btn" onClick={scrollToTop}>
-        Back To Top
-      </Button>
+        {/* Conditionally render the Load More button */}
+        {ownedEvents.length > 0 &&
+          (currPage.get + 1 < pageCount.get) && !fetchStatus.get && (
+            <Button variant="contained" id="load-more-events-btn" onClick={loadMoreHandler}>
+              Load More
+            </Button>
+          )}
+
+        {/* Always render the Back To Top button */}
+        <Button variant="contained" id="back-to-top-btn" onClick={scrollToTop}>
+          Back To Top
+        </Button>
       </div>
     </>
   );
-  
+
 
   //Return the react component render
   return (
@@ -350,60 +364,66 @@ const Dashboard = () => {
                         {((!user.imgUrl && !newImg) ||
                           (imgDelete && !newImg) ||
                           (!user.imgUrl && !imgDelete && !newImg)) && (
-                          <>
-                            <label>
-                              <Avatar id="edit-avatar">
-                                {getFirstLetters(user.organizationName)}
-                                <input
-                                  id="create-ev-img-input"
-                                  accept="image/*"
-                                  type="file"
-                                  onChange={imageChange}
-                                />
-                              </Avatar>
-                            </label>
-                            <p>
-                              Click on the avatar to add an image for your
-                              organization
-                            </p>
-                          </>
-                        )}
+                            <>
+                              <label>
+                                <Avatar id="edit-avatar">
+                                  {getFirstLetters(user.organizationName)}
+                                  <input
+                                    id="create-ev-img-input"
+                                    accept="image/*"
+                                    type="file"
+                                    onChange={imageChange}
+                                  />
+                                </Avatar>
+                              </label>
+                              <p>
+                                Click on the avatar to add an image for your
+                                organization
+                              </p>
+                            </>
+                          )}
                         {((!user.imgUrl && newImg) ||
                           (imgDelete && newImg) ||
                           (!user.imgUrl && !imgDelete && newImg)) && (
-                          <>
-                            <Avatar
-                              id="edit-avatar"
-                              alt={user.organizationName}
-                              src={URL.createObjectURL(newImg)}
-                            />
-                            <Link
-                              id="update-profile-remove-pic"
-                              onClick={removeNewImg}
-                            >
-                              Remove This Image
-                            </Link>
-                          </>
-                        )}
+                            <>
+                              <Avatar
+                                id="edit-avatar"
+                                alt={user.organizationName}
+                                src={URL.createObjectURL(newImg)}
+                              />
+                              <Link
+                                id="update-profile-remove-pic"
+                                onClick={removeNewImg}
+                              >
+                                Remove This Image
+                              </Link>
+                            </>
+                          )}
                       </Grid>
                     </Grid>
                   </FormControl>
                   <div id="update-profile-btns">
-                    <Button
-                      id="save-exit-ev-btn"
-                      variant="contained"
-                      className="input-btn"
-                      onClick={handleModalClose}
-                    >
-                      Discard changes
-                    </Button>
-                    <Button
-                      id="save-cont-ev-btn"
-                      variant="contained"
-                      onClick={handleUserUpdate}
-                    >
-                      Update profile
-                    </Button>
+                    {modalSpinner ? (
+                      <PartialLoadSpinner></PartialLoadSpinner>
+                    ) : (
+                      <>
+                        <Button
+                          id="save-exit-ev-btn"
+                          variant="contained"
+                          className="input-btn"
+                          onClick={handleModalClose}
+                        >
+                          Discard changes
+                        </Button>
+                        <Button
+                          id="save-cont-ev-btn"
+                          variant="contained"
+                          onClick={handleUserUpdate}
+                        >
+                          Update profile
+                        </Button>
+                      </>
+                    )}
                   </div>
                 </Box>
               </Modal>

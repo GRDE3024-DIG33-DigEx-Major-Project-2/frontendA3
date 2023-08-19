@@ -78,7 +78,7 @@ const ResetPassword = () => {
   return (
 <>
       <h3>Change Password</h3>
-      <p>Password:</p>
+      <p>Current Password:</p>
       <TextField
         variant="outlined"
         type={showPassword ? "text" : "password"}

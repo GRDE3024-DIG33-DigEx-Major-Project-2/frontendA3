@@ -6,14 +6,13 @@
 import { USER_ENDPOINTS } from "../utils/constants.util";
 import {
   getAccessToken,
-  resetUserSession,
-  resetTokenSession,
   setAccessToken,
   setUserSession,
 } from "../utils/localStorage";
 import axiosClient from "./Axios";
 import { showErrorToast, showSuccessToast } from "../components/shared/Toaster";
 import { logoutErrorHandler } from "./AuthAPI";
+import { delay } from "../utils/utils";
 
 /**
  * Register a new user
@@ -27,6 +26,7 @@ export const register = async function (requestBody) {
  * Update a user and set session and access token storage
  */
 export const updateUser = async function (formData) {
+  await delay(2000);
   let options = {
     headers: {
       "Content-Type": "multipart/form-data",
@@ -61,6 +61,7 @@ export const updateUser = async function (formData) {
  * @returns
  */
 export const resetPassword = async function (oldPassword, newPassword) {
+  await delay(2000);
   let options = {
     headers: {
       Authorization: `Bearer ${getAccessToken()}`,
@@ -105,6 +106,7 @@ export const resetPassword = async function (oldPassword, newPassword) {
  * Deletes a user and erases session data and localstorage
  */
 export const deleteUser = async function () {
+  await delay(2000);
   let options = {
     headers: {
       Authorization: `Bearer ${getAccessToken()}`,

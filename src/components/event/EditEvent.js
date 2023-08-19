@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import dayjs from "dayjs";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
@@ -27,6 +27,7 @@ import EditDateTime from "./edit/EE4_DateTime";
 import EditPricing from "./edit/EE5_Pricing";
 import EditEventMedia from "./edit/EE6_EventMedia";
 import { PATHS } from "../../utils/constants.util";
+import { LoadingContext } from "../../props/loading-spinner.prop";
 
 function EditEvent() {
   const location = useLocation();
@@ -43,6 +44,9 @@ function EditEvent() {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
+  const [modalSpinner, setModalSpinner] = useState(false);
+
+  const {isLoading} = useContext(LoadingContext);
 
   // Modal functions
   const handleModalOpen = () => setModalOpen(true);
@@ -51,11 +55,22 @@ function EditEvent() {
   const handleConfirmationModalClose = () => setConfirmationModalOpen(false);
 
   const handleEventDelete = async () => {
+    try {
+      setModalSpinner(true);
     const response = await deleteEvent(event.event.id);
     console.log(response);
     handleConfirmationModalOpen();
-    handleModalClose();
+    handleModalClose();      
+    }
+    catch(error) {
+      console.log(error);
+    }
+    finally {
+      setModalSpinner(false);
+    }
   };
+
+  
 
   //** FIRST SCREEN - BASIC INFO **//
   const [eventID, setEventID] = useState(event.event.id);
@@ -458,6 +473,8 @@ function EditEvent() {
       formattedTags.push({ id: formattedTag[1], name: formattedTag[0] });
     });
 
+    try {
+      isLoading.set(true);
     if (newImg) {
       let formData = {
         event: event,
@@ -484,9 +501,18 @@ function EditEvent() {
       };
       console.log(formData);
       await updateEvent(formData);
+    }   
+       navigate(PATHS.DASHBOARD);
+    }
+    catch (error) {
+      console.log(error);
+    }
+    finally {
+        isLoading.set(false);
     }
 
-    navigate(PATHS.DASHBOARD);
+
+    
   };
 
   return (
