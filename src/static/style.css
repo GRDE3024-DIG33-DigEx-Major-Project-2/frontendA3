@@ -1311,8 +1311,20 @@ footer {
 }
 
 .event-preview #ev-bookmark-selected {
-  top: 19.5%;
-  right: 20%;
+  top: -0.5%;
+  right: -5%;
+}
+
+.event-preview .card-icon-selected {
+  background-color: #ffffff;
+  color: #f58146;
+  border: solid 3px #f58146;
+  width: 45px !important;
+  height: 45px !important;
+}
+
+.event-preview .card-icon-selected #bookmark-show {
+  height: 2em;
 }
 
 .event-buy-button {
