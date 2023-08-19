@@ -2926,8 +2926,7 @@ footer {
   margin: 3em;
 }
 .search-results-grid .search-filters .MuiGrid-grid-xs-4{
-  flex-basis: 50%;
-  max-width: 45%;
+  flex-basis: 33%;
 }
 .search-results-grid .search-filters .filter-box {
   padding: 3%;
@@ -2937,6 +2936,9 @@ footer {
 }
 .search-filters-top .MuiChip-deletable{
   margin:2px;
+}
+#price-select-box p{
+  font-size: 0.7em;
 }
 .search-results-grid .search-results {
   margin: 1.6em;
