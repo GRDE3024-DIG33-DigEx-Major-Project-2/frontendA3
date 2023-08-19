@@ -2386,7 +2386,10 @@ footer {
     padding: 7.5px 8px;
   }
   #create-event-multiple-tags {
-    padding: 7.5px 14px;
+    padding: 6.5px 14px;
+  }
+  #create-event-multiple-tags .MuiChip-filled {
+    height: 24px;
   }
   .basic-information .MuiOutlinedInput-notchedOutline {
     height: 40px;
@@ -2399,7 +2402,7 @@ footer {
   #create-event-an3,
   #create-event-an4 {
     font-size: 0.8em;
-    padding: 7.5px 8px;
+    padding: 2.5px 8px;
   }
   #create-event-name-helper-text,
   #create-event-description-helper-text,
@@ -2518,6 +2521,15 @@ footer {
   }
   .create-ev-img-box img {
     object-fit: fit;
+  }
+  .event-preview-screen .event-prev-card-icon-share,
+  .event-preview-screen .event-prev-card-icon-bookmark {
+    height: 40px;
+    width: 40px;
+    top: 434px !important;
+  }
+  .event-preview-screen #buy-tickets-btn {
+    margin-top: 30px;
   }
   /*SIGNUP PAGE*/
   .signup {
