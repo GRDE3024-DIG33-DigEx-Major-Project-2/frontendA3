@@ -2900,6 +2900,98 @@ footer {
   .content-body {
     font-size: 2em;
   }
+
+  /*Profile*/
+  .update-profile-modal p{
+    font-size: 0.8em;
+  }
+  .update-profile-modal #avatar-row {
+    justify-content: flex-end;
+  }
+
+  /*SEARCH EVENT*/
+  .search-results-grid {
+    display: grid;
+    grid-template-areas:
+        "filters"
+        "gap"
+        "results";
+    grid-template-columns: 100%;
+}
+
+.search-filters .MuiTypography-root{
+  font-size: 1em;
+}
+.search-results-grid .search-filters {
+  margin: 3em;
+}
+.search-results-grid .search-filters .MuiGrid-grid-xs-4{
+  flex-basis: 50%;
+  max-width: 45%;
+}
+.search-results-grid .search-filters .filter-box {
+  padding: 3%;
+}
+.search-filters-top{
+  flex-wrap: wrap;
+}
+.search-filters-top .MuiChip-deletable{
+  margin:2px;
+}
+.search-results-grid .search-results {
+  margin: 1.6em;
+  margin-right: 0.3em;
+}
+.search-results-grid .search-results .MuiChip-label{
+  font-size: 0.6rem;
+}
+
+.search-results-grid .search-results .search-filters-top a{
+  font-size: 0.8rem;
+  padding: 2%;
+}
+.home-section .search-results-grid .MuiCardMedia-img {
+  width: 50% !important;
+  height: 100% !important;
+  object-fit: fit;
+}
+.search-results-grid .card-icon {
+  width: 26px;
+  height: 26px;
+}
+.search-results-grid .MuiSvgIcon-fontSizeMedium {
+  font-size: 1.5em;
+}
+.ev-share-h .MuiSvgIcon-fontSizeMedium,
+.ev-bookmark-h .MuiSvgIcon-fontSizeMedium{
+  font-size: 1.8em;
+}
+.ev-share-h {
+  bottom: 4%;
+  right: 4%;
+}
+.ev-bookmark-h {
+  bottom: 4%;
+  right: 29%;
+}
+.search-buttons {
+  padding-top: 1em;
+}
+#card-name-link h3{
+  font-size: 19px;
+}
+.search-results-grid .card-date,
+.search-results-grid .card-location{
+  font-size: 1em;
+}
+.search-results-grid #ev-bookmark-h-selected {
+  padding: 2%;
+  width: 24px;
+  height: 24px;
+}
+.search-results-grid #bookmark-show{
+  bottom:1%;
+}
 }
 
 /*LOADERS*/
