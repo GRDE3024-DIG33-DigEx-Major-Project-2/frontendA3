@@ -2440,14 +2440,14 @@ footer {
   }
   /*SIGNUP PAGE*/
   .signup {
-    height: 200vh;
+    height: 82.6vh;
   }
   .signup #signup-right-img {
     height: 35vw;
   }
   .mobile-signup-logo {
     width: 38%;
-    top: 27%;
+    top: 13%;
     left: 29%;
   }
   .signup-left h1 {
@@ -2483,10 +2483,16 @@ footer {
   }
   /*SIGNUP PAGE - ATTENDEE*/
   .signup-second-page-logo img {
-    width: 59vh;
+    width: 45vh;
   }
   .signup-second-page {
-    padding: 3% 0;
+    padding: 5.5% 0;
+  }
+  #guest-height {
+    height: 1200px;
+  }
+  .login-link {
+    margin-top: 117px;
   }
   /*LOGIN PAGE*/
   .login-page {
@@ -2589,6 +2595,17 @@ footer {
   .card-date,
   .card-location {
     font-size: 17px;
+  }
+  /*SEARCH EVENT*/
+  .search-filters .MuiTypography-root {
+    font-size: 0.8rem;
+  }
+  .search-results-grid .search-filters .filter-box {
+    width: 115%;
+    height: 96%;
+  }
+  .search-results-grid .search-filters .MuiFormControlLabel-labelPlacementEnd {
+    padding-right: 6px;
   }
 }
 /*LOADERS*/
