@@ -340,7 +340,7 @@ a {
   justify-content: space-around;
   align-items: center;
   width: 100%;
-  min-height: fit-content;
+  min-height: 85vh;
   height: 700px;
   max-height: fit-content;
 }
@@ -1303,6 +1303,11 @@ footer {
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
+}
+
+#create-event-main .event-preview-screen .event-prev-card-icon-share,
+#create-event-main .event-preview-screen .event-prev-card-icon-bookmark {
+  top: 428px;
 }
 
 .prev-event-body {

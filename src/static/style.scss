@@ -355,7 +355,7 @@ a {
 .signup {
   @include flex-row;
   width: 100%;
-  min-height: fit-content;
+  min-height: 85vh;
   height: 700px;
   max-height: fit-content;
 }
@@ -1289,6 +1289,10 @@ footer {
   padding: 1.5% 0 0;
   @include flex-row(flex-end, center);
 }
+#create-event-main .event-preview-screen .event-prev-card-icon-share,
+#create-event-main .event-preview-screen .event-prev-card-icon-bookmark{
+  top: 428px;
+}
 
 // *********************** EVENT && EVENT PREVIEW *********************** //
 
@@ -1590,7 +1594,6 @@ footer {
 }
 
 // *********************** MEDIA QUERIES *********************** //
-
 /* Tablet */
 @media screen and (max-width: 960px) {
   /* General Styling */
