@@ -2639,6 +2639,9 @@ footer {
     font-size: 17px;
   }
   /*SEARCH EVENT*/
+  .search-results-grid .search-filters {
+    margin: 1em;
+  }
   .search-filters .MuiTypography-root {
     font-size: 0.8rem;
   }
@@ -2647,7 +2650,39 @@ footer {
     height: 96%;
   }
   .search-results-grid .search-filters .MuiFormControlLabel-labelPlacementEnd {
-    padding-right: 6px;
+    padding: 6px;
+  }
+  .search-results-grid .search-filters .MuiGrid-grid-xs-4 {
+    flex-basis: 50%;
+    max-width: 45%;
+  }
+  .search-results-grid .search-filters .MuiGrid-container {
+    margin-left: -4px;
+  }
+  .search-results-grid .search-results {
+    margin: 1.6em;
+    margin-right: 0.3em;
+  }
+  .search-results-grid .search-results .MuiChip-label {
+    font-size: 0.6rem;
+  }
+  .search-results-grid .search-results .search-filters-top a {
+    font-size: 0.8rem;
+  }
+  .home-section .MuiCardMedia-img {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  .ev-share-h {
+    bottom: 4%;
+    right: 4%;
+  }
+  .ev-bookmark-h {
+    bottom: 4%;
+    right: 29%;
+  }
+  .search-buttons {
+    padding-top: 1em;
   }
 }
 /*LOADERS*/
