@@ -355,7 +355,7 @@ a {
 .signup {
   @include flex-row;
   width: 100%;
-  min-height: fit-content;
+  min-height: 85vh;
   height: 700px;
   max-height: fit-content;
 }
@@ -1590,7 +1590,6 @@ footer {
 }
 
 // *********************** MEDIA QUERIES *********************** //
-
 /* Tablet */
 @media screen and (max-width: 960px) {
   /* General Styling */

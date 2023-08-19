@@ -340,7 +340,7 @@ a {
   justify-content: space-around;
   align-items: center;
   width: 100%;
-  min-height: fit-content;
+  min-height: 85vh;
   height: 700px;
   max-height: fit-content;
 }
