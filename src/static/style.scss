@@ -588,7 +588,7 @@ footer {
   .events-result {
     width: 96%;
     @include flex-column(flex-start, flex-start);
-    gap: 2%;
+    gap: 12px;
     padding: 4% 0;
   }
 
@@ -2881,6 +2881,7 @@ footer {
     padding-left: 97px !important;
   }
 
+
   // CARDS
 
   .card-name {
@@ -2895,6 +2896,10 @@ footer {
   .horizontal-card-created, .horizontal-card-action{
     aspect-ratio: 1.7/1;
   }
+
+  .content-body {
+    font-size: 2em;
+  }
 }
 
 /*LOADERS*/
@@ -2907,3 +2912,5 @@ footer {
   background-color: red;
   height: 100%;
 }
+
+

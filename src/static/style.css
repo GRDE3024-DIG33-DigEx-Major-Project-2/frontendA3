@@ -582,7 +582,7 @@ footer {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 2%;
+  gap: 12px;
   padding: 4% 0;
 }
 .search-results-grid #view-more-tags {
@@ -2691,6 +2691,9 @@ footer {
   }
   .horizontal-card-created, .horizontal-card-action {
     aspect-ratio: 1.7/1;
+  }
+  .content-body {
+    font-size: 2em;
   }
 }
 /*LOADERS*/
