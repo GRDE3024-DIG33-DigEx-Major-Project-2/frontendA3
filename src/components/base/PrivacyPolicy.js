@@ -3,7 +3,7 @@ const PrivacyPolicy = () => {
       <>
       <div className="content-body">
         <h1>Privacy Policy</h1>
-       <p> Effective Date: 16/072023 </p>
+       <p> Effective Date: 16/07/2023 </p>
 
 <p>1. Introduction </p>
 

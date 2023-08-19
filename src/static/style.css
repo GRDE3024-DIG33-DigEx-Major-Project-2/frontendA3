@@ -2628,6 +2628,10 @@ footer {
   .event-preview .event-prev-card-icon-share {
     right: 4%;
   }
+  .home-section .home-row .event-card-media {
+    width: 100% !important;
+    height: 48% !important;
+  }
   .swiper {
     margin-left: -14% !important;
     width: 101.5% !important;
@@ -2707,6 +2711,10 @@ footer {
   }
   .search-buttons {
     padding-top: 1em;
+  }
+  /*TERMS OF USE*/
+  .content-body {
+    font-size: 2em;
   }
 }
 /*LOADERS*/
