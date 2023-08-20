@@ -272,15 +272,35 @@ export const getAustralianTimezones = () => {
 // Get Sydney suburbs in your postcode area
 export const getSydneySuburbs = async (postcode) => {
   let suburbs = [];
-  
-  await axios
-    .get(
-      'https://data.handyapi.com/au-postcodes/' + postcode
-    )
-    .then((response) => console.log(response));
+
+  let intPC = parseInt(postcode);
+    await axios
+    .get("https://data.handyapi.com/au-postcodes/" + parseInt(intPC))
+    .then((response) => (suburbs = response.data.Locations))
+    .catch((error) => {
+      console.log(error);
+    });
+
+  console.log(suburbs);
 
   return suburbs;
 };
+
+// Normalise string to capitalise first letter of each word
+export const capitaliseString = (string) => {
+  const splitStr = string.split(" ");
+
+  let result = "";
+
+  splitStr.forEach((subStr) => {
+    let firstLetter = subStr[0].toUpperCase();
+    let remainder = subStr.slice(1).toLowerCase();
+    let word = firstLetter + remainder;
+    result += word += " ";
+  })
+
+  return result.trim();
+}
 
 //Get date range for event cards
 export const getDateRangeString = (startDate, endDate) => {

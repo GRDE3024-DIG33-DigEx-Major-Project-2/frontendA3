@@ -37,9 +37,9 @@ export const forwardGeocoding = async function (address) {
   return result;
 };
 
-export const reverseGeocoding = async function (lat, lng) {
+export const reverseGeocodingPostcode = async function (lat, lng) {
 
-  let location=null;
+  let postcode = null;
 
   let url =
     "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
@@ -55,16 +55,14 @@ export const reverseGeocoding = async function (lat, lng) {
       if (response.data.features.length === 0) {
         console.log("Unable to find location. Try to search another location.");
       } else {
-        location = response.data.features[0];
-        // lat = response.data.features[0].center[1];
-        // let location = response.data.features[0].place_name;
+        postcode = response.data.features[0].context[0].text;
       }
-      console.log(location);
+      console.log(postcode);
     })
     .catch((error) => {
       console.log(error);
     });
 
-  return location;
+  return postcode;
 };
 

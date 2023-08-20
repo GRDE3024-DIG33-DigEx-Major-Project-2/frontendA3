@@ -20,7 +20,6 @@ import { HeaderSelectedTags } from "./filters/TagSelection";
 import { PATHS } from "../../../utils/constants.util";
 import { isFavourited } from "../../../services/EventAPI";
 import { getUser } from "../../../utils/localStorage";
-import { logoutErrorHandler } from "../../../services/AuthAPI";
 import { LoadingContext } from "../../../props/loading-spinner.prop";
 
 /**
@@ -48,10 +47,7 @@ const FindEventHeader = () => {
     currPage,
   } = useContext(SearchEventFiltersContext);
 
-
-  const {
-    isLoading,
-  } = useContext(LoadingContext);
+  const { isLoading } = useContext(LoadingContext);
 
   //React navigator
   const navigate = useNavigate();
@@ -84,20 +80,20 @@ const FindEventHeader = () => {
     }
 
     //try {
-      const response = await isFavourited(events.map((x) => x.event.id));
-      return events.map((eventContainer) => {
-        const favEvent = response.data.favStatuses.find(
-          (fav) => fav.eventId === eventContainer.event.id
-        );
-        return {
-          ...eventContainer,
-          event: favEvent
-            ? { ...eventContainer.event, ...favEvent }
-            : eventContainer.event,
-        };
-      });
+    const response = await isFavourited(events.map((x) => x.event.id));
+    return events.map((eventContainer) => {
+      const favEvent = response.data.favStatuses.find(
+        (fav) => fav.eventId === eventContainer.event.id
+      );
+      return {
+        ...eventContainer,
+        event: favEvent
+          ? { ...eventContainer.event, ...favEvent }
+          : eventContainer.event,
+      };
+    });
     //} catch (error) {
-     // logoutErrorHandler(error);
+    // logoutErrorHandler(error);
     //  return events;
     //}
   }
@@ -159,8 +155,6 @@ const FindEventHeader = () => {
 
     //Toggle loading UI off
     isLoading.set(false);
-
-
   };
 
   //The HTML template
