@@ -13,7 +13,7 @@ import {
   Box,
   Modal
 } from "@mui/material";
-import { getFirstLetters, mergeDateTime } from "../../utils/utils";
+import { getFirstLetters, isValidURL, mergeDateTime } from "../../utils/utils";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import LocalActivityOutlinedIcon from "@mui/icons-material/LocalActivityOutlined";
@@ -246,7 +246,10 @@ function EditEvent() {
         if (!eventURL) setUrlError(true);
         else setUrlError(false);
 
-        if (eventName !== "" && description !== "" && eventURL)
+        if (isValidURL(eventURL)) setUrlError(false);
+        else setUrlError(true);
+
+        if (eventName !== "" && description !== "" && eventURL && isValidURL(eventURL))
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
         break;
       // RULES: At least one artist. Summary is required.
@@ -380,9 +383,9 @@ function EditEvent() {
     );
 
     var endDateTime = new Date(
-      eventEndDate.getFullYear(),
-      eventEndDate.getMonth(),
-      eventEndDate.getDate(),
+      eventEndDate.year(),
+      eventEndDate.month(),
+      eventEndDate.date(),
       eventEndTime.hour(),
       eventEndTime.minute(),
       eventEndTime.second()
