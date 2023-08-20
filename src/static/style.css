@@ -1503,7 +1503,7 @@ footer {
 
 .strong-string-prev {
   padding-left: 39px;
-  color: #f58146;
+  color: #000000;
   font-weight: 500;
 }
 
@@ -2422,7 +2422,7 @@ footer {
   #create-event-an3,
   #create-event-an4 {
     font-size: 0.8em;
-    padding: 2.5px 8px;
+    padding: 6.5px 8px;
   }
   #create-event-name-helper-text,
   #create-event-description-helper-text,
@@ -2436,11 +2436,11 @@ footer {
     font-size: 2.2em;
   }
   .create-event-location-div {
-    height: 134vh;
+    height: 106vh;
   }
   .create-event-screen {
     max-height: 190vh;
-    height: 117vh;
+    height: 90vh;
   }
   .artist-and-summary .MuiGrid-container,
   .basic-information .MuiGrid-container,
@@ -2487,7 +2487,7 @@ footer {
     width: 19em;
   }
   .basic-information .MuiInputBase-formControl {
-    width: 21em !important;
+    width: 17em !important;
   }
   .artist-and-summary .fab-container {
     flex-direction: row !important;
@@ -2512,12 +2512,40 @@ footer {
   }
   .map-container {
     height: 18em;
-    width: 30em;
-    margin: 0px 30px 0px 30px;
+    width: 23em;
+    margin: 0px 30px 10px 30px;
   }
-  .create-event-location-div .MuiOutlinedInput-notchedOutline,
-  .artist-and-summary .MuiOutlinedInput-notchedOutline {
+  .create-event-venue-name .MuiOutlinedInput-notchedOutline,
+  .create-event-venue-suburb .MuiOutlinedInput-notchedOutline,
+  .create-event-city .MuiOutlinedInput-notchedOutline,
+  .create-event-country .MuiOutlinedInput-notchedOutline {
+    width: 100% !important;
+    height: 45px;
+  }
+  .create-event-state .MuiOutlinedInput-notchedOutline,
+  .create-event-postcode .MuiOutlinedInput-notchedOutline {
+    width: 112% !important;
+    height: 45px;
+  }
+  .create-event-address1 .MuiOutlinedInput-notchedOutline {
+    width: 89%;
+    height: 45px;
+  }
+  .create-event-location-box .MuiGrid-grid-xs-6 {
+    display: grid;
+    grid-template-areas: "event-state event-postcode";
+  }
+  .create-event-state {
+    grid-area: event-state;
+  }
+  .create-event-postcode {
+    grid-area: event-postcode;
+  }
+  .artist-and-summary .MuiGrid-grid-xs-5 .MuiOutlinedInput-notchedOutline {
     width: 100%;
+  }
+  .artist-and-summary .MuiOutlinedInput-notchedOutline {
+    width: 82%;
   }
   .create-event-location-div .MuiGrid-grid-xs-3 {
     padding-left: 0 !important;
@@ -2527,6 +2555,24 @@ footer {
   .create-event-location-div .MuiGrid-grid-xs-5 {
     padding-left: 0px !important;
     margin-bottom: 2px;
+  }
+  .create-event-location-div .MuiGrid-grid-xs-6 {
+    gap: 5px;
+  }
+  .create-event-location-box p {
+    margin: 4px;
+  }
+  .create-event-location-box .MuiGrid-grid-xs-6 {
+    padding-top: 10px;
+  }
+  .create-event-location-div .MuiOutlinedInput-input {
+    padding: 9.5px 14px;
+  }
+  .create-event-pricing .MuiGrid-container {
+    gap: 5px;
+  }
+  .create-event-pricing .MuiOutlinedInput-notchedOutline {
+    width: 100%;
   }
   .create-event-pricing .form-label-active {
     margin: 2px;
@@ -2609,9 +2655,8 @@ footer {
   }
   /*LOGIN PAGE*/
   .login-page {
-    height: 198vh;
     justify-content: flex-start;
-    min-height: 83vh;
+    min-height: 86vh;
   }
   .left {
     height: 33%;
@@ -2645,7 +2690,7 @@ footer {
   }
   /*EVENT PAGE*/
   .event-main-image img {
-    object-fit: fill;
+    object-fit: fit;
   }
   .event-prev-second-row {
     flex-direction: column;
@@ -2722,6 +2767,11 @@ footer {
   .event-preview .event-prev-card-icon-share {
     right: 4%;
   }
+  /*HOME PAGE*/
+  .home-section .event-card {
+    width: 280px !important;
+    height: 295px !important;
+  }
   .home-section .home-row .event-card-media {
     width: 100% !important;
     height: 48% !important;
@@ -2762,11 +2812,35 @@ footer {
     font-size: 2em;
   }
   /*Profile*/
+  .update-profile-modal .MuiGrid-container {
+    display: grid;
+    grid-template-areas: "profile-name" "profile-phone" "profile-bio" "profile-avatar";
+  }
+  .update-profile-name .MuiFormControl-fullWidth,
+  .update-profile-phone .MuiFormControl-fullWidth {
+    width: 220%;
+  }
+  .update-profile-bio .MuiFormControl-fullWidth {
+    width: 100%;
+  }
+  .update-profile-modal .update-profile-name {
+    grid-area: profile-name;
+  }
+  .update-profile-modal .update-profile-bio {
+    grid-area: profile-bio;
+  }
+  .update-profile-modal .update-profile-phone {
+    grid-area: profile-phone;
+  }
+  .update-profile-modal .avatar-row {
+    grid-area: profile-avatar;
+  }
   .update-profile-modal p {
     font-size: 0.8em;
+    text-align: center;
   }
   .update-profile-modal #avatar-row {
-    justify-content: flex-end;
+    padding-left: 26%;
   }
   .profile-container .saved-events .ev-share-h {
     bottom: 4%;
@@ -2785,6 +2859,9 @@ footer {
   #event-drafts #save-cont-ev-btn,
   #event-drafts #save-exit-ev-btn {
     height: 3.5em;
+  }
+  .delete-event-modal, .update-profile-modal {
+    padding: 13px;
   }
   /*SEARCH EVENT*/
   .search-results-grid {
@@ -2866,10 +2943,23 @@ footer {
   .search-results-grid #bookmark-show {
     bottom: 1%;
   }
+  .event-prev-third-row .horizontal-stack {
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    padding: 0;
+  }
+  .event-prev-price {
+    margin-left: 0px;
+    width: 100%;
+    max-width: 75%;
+    padding: 0 3%;
+    border-bottom: #e6e2e2 1px solid;
+  }
   /*DELETE ACCOUNT*/
   .delete-event-modal #save-exit-ev-btn,
   .delete-event-modal #save-cont-ev-btn {
-    height: 3.5em;
+    height: 5.5em;
   }
 }
 /*LOADERS*/
