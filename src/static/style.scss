@@ -542,13 +542,16 @@ footer {
 }
 
 // *********************** SEARCH RESULTS PAGE ************************ //
+
+
 .search-results-grid {
   min-height: 90%;
   height: fit-content;
   max-height: 100%;
   display: grid;
   grid-template-areas: "filters gap results";
-  grid-template-columns: 34% 1% 65%;
+  grid-template-columns: 24% 1% 75%;
+  margin-right: 69px;
 
   .search-filters {
     grid-area: filters;
@@ -608,6 +611,9 @@ footer {
   background-color: $orange1;
   color: $black;
   border: solid 2px $orange1;
+  position: fixed;
+  bottom: 37px;
+  right: 11px;
 }
 
 #back-to-top-btn:hover,
@@ -623,6 +629,17 @@ footer {
   background-color: $white;
   color: $purple1;
   border: solid 2px $purple1;
+  position: absolute;
+}
+
+.search-results-grid .card-date .MuiSvgIcon-fontSizeMedium,
+.search-results-grid .card-price .MuiSvgIcon-fontSizeMedium{
+  font-size: 23px;
+}
+
+.search-results-grid .card-location .MuiSvgIcon-fontSizeMedium{
+  font-size: 30px;
+  margin-left: -5px;
 }
 
 // *********************** PROFILE PAGE & ORGANIZER DASHBOARD ************************ //
@@ -2487,7 +2504,7 @@ footer {
 
   /*CREATE EVENTS PAGE*/
   #create-event-main {
-    background-color: #f5f5f5;
+    background-color: $offwhite;
     padding-bottom: 1%;
     max-height: 250vh;
 }

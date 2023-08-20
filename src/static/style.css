@@ -541,7 +541,8 @@ footer {
   max-height: 100%;
   display: grid;
   grid-template-areas: "filters gap results";
-  grid-template-columns: 34% 1% 65%;
+  grid-template-columns: 24% 1% 75%;
+  margin-right: 69px;
 }
 .search-results-grid .search-filters {
   grid-area: filters;
@@ -603,6 +604,9 @@ footer {
   background-color: #f58146;
   color: #000000;
   border: solid 2px #f58146;
+  position: fixed;
+  bottom: 37px;
+  right: 11px;
 }
 
 #back-to-top-btn:hover,
@@ -620,6 +624,17 @@ footer {
   background-color: #ffffff;
   color: #7759a6;
   border: solid 2px #7759a6;
+  position: absolute;
+}
+
+.search-results-grid .card-date .MuiSvgIcon-fontSizeMedium,
+.search-results-grid .card-price .MuiSvgIcon-fontSizeMedium {
+  font-size: 23px;
+}
+
+.search-results-grid .card-location .MuiSvgIcon-fontSizeMedium {
+  font-size: 30px;
+  margin-left: -5px;
 }
 
 .profile-container {
