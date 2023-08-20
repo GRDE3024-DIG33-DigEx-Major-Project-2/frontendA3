@@ -47,7 +47,7 @@ const Location = (props) => {
           <form className="create-event-location-box">
             <FormControl fullWidth>
               <Grid container spacing={2} paddingBottom="15px">
-                <Grid container item xs={6} direction="column">
+                <Grid container item xs={6} direction="column" className="create-event-venue-name">
                   <p>Venue name:</p>
                   <TextField
                     value={props.venueName}
@@ -64,7 +64,7 @@ const Location = (props) => {
                     }
                   />
                 </Grid>
-                <Grid container item xs={6} direction="column">
+                <Grid container item xs={6} direction="column" className="create-event-venue-suburb">
                   <p>Venue location:</p>
                   <TextField
                     value={props.suburb}
@@ -88,7 +88,7 @@ const Location = (props) => {
                   <Grid container item xs={1} direction="row">
                     <p>Street Address</p>
                   </Grid>
-                  <Grid container item xs={3} direction="column">
+                  <Grid container item xs={3} direction="column" className="create-event-address1">
                     <TextField
                       value={props.eventAddress1}
                       required
@@ -114,7 +114,7 @@ const Location = (props) => {
                   direction="column"
                   sx={{ height: "300px" }}
                 >
-                  <Grid container item xs={3} direction="column">
+                  <Grid container item xs={3} direction="column" className="create-event-city">
                     <TextField
                       value={props.eventCity}
                       required
@@ -132,7 +132,7 @@ const Location = (props) => {
                       }
                     />
                   </Grid>
-                  <Grid container item xs={3} direction="column">
+                  <Grid container item xs={3} direction="column" className="create-event-country">
                     <TextField
                       value={props.eventCountry}
                       required
@@ -153,7 +153,7 @@ const Location = (props) => {
                   sx={{ height: "200px" }}
                 >
                   <Grid container item xs={3} direction="row">
-                    <Grid container item xs={5} direction="column">
+                    <Grid container item xs={5} direction="column" className="create-event-state">
                       <TextField
                         value={props.eventState}
                         required
@@ -166,7 +166,7 @@ const Location = (props) => {
                       />
                     </Grid>
                     <Grid container item xs={2} direction="column" />
-                    <Grid container item xs={5} direction="column">
+                    <Grid container item xs={5} direction="column" className="create-event-postcode">
                       <TextField
                         value={props.eventPostCode}
                         required

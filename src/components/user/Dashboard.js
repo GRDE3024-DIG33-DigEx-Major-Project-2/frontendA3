@@ -295,7 +295,7 @@ const Dashboard = () => {
                   <h1>Edit account details</h1>
                   <FormControl fullWidth>
                     <Grid container spacing={2}>
-                      <Grid container item xs={6} direction="column">
+                      <Grid container item xs={6} direction="column" className="update-profile-name">
                         <p>Organisation Name:</p>
                         <TextField
                           fullWidth
@@ -307,7 +307,7 @@ const Dashboard = () => {
                           variant="outlined"
                         />
                       </Grid>{" "}
-                      <Grid container item xs={6} direction="column">
+                      <Grid container item xs={6} direction="column" className="update-profile-phone">
                         <p>Phone number:</p>
                         <TextField
                           fullWidth
@@ -319,7 +319,7 @@ const Dashboard = () => {
                           variant="outlined"
                         />
                       </Grid>
-                      <Grid container item xs={12} direction="column">
+                      <Grid container item xs={12} direction="column" className="update-profile-bio">
                         <p>Organization's Bio:</p>
                         <TextField
                           fullWidth
@@ -340,6 +340,7 @@ const Dashboard = () => {
                         xs={8}
                         direction="row"
                         id="avatar-row"
+                        className="avatar-row"
                       >
                         {user.imgUrl && !imgDelete && (
                           <>
@@ -376,10 +377,6 @@ const Dashboard = () => {
                                   />
                                 </Avatar>
                               </label>
-                              <p>
-                                Click on the avatar to add an image for your
-                                organization
-                              </p>
                             </>
                           )}
                         {((!user.imgUrl && newImg) ||
@@ -400,6 +397,8 @@ const Dashboard = () => {
                             </>
                           )}
                       </Grid>
+                      <div className="avatar-info"> 
+                      <p>Click on the avatar to add an image for your organization</p></div>
                     </Grid>
                   </FormControl>
                   <div id="update-profile-btns">
