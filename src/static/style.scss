@@ -1632,7 +1632,7 @@ footer {
   }
 
   .find-event-header {
-    max-height: 450px;
+    max-height: 650px;
   }
 
   .find-event-tags {
@@ -1654,7 +1654,26 @@ footer {
   }
 
   /*HOME PAGE*/
-
+  .find-event-search {
+    @include flex-column(space-evenly, center);
+    width: 80%;
+    min-height: 32vh;
+    max-height: 45vh;
+    padding: 0;
+    flex-wrap: wrap;
+  }
+  .find-event-header-text {
+    margin: 17px;
+}
+#search-form-submit-btn {
+  width: 33%;
+  font-size: 20px;
+}
+  #location-field-search,
+  #date-field-search,
+  #events-txt-field {
+    width: 80%;
+}
   .home-section .home-row .swiper-slide {
     width: 340px !important;
     padding-left: 9% !important;
@@ -1818,7 +1837,7 @@ footer {
   .find-event-search {
     @include flex-column(space-between, center);
     width: 80%;
-    min-height: 35vh;
+    min-height: 32vh;
     max-height: 45vh;
     padding: 4% 0;
   }
@@ -1892,7 +1911,9 @@ footer {
   .swiper-button-prev {
     left: 86% !important;
   }
-
+  .search-form-els .MuiChip-filled{
+    margin: 9px;
+  }
   /* SIGNUP PAGE */
   .signup {
     flex-direction: column-reverse;
@@ -1938,7 +1959,7 @@ footer {
     position: absolute;
     width: 50%;
     top: 15%;
-    left: 25%;
+    left: 31%;
 
     .signup-logo-img,
     .login-logo-img {
