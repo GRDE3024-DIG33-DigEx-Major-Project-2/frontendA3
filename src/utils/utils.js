@@ -3,6 +3,7 @@
  */
 
 import dayjs from "dayjs";
+import axios from "axios";
 
 //Minimum time field for hours, minutes, seconds, and ms
 const minTimeField = 0;
@@ -244,7 +245,6 @@ export const getFirstLetters = (name) => {
       let b = split[1].charAt(0);
 
       return a + b;
-      return a + b;
     } else {
       return name.charAt(0);
     }
@@ -267,6 +267,19 @@ export const getAustralianTimezones = () => {
   });
 
   return timezones;
+};
+
+// Get Sydney suburbs in your postcode area
+export const getSydneySuburbs = async (postcode) => {
+  let suburbs = [];
+  
+  await axios
+    .get(
+      'https://data.handyapi.com/au-postcodes/' + postcode
+    )
+    .then((response) => console.log(response));
+
+  return suburbs;
 };
 
 //Get date range for event cards

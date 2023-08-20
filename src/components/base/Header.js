@@ -13,11 +13,44 @@ import {
 } from "../../utils/localStorage";
 import { showToast, showErrorToast, showSuccessToast } from "../shared/Toaster";
 import { GIGNEY_HEADER_LOGO, PATHS } from "../../utils/constants.util";
+import { getSydneySuburbs } from "../../utils/utils";
+import { reverseGeocoding } from "../../services/Geocoding";
 
 export default function Header({ isLoggedIn, setIsLoggedIn }) {
   const [menu, setMenu] = useState(false);
   const year = new Date().getFullYear();
   const user = getUser();
+  const [lat, setLat] = useState(0);
+  const [lng, setLng] = useState(0);
+  const [userLocation, setLocation] = useState(2000);
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(success, error);
+  } else {
+    console.log("Geolocation not supported");
+  }
+  function success(position) {
+    setLat(position.coords.latitude);
+    setLng(position.coords.longitude);
+  }
+
+  function error() {
+    console.log("Unable to retrieve your location");
+  }
+
+  useEffect( () => {
+
+    const fetchLocation = async () => {
+      const data = await reverseGeocoding(lat, lng);
+    };
+
+    const location = fetchLocation();
+
+    // if (location) {
+    //   let postcode = location;
+    //   console.log(postcode.context[0].text);
+    // }
+  }, [lat, lng]);
 
   useEffect(() => {
     if (user) setIsLoggedIn(true);
@@ -59,6 +92,8 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
     //changes the function state according to the value of open
     setMenu(menu);
   };
+
+  getSydneySuburbs(userLocation);
 
   return (
     <header>
