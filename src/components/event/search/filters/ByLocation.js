@@ -81,7 +81,7 @@ const ByLocation = () => {
     };
 
     fetchLocation();
-  }, [lat, lng, setUserLocation]);
+  }, [lat, lng, userLocation]);
 
   /**
    * Prop context for search event data
