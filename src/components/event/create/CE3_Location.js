@@ -11,40 +11,33 @@ const Location = (props) => {
   useEffect(() => {
     /** Update map location as address is typed in*/
     async function fetchCoordinates() {
-      let address =
-        props.eventAddress1 +
-        "," +
-        props.suburb +
-        "," +
-        props.eventCity +
-        "," +
-        props.eventState +
-        "," +
-        props.eventPostCode;
+      let address = props.venueName + "," + props.eventAddress1;
+
       if (props.suburb !== "") {
         address += "," + props.suburb;
       }
       if (props.eventCity !== "") {
         address += "," + props.eventCity;
       }
-      if (props.eventState !== "") {
-        address += "," + props.eventState;
-      }
+      address += "," + props.eventState;
       if (props.eventPostCode !== "") {
         address += "," + props.eventPostCode;
       }
-      if (props.eventCountry !== "") {
-        address += "," + props.eventCountry;
-      }
+      address += "," + props.eventCountry;
 
       let result = await forwardGeocoding(address);
       setLat(result[0]);
       setLng(result[1]);
       setMapKey(result[0] + result[1]);
     }
-
-    fetchCoordinates();
-  }, [props.eventState, props.eventPostCode]);
+    if (props.venueName) fetchCoordinates();
+  }, [
+    props.venueName,
+    props.eventAddress1,
+    props.suburb,
+    props.eventCity,
+    props.eventPostCode,
+  ]);
 
   return (
     <>
@@ -143,18 +136,12 @@ const Location = (props) => {
                     <TextField
                       value={props.eventCountry}
                       required
-                      onChange={(event) =>
-                        props.setEventCountry(event.target.value)
-                      }
+                      InputProps={{
+                        readOnly: true,
+                      }}
                       id="create-event-country"
                       placeholder="Country"
                       variant="outlined"
-                      error={props.countryError && props.eventCountry === ""}
-                      helperText={
-                        props.countryError && props.eventCountry === ""
-                          ? "The country is required to continue"
-                          : null
-                      }
                     />
                   </Grid>
                 </Grid>
@@ -170,18 +157,12 @@ const Location = (props) => {
                       <TextField
                         value={props.eventState}
                         required
-                        onChange={(event) =>
-                          props.setEventState(event.target.value)
-                        }
+                        InputProps={{
+                          readOnly: true,
+                        }}
                         id="create-event-state"
                         placeholder="State or territory"
                         variant="outlined"
-                        error={props.stateError && props.eventState === ""}
-                        helperText={
-                          props.stateError && props.eventState === ""
-                            ? "The state is required to continue"
-                            : null
-                        }
                       />
                     </Grid>
                     <Grid container item xs={2} direction="column" />

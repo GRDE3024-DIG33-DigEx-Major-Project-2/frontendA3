@@ -330,16 +330,23 @@ export const mergeDateTime = (date, time) => {
   return result;
 };
 
+// returns true if an url is valid, false if not valid
+export const isValidURL = (urlString) => {
+  try {
+    new URL(urlString);
+    return true;
+  } catch (err) {
+    return false;
+  }
+};
 
-
-
-  /**
-   * Scroll to top of page
-   * @param {*} event
-   */
-  export const scrollToTop = async (event) => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
+/**
+ * Scroll to top of page
+ * @param {*} event
+ */
+export const scrollToTop = async (event) => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+};

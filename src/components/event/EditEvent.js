@@ -13,7 +13,7 @@ import {
   Box,
   Modal
 } from "@mui/material";
-import { getFirstLetters, mergeDateTime } from "../../utils/utils";
+import { getFirstLetters, isValidURL, mergeDateTime } from "../../utils/utils";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import LocalActivityOutlinedIcon from "@mui/icons-material/LocalActivityOutlined";
@@ -129,8 +129,8 @@ function EditEvent() {
   const [suburb, setSuburb] = useState(event.event.suburb);
   const [eventAddress1, setEventAddress1] = useState(event.event.address);
   const [eventCity, setEventCity] = useState(event.event.city);
-  const [eventCountry, setEventCountry] = useState(event.event.country);
-  const [eventState, setEventState] = useState(event.event.region);
+  const eventCountry = "Australia"
+  const eventState = "NSW"
   const [eventPostCode, setEventPostCode] = useState(event.event.postcode);
 
   /* Third screen error flags */
@@ -138,8 +138,6 @@ function EditEvent() {
   const [suburbError, setSuburbError] = useState(false);
   const [addressError, setAddressError] = useState(false);
   const [cityError, setCityError] = useState(false);
-  const [countryError, setCountryError] = useState(false);
-  const [stateError, setStateError] = useState(false);
   const [postcodeError, setPostcodeError] = useState(false);
 
   // ** FOURTH SCREEN - DATE AND TIME ** //
@@ -246,7 +244,10 @@ function EditEvent() {
         if (!eventURL) setUrlError(true);
         else setUrlError(false);
 
-        if (eventName !== "" && description !== "" && eventURL)
+        if (isValidURL(eventURL)) setUrlError(false);
+        else setUrlError(true);
+
+        if (eventName !== "" && description !== "" && eventURL && isValidURL(eventURL))
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
         break;
       // RULES: At least one artist. Summary is required.
@@ -281,12 +282,6 @@ function EditEvent() {
         if (!eventCity) setCityError(true);
         else setCityError(false);
 
-        if (!eventCountry) setCountryError(true);
-        else setCountryError(false);
-
-        if (!eventState) setStateError(true);
-        else setStateError(false);
-
         if (!eventPostCode) setPostcodeError(true);
         else setPostcodeError(false);
 
@@ -295,8 +290,6 @@ function EditEvent() {
           suburb &&
           eventAddress1 &&
           eventCity &&
-          eventCountry &&
-          eventState &&
           eventPostCode
         ) {
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -380,9 +373,9 @@ function EditEvent() {
     );
 
     var endDateTime = new Date(
-      eventEndDate.getFullYear(),
-      eventEndDate.getMonth(),
-      eventEndDate.getDate(),
+      eventEndDate.year(),
+      eventEndDate.month(),
+      eventEndDate.date(),
       eventEndTime.hour(),
       eventEndTime.minute(),
       eventEndTime.second()
@@ -872,17 +865,13 @@ function EditEvent() {
                       eventCity={eventCity}
                       setEventCity={setEventCity}
                       eventCountry={eventCountry}
-                      setEventCountry={setEventCountry}
                       eventState={eventState}
-                      setEventState={setEventState}
                       eventPostCode={eventPostCode}
                       setEventPostCode={setEventPostCode}
                       venueNameError={venueNameError}
                       suburbError={suburbError}
                       addressError={addressError}
                       cityError={cityError}
-                      countryError={countryError}
-                      stateError={stateError}
                       postcodeError={postcodeError}
                     />
                   );

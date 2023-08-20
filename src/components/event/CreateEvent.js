@@ -11,9 +11,9 @@ import {
   Box,
   Button,
   Link,
-  Modal
+  Modal,
 } from "@mui/material";
-import { getFirstLetters, mergeDateTime } from "../../utils/utils";
+import { getFirstLetters, isValidURL, mergeDateTime } from "../../utils/utils";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import LocalActivityOutlinedIcon from "@mui/icons-material/LocalActivityOutlined";
@@ -57,9 +57,7 @@ function CreateEvent() {
   const handleConfirmationModalOpen = () => setConfirmationModalOpen(true);
   const handleConfirmationModalClose = () => setConfirmationModalOpen(false);
 
-
-  const {isLoading} = useContext(LoadingContext);
-
+  const { isLoading } = useContext(LoadingContext);
 
   const handleDiscard = () => {
     // set draft to null if it exists
@@ -129,12 +127,9 @@ function CreateEvent() {
   const [eventCity, setEventCity] = useState(
     draft && draft.eventCity ? draft.eventCity : ""
   );
-  const [eventCountry, setEventCountry] = useState(
-    draft && draft.eventCountry ? draft.eventCountry : ""
-  );
-  const [eventState, setEventState] = useState(
-    draft && draft.eventState ? draft.eventState : ""
-  );
+  const eventCountry = "Australia";
+  const eventState = "NSW";
+
   const [eventPostCode, setEventPostCode] = useState(
     draft && draft.eventPostCode ? draft.eventPostCode : ""
   );
@@ -144,8 +139,6 @@ function CreateEvent() {
   const [suburbError, setSuburbError] = useState(false);
   const [addressError, setAddressError] = useState(false);
   const [cityError, setCityError] = useState(false);
-  const [countryError, setCountryError] = useState(false);
-  const [stateError, setStateError] = useState(false);
   const [postcodeError, setPostcodeError] = useState(false);
 
   // ** FOURTH SCREEN - DATE AND TIME ** //
@@ -251,7 +244,15 @@ function CreateEvent() {
         if (eventURL === "") setUrlError(true);
         else setUrlError(false);
 
-        if (eventName !== "" && description !== "" && eventURL !== "")
+        if (isValidURL(eventURL)) setUrlError(false);
+        else setUrlError(true);
+
+        if (
+          eventName !== "" &&
+          description !== "" &&
+          eventURL !== "" &&
+          isValidURL(eventURL)
+        )
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
         break;
       // RULES: At least one artist. Summary is required.
@@ -286,12 +287,6 @@ function CreateEvent() {
         if (eventCity === "") setCityError(true);
         else setCityError(false);
 
-        if (eventCountry === "") setCountryError(true);
-        else setCountryError(false);
-
-        if (eventState === "") setStateError(true);
-        else setStateError(false);
-
         if (eventPostCode === "") setPostcodeError(true);
         else setPostcodeError(false);
 
@@ -300,8 +295,6 @@ function CreateEvent() {
           suburb !== "" &&
           eventAddress1 !== "" &&
           eventCity !== "" &&
-          eventCountry !== "" &&
-          eventState !== "" &&
           eventPostCode !== ""
         ) {
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -443,14 +436,11 @@ function CreateEvent() {
     try {
       isLoading.set(true);
       await createEvent(formData);
-    }
-    catch(error) {
+    } catch (error) {
       console.log(error);
-    }
-    finally {
+    } finally {
       isLoading.set(false);
     }
-    
 
     navigate(PATHS.DASHBOARD);
   };
@@ -531,55 +521,51 @@ function CreateEvent() {
           </Link>
         </div>
         <Modal
-        open={modalOpen}
-        onClose={handleModalClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box className="delete-event-modal">
-          <h2>Are you sure you want to discard this event?</h2>
-          <span>
-            All event data will be removed and permanently deleted, so you will
-            not be able to retrieve aby of the existing information.
-          </span>
-          <div>
-            <Button
-              id="save-exit-ev-btn"
-              variant="contained"
-              className="input-btn"
-              onClick={handleModalClose}
-            >
-              No, I've changed my mind
-            </Button>
-            <Button
-              id="save-cont-ev-btn"
-              variant="contained"
-              onClick={handleDiscard}
-            >
-              Yes, discard this event
-            </Button>
-          </div>
-        </Box>
-      </Modal>
-      <Modal
-        open={confirmationModalOpen}
-        onClose={handleConfirmationModalClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        id="confirmation-modal"
-      >
-        <Box className="delete-event-modal">
-          <h2>Success!</h2>
-          <span>This event has been permanently discarded.</span>
-            <Button
-              id="save-cont-ev-btn"
-              variant="contained"
-              href="/dashboard"
-            >
+          open={modalOpen}
+          onClose={handleModalClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box className="delete-event-modal">
+            <h2>Are you sure you want to discard this event?</h2>
+            <span>
+              All event data will be removed and permanently deleted, so you
+              will not be able to retrieve aby of the existing information.
+            </span>
+            <div>
+              <Button
+                id="save-exit-ev-btn"
+                variant="contained"
+                className="input-btn"
+                onClick={handleModalClose}
+              >
+                No, I've changed my mind
+              </Button>
+              <Button
+                id="save-cont-ev-btn"
+                variant="contained"
+                onClick={handleDiscard}
+              >
+                Yes, discard this event
+              </Button>
+            </div>
+          </Box>
+        </Modal>
+        <Modal
+          open={confirmationModalOpen}
+          onClose={handleConfirmationModalClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+          id="confirmation-modal"
+        >
+          <Box className="delete-event-modal">
+            <h2>Success!</h2>
+            <span>This event has been permanently discarded.</span>
+            <Button id="save-cont-ev-btn" variant="contained" href="/dashboard">
               Go to Dashboard
             </Button>
-        </Box>
-      </Modal>
+          </Box>
+        </Modal>
         {/* event preview */}
         {activeStep === 6 ? (
           <div className="event-preview-screen">
@@ -852,17 +838,13 @@ function CreateEvent() {
                       eventCity={eventCity}
                       setEventCity={setEventCity}
                       eventCountry={eventCountry}
-                      setEventCountry={setEventCountry}
                       eventState={eventState}
-                      setEventState={setEventState}
                       eventPostCode={eventPostCode}
                       setEventPostCode={setEventPostCode}
                       venueNameError={venueNameError}
                       suburbError={suburbError}
                       addressError={addressError}
                       cityError={cityError}
-                      countryError={countryError}
-                      stateError={stateError}
                       postcodeError={postcodeError}
                     />
                   );

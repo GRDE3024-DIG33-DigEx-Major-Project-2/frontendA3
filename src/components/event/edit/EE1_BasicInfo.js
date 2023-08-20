@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import { getAllTags } from "../../../services/EventAPI";
+import { isValidURL } from "../../../utils/utils";
 
 const EditBasicInfo = (props) => {
   const [availableTags, setAvailableTags] = useState([]);
@@ -159,10 +160,10 @@ const EditBasicInfo = (props) => {
                     placeholder="Enter a URL for ticket purchasing"
                     id="create-event-eventURL"
                     variant="outlined"
-                    error={props.urlError && !props.eventURL}
+                    error={props.urlError && !props.eventURL || !isValidURL(props.eventURL)}
                     helperText={
-                      props.urlError && !props.eventURL
-                        ? "An event URL is required to continue"
+                      props.urlError && !props.eventURL || !isValidURL(props.eventURL)
+                        ? "A valid URL is required to continue"
                         : null
                     }
                   />
