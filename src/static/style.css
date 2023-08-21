@@ -1333,6 +1333,10 @@ footer {
   height: 245px;
 }
 
+#create-event-multiple-tags {
+  padding: 7.5px 14px;
+}
+
 .prev-event-body {
   display: block;
   padding: 1% 2%;
