@@ -278,7 +278,7 @@ const SearchEvent = () => {
                 <Button variant="contained" id="load-more-events-btn" onClick={loadMoreHandler}>
                     Load More
                 </Button>
-                <Button variant="contained" id="back-to-top-btn" onClick={scrollToTop}>
+                <Button variant="outlined" id="back-to-top-btn" onClick={scrollToTop}>
                     Back To Top
                 </Button>
             </div>

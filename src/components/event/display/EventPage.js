@@ -301,7 +301,8 @@ function EventPage() {
             <Button
               href={event.event.purchaseUrl}
               variant="contained"
-              id="buy-tickets-btn"
+              // id="buy-tickets-btn"
+              className="event-buy-button"
               target="_blank"
               rel="noopener noreferrer"
             >

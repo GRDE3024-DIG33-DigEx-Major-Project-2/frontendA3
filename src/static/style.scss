@@ -247,7 +247,12 @@ a {
 #search-form-submit-btn {
   color: $black;
   background-color: $orange1;
-  width: 10%;
+  border: 2px solid #f58146;
+  padding: 10px 30px;
+  font-weight: bold;
+  font-size: 1.1em;
+  line-height: normal;
+  letter-spacing: normal;
 }
 
 .find-event-search {
@@ -410,11 +415,16 @@ a {
 }
 
 #next-button {
-  width: 60%;
-  height: 3em;
+  width: 100%;
   color: $black;
   background-color: $orange1;
   font-size: 1.1em;
+  padding: 10px 30px;
+  font-weight: bold;
+  font-family: "Barlow", Arial, sans-serif;
+  line-height: normal;
+  letter-spacing: normal;
+  border: 2px solid $orange1;
 }
 
 .signup-form {
@@ -440,6 +450,13 @@ a {
 #demo-simple-select {
   background-color: $purple1;
   font-size: 1.1em;
+  border: 2px solid #D3D3D3;
+  border-radius: 0px !important;
+}
+
+svg.MuiSelect-icon {
+  color: #ffffff;
+  font-size: 2em;
 }
 
 .mobile-signup-logo,
@@ -608,9 +625,9 @@ footer {
 }
 
 #back-to-top-btn {
-  background-color: $orange1;
-  color: $black;
-  border: solid 2px $orange1;
+  background-color: $black;
+  color: $white;
+  border: solid 2px $black;
   position: fixed;
   bottom: 37px;
   right: 11px;
@@ -630,6 +647,7 @@ footer {
   color: $purple1;
   border: solid 2px $purple1;
   position: absolute;
+  padding: 10px 30px;
 }
 
 .search-results-grid .card-date .MuiSvgIcon-fontSizeMedium,
@@ -1369,18 +1387,25 @@ footer {
 }
 
 .event-buy-button {
-  margin-right: 0px;
-  margin-top: 20px;
-  border: none;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-  background-color: $orange1;
-  color: $black;
-  font-weight: bold;
+  margin-right: 0px !important;
+  margin-top: 20px !important;
+  border: 2px solid #f58146 !important;
+  padding: 10px 30px !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  font-size: 1.1em !important;
+  line-height: normal !important;
+  letter-spacing: normal !important;
+  cursor: pointer !important;
+  background-color: $orange1 !important;
+  color: $black !important;
+  font-weight: bold !important;
+  font-family: "Barlow", Arial, sans-serif !important;
+}
+
+.event-buy-button:hover {
+  @include interaction-expand-on-hover();
 }
 
 .event-preview-screen {

@@ -238,7 +238,7 @@ const Dashboard = () => {
           )}
 
         {/* Always render the Back To Top button */}
-        <Button variant="contained" id="back-to-top-btn" onClick={scrollToTop}>
+        <Button variant="outlined" id="back-to-top-btn" onClick={scrollToTop}>
           Back To Top
         </Button>
       </div>
