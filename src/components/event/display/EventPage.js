@@ -42,7 +42,6 @@ function EventPage() {
   const { eventId } = useParams();
   const [tooltipMessage, setTooltipMessage] = useState("Share this event");
   const [favourite, setFavourite] = useState(false);
-
   /**
    * Set favourite status of event onload
    */

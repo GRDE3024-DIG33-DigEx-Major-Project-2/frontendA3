@@ -46,7 +46,7 @@ function EditEvent() {
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
   const [modalSpinner, setModalSpinner] = useState(false);
 
-  const {isLoading} = useContext(LoadingContext);
+  const { isLoading } = useContext(LoadingContext);
 
   // Modal functions
   const handleModalOpen = () => setModalOpen(true);
@@ -57,12 +57,12 @@ function EditEvent() {
   const handleEventDelete = async () => {
     try {
       setModalSpinner(true);
-    const response = await deleteEvent(event.event.id);
-    console.log(response);
-    handleConfirmationModalOpen();
-    handleModalClose();      
+      const response = await deleteEvent(event.event.id);
+      console.log(response);
+      handleConfirmationModalOpen();
+      handleModalClose();
     }
-    catch(error) {
+    catch (error) {
       console.log(error);
     }
     finally {
@@ -70,7 +70,7 @@ function EditEvent() {
     }
   };
 
-  
+
 
   //** FIRST SCREEN - BASIC INFO **//
   const [eventID, setEventID] = useState(event.event.id);
@@ -361,6 +361,7 @@ function EditEvent() {
     console.log("TO DO SAVE");
   };
 
+
   const submitEvent = async () => {
     // merge date and time into single date field
     var startDateTime = new Date(
@@ -466,9 +467,12 @@ function EditEvent() {
       formattedTags.push({ id: formattedTag[1], name: formattedTag[0] });
     });
 
+
+
+
     try {
       isLoading.set(true);
-    if (newImg) {
+
       let formData = {
         event: event,
         acts: acts,
@@ -476,36 +480,28 @@ function EditEvent() {
         ticketTypes: ticketTypes,
         newTicketTypes: newTicketTypes,
         tags: formattedTags,
-        eventImg: null,
-        filename: selectedImage.name.split(".")[0],
-        "event-img": selectedImage,
       };
-      console.log(formData);
+
+
+      if (newImg) {
+        formData["eventImg"] = null;
+        formData["filename"] = selectedImage.name.split(".")[0];
+        formData["event-img"] = selectedImage;
+      } else {
+        formData["eventImg"] = event.eventImg;
+      }
+
       await updateEvent(formData);
-    } else {
-      let formData = {
-        event: event,
-        acts: acts,
-        newActs: newActs,
-        ticketTypes: ticketTypes,
-        newTicketTypes: newTicketTypes,
-        tags: formattedTags,
-        eventImg: selectedImage,
-      };
-      console.log(formData);
-      await updateEvent(formData);
-    }   
-       navigate(PATHS.DASHBOARD);
+
+      navigate(PATHS.DASHBOARD);
     }
     catch (error) {
       console.log(error);
     }
     finally {
-        isLoading.set(false);
+      isLoading.set(false);
     }
 
-
-    
   };
 
   return (
@@ -532,46 +528,46 @@ function EditEvent() {
           </Link>
         </div>
         <Modal
-        open={modalOpen}
-        onClose={handleModalClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box className="delete-event-modal">
-          <h2>Are you sure you want to delete this event?</h2>
-          <span>
-            All event data will be removed and permanently deleted, so you will
-            not be able to retrieve aby of the existing information.
-          </span>
-          <div>
-            <Button
-              id="save-exit-ev-btn"
-              variant="contained"
-              className="input-btn"
-              onClick={handleModalClose}
-            >
-              No, I've changed my mind
-            </Button>
-            <Button
-              id="save-cont-ev-btn"
-              variant="contained"
-              onClick={handleEventDelete}
-            >
-              Yes, delete this event
-            </Button>
-          </div>
-        </Box>
-      </Modal>
-      <Modal
-        open={confirmationModalOpen}
-        onClose={handleConfirmationModalClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        id="confirmation-modal"
-      >
-        <Box className="delete-event-modal">
-          <h2>Success!</h2>
-          <span>This event has been permanently deleted.</span>
+          open={modalOpen}
+          onClose={handleModalClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box className="delete-event-modal">
+            <h2>Are you sure you want to delete this event?</h2>
+            <span>
+              All event data will be removed and permanently deleted, so you will
+              not be able to retrieve aby of the existing information.
+            </span>
+            <div>
+              <Button
+                id="save-exit-ev-btn"
+                variant="contained"
+                className="input-btn"
+                onClick={handleModalClose}
+              >
+                No, I've changed my mind
+              </Button>
+              <Button
+                id="save-cont-ev-btn"
+                variant="contained"
+                onClick={handleEventDelete}
+              >
+                Yes, delete this event
+              </Button>
+            </div>
+          </Box>
+        </Modal>
+        <Modal
+          open={confirmationModalOpen}
+          onClose={handleConfirmationModalClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+          id="confirmation-modal"
+        >
+          <Box className="delete-event-modal">
+            <h2>Success!</h2>
+            <span>This event has been permanently deleted.</span>
             <Button
               id="save-cont-ev-btn"
               variant="contained"
@@ -579,8 +575,8 @@ function EditEvent() {
             >
               Go to Dashboard
             </Button>
-        </Box>
-      </Modal>
+          </Box>
+        </Modal>
         {/* event preview */}
         {activeStep === 6 ? (
           <div className="event-preview-screen">
@@ -677,7 +673,7 @@ function EditEvent() {
                       divider={<Divider orientation="vertical" flexItem />}
                     >
                       {eventFree && (
-                        <h2 style={{padding: "3% 5%"}}>This event is free.</h2>
+                        <h2 style={{ padding: "3% 5%" }}>This event is free.</h2>
                       )}
                       {eventPaid && (
                         <div className="event-prev-price">
