@@ -147,10 +147,10 @@ function CreateEvent() {
   let startTime = null;
   let endTime = null;
   if (draft) {
-    startDate = new Date(draft.eventStartDate);
-    endDate = new Date(draft.eventEndDate);
-    startTime = new Date(draft.eventStartTime);
-    endTime = new Date(draft.eventEndTime);
+    if (draft.eventStartDate) startDate = new Date(draft.eventStartDate);
+    if (draft.eventEndDate) endDate = new Date(draft.eventEndDate);
+    if (draft.eventStartTime) startTime = new Date(draft.eventStartTime);
+    if (draft.eventEndTime) endTime = new Date(draft.eventEndTime);
   }
   const [eventStartDate, setEventStartDate] = useState(
     draft && startDate ? startDate : null
