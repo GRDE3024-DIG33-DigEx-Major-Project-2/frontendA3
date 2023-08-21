@@ -1,3 +1,8 @@
+/**
+ * EditEvent component
+ */
+
+//Import dependencies
 import * as React from "react";
 import { useState, useContext } from "react";
 import dayjs from "dayjs";
@@ -29,31 +34,37 @@ import EditEventMedia from "./edit/EE6_EventMedia";
 import { PATHS } from "../../utils/constants.util";
 import { LoadingContext } from "../../props/loading-spinner.prop";
 
+
+/**
+ * Builds the EditEvent component
+ * @returns Render of the EditEvent component
+ */
 function EditEvent() {
+  
+  //Props
   const location = useLocation();
   const event = location.state.event;
-  console.log(event);
-
+  const [activeStep, setActiveStep] = useState(0);
+  const navigate = useNavigate();  
+  const { isLoading } = useContext(LoadingContext);
+  //Modal-related props
+  const [modalOpen, setModalOpen] = useState(false);
+  const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
+  const [modalSpinner, setModalSpinner] = useState(false);
+  //Modal functions
+  const handleModalOpen = () => setModalOpen(true);
+  const handleModalClose = () => setModalOpen(false);
+  const handleConfirmationModalOpen = () => setConfirmationModalOpen(true);
+  const handleConfirmationModalClose = () => setConfirmationModalOpen(false);
+  //Selected tags to display
   const tagString = [];
   event.tags.forEach((tag) => {
     tagString.push(tag.name + "," + tag.id);
   });
 
-  const [activeStep, setActiveStep] = useState(0);
-  const navigate = useNavigate();
-
-  const [modalOpen, setModalOpen] = useState(false);
-  const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
-  const [modalSpinner, setModalSpinner] = useState(false);
-
-  const { isLoading } = useContext(LoadingContext);
-
-  // Modal functions
-  const handleModalOpen = () => setModalOpen(true);
-  const handleModalClose = () => setModalOpen(false);
-  const handleConfirmationModalOpen = () => setConfirmationModalOpen(true);
-  const handleConfirmationModalClose = () => setConfirmationModalOpen(false);
-
+  /**
+   * Handler for event deletion
+   */
   const handleEventDelete = async () => {
     try {
       setModalSpinner(true);
@@ -221,7 +232,13 @@ function EditEvent() {
     !event.eventImg ? null : event.eventImg.url
   );
 
-  // determines if the conditions are satisfied for users to proceed to screen six
+  /**
+   * Determines if the conditions are satisfied for users to proceed to screen six
+   * @param {*} enableArtist 
+   * @param {*} eventPrice 
+   * @param {*} eventTierName 
+   * @returns 
+   */
   const canProceed = (enableArtist, eventPrice, eventTierName) => {
     if (enableArtist) {
       if (eventPrice === parseFloat(0.0).toFixed(2) || !eventTierName) {
@@ -230,7 +247,10 @@ function EditEvent() {
     } else return true;
   };
 
-  // handles validation and changes pages in the form
+  /**
+   * Handles validation and changes pages in the form
+   * @param {*} e 
+   */
   const handleNext = (e) => {
     switch (activeStep) {
       // RULES: name, description and URL are required
@@ -362,6 +382,9 @@ function EditEvent() {
   };
 
 
+  /**
+   * Submit event handler for performing event update
+   */
   const submitEvent = async () => {
     // merge date and time into single date field
     var startDateTime = new Date(
@@ -467,9 +490,6 @@ function EditEvent() {
       formattedTags.push({ id: formattedTag[1], name: formattedTag[0] });
     });
 
-
-
-
     try {
       isLoading.set(true);
 
@@ -504,6 +524,7 @@ function EditEvent() {
 
   };
 
+  //Return render of the EditEvent component
   return (
     <div id="create-event-main">
       <div className="create-event-header">
@@ -971,6 +992,7 @@ function EditEvent() {
       </Box>
     </div>
   );
-}
+};
 
+//Export EditEvent component
 export default EditEvent;

@@ -1,19 +1,35 @@
+/**
+ * Create Event Step 6 -- Event Media
+ */
+
+//Import dependencies
 import { Box, FormControl, Grid, Link } from "@mui/material";
 
+/**
+ * Builds EventMedia component
+ * @param {*} props props to consume
+ * @returns Render of EventMedia component
+ */
 const EventMedia = (props) => {
   
-  // change selected image
+  /**
+   * Stage image for event
+   * @param {*} e 
+   */
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
       props.setSelectedImage(e.target.files[0]);
     }
   };
 
-  // This function will be triggered when the "Remove This Image" button is clicked
+  /**
+   * Unstage the event image
+   */
   const removeSelectedImage = () => {
     props.setSelectedImage();
   };
 
+  //Return render of EventMedia component
   return (
     <>
       <h2>Event media</h2>
@@ -71,4 +87,5 @@ const EventMedia = (props) => {
   );
 };
 
+//Export EventMedia component
 export default EventMedia;

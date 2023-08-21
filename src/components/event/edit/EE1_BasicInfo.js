@@ -1,3 +1,8 @@
+/**
+ * Edit Event Step 1 -- Basic Information
+ */
+
+//Import dependencies
 import {
   Box,
   FormControl,
@@ -12,9 +17,20 @@ import { useState, useEffect } from "react";
 import { getAllTags } from "../../../services/EventAPI";
 import { isValidURL } from "../../../utils/utils";
 
+/**
+ * Builds BasicInfo component
+ * @param {*} props props to consume
+ * @returns Render of the EditBasicInfo component
+ */
 const EditBasicInfo = (props) => {
+
+  //Available tags to add to event
   const [availableTags, setAvailableTags] = useState([]);
-  // select tags handler
+
+  /**
+   * Tag selection handler
+   * @param {*} event 
+   */
   const selectTags = (event) => {
     const {
       target: { value },
@@ -22,7 +38,7 @@ const EditBasicInfo = (props) => {
     props.setTags(typeof value === "string" ? value.split(",") : value);
     console.log(props.tags);
   };
-  // select keywords styling
+  //Select tags style
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = -55;
   const MenuProps = {
@@ -50,6 +66,7 @@ const EditBasicInfo = (props) => {
     fetchTags();
   }, [setAvailableTags]);
 
+  //Return render of EditBasicInfo component
   return (
     <>
       <h2>Basic Information</h2>
@@ -113,7 +130,7 @@ const EditBasicInfo = (props) => {
                   />
                 </Grid>{" "}
                 <Grid container item xs={12} direction="column">
-                  <p>Keywords</p>
+                  <p>Tags</p>
                   <Select
                     fullWidth
                     id="create-event-multiple-tags"
@@ -177,4 +194,5 @@ const EditBasicInfo = (props) => {
   );
 };
 
+//Export BasicInfo component
 export default EditBasicInfo;

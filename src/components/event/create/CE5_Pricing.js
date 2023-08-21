@@ -1,3 +1,8 @@
+/**
+ * Create Event Step 5 -- Pricing
+ */
+
+//Import dependencies
 import {
   Box,
   FormControl,
@@ -9,8 +14,16 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 
+/**
+ * Builds the Pricing component
+ * @param {*} props props to consume
+ * @returns Render of the Pricing component
+ */
 const Pricing = (props) => {
-  // functions to enable/disable price form fields
+
+  /**
+   * Disables second ticket price field
+   */
   const handleTicketDisable2 = () => {
     if (props.enableTicket2) {
       props.setEnableTicket2(false);
@@ -19,6 +32,9 @@ const Pricing = (props) => {
     }
     if (!props.enableTicket2) props.setEnableTicket2(true);
   };
+  /**
+   * Disables third ticket price field
+   */
   const handleTicketDisable3 = () => {
     if (props.enableTicket3) {
       props.setEnableTicket3(false);
@@ -27,6 +43,9 @@ const Pricing = (props) => {
     }
     if (!props.enableTicket3) props.setEnableTicket3(true);
   };
+  /**
+   * Disables fourth ticket price field
+   */
   const handleTicketDisable4 = () => {
     if (props.enableTicket4) {
       props.setEnableTicket4(false);
@@ -36,7 +55,10 @@ const Pricing = (props) => {
     if (!props.enableTicket4) props.setEnableTicket4(true);
   };
 
-  // function to switch between free and paid event
+  /**
+   * Handler for switching between free and paid event
+   * @param {*} event 
+   */
   const handleChecked = (event) => {
     if (event.target.name === "eventFree") {
       props.setState({
@@ -45,7 +67,6 @@ const Pricing = (props) => {
         eventPaid: false,
       });
     }
-
     if (event.target.name === "eventPaid") {
       props.setState({
         ...props.state,
@@ -54,6 +75,8 @@ const Pricing = (props) => {
       });
     }
   };
+
+  //Return render of Pricing component
   return (
     <>
       <h2>Pricing</h2>
@@ -491,4 +514,5 @@ const Pricing = (props) => {
   );
 };
 
+//Export Pricing component
 export default Pricing;

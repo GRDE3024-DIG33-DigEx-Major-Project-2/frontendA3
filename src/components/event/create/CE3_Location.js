@@ -1,15 +1,29 @@
+/**
+ * Create Event Step 3 -- Location
+ */
+
+//Import dependencies
 import { Box, FormControl, Grid, TextField } from "@mui/material";
 import CreateEventMap from "../../mapbox/CreateEventMap";
 import { forwardGeocoding } from "../../../services/Geocoding";
 import { useState, useEffect } from "react";
 
+/**
+ * Builds Location component
+ * @param {*} props props to consume
+ * @returns Render of Location component
+ */
 const Location = (props) => {
+  
+  //Props
   const [lat, setLat] = useState(-33.86);
   const [lng, setLng] = useState(151.2);
   const [mapKey, setMapKey] = useState(1);
 
+  /**
+   * Update map location as address is typed in
+   */
   useEffect(() => {
-    /** Update map location as address is typed in*/
     async function fetchCoordinates() {
       let address = props.venueName + "," + props.eventAddress1;
 
@@ -39,6 +53,7 @@ const Location = (props) => {
     props.eventPostCode,
   ]);
 
+  //Return render of Location component
   return (
     <>
       <h2>Location</h2>
@@ -197,4 +212,5 @@ const Location = (props) => {
   );
 };
 
+//Export Location component
 export default Location;

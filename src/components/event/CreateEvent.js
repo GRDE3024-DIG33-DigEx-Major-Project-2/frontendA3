@@ -1,3 +1,8 @@
+/**
+ * CreateEvent component
+ */
+
+//Import dependencies
 import * as React from "react";
 import { useState, useContext } from "react";
 import dayjs from "dayjs";
@@ -27,16 +32,23 @@ import DateTime from "./create/CE4_DateTime";
 import Pricing from "./create/CE5_Pricing";
 import EventMedia from "./create/CE6_EventMedia";
 import { PATHS } from "../../utils/constants.util";
-
 import { addDraft, getUser, removeDraft } from "../../utils/localStorage";
 import { LoadingContext } from "../../props/loading-spinner.prop";
 
+/**
+ * Builds the CreateEvent component
+ * @returns Render of the CreateEvent component
+ */
 function CreateEvent() {
+
+  //SPA navigator
   const navigate = useNavigate();
+  //SPA location for linking
   const location = useLocation();
+  //User data
   const user = getUser();
 
-  // draft setup
+  //Draft setup
   let draft = null;
   let draftNo = null;
   if (location.state) {
@@ -44,21 +56,25 @@ function CreateEvent() {
     draftNo = location.state.draftNo;
   }
 
-  // stepper state
+  //Stepper state
   const [activeStep, setActiveStep] = useState(0);
 
-  // modal for discard option
+  //Modal for discard option
   const [modalOpen, setModalOpen] = useState(false);
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
 
-  // Modal functions
+  //Modal functions
   const handleModalOpen = () => setModalOpen(true);
   const handleModalClose = () => setModalOpen(false);
   const handleConfirmationModalOpen = () => setConfirmationModalOpen(true);
   const handleConfirmationModalClose = () => setConfirmationModalOpen(false);
 
+  //Fullpage loading spinner context
   const { isLoading } = useContext(LoadingContext);
 
+  /**
+   * Discard the draft event
+   */
   const handleDiscard = () => {
     // set draft to null if it exists
     if (draft) removeDraft(draftNo);
@@ -220,7 +236,13 @@ function CreateEvent() {
     draft && draft.selectedImage ? draft.selectedImage : null
   );
 
-  // determines if the conditions are satisfied for users to proceed to screen six
+  /**
+   * Determines if the conditions are satisfied for users to proceed to screen six
+   * @param {*} enableArtist 
+   * @param {*} eventPrice 
+   * @param {*} eventTierName 
+   * @returns 
+   */
   const canProceed = (enableArtist, eventPrice, eventTierName) => {
     console.log("HI");
     if (enableArtist) {
@@ -230,10 +252,13 @@ function CreateEvent() {
     } else return true;
   };
 
-  // handles validation and changes pages in the form
+  /**
+   * Handles validation and changes pages in the form
+   * @param {*} e 
+   */
   const handleNext = (e) => {
     switch (activeStep) {
-      // RULES: name, description and URL are required
+      //RULES: name, description and URL are required
       case 0:
         if (eventName === "") setNameError(true);
         else setNameError(false);
@@ -255,7 +280,7 @@ function CreateEvent() {
         )
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
         break;
-      // RULES: At least one artist. Summary is required.
+      //RULES: At least one artist. Summary is required.
       case 1:
         let atLeastOneArtist = !(
           artistName === "" &&
@@ -273,7 +298,7 @@ function CreateEvent() {
         if (atLeastOneArtist && eventSummary !== "")
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
         break;
-      // RULES: Venue name and all address fields are required.
+      //RULES: Venue name and all address fields are required.
       case 2:
         if (venueName === "") setVenueNameError(true);
         else setVenueNameError(false);
@@ -301,13 +326,13 @@ function CreateEvent() {
         }
 
         break;
-      // RULES: Start date cannot be earlier than end date. All fields required. End time needs to be at least one hour later than start time
+      //RULES: Start date cannot be earlier than end date. All fields required. End time needs to be at least one hour later than start time
       case 3:
         if (eventStartDate && eventEndDate && eventStartTime && eventEndTime)
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
         else alert("All date and time fields are required to continue.");
         break;
-      // RULES: At least general admission price required if the event is paid. Once a ticket type is enabled, name and price are required.
+      //RULES: At least general admission price required if the event is paid. Once a ticket type is enabled, name and price are required.
       case 4:
         if (eventPaid && eventPrice1 === parseFloat(0.0).toFixed(2))
           setPrice1Error(true);
@@ -348,7 +373,7 @@ function CreateEvent() {
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
         }
         break;
-      // RULES: Image upload is required.
+      //RULES: Image upload is required.
       case 5:
         if (!selectedImage) alert("Please upload an image to proceed");
         else setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -358,14 +383,19 @@ function CreateEvent() {
     }
   };
 
+  /**
+   * Moves the stepper backwards one step
+   */
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
+  }; 
 
-  // Event Creation handler
+  /**
+   * Create event request handler
+   */
   const submitEvent = async () => {
-    // merge date and time into single date field
 
+    //Merge date and time into single startDate field
     var startDateTime = new Date(
       eventStartDate.getFullYear(),
       eventStartDate.getMonth(),
@@ -374,7 +404,7 @@ function CreateEvent() {
       eventStartTime.minute(),
       eventStartTime.second()
     );
-
+    //Merge date and time into single endDate field
     var endDateTime = new Date(
       eventEndDate.getFullYear(),
       eventEndDate.getMonth(),
@@ -384,6 +414,7 @@ function CreateEvent() {
       eventEndTime.second()
     );
 
+    //Build the Event object to send
     const event = {
       title: eventName,
       venueName: venueName,
@@ -401,12 +432,14 @@ function CreateEvent() {
       purchaseUrl: eventURL,
     };
 
+    //Build Act object array to send
     let acts = [];
     acts.push({ name: artistName });
     if (artistName2 !== "") acts.push({ name: artistName2 });
     if (artistName3 !== "") acts.push({ name: artistName3 });
     if (artistName4 !== "") acts.push({ name: artistName4 });
 
+    //Build TicketType object array to send
     let ticketTypes = [];
     ticketTypes.push({ name: eventTierName1, price: eventPrice1 });
     if (eventTierName2 !== "")
@@ -415,13 +448,13 @@ function CreateEvent() {
       ticketTypes.push({ name: eventTierName3, price: eventPrice3 });
     if (eventTierName4 !== "")
       ticketTypes.push({ name: eventTierName4, price: eventPrice4 });
-
+    //Build Tag object array to send
     let formattedTags = [];
     tags.forEach((tag) => {
       let formattedTag = tag.split(",");
       formattedTags.push({ id: formattedTag[1], name: formattedTag[0] });
     });
-
+    //Init formData object with event data
     const formData = {
       event: event,
       acts: acts,
@@ -430,9 +463,7 @@ function CreateEvent() {
       filename: selectedImage.name.split(".")[0],
       "event-img": selectedImage,
     };
-
-    console.log(formData);
-
+    //Attempt to create event request
     try {
       isLoading.set(true);
       await createEvent(formData);
@@ -441,17 +472,20 @@ function CreateEvent() {
     } finally {
       isLoading.set(false);
     }
-
+    //Navigate to the organiser's dashboard on completion
     navigate(PATHS.DASHBOARD);
   };
 
-  // Draft implementation handler
+  /**
+   * Draft implementation handler
+   */
   const saveExit = () => {
     if (draft) {
-      console.log("DELETING", draftNo);
+      console.log("Deleting Darft No: ", draftNo);
       removeDraft(draftNo);
     }
 
+    //Init the current draft to save
     const currentDraft = {
       eventName: eventName,
       eventOrganiser: eventOrganiser,
@@ -492,11 +526,14 @@ function CreateEvent() {
       enableTicket4: enableTicket4,
     };
 
-    console.log(currentDraft);
+    console.log("Current Draft: ", currentDraft);
+    //Save event draft to session storage
     addDraft(currentDraft);
+    //Navigate to the organiser's dashboard on completion
     navigate(PATHS.DASHBOARD);
   };
 
+  //Return CreateEvent template render
   return (
     <div id="create-event-main">
       <div className="create-event-header">
@@ -946,6 +983,7 @@ function CreateEvent() {
       </Box>
     </div>
   );
-}
+};
 
+//Export the CreateEvent component
 export default CreateEvent;

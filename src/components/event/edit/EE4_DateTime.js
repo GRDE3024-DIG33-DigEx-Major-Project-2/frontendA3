@@ -1,3 +1,8 @@
+/**
+ * Edit Event Step 4 -- Date and Time
+ */
+
+//Import dependencies
 import {
   Box,
   FormControl,
@@ -20,14 +25,21 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
 import { getAustralianTimezones, mergeDateTime } from "../../../utils/utils";
 
+//Add UTC and timezone support to dayjs
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
 const EditDateTime = (props) => {
+  //Get today in utc and aus timezones
   const timezones = getAustralianTimezones();
   const today = dayjs();
 
-  // checks if the date in parameters is the same as today
+  /**
+   * Checks if the date in parameters is the same as today
+   * @param {*} date 
+   * @param {*} secondDate 
+   * @returns 
+   */
   const isSameDate = (date, secondDate) => {
     const first = date.toDate();
     const second = secondDate.toDate();
@@ -41,6 +53,7 @@ const EditDateTime = (props) => {
     else return false;
   };
 
+  //Return render of EditDateTime component
   return (
     <>
       <h2>Date and Time</h2>
@@ -216,4 +229,5 @@ const EditDateTime = (props) => {
   );
 };
 
+//Export EditDateTime component
 export default EditDateTime;

@@ -1,3 +1,8 @@
+/**
+ * Edit Event Step 5 -- Pricing
+ */
+
+//Import dependencies
 import {
   Box,
   FormControl,
@@ -9,8 +14,16 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 
+/**
+ * Builds EditPricing component
+ * @param {*} props props to consume
+ * @returns Render of EditPricing component
+ */
 const EditPricing = (props) => {
-  // functions to enable/disable price form fields
+
+  /**
+   * Disables second ticket price field
+   */
   const handleTicketDisable2 = () => {
     if (props.enableTicket2) {
       props.setEnableTicket2(false);
@@ -19,6 +32,9 @@ const EditPricing = (props) => {
     }
     if (!props.enableTicket2) props.setEnableTicket2(true);
   };
+  /**
+   * Disables third ticket price field
+   */
   const handleTicketDisable3 = () => {
     if (props.enableTicket3) {
       props.setEnableTicket3(false);
@@ -27,6 +43,9 @@ const EditPricing = (props) => {
     }
     if (!props.enableTicket3) props.setEnableTicket3(true);
   };
+  /**
+   * Disables fourth ticket price field
+   */
   const handleTicketDisable4 = () => {
     if (props.enableTicket4) {
       props.setEnableTicket4(false);
@@ -36,7 +55,10 @@ const EditPricing = (props) => {
     if (!props.enableTicket4) props.setEnableTicket4(true);
   };
 
-  // function to switch between free and paid event
+  /**
+   * Handler for switching between free and paid event
+   * @param {*} event 
+   */
   const handleChecked = (event) => {
     if (event.target.name === "eventFree") {
       props.setState({
@@ -45,7 +67,6 @@ const EditPricing = (props) => {
         eventPaid: false,
       });
     }
-
     if (event.target.name === "eventPaid") {
       props.setState({
         ...props.state,
@@ -54,6 +75,8 @@ const EditPricing = (props) => {
       });
     }
   };
+
+  //Return render of EditPricing component
   return (
     <>
       <h2>Pricing</h2>
@@ -491,4 +514,5 @@ const EditPricing = (props) => {
   );
 };
 
+//Export EditPricing component
 export default EditPricing;

@@ -1,9 +1,22 @@
+/**
+ * Edit Event Step 2 -- Artists and Summary
+ */
+
+//Import dependencies
 import { Box, FormControl, Grid, TextField, Fab } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 
+/**
+ * Builds the ArtistsAndSummary component
+ * @param {*} props props to consume
+ * @returns Render of EditArtistsAndSummary component
+ */
 const EditArtistsAndSummary = (props) => {
-  // functions to enable/disable artist form fields
+
+  /**
+   * Disables the second act field
+   */
   const handleDisable2 = () => {
     if (props.enableArtist2) {
       props.setEnableArtist2(false);
@@ -11,6 +24,9 @@ const EditArtistsAndSummary = (props) => {
     }
     if (!props.enableArtist2) props.setEnableArtist2(true);
   };
+  /**
+   * Disables the third act field
+   */
   const handleDisable3 = () => {
     if (props.enableArtist3) {
       props.setEnableArtist3(false);
@@ -18,6 +34,9 @@ const EditArtistsAndSummary = (props) => {
     }
     if (!props.enableArtist3) props.setEnableArtist3(true);
   };
+  /**
+   * Disables the fourth act field
+   */
   const handleDisable4 = () => {
     if (props.enableArtist4) {
       props.setEnableArtist4(false);
@@ -26,6 +45,7 @@ const EditArtistsAndSummary = (props) => {
     if (!props.enableArtist4) props.setEnableArtist4(true);
   };
 
+  //Return render of EditArtistsAndSummary component
   return (
     <>
       <h2>Artists and summary</h2>
@@ -277,4 +297,5 @@ const EditArtistsAndSummary = (props) => {
   );
 };
 
+//Export ArtistsAndSummary component
 export default EditArtistsAndSummary;
