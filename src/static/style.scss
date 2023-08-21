@@ -1791,6 +1791,17 @@ footer {
     padding: 7.5px 14px;
   }
   /* Event page & preview */
+  .search-results-grid {
+    display: grid;
+    grid-template-areas:
+        "filters"
+        "gap"
+        "results";
+    grid-template-columns: 100%;
+}
+  .search-filters-top{
+    flex-wrap: wrap;
+  }
   .event-prev-tags .MuiChip-labelMedium {
     padding-left: 10px;
     padding-right: 9px;
@@ -2034,6 +2045,12 @@ footer {
   }
 
   /* Event preview & page */
+  .search-results-grid {
+    grid-template-columns: 33% 1% 76%;
+  }
+  .search-filters-top{
+    flex-wrap: wrap;
+  }
   .event-preview {
     .event-prev-card-icon-bookmark {
       right: 13%;
@@ -3141,19 +3158,27 @@ footer {
   font-size: 1em;
 }
 .search-results-grid .search-filters {
-  margin: 3em;
+  margin: 1em;
 }
 .search-results-grid .search-filters .MuiGrid-grid-xs-4{
   flex-basis: 33%;
 }
 .search-results-grid .search-filters .filter-box {
   padding: 3%;
+  width: 113%;
+}
+.search-results-grid .search-filters-top {
+  width: 108%;
 }
 .search-filters-top{
   flex-wrap: wrap;
 }
 .search-filters-top .MuiChip-deletable{
   margin:2px;
+}
+
+.search-results-grid .events-result {
+  width: 115%;
 }
 #price-select-box p{
   font-size: 0.7em;
