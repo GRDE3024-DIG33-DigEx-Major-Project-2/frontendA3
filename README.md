@@ -20,5 +20,14 @@ Submission date: 24/07/2023
     c. Run the command 'npm install' to install any missing dependency
     d. Run the command 'npm start' to run the app
     e. The app will be running locally on port 3456
+3. Recommended existing accounts
+    To showcase certain features more easily (owned/favourited event pagination as an example), it is recommended to try out the following accounts:
+        Attendee:
+            Email: nick@email.com
+            Password: abc123
+        Organizer:
+            Email: adam@email.com
+            Password: abc123
+
 
 !! if the backend is running live on our Amazon endpoints, steps a and b can be skipped. !!
