@@ -1,5 +1,5 @@
 * {
-  font-family: "Barlow", Arial, sans-serif;
+  font-family: "Barlow", Arial, sans-serif !important;
 }
 
 body {
@@ -343,6 +343,13 @@ a {
   background-color: #f58146;
   margin: 4% 0;
   color: #000000;
+  border: 2px solid #f58146;
+  padding: 10px 30px;
+  font-weight: bold;
+  font-size: 1.1em;
+  line-height: normal;
+  letter-spacing: normal;
+  width: 50%;
 }
 
 .signup {
@@ -412,7 +419,7 @@ a {
 }
 
 #next-button {
-  width: 100%;
+  width: 50%;
   color: #000000;
   background-color: #f58146;
   font-size: 1.1em;
@@ -452,11 +459,6 @@ a {
   font-size: 1.1em;
   border: 2px solid #D3D3D3;
   border-radius: 0px !important;
-}
-
-svg.MuiSelect-icon {
-  color: #ffffff;
-  font-size: 2em;
 }
 
 .mobile-signup-logo,
@@ -511,6 +513,7 @@ svg.MuiSelect-icon {
 }
 .signup-second-page-form p {
   font-size: 1em;
+  font-weight: 500;
 }
 
 .signup-submit {
@@ -635,6 +638,12 @@ footer {
   position: fixed;
   bottom: 37px;
   right: 11px;
+  font-weight: bold;
+  font-size: 1.1em;
+  line-height: normal;
+  letter-spacing: normal;
+  text-transform: none;
+  padding: 10px 15px;
 }
 
 #back-to-top-btn:hover,
@@ -654,6 +663,10 @@ footer {
   border: solid 2px #7759a6;
   position: absolute;
   padding: 10px 30px;
+  font-size: 1.1em;
+  line-height: normal;
+  letter-spacing: normal;
+  font-weight: bold;
 }
 
 .search-results-grid .card-date .MuiSvgIcon-fontSizeMedium,
@@ -1915,6 +1928,7 @@ footer {
   .event-prev-second-row .organiser-box {
     min-height: 34%;
     width: 100%;
+    height: -moz-fit-content;
     height: fit-content;
   }
   .event-prev-second-row .event-prev-title {
@@ -2172,6 +2186,7 @@ footer {
   .event-prev-second-row .organiser-box {
     min-height: 34%;
     width: 100%;
+    height: -moz-fit-content;
     height: fit-content;
   }
   .event-prev-second-row .event-prev-title {

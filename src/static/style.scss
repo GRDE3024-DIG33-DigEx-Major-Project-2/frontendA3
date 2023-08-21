@@ -44,7 +44,7 @@ $border: #dfdfdf;
 
 // for selector inheritance, use @extend elementName
 * {
-  font-family: "Barlow", Arial, sans-serif;
+  font-family: "Barlow", Arial, sans-serif !important;
 }
 
 body {
@@ -354,6 +354,13 @@ a {
   background-color: $orange1;
   margin: 4% 0;
   color: $black;
+  border: 2px solid $orange1;
+  padding: 10px 30px;
+  font-weight: bold;
+  font-size: 1.1em;
+  line-height: normal;
+  letter-spacing: normal;
+  width: 50%;
 }
 
 // *********************** SIGNUP PAGE ************************ //
@@ -415,7 +422,7 @@ a {
 }
 
 #next-button {
-  width: 100%;
+  width: 50%;
   color: $black;
   background-color: $orange1;
   font-size: 1.1em;
@@ -454,10 +461,13 @@ a {
   border-radius: 0px !important;
 }
 
-svg.MuiSelect-icon {
-  color: #ffffff;
-  font-size: 2em;
-}
+// .MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.css-i4bv87-MuiSvgIcon-root {
+//   color: $purple1;
+// }
+
+// .MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.MuiSelect-icon.MuiSelect-iconOutlined.css-hfutr2-MuiSvgIcon-root-MuiSelect-icon {
+//   color: $white;
+// }
 
 .mobile-signup-logo,
 .mobile-login-logo {
@@ -503,6 +513,7 @@ svg.MuiSelect-icon {
 
   p {
     font-size: 1em;
+    font-weight: 500;
   }
 }
 
@@ -631,6 +642,12 @@ footer {
   position: fixed;
   bottom: 37px;
   right: 11px;
+  font-weight: bold;
+  font-size: 1.1em;
+  line-height: normal;
+  letter-spacing: normal;
+  text-transform: none;
+  padding: 10px 15px;
 }
 
 #back-to-top-btn:hover,
@@ -648,6 +665,10 @@ footer {
   border: solid 2px $purple1;
   position: absolute;
   padding: 10px 30px;
+  font-size: 1.1em;
+  line-height: normal;
+  letter-spacing: normal;
+  font-weight: bold;
 }
 
 .search-results-grid .card-date .MuiSvgIcon-fontSizeMedium,
