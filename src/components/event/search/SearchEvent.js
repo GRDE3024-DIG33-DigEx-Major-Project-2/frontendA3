@@ -294,7 +294,7 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
                 ) {
                     return <EventCardHorizontal key={i} event={event} />;
                 }
-                return null; // Added this to ensure all branches return something
+                return null;
             })
         ) : (
             <h2>No results found</h2>

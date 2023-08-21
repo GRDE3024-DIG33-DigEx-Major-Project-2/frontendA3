@@ -97,7 +97,6 @@ function EventPage() {
    */
   const handleFavourite = (e) => {
     //Prevent parent element events from propagating
-    e.stopPropagation();
     if (favourite) {
       console.log("removing from favourite events");
       setFavourite(false);
@@ -114,9 +113,10 @@ function EventPage() {
    */
   const handleShareClick = (e) => {
     //Prevent parent element events from propagating
-    e.stopPropagation();
     //Construct link to event
-    const linkToCopy = `${window.location.origin}${PATHS.EVENT_PAGE_NO_PARAMS}/${event.id}`;
+    const linkToCopy = `${window.location.origin}${PATHS.EVENT_PAGE_NO_PARAMS}/${event.event.id}`;
+    
+    console.log("The event's id: " + event.event.id);
 
     //Copy link to clipboard
     navigator.clipboard
@@ -307,6 +307,8 @@ function EventPage() {
               href={event.event.purchaseUrl}
               variant="contained"
               id="buy-tickets-btn"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Buy Tickets
             </Button>

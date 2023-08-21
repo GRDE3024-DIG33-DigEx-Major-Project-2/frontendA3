@@ -13,6 +13,7 @@ import {
   ClickAwayListener,
   Modal,
   Button,
+  Tooltip
 } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -37,6 +38,7 @@ const CreatedEventCardHorizontal = (props) => {
   const [modalSpinner, setModalSpinner] = useState(false);
   const [favourite, setFavourite] = useState(false);
   const { isLoading } = useContext(LoadingContext);
+  const [tooltipMessage, setTooltipMessage] = useState("Share this event");
   const user = getUser();
 
   // Modal functions
@@ -122,6 +124,35 @@ const CreatedEventCardHorizontal = (props) => {
     navigate(PATHS.EVENT_PAGE, { state: { event: props.event } });
   };
 
+    /**
+   * Constructs shareable link and saves it to clipboard
+   * @param {*} event The event to generate a link for
+   */
+    const handleShareClick = (event) => {
+      //Prevent parent element events from propagating
+      event.stopPropagation();
+      //Construct link to event
+      const linkToCopy = `${window.location.origin}${PATHS.EVENT_PAGE_NO_PARAMS}/${props.event.event.id}`;
+  
+      //Copy link to clipboard
+      navigator.clipboard
+        .writeText(linkToCopy)
+        .then(() => {
+          //Update tooltip message
+          setTooltipMessage("Copied!");
+          //The ms delay after event url is copied to revert the tooltip message
+          const MS_TIL_REVERT_MSG = 2200;
+  
+          //Revert back to the original message after 2 seconds
+          setTimeout(() => {
+            setTooltipMessage("Share this event");
+          }, MS_TIL_REVERT_MSG);
+        })
+        .catch((err) => {
+          console.error("Failed to copy link: ", err);
+        });
+    };
+
   /**
    * Set favourite status of event onload
    */
@@ -158,9 +189,11 @@ const CreatedEventCardHorizontal = (props) => {
           <p className="card-price">
             <SellOutlinedIcon sx={{ fontSize: 15 }} /> {priceString}
           </p>
-          <div className="card-icon ev-share-h-2">
-            <ShareIcon sx={{ fontSize: 23, color: "black" }} />
-          </div>
+          <Tooltip title={tooltipMessage}>
+        <div id="ev-share" className="card-icon ev-share-h-2" onClick={handleShareClick}>
+          <ShareIcon sx={{ fontSize: 23, color: "black" }} />
+        </div>
+      </Tooltip>
           <div
             className="ev-menu-h"
             ref={anchorRef}
