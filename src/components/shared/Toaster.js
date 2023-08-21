@@ -10,56 +10,56 @@ import { toast } from 'react-toastify';
 const styleProps = {
   top: "8vh",
   paddingTop: "20px",
-  fontWeight:"bold",
+  fontWeight: "bold",
 };
 
 
-    /**
-     * Displays the Toaster UI for a timespan
-     * @param {*} msg The message to display
-     */
-  export const showToast = (msg, id) => {
-    toast(msg, {
-      toastId: id | "neutral",
-      position: 'top-right',
-      autoClose: 4000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: false,
-      style: styleProps
-    });
+/**
+ * Displays the Toaster UI for a timespan
+ * @param {*} msg The message to display
+ */
+export const showToast = (msg, id) => {
+  toast(msg, {
+    toastId: id | "neutral",
+    position: 'top-right',
+    autoClose: 4000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: false,
+    style: styleProps
+  });
 };
 
 
-    /**
-     * Displays the success Toaster UI for a timespan
-     * @param {*} msg The message to display
-     */
-  export const showSuccessToast = (msg) => {
-    toast.success(msg, {
-      position: 'top-right',
-      autoClose: 2500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: false,
-      style: styleProps
-    });
+/**
+ * Displays the success Toaster UI for a timespan
+ * @param {*} msg The message to display
+ */
+export const showSuccessToast = (msg) => {
+  toast.success(msg, {
+    position: 'top-right',
+    autoClose: 2500,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: false,
+    style: styleProps
+  });
 };
 
-    /**
-     * Displays the error Toaster UI for a timespan
-     * @param {*} msg The error message to display
-     */
-    export const showErrorToast = (msg) => {
-        toast.error(msg, {
-          position: 'top-right', 
-          autoClose: 4000, 
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: false,
-          style: styleProps
-        });
-  };
+/**
+ * Displays the error Toaster UI for a timespan
+ * @param {*} msg The error message to display
+ */
+export const showErrorToast = (msg) => {
+  toast.error(msg, {
+    position: 'top-right',
+    autoClose: 4000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: false,
+    style: styleProps
+  });
+};

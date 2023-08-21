@@ -2,8 +2,8 @@
  * Loading spinner component for async tasks
  */
 
-
-import { useRef, useEffect, useState, useContext } from "react";
+//Import dependencies
+import { useContext } from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { LoadingContext } from "../../props/loading-spinner.prop";
@@ -15,41 +15,39 @@ import { LoadingContext } from "../../props/loading-spinner.prop";
  */
 export const FullPageSpinner = () => {
 
-  //States for spinner
+  //States for loading spinner
   const {
-    loading, 
-    setLoading,
     isLoading
   } = useContext(LoadingContext);
-  
+
   //If loading state is true, render the full page spinner
   return (
     <>
-        {isLoading.get ? (
-    <Box sx={{
-      display: 'flex',
-      alignItems: 'center',
-      //Fullscreen
-      justifyContent: 'center',
-      position: 'fixed', 
-      top: 0, 
-      left: 0,
-      width: '100vw',
-      height: '100vh',
-      //Set above everything else
-      zIndex: 100,
-      backgroundColor: 'rgba(0, 0, 0, 0.7)', 
-      //Disable scroll
-      overflow: 'hidden', 
-    }}>
-    <CircularProgress 
-    //Set size of spinner
-    size={"12rem"} 
-    //Set color of spinner
-    sx={{color:"#f58146"}}
-    />
-  </Box>
-        ) : null}    
+      {isLoading.get ? (
+        <Box sx={{
+          display: 'flex',
+          alignItems: 'center',
+          //Fullscreen
+          justifyContent: 'center',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          //Set above everything else
+          zIndex: 100,
+          backgroundColor: 'rgba(0, 0, 0, 0.7)',
+          //Disable scroll
+          overflow: 'hidden',
+        }}>
+          <CircularProgress
+            //Set size of spinner
+            size={"12rem"}
+            //Set color of spinner
+            sx={{ color: "#f58146" }}
+          />
+        </Box>
+      ) : null}
     </>
 
   );
@@ -63,20 +61,19 @@ export const FullPageSpinner = () => {
  */
 export const PartialLoadSpinner = () => {
 
-    
   //If loading state is true, render the partial spinner
   return (
     <>
-    <Box sx={{
-      display: 'flex',
-    }}>
-    <CircularProgress 
-    //Set size of spinner
-    size={"6rem"} 
-    //Set color of spinner
-    sx={{color:"#f58146"}}
-    />
-  </Box>
+      <Box sx={{
+        display: 'flex',
+      }}>
+        <CircularProgress
+          //Set size of spinner
+          size={"6rem"}
+          //Set color of spinner
+          sx={{ color: "#f58146" }}
+        />
+      </Box>
     </>
 
   );

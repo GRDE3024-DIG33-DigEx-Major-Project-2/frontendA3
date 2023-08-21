@@ -32,7 +32,6 @@ import { useNavigate } from "react-router-dom";
 
 import AccountSettings from "./AccountSettings";
 import { scrollToTop } from "../../utils/utils";
-import { LoadingContext } from "../../props/loading-spinner.prop";
 
 
 
@@ -50,8 +49,6 @@ const Dashboard = () => {
 
   //Get the user session data
   const user = getUser();
-  console.log(user);
-  console.log(drafts);
 
   const navigate = useNavigate();
 
@@ -397,8 +394,8 @@ const Dashboard = () => {
                             </>
                           )}
                       </Grid>
-                      <div className="avatar-info"> 
-                      <p>Click on the avatar to add an image for your organization</p></div>
+                      <div className="avatar-info">
+                        <p>Click on the avatar to add an image for your organization</p></div>
                     </Grid>
                   </FormControl>
                   <div id="update-profile-btns">

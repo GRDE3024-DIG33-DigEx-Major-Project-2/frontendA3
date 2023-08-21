@@ -1,8 +1,19 @@
+/**
+ * Geocoding service for Mapbox
+ */
+
+//Import dependencies
 import axios from "axios";
+//Import Mapbox access token environment variable
 let ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
+/**
+ * Forward's geocoding for Mapbox
+ * @param {*} address 
+ * @returns 
+ */
 export const forwardGeocoding = async function (address) {
-  // default value - Sydney
+  //Default value - Sydney
   let lat = -33.86;
   let lng = 151.2;
 
@@ -22,7 +33,7 @@ export const forwardGeocoding = async function (address) {
       } else {
         lng = response.data.features[0].center[0];
         lat = response.data.features[0].center[1];
-        // let location = response.data.features[0].place_name;
+        //let location = response.data.features[0].place_name;
       }
       console.log(response.data.features);
     })

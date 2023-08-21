@@ -2,6 +2,7 @@
  * Shared global scope functions
  */
 
+//Import dependencies
 import dayjs from "dayjs";
 import axios from "axios";
 
@@ -42,7 +43,6 @@ export const toLocalDTString = async function (ISOdate) {
     minute: "2-digit",
   });
   //Return local time string
-  console.log("Local Time: ", stringDate);
   return stringDate;
 };
 
@@ -233,9 +233,9 @@ export const getThisMonthsISODates = () => {
 };
 
 /**
- * Get first letter of organisation's or customer's name
+ * Get first letter of organiser's or attendee's name
  * @param {*} name
- * @returns
+ * @returns The first letter of the organiser/attendee name
  */
 export const getFirstLetters = (name) => {
   if (name.includes(" ")) {
@@ -251,7 +251,10 @@ export const getFirstLetters = (name) => {
   }
 };
 
-// Get australia time zones
+/**
+ * Get australia time zones
+ * @returns Australia time zones
+ */
 export const getAustralianTimezones = () => {
   let timezones = [];
   timezones.push({ value: "Australia/Perth", label: "(UTC+8:00) Perth" });
@@ -269,7 +272,11 @@ export const getAustralianTimezones = () => {
   return timezones;
 };
 
-// Get Sydney suburbs in your postcode area
+/**
+ * Get Sydney suburbs in your postcode area
+ * @param {*} postcode The postcode to pinpoint nearby suburbs
+ * @returns Nearby suburbs
+ */
 export const getSuburbs = async (postcode) => {
   let suburbs = [];
 
@@ -286,7 +293,11 @@ export const getSuburbs = async (postcode) => {
   return suburbs;
 };
 
-// Normalise string to capitalise first letter of each word
+/**
+ * Normalise string to capitalise first letter of each word
+ * @param {*} string Words to capitalise
+ * @returns String of capitalised words
+ */
 export const capitaliseString = (string) => {
   const splitStr = string.split(" ");
 
@@ -302,7 +313,12 @@ export const capitaliseString = (string) => {
   return result.trim();
 };
 
-//Get date range for event cards
+/**
+ * Get date range for event cards
+ * @param {*} startDate 
+ * @param {*} endDate 
+ * @returns Date range string for event cards
+ */
 export const getDateRangeString = (startDate, endDate) => {
   const dateOptions = { year: "numeric", month: "long", day: "numeric" };
   const currentStartDate = new Date(Date.parse(startDate));
@@ -330,7 +346,11 @@ export const getDateRangeString = (startDate, endDate) => {
   );
 };
 
-//Get price range for event cards
+/**
+ * Get price range for event cards
+ * @param {*} tickets 
+ * @returns Price range string for event cards
+ */
 export const getPriceRangeString = (tickets) => {
   if (tickets.length === 0) return "No price data";
   if (tickets.length === 1) return "$" + tickets[0].price;
@@ -347,7 +367,12 @@ export const getPriceRangeString = (tickets) => {
   return "$" + min.toFixed(2) + " - " + "$" + max.toFixed(2);
 };
 
-//Creates a single date given a date and a time field
+/**
+ * Creates a single date given a date and a time field
+ * @param {*} date 
+ * @param {*} time 
+ * @returns Single date given a date and a time field
+ */
 export const mergeDateTime = (date, time) => {
   const paramDate = date.toDate();
   const paramTime = time.toDate();
@@ -363,7 +388,11 @@ export const mergeDateTime = (date, time) => {
   return result;
 };
 
-// returns true if an url is valid, false if not valid
+/**
+ * Checks if url is valid
+ * @param {*} urlString 
+ * @returns True if valid url, else false
+ */
 export const isValidURL = (urlString) => {
   try {
     new URL(urlString);
@@ -384,7 +413,10 @@ export const scrollToTop = async (event) => {
   });
 };
 
-// Returns a list of suburbs in Sydney
+/**
+ * Creates and returns array of Sydney suburbs
+ * @returns List of suburbs in Sydney
+ */
 export const getAllSuburbs = () => {
   let suburbs = [];
   suburbs.push("Alexandria");

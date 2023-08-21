@@ -2,37 +2,31 @@
  * Account settings component
  */
 
-import { Link, useNavigate } from "react-router-dom";
+//Import dependencies
+import { Link } from "react-router-dom";
 import {
   Box,
-  Avatar,
   Button,
   FormControl,
-  TextField,
-  InputAdornment,
   Modal,
 } from "@mui/material";
 import ResetPassword from "./ResetPassword";
-import { PATHS } from "../../utils/constants.util";
-import { LoadingContext } from "../../props/loading-spinner.prop";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { deleteUser } from "../../services/UserAPI";
-import { showSuccessToast, showToast, showErrorToast } from "../shared/Toaster";
-import { logoutErrorHandler } from "../../services/AuthAPI";
 import { PartialLoadSpinner } from "../shared/LoadingSpinner";
 
+
+/**
+ * Builds the Account Settings component
+ * @returns Render of Account Settings component
+ */
 const AccountSettings = () => {
-  //Loading spinner props
-  const { loading, setLoading } = useContext(LoadingContext);
 
-  const navigate = useNavigate();
-
+  //Modal-related props
   const [modalOpen, setModalOpen] = useState(false);
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
   const [modalSpinner, setModalSpinner] = useState(false);
-  
-
-  // Modal functions
+  //Modal functions
   const handleModalOpen = () => setModalOpen(true);
   const handleModalClose = () => setModalOpen(false);
   const handleConfirmationModalOpen = () => setConfirmationModalOpen(true);
@@ -44,14 +38,8 @@ const AccountSettings = () => {
   const handleDelete = async (e) => {
     e.preventDefault();
     console.log("...deleting account");
-
-    // const userConfirmation = window.confirm(
-    //   "Are you sure you want to delete your account?"
-    // );
-    // if (userConfirmation) {
       try {
         setModalSpinner(true);
-
         let response = await deleteUser();
         handleConfirmationModalOpen();
         handleModalClose();
@@ -60,23 +48,11 @@ const AccountSettings = () => {
       } finally {
         setModalSpinner(false);
       }
-    // }
   };
 
-  return (
-    <>
-      <h2>Account settings</h2>
-      <Box className="profile-box prof-left">
-        <FormControl fullWidth>
-          <ResetPassword></ResetPassword>
-          <Link
-            id="delete-account-profile"
-            onClick={handleModalOpen}
-          >
-            Delete this account
-          </Link>
-        </FormControl>
-      </Box>
+
+  //Delete user modal template
+  let deleteModal = <>
       <Modal
   open={modalOpen}
   onClose={handleModalClose}
@@ -113,7 +89,12 @@ const AccountSettings = () => {
       )}
     </div>
   </Box>
-</Modal>
+</Modal>  
+  </>;
+
+
+//Confirmation modal template
+let confirmationModal = <>
       <Modal
         open={confirmationModalOpen}
         onClose={handleConfirmationModalClose}
@@ -131,8 +112,31 @@ const AccountSettings = () => {
           </Button>
         </Box>
       </Modal>
+</>;
+
+
+
+  //Return render of Account Settings component
+  return (
+    <>
+      <h2>Account settings</h2>
+      <Box className="profile-box prof-left">
+        <FormControl fullWidth>
+          <ResetPassword></ResetPassword>
+          <Link
+            id="delete-account-profile"
+            onClick={handleModalOpen}
+          >
+            Delete this account
+          </Link>
+        </FormControl>
+      </Box>
+    {deleteModal}
+    {confirmationModal}
     </>
   );
 };
 
+
+//Export Account Settings component
 export default AccountSettings;

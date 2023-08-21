@@ -1,6 +1,14 @@
+/**
+ * Terms of Use component
+ */
+
+/**
+ * Builds the terms of use component
+ * @returns Render of terms of use component
+ */
 const TermsOfUse = () => {
-    return (
-      <>
+  return (
+    <>
       <div className="content-body">
         <h1>Terms of Use</h1>
         <p>Please read these Terms of Use ("Terms") carefully before using our website ("the Website"). By accessing or using the Website, you agree to be bound by these Terms. If you do not agree with any part of these Terms, you must not use the Website. </p>
@@ -50,9 +58,11 @@ const TermsOfUse = () => {
         <p>8. Governing Law and Jurisdiction </p>
 
         <p>8.1. These Terms shall be governed by and construed in accordance with the laws of The NSW Government. Any legal actions, suits, or proceedings arising out of or relating to these Terms or the Website shall be exclusively brought in the courts of The NSW Government. </p>
-        </div>
-      </>
-    );
-  };
-  
-  export default TermsOfUse;
+      </div>
+    </>
+  );
+};
+
+
+//Export the terms of use component
+export default TermsOfUse;

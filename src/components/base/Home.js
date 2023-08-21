@@ -15,7 +15,6 @@ import "swiper/css/navigation";
 import { SearchEventsContext } from "../../props/search-events.prop";
 import { PartialLoadSpinner } from "../shared/LoadingSpinner";
 import { getUser } from "../../utils/localStorage";
-import { logoutErrorHandler } from "../../services/AuthAPI";
 import { GENRES } from "../../utils/constants.util";
 
 /**
@@ -32,9 +31,14 @@ const Home = () => {
    */
   const { tags, fetchStatus } = useContext(SearchEventsContext);
 
+  //User data
   const user = getUser();
 
-  //Extract the logic to fetch favorite status of events into a reusable function
+  /**
+   * Extract the logic to fetch favorite status of events into a reusable function
+   * @param {*} events 
+   * @returns Fetched events
+   */
   async function fetchEventsWithFavouriteStatus(events) {
     if (!user || user.type !== "attendee") {
       return events;
@@ -54,7 +58,10 @@ const Home = () => {
     });
   }
 
-  //Extract the logic to get the Rock tag ID
+  /**
+   * Get the specified tag name's id
+   * @returns The tag name's id, else null if not found
+   */
   function getTagId() {
     for (let tag of tags.get) {
       if (tag.name === GENRES.rock) {
@@ -64,7 +71,10 @@ const Home = () => {
     return null;
   }
 
-  //Refactor the useEffect hook
+
+  /**
+   * Fetch carousel events
+   */
   useEffect(() => {
     async function fetchEventData() {
       //Fetch unfiltered events
@@ -132,6 +142,7 @@ const Home = () => {
     </>
   );
 
+  //Template for nearby events
   let nearbyEventsView = (
     <>
       <div className="home-row">

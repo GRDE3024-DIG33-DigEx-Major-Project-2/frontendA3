@@ -180,10 +180,6 @@ const SearchEventFiltersProvider = ({ children }) => {
     };
 
 
-
-
-
-
     //Filter-related props
     const props = {
         keywords: {
@@ -253,7 +249,6 @@ const SearchEventFiltersProvider = ({ children }) => {
         </SearchEventFiltersContext.Provider>
     );
 };
-
 
 
 

@@ -8,12 +8,10 @@ import { AUTH_ENDPOINTS } from "../utils/constants.util";
 import axiosClient from "./Axios";
 import { resetTokenSession, resetUserSession, getUser } from "../utils/localStorage";
 import { showToast } from "../components/shared/Toaster";
-import { PATHS } from "../utils/constants.util";
 
 
 /**
  * Log the user in
- * @returns 
  */
 export const login = async function (email, password) {
 
@@ -25,7 +23,7 @@ export const login = async function (email, password) {
 
     //Return promise for user login
     return await axiosClient
-        .post(AUTH_ENDPOINTS.loginUrl, requestBody, {withCredentials:true});
+        .post(AUTH_ENDPOINTS.loginUrl, requestBody, { withCredentials: true });
 };
 
 
@@ -41,10 +39,10 @@ export const logoutErrorHandler = async function (error) {
                 return;
             }
         }
-    console.log("Logout error handler in action");
-    console.error(error);
-    resetTokenSession();
-    resetUserSession();
-    showToast("You have been logged out", "logout");
-}        
+        console.log("Logout error handler in action");
+        console.error(error);
+        resetTokenSession();
+        resetUserSession();
+        showToast("You have been logged out", "logout");
     }
+};

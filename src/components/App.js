@@ -1,52 +1,60 @@
 /**
- * The startup file for the React SPA
+ * React main component module
  */
 
 //Import dependencies
-import { Routes, Route } from "react-router-dom";
-import "../static/style.css";
-import Home from "./base/Home.js";
-import Header from "./base/Header.js";
-import Profile from "./user/Profile.js";
-import Footer from "./base/Footer.js";
-import Login from "./user/Login.js";
-import Signup from "./user/Signup.js";
-import ResetPassword from "./user/ResetPassword.js";
-import SearchEvent from "./event/search/SearchEvent";
-import TermsOfUse from "./base/TermsOfUse";
-import PrivacyPolicy from "./base/PrivacyPolicy";
-import EventPage from "./event/display/EventPage.js";
-import SignUpGuest from "./user/SignupGuest.js";
-import SignUpOrganiser from "./user/SignupOrganiser";
-import Dashboard from "./user/Dashboard";
-import CreateEvent from "./event/CreateEvent.js";
-import EditEvent from "./event/EditEvent";
-import "../static/fonts.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PATHS } from "../utils/constants.util";
-import { useNavigate } from "react-router-dom";
 import { setupAxiosInterceptors } from "../services/Axios";
-import { useEffect } from "react";
+//Import base components
+import Home from "./base/Home.js";
+import Header from "./base/Header.js";
+import Footer from "./base/Footer.js";
+import TermsOfUse from "./base/TermsOfUse";
+import PrivacyPolicy from "./base/PrivacyPolicy";
+//Import event components
+import SearchEvent from "./event/search/SearchEvent";
+import EventPage from "./event/display/EventPage.js";
+import CreateEvent from "./event/CreateEvent.js";
+import EditEvent from "./event/EditEvent";
+//Import user components
+import Profile from "./user/Profile.js";
+import Login from "./user/Login.js";
+import Signup from "./user/Signup.js";
+import ResetPassword from "./user/ResetPassword.js";
+import SignUpGuest from "./user/SignupGuest.js";
+import SignUpOrganiser from "./user/SignupOrganiser";
+import Dashboard from "./user/Dashboard";
+//Import styling
+import "../static/style.css";
+import "../static/fonts.css";
 //Import prop context providers
 import {
   SearchEventsProvider,
   SearchEventFiltersProvider,
 } from "../props/search-events.prop";
 import { LoadingProvider } from "../props/loading-spinner.prop";
+import { AuthContext } from "../props/auth.prop";
+//Import shared components
 import { FullPageSpinner } from "./shared/LoadingSpinner";
 
-import { AuthContext } from "../props/auth.prop";
 
 /**
- * Builds the root component
- * @returns The rendered root component
+ * Builds the main component module
+ * @returns The rendered main component module
  */
 function App() {
+  //Flags if user is logged in or not
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  //Navigator for SPA
   const navigate = useNavigate();
 
+  /**
+   * Build the Axios client instance
+   */
   useEffect(() => {
     const axiosClient = setupAxiosInterceptors(navigate, setIsLoggedIn);
     return () => {
@@ -54,6 +62,7 @@ function App() {
     };
   }, []);
 
+  //The rendered main component module
   return (
     <div className="App">
       <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
@@ -109,4 +118,5 @@ function App() {
   );
 }
 
+//Export the main module
 export default App;
