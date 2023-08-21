@@ -222,7 +222,7 @@ function EventPage() {
                     <h3>Location</h3>
                   </span>
                   <p className="strong-string-prev">
-                    {event.event.venueName}, {event.event.address}, 
+                    {event.event.venueName}, {event.event.address}, {" "}
                     {event.event.suburb}, {event.event.postcode},{" "}
                     {event.event.city} {event.event.region}
                   </p>
