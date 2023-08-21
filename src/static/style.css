@@ -1832,6 +1832,54 @@ footer {
   .icon-title h3 {
     font-size: 1em;
   }
+  .event-prev-second-row {
+    flex-direction: column;
+    height: 400px;
+  }
+  .event-prev-first-row h1 {
+    font-size: 30px;
+  }
+  .event-prev-first-row .event-buy-button {
+    padding: 8px 24px;
+  }
+  .event-prev-second-row .prev-date-time {
+    width: 50%;
+    padding: 0 2%;
+  }
+  .event-prev-second-row .prev-date-time h3,
+  .event-prev-second-row .prev-location h3 {
+    font-size: 0.7em;
+  }
+  .event-prev-second-row .strong-string-prev {
+    padding-left: 18px;
+    font-size: 16px;
+  }
+  .prev-date-time .strong-string-prev {
+    font-size: 16px;
+  }
+  .event-prev-second-row .when-where-box,
+  .event-prev-second-row .organiser-box {
+    min-height: 34%;
+    width: 100%;
+    height: fit-content;
+  }
+  .event-prev-second-row .event-prev-title {
+    top: -40% !important;
+  }
+  .event-prev-second-row .event-prev-title {
+    font-size: 2em !important;
+  }
+  .event-prev-second-row .when-where-box .event-prev-title {
+    top: -30% !important;
+  }
+  .event-prev-second-row #event-avatar {
+    font-size: 26px;
+    height: 80px;
+    width: 80px;
+  }
+  .event-prev-second-row .organiser-box h2 {
+    font-size: 2em;
+  }
 }
 /* Small Tablet */
 @media screen and (max-width: 800px) {
@@ -2039,6 +2087,54 @@ footer {
   }
   .event-prev-title-2 {
     top: -23% !important;
+  }
+  .event-prev-second-row {
+    flex-direction: column;
+    height: 400px;
+  }
+  .event-prev-first-row h1 {
+    font-size: 30px;
+  }
+  .event-prev-first-row .event-buy-button {
+    padding: 8px 24px;
+  }
+  .event-prev-second-row .prev-date-time {
+    width: 50%;
+    padding: 0 2%;
+  }
+  .event-prev-second-row .prev-date-time h3,
+  .event-prev-second-row .prev-location h3 {
+    font-size: 0.7em;
+  }
+  .event-prev-second-row .strong-string-prev {
+    padding-left: 18px;
+    font-size: 16px;
+  }
+  .prev-date-time .strong-string-prev {
+    font-size: 16px;
+  }
+  .event-prev-second-row .when-where-box,
+  .event-prev-second-row .organiser-box {
+    min-height: 34%;
+    width: 100%;
+    height: fit-content;
+  }
+  .event-prev-second-row .event-prev-title {
+    top: -40% !important;
+  }
+  .event-prev-second-row .event-prev-title {
+    font-size: 2em !important;
+  }
+  .event-prev-second-row .when-where-box .event-prev-title {
+    top: -30% !important;
+  }
+  .event-prev-second-row #event-avatar {
+    font-size: 26px;
+    height: 80px;
+    width: 80px;
+  }
+  .event-prev-second-row .organiser-box h2 {
+    font-size: 2em;
   }
 }
 /* Phone */
