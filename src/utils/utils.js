@@ -270,11 +270,11 @@ export const getAustralianTimezones = () => {
 };
 
 // Get Sydney suburbs in your postcode area
-export const getSydneySuburbs = async (postcode) => {
+export const getSuburbs = async (postcode) => {
   let suburbs = [];
 
   let intPC = parseInt(postcode);
-    await axios
+  await axios
     .get("https://data.handyapi.com/au-postcodes/" + parseInt(intPC))
     .then((response) => (suburbs = response.data.Locations))
     .catch((error) => {
@@ -297,10 +297,10 @@ export const capitaliseString = (string) => {
     let remainder = subStr.slice(1).toLowerCase();
     let word = firstLetter + remainder;
     result += word += " ";
-  })
+  });
 
   return result.trim();
-}
+};
 
 //Get date range for event cards
 export const getDateRangeString = (startDate, endDate) => {
@@ -382,4 +382,107 @@ export const scrollToTop = async (event) => {
     top: 0,
     behavior: "smooth",
   });
+};
+
+// Returns a list of suburbs in Sydney
+export const getAllSuburbs = () => {
+  let suburbs = [];
+  suburbs.push("Alexandria");
+  suburbs.push("Annandale");
+  suburbs.push("Ashfield");
+  suburbs.push("Balmain");
+  suburbs.push("Barangaroo");
+  suburbs.push("Beaconsfield");
+  suburbs.push("Bellevue Hill");
+  suburbs.push("Birchgrove");
+  suburbs.push("Bondi Beach");
+  suburbs.push("Bondi Junction");
+  suburbs.push("Bronte");
+  suburbs.push("Camperdown");
+  suburbs.push("Centennial Park");
+  suburbs.push("Chatswood");
+  suburbs.push("Chinatown");
+  suburbs.push("Chippendale");
+  suburbs.push("Clifton Gardens");
+  suburbs.push("Clovelly");
+  suburbs.push("Concord");
+  suburbs.push("Coogee");
+  suburbs.push("Cremorne");
+  suburbs.push("Crows Nest");
+  suburbs.push("Darling Harbour");
+  suburbs.push("Darlinghurst");
+  suburbs.push("Darling Point");
+  suburbs.push("Darlington");
+  suburbs.push("Dawes Point");
+  suburbs.push("Double Bay");
+  suburbs.push("Dover Heights");
+  suburbs.push("Drummoyne");
+  suburbs.push("East Sydney");
+  suburbs.push("Edgecliff");
+  suburbs.push("Elizabeth Bay");
+  suburbs.push("Erskineville");
+  suburbs.push("Eveleigh");
+  suburbs.push("Forest Lodge");
+  suburbs.push("Glebe");
+  suburbs.push("Greenwich");
+  suburbs.push("Haberfield");
+  suburbs.push("Haymarket");
+  suburbs.push("Homebush");
+  suburbs.push("Kings Cross");
+  suburbs.push("Kingsford");
+  suburbs.push("Kirribilli");
+  suburbs.push("Lane Cove");
+  suburbs.push("Lavender Bay");
+  suburbs.push("Leichhardt");
+  suburbs.push("Lewisham");
+  suburbs.push("Lilyfield");
+  suburbs.push("Manly");
+  suburbs.push("Maroubra");
+  suburbs.push("Marrickville");
+  suburbs.push("Mascot");
+  suburbs.push("McMahons Point");
+  suburbs.push("Millers Point");
+  suburbs.push("Milsons Point");
+  suburbs.push("Moore Park");
+  suburbs.push("Mosman");
+  suburbs.push("Newtown");
+  suburbs.push("Neutral Bay");
+  suburbs.push("North Bondi");
+  suburbs.push("North Sydney");
+  suburbs.push("Northwood");
+  suburbs.push("Paddington");
+  suburbs.push("Parramatta");
+  suburbs.push("Petersham");
+  suburbs.push("Point Piper");
+  suburbs.push("Potts Point");
+  suburbs.push("Pyrmont");
+  suburbs.push("Randwick");
+  suburbs.push("Redfern");
+  suburbs.push("Rose Bay");
+  suburbs.push("Rosebery");
+  suburbs.push("Rozelle");
+  suburbs.push("Rushcutters Bay");
+  suburbs.push("Ryde");
+  suburbs.push("Stanmore");
+  suburbs.push("St Peters");
+  suburbs.push("Strathfield");
+  suburbs.push("Surry Hills");
+  suburbs.push("Sydenham");
+  suburbs.push("Sydney");
+  suburbs.push("Sydney Olimpic Park");
+  suburbs.push("Tamarama");
+  suburbs.push("Tempe");
+  suburbs.push("The Rocks");
+  suburbs.push("Ultimo");
+  suburbs.push("Vaucluse");
+  suburbs.push("Waterloo");
+  suburbs.push("Waverley");
+  suburbs.push("Waverton");
+  suburbs.push("Watsons Bay");
+  suburbs.push("Woollahra");
+  suburbs.push("Wolli Creek");
+  suburbs.push("Woolloomooloo");
+  suburbs.push("Woolstonecraft");
+  suburbs.push("Zetland");
+  return suburbs;
 };
