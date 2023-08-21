@@ -71,6 +71,8 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
     DATE_RANGES
   } = useContext(SearchEventFiltersContext);
 
+
+
   /**
    * Load more events
    * @param {*} event
@@ -194,49 +196,6 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
   };
   
 
-
-
-
-
-  /**
-   * Event listing display container
-   */
-  let eventListings = (
-    <>
-      <Box className="events-result">
-        {events.length !== 0 &&
-          events.get.map((event, i) => {
-            //Filter out event display results by venue selected
-            if (
-              event.event.venueName === selectedVenue.get ||
-              selectedVenue.get === "All Venues"
-            )
-              return <EventCardHorizontal key={i} event={event} />;
-          })}
-        {events.length === 0 && (
-          <>
-            <h2>No results found</h2>
-          </>
-        )}
-        {currPage.get + 1 == pageCount.get ||
-          (currPage.get == 0 && pageCount.get == 0) ? null : (
-          <div className="search-buttons">
-            {!fetchStatus.get ? (
-              <Button variant="contained" id="load-more-events-btn" onClick={loadMoreHandler}>
-                Load More
-              </Button>
-            ) : (
-              <PartialLoadSpinner className="partial-loader"></PartialLoadSpinner>
-            )}
-            <Button variant="contained" id="back-to-top-btn" onClick={scrollToTop}>
-              Back To Top
-            </Button>
-          </div>
-        )}
-      </Box>
-    </>
-  );
-
   /**
    * React hook that is used for fetching data on load
    */
@@ -244,6 +203,10 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
     async function fetchTagsAndEvents() {
       const fetchedTags = await getAllTags();
       tags.set(fetchedTags);
+
+      events.set([]);
+      pageCount.set(0);
+      fetchStatus.set(true);
   
       const data = await searchEvents(
         tagSelection.get,
@@ -259,6 +222,7 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
       );
   
       let newArr = [...data.events];
+      fetchStatus.set(false);
       events.set(newArr);
       pageCount.set(data.pageCount);
     }
@@ -272,6 +236,8 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
   useEffect(() => {
     async function fetchFilteredEvents() {
       fetchStatus.set(true);
+      events.set([]);
+      pageCount.set(0);
   
       const data = await searchEvents(
         tagSelection.get,
@@ -286,7 +252,7 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
         currPage.get
       );
   
-      events.set(prevEvents => [...data.events]);
+      events.set(data.events);
       pageCount.set(data.pageCount);
       fetchStatus.set(false);
     }
@@ -308,6 +274,46 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
     change.get,
     isFree.get
   ]);
+
+
+
+
+  /**
+   * Event listing display container
+   */
+  let eventListings = (
+    <Box className="events-result">
+        {fetchStatus.get ? (
+            <PartialLoadSpinner className="partial-loader"></PartialLoadSpinner>
+        ) : events.get && events.get.length ? (
+            events.get.map((event, i) => {
+                //Filter out event display results by venue selected
+                if (
+                    event.event.venueName === selectedVenue.get ||
+                    selectedVenue.get === "All Venues"
+                ) {
+                    return <EventCardHorizontal key={i} event={event} />;
+                }
+                return null; // Added this to ensure all branches return something
+            })
+        ) : (
+            <h2>No results found</h2>
+        )}
+
+        {currPage.get + 1 < pageCount.get && (
+            <div className="search-buttons">
+                <Button variant="contained" id="load-more-events-btn" onClick={loadMoreHandler}>
+                    Load More
+                </Button>
+                <Button variant="contained" id="back-to-top-btn" onClick={scrollToTop}>
+                    Back To Top
+                </Button>
+            </div>
+        )}
+    </Box>
+);
+
+
 
   //Check for mutable chips in chip data
   const hasMutableChip = chipData.get
