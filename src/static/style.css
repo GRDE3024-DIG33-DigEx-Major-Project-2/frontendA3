@@ -709,6 +709,9 @@ footer {
 }
 .profile-container .prof-center p {
   text-align: center;
+  border-top: 1px lightgrey solid;
+  border-bottom: 1px lightgrey solid;
+  padding: 17px;
 }
 .profile-container .prof-left {
   display: flex;
