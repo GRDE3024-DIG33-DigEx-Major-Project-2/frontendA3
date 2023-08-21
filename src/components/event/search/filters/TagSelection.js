@@ -8,9 +8,7 @@ import {
     Chip,
     Grid,
 } from "@mui/material";
-import { Link } from "react-router-dom";
-import { useContext, useState, useEffect } from "react";
-//Import search event props
+import { useContext } from "react";
 import { SearchEventsContext, SearchEventFiltersContext } from "../../../../props/search-events.prop";
 
 
@@ -38,9 +36,6 @@ export const HeaderSelectedTags = () => {
     } = useContext(SearchEventFiltersContext);
 
 
-
-
-
     /**
      * Handles tag selection display chip
      * @param {*} genre 
@@ -51,7 +46,6 @@ export const HeaderSelectedTags = () => {
 
         //Select tag
         if (!temp.find(x => x.value === genre.id)) {
-             console.log("SELECTING TAG");
         temp.push({
             key: newKey,
             searchCategory: "genre",
@@ -62,7 +56,6 @@ export const HeaderSelectedTags = () => {
         }
         //Deselect tag
         else if (temp.find(x => x.value === genre.id)) {
-            console.log("DESELECTING TAG");
             temp = temp.filter((tag) => tag.value !== genre.id);
             if (Array.isArray(tagSelection.get))
             tagSelection.set(tagSelection.get.filter((tagId) => tagId !== genre.id));
@@ -95,8 +88,6 @@ export const HeaderSelectedTags = () => {
         </div>  
     );
 };
-
-
 
 
 
@@ -133,7 +124,6 @@ export const SearchSelectedTags = () => {
 
         //Select tag
         if (!temp.find(x => x.value === genre.id)) {
-             console.log("SELECTING TAG");
         temp.push({
             key: newKey,
             searchCategory: "genre",
@@ -144,7 +134,6 @@ export const SearchSelectedTags = () => {
         }
         //Deselect tag
         else if (temp.find(x => x.value === genre.id)) {
-            console.log("DESELECTING TAG");
             temp = temp.filter((tag) => tag.value !== genre.id);
             if (Array.isArray(tagSelection.get))
             tagSelection.set(tagSelection.get.filter((tagId) => tagId !== genre.id));
@@ -179,7 +168,6 @@ export const SearchSelectedTags = () => {
                     </Grid>
                 ))}
             </Grid>
-            {/* <Link id="view-more-tags">View more</Link> */}
         </div>
     );
 };

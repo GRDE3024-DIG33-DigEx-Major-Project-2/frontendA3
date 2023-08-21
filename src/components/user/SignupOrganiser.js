@@ -1,4 +1,8 @@
-import * as React from "react";
+/**
+ * Signup Organiser component
+ */
+
+//Import dependencies
 import { FormControl, TextField, InputAdornment, Button } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { useNavigate, Link } from "react-router-dom";
@@ -8,19 +12,24 @@ import Checkbox from "@mui/material/Checkbox";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import LockIcon from "@mui/icons-material/Lock";
 import Grid from "@mui/material/Grid";
-import { LoadingContext, useLoading } from "../../props/loading-spinner.prop";
-import {register} from "../../services/UserAPI";
+import { LoadingContext } from "../../props/loading-spinner.prop";
+import { register } from "../../services/UserAPI";
 import { showSuccessToast, showErrorToast } from "../shared/Toaster";
 import { PATHS } from "../../utils/constants.util";
 
-function SignUpOrganiser() {
-  
-      //Fullpage loading spinner props
-      const {
-        loading,
-        setLoading
-      } = useContext(LoadingContext);
-  
+
+/**
+ * Builds the Signup Organiser component
+ * @returns Render of Signup Organiser component
+ */
+function SignupOrganiser() {
+
+  //Fullpage loading spinner props
+  const {
+    setLoading
+  } = useContext(LoadingContext);
+
+  //Props
   const [organizationName, setOrganizationName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
@@ -28,6 +37,8 @@ function SignUpOrganiser() {
   const [confirmPassword, setPasswordConfirmation] = useState("");
   const [terms, setTerms] = useState("");
   const [privacy, setPrivacy] = useState("");
+
+  //Privacy policy label template
   const pplabel = (
     <span>
       I accept Gigney's&nbsp;
@@ -35,6 +46,7 @@ function SignUpOrganiser() {
     </span>
   );
 
+  //Terms of use label template
   const tclabel = (
     <span>
       I agree to Gigney's&nbsp;
@@ -42,8 +54,13 @@ function SignUpOrganiser() {
     </span>
   );
 
+  //SPA navigator
   const navigate = useNavigate();
 
+  /**
+   * Registration request handler
+   * @param {*} event 
+   */
   const signupHandler = async (event) => {
     event.preventDefault();
     //Enable fullpage loading spinner
@@ -60,25 +77,23 @@ function SignUpOrganiser() {
         phoneNumber: phoneNumber,
       };
 
-      console.log(requestBody);
-
       await register(requestBody)
-      .then((response) => {
-        showSuccessToast("Registration Succesful");
-        //navigate.TO_LOGIN();
-        navigate(PATHS.LOGIN);
-      })
-      .catch((error) => {
-        showErrorToast("Sorry, the backend server is down! Please try again later.");
-      })
-      .finally(() => {
-        //Disable fullpage loading spinner
-        setLoading(false);        
-      });
+        .then((response) => {
+          showSuccessToast("Registration Succesful");
+          navigate(PATHS.LOGIN);
+        })
+        .catch((error) => {
+          showErrorToast("Sorry, the backend server is down! Please try again later.");
+        })
+        .finally(() => {
+          //Disable fullpage loading spinner
+          setLoading(false);
+        });
 
     }
   };
 
+  //Return signup organiser component render
   return (
     <>
       <div id="organsier-height" className="signup-second-page">
@@ -224,6 +239,7 @@ function SignUpOrganiser() {
       </div>
     </>
   );
-}
+};
 
-export default SignUpOrganiser;
+//Export the signup organiser component
+export default SignupOrganiser;

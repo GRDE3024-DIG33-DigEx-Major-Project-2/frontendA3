@@ -1,12 +1,14 @@
+/**
+ * Reset Password component
+ */
+
+//Import dependencies
 import { useState, useContext } from "react";
-import { useNavigate} from "react-router-dom";
-import { showToast, showSuccessToast, showErrorToast } from "../shared/Toaster";
+import { useNavigate } from "react-router-dom";
+import { showSuccessToast, showErrorToast } from "../shared/Toaster";
 import { PATHS } from "../../utils/constants.util";
 import {
-  Box,
-  Avatar,
   Button,
-  FormControl,
   TextField,
   IconButton,
   InputAdornment,
@@ -19,64 +21,70 @@ import { LoadingContext } from "../../props/loading-spinner.prop";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
+
+/**
+ * Reset Password component
+ * @returns 
+ */
 const ResetPassword = () => {
 
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState(null);
-
-
+  //Props
   const [showPassword, setShowPassword] = useState(false);
-
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-    //Loading spinner props
-    const {
-      loading,
-      setLoading
-    } = useContext(LoadingContext);
 
+  //Loading spinner props
+  const {
+    setLoading
+  } = useContext(LoadingContext);
+
+  //SPA navigator
   const navigate = useNavigate();
 
+  /**
+   * Handles password reset attempt
+   * @param {*} event 
+   */
   const resetHandler = async (event) => {
     event.preventDefault();
-    console.log("Reset Password Handler");
 
+    //Both new password inputs must match
     if (newPassword != confirmPassword) {
       showErrorToast("New password input mismatch!");
     }
+    //Password inputs match, attempting reset password request
     else {
-    try {
-      setLoading(true);
+      try {
+        setLoading(true);
 
-      let response = await resetPassword(oldPassword, newPassword);
+        let response = await resetPassword(oldPassword, newPassword);
 
-      if (response.status === 200) {
-        console.log(response.data.msg);
-    showSuccessToast("Password successfully reset! Please log in with your new password.");
-    logoutErrorHandler();
-    navigate(PATHS.LOGIN);        
+        if (response.status === 200) {
+          console.log(response.data.msg);
+          showSuccessToast("Password successfully reset! Please log in with your new password.");
+          logoutErrorHandler();
+          navigate(PATHS.LOGIN);
+        }
+        else {
+          console.log(response.data.msg);
+          showErrorToast(response.data.msg);
+        }
       }
-      else {
-        console.log(response.data.msg);
-        showErrorToast(response.data.msg);
+      catch (error) {
+        console.log(error);
+      }
+      finally {
+        setLoading(false);
       }
     }
-    catch(error) {
-      console.log(error);
-    }
-    finally {
-      setLoading(false);
-    }      
-    }
-
-
   };
-  
 
+
+  //Return render of reset password component
   return (
-<>
+    <>
       <h3>Change Password</h3>
       <p>Current Password:</p>
       <TextField
@@ -162,8 +170,10 @@ const ResetPassword = () => {
       >
         Save new password
       </Button>
-</>);
+    </>);
 
 };
 
+
+//Export the reset password component
 export default ResetPassword;

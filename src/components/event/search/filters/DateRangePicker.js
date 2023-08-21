@@ -4,27 +4,12 @@
 
 //Import dependencies
 import {
-  Box,
-  FormControl,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-  Slider,
-  Stack,
-  Chip,
-  Divider,
-  Grid,
+  FormControl
 } from "@mui/material";
-import { DatePicker, DateRange } from "@mui/x-date-pickers";
 import InputAdornment from "@mui/material/InputAdornment";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
 import { useState, useEffect } from "react";
-import {
-  getTodayISODates,
-  getTomorrowISODates,
-  getWeekendISODates,
-} from "../../../../utils/utils";
 import { useContext } from "react";
 //Import search event props
 import {
@@ -35,20 +20,21 @@ import * as dayjs from "dayjs";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { v4 as uuidv4 } from "uuid";
 
+
+/**
+ * Build DateRangePicker component
+ * @returns Render of DateRangePicker component
+ */
 const DateRangePicker = () => {
-  /**
-   * Prop context for search event data
-   */
-  const { events, pageCount, tags } = useContext(SearchEventsContext);
 
   /**
    * Prop context for search event filters
    */
-  const { dateRange, change, chipData, selectedDateRange, DATE_RANGES } =
+  const { dateRange, change, chipData, selectedDateRange } =
     useContext(SearchEventFiltersContext);
 
+  //Props
   const [selectedMinDate, setSelectedMinDate] = useState();
   const [selectedMaxDate, setSelectedMaxDate] = useState();
 

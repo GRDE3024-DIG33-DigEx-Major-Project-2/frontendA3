@@ -6,21 +6,15 @@
 import {
   Box,
   FormControl,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-  Slider,
   Stack,
   Button,
   Chip,
   Divider,
-  Grid,
 } from "@mui/material";
 import FindEventHeader from "./FindEventHeader";
 import EventCardHorizontal from "../display/EventCardHorizontal";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import * as dayjs from "dayjs";
+import { useEffect } from "react";
 //Import endpoint handlers for events
 import { searchEvents, getAllTags } from "../../../services/EventAPI";
 import { scrollToTop } from "../../../utils/utils";
@@ -31,7 +25,6 @@ import {
   SearchEventFiltersContext,
 } from "../../../props/search-events.prop";
 //Import JSX components
-import DateRangePicker from "./filters/DateRangePicker";
 import VenueInput from "./filters/VenueInput";
 import DateRadioBtns from "./filters/DateRadioButtons";
 import TicketPriceRange from "./filters/TicketPriceRange";
@@ -42,15 +35,18 @@ import { PartialLoadSpinner } from "../../shared/LoadingSpinner";
 
 /**
  * The event search component
- * @param {*} param0
  * @returns The event search component
  */
-const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
+const SearchEvent = () => {
+
   /**
    * Prop context for search event data
    */
-  const { events, pageCount, tags, fetchStatus } =
-    useContext(SearchEventsContext);
+  const { events, 
+    pageCount, 
+    tags, 
+    fetchStatus 
+  } = useContext(SearchEventsContext);
 
   /**
    * Prop context for search event filters
@@ -66,12 +62,8 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
     currPage,
     selectedVenue,
     isFree,
-    IMMUTABLE_CHIP_VALUES,
-    selectedDateRange,
-    DATE_RANGES
+    IMMUTABLE_CHIP_VALUES
   } = useContext(SearchEventFiltersContext);
-
-
 
   /**
    * Load more events
@@ -81,11 +73,8 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
     //Prevent default submit form behaviour
     event.preventDefault();
 
-    console.log("Search event load more fired");
-
     //Toggle loading UI on
     fetchStatus.set(true);
-    console.log("FETCH STATUS SHOULD BE TRUE: ", fetchStatus.get);
 
     //Increment to next page
     currPage.set(currPage.get++);
@@ -104,25 +93,14 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
       currPage.get
     );
 
-    console.log("After search result found");
-    console.log(searchResult);
-    console.log("Page Count: " + pageCount.get);
-
-    let currEvents = events.get;
-
-    console.log("Curr Events " + currEvents);
-    console.log("New Events " + searchResult.events);
     pageCount.set(searchResult.pageCount);
     let newArr = [...events.get, ...searchResult.events];
     //Set state props of events and page count
     events.set(newArr);
     pageCount.set(searchResult.pageCount);
 
-    console.log("NUM RENDERED EVENTS: ", events.get);
-
     //Toggle loading UI off
     fetchStatus.set(false);
-    console.log("FETCH STATUS SHOULD BE FALSE: ", fetchStatus.get);
   };
 
   /**
@@ -143,7 +121,6 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
    * Clear search filters
    */
   const clearFilters = () => {
-    console.log("CLEARING ALL FILTERS");
   
     //Only remove chips that aren't immutable
     const remainingChips = chipData.get.filter(chip => Object.values(IMMUTABLE_CHIP_VALUES).includes(chip.label));
@@ -231,8 +208,10 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
       fetchTagsAndEvents();
     }
   }, [tags, events]);
-  
-  //For the dynamic search
+
+  /**
+   * Dynamic search handling React Hook when filter options change
+   */
   useEffect(() => {
     async function fetchFilteredEvents() {
       fetchStatus.set(true);
@@ -256,12 +235,8 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
       pageCount.set(data.pageCount);
       fetchStatus.set(false);
     }
-
   
     fetchFilteredEvents();
-
-    console.log("Filtered events test");
-    console.log(events.get);
 
   }, [
     keywords.get, 
@@ -274,8 +249,6 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
     change.get,
     isFree.get
   ]);
-
-
 
 
   /**
@@ -374,4 +347,6 @@ const SearchEvent = ({ isLoggedIn, user, setIsLoggedIn, setUser }) => {
   );
 };
 
+
+//Export Search Event component
 export default SearchEvent;

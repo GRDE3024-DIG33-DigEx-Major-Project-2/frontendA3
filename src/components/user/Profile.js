@@ -55,10 +55,7 @@ const Profile = () => {
    */
   const { currPage } = useContext(SearchEventFiltersContext);
 
-  const { isLoading } = useContext(LoadingContext);
-
-  const [modalSpinner, setModalSpinner] = useState(false);
-
+  //SPA navigator
   const navigate = useNavigate();
 
   //Get the user session data
@@ -66,24 +63,26 @@ const Profile = () => {
   console.log(user);
   const fullName = user.firstName + " " + user.lastName;
 
+  //Modal-related props
+  const [modalSpinner, setModalSpinner] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
   const [updateSuccess, setUpdateSuccess] = useState(false);
-
-  // Modal functions
+  //Modal functions
   const handleModalOpen = () => setModalOpen(true);
   const handleModalClose = () => setModalOpen(false);
   const handleConfirmationModalOpen = () => setConfirmationModalOpen(true);
   const handleConfirmationModalClose = () => setConfirmationModalOpen(false);
 
-  // Function handling the attendee's profile update
+  /**
+   * Function handling the attendee's profile update
+   */
   const handleUserUpdate = async () => {
-    // create formData
     let formData = null;
 
     let removeImg = false;
     if (user.imgUrl || imgDelete) removeImg = true;
-
+    //If new image is being added
     if (newImg) {
       formData = {
         bio: bio,
@@ -93,7 +92,9 @@ const Profile = () => {
         "profile-img": newImg,
         filename: newImg.name.split(".")[0],
       };
-    } else {
+    }
+    //If no new image is being added  
+    else {
       formData = {
         bio: bio,
         firstName: firstName,
@@ -101,8 +102,7 @@ const Profile = () => {
         removeImg: removeImg,
       };
     }
-
-
+    //Perform user update request
     try {
       setModalSpinner(true);
       const response = await updateUser(formData);
@@ -120,26 +120,26 @@ const Profile = () => {
     }
   };
 
-  // UPDATE PROFILE STATES
+  //Update-related states for user profile
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [bio, setBio] = useState(user.bio);
   const [newImg, setNewImg] = useState();
   const [imgDelete, setImgDelete] = useState(false);
 
-  // change selected image
+  //Change selected image
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
       setNewImg(e.target.files[0]);
     }
   };
 
-  // This function will be triggered when the "Remove This Image" button is clicked
+  //Remove staged image for user update form
   const removeNewImg = () => {
     setNewImg();
   };
 
-  // remove all images and flag that the existing image needs to be removed from the bucket on update
+  //Remove all images and flag that the existing image needs to be removed from the bucket on update
   const removeAllImgs = () => {
     setNewImg();
     setImgDelete(true);
@@ -157,7 +157,6 @@ const Profile = () => {
         fetchStatus.set(true);
 
         const data = await searchFavourites(currPage.get);
-        console.log("Favourited events search results: ", data);
         //Modify the events to include isFavourited event property set to true
         const modifiedEvents = data.events.map(eventContainer => ({
           ...eventContainer,
@@ -167,8 +166,6 @@ const Profile = () => {
           }
         }));
         setFavouritedEvents(modifiedEvents);
-        console.log("THE MODIFIED EVENTS");
-        console.log(modifiedEvents);
         pageCount.set(data.pageCount);
         //Toggle loading UI off
         fetchStatus.set(false);
@@ -191,8 +188,6 @@ const Profile = () => {
   const loadMoreHandler = async (event) => {
     //Prevent default submit form behaviour
     event.preventDefault();
-
-    console.log("Favourited event load more fired");
 
     //Toggle loading UI on
     fetchStatus.set(true);
@@ -490,5 +485,5 @@ const Profile = () => {
   );
 };
 
-//Export the Dashboard React component
+//Export the Profile React component
 export default Profile;

@@ -1,4 +1,8 @@
-import * as React from "react";
+/**
+ * Signup Attendee component
+ */
+
+//Import dependencies
 import { FormControl, TextField, InputAdornment, Button, IconButton } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { useNavigate, Link } from "react-router-dom";
@@ -12,23 +16,26 @@ import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
-import { LoadingContext, useLoading } from "../../props/loading-spinner.prop";
+import { LoadingContext } from "../../props/loading-spinner.prop";
 import {register} from "../../services/UserAPI";
 import { showSuccessToast, showErrorToast } from "../shared/Toaster";
 import { PATHS } from "../../utils/constants.util";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-function SignUpGuest() {
+/**
+ * Build the signup attendee component
+ * @returns Render of signup attendee component
+ */
+function SignupAttendee() {
 
   //Fullpage loading spinner props
   const {
-    loading,
     setLoading
   } = useContext(LoadingContext);
 
+  //Props
   const [showPassword, setShowPassword] = useState(false);
-
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -37,6 +44,8 @@ function SignUpGuest() {
   const [confirmPassword, setPasswordConfirmation] = useState("");
   const [terms, setTerms] = useState("");
   const [privacy, setPrivacy] = useState("");
+
+  //Privacy policy label template
   const pplabel = (
     <span>
       I accept Gigney's&nbsp;
@@ -44,6 +53,7 @@ function SignUpGuest() {
     </span>
   );
 
+  //Terms of use label template
   const tclabel = (
     <span>
       I agree to Gigney's&nbsp;
@@ -51,6 +61,7 @@ function SignUpGuest() {
     </span>
   );
 
+  //SPA navigator
   const navigate = useNavigate();
 
   /**
@@ -76,12 +87,9 @@ function SignUpGuest() {
         password: password,
       };
 
-      console.log(requestBody);
-
       await register(requestBody)
       .then((response) => {
         showSuccessToast("Registration Succesful");
-        //navigate.TO_LOGIN();
         navigate(PATHS.LOGIN);
       })
       .catch((error) => {
@@ -95,6 +103,7 @@ function SignUpGuest() {
     }
   };
 
+  //Return signup attendee component render
   return (
     <>
       <div id="guest-height" className="signup-second-page">
@@ -276,6 +285,7 @@ function SignUpGuest() {
       </div>
     </>
   );
-}
+};
 
-export default SignUpGuest;
+//Export the signup attendee component
+export default SignupAttendee;

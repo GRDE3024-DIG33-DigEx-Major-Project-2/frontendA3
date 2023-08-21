@@ -1,9 +1,13 @@
+/**
+ * Login component
+ */
+
+//Import dependencies
 import { FormControl, TextField, InputAdornment, Button, IconButton } from "@mui/material";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { setAccessToken, setUserSession, setDrafts } from "../../utils/localStorage";
 import { LoadingContext } from "../../props/loading-spinner.prop";
 import { login } from "../../services/AuthAPI";
@@ -12,25 +16,35 @@ import { PATHS } from "../../utils/constants.util";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-const Login = ({ setIsLoggedIn }) => {
-  const baseURL = process.env.REACT_APP_BASEURL;
 
+/**
+ * Login component
+ * @param {*} param0 props to consume in component
+ * @returns 
+ */
+const Login = ({ setIsLoggedIn }) => {
+
+  //Props
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(null);
-  const navigate = useNavigate();
-
   const [showPassword, setShowPassword] = useState(false);
+
+  //SPA navigation
+  const navigate = useNavigate();
 
   //Loading spinner props
   const {
-    loading,
     setLoading
   } = useContext(LoadingContext);
 
+
+  /**
+   * Handle login attempt
+   * @param {*} event 
+   */
   const loginHandler = async (event) => {
     event.preventDefault();
-    console.log("Login Handler");
 
     //Enable fullpage loading spinner
     setLoading(true);
@@ -46,14 +60,13 @@ const Login = ({ setIsLoggedIn }) => {
       setLoading(false);
     } else {
 
+      //Attempt login request
       try {
         response = await login(email, password);
-
         setMessage("Login Succesful");
         showSuccessToast("Login Succesful");
 
-
-
+        //Configure the Organizer
         if (response.data.user.organizationName) {
           user = {
             type: response.data.user.userType,
@@ -68,9 +81,10 @@ const Login = ({ setIsLoggedIn }) => {
             organizationName: response.data.user.organizationName,
             imgUrl: response.data.user.imgUrl
           };
-
           destinationPage = "../dashboard";
-        } else {
+        } 
+        //Configure the Attendee
+        else {
           user = {
             type: response.data.user.userType,
             email: response.data.user.email,
@@ -83,27 +97,24 @@ const Login = ({ setIsLoggedIn }) => {
             bio: response.data.user.bio,
             dob: response.data.user.dob,
           };
-
           destinationPage = "../profile";
         }
-        // set user
+        //Set user data
         setUserSession(user);
-
+        //Set access token
         setAccessToken(response.data.accessToken);
+        //Set login status
         setIsLoggedIn(true);
-        // initialise draft function
+        //Initialise draft function
         setDrafts([]);
 
-
-
-        //navigate to profile or dashboard
+        //Navigate to profile or dashboard
         if (destinationPage == "../dashboard")
           navigate(PATHS.DASHBOARD);
         else if (destinationPage == "../profile")
           navigate(PATHS.PROFILE);
       }
       catch (error) {
-        console.log("ERROR WHILE LOGGING IN");
         console.log(error);
         setMessage("Invalid email or password. Try again.");
         showErrorToast("Invalid email or password. Try again.");
@@ -116,6 +127,7 @@ const Login = ({ setIsLoggedIn }) => {
     }
   };
 
+  //Return login component render
   return (
     <div className="login-page">
       <div className="left">
@@ -207,4 +219,5 @@ const Login = ({ setIsLoggedIn }) => {
   );
 };
 
+//Export the login component
 export default Login;

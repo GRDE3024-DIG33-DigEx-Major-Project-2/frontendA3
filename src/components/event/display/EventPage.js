@@ -97,10 +97,8 @@ function EventPage() {
   const handleFavourite = (e) => {
     //Prevent parent element events from propagating
     if (favourite) {
-      console.log("removing from favourite events");
       setFavourite(false);
     } else {
-      console.log("adding to favourite events");
       setFavourite(true);
     }
     toggleFavourite(event.event.id);
@@ -114,8 +112,6 @@ function EventPage() {
     //Prevent parent element events from propagating
     //Construct link to event
     const linkToCopy = `${window.location.origin}${PATHS.EVENT_PAGE_NO_PARAMS}/${event.event.id}`;
-    
-    console.log("The event's id: " + event.event.id);
 
     //Copy link to clipboard
     navigator.clipboard

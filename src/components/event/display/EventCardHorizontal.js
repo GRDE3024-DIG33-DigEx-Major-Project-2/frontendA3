@@ -35,14 +35,14 @@ const EventCardHorizontal = (props) => {
    */
   useEffect(() => {
     if (user)
-    if (user.type == "attendee") {
-      let val = props.event.event.isFavourite;
-      if (val == true || val == "true")
-      setFavourite(true);
-      else if (val == false || val == "false")
-      setFavourite(false);
-    }
-}, []);
+      if (user.type == "attendee") {
+        let val = props.event.event.isFavourite;
+        if (val == true || val == "true")
+          setFavourite(true);
+        else if (val == false || val == "false")
+          setFavourite(false);
+      }
+  }, []);
 
 
   /**
@@ -135,10 +135,10 @@ const EventCardHorizontal = (props) => {
               <SellOutlinedIcon sx={{ fontSize: 15 }} /> {priceString}
             </p>
             <Tooltip title={tooltipMessage}>
-            <div className="card-icon ev-share-h" onClick={handleShareClick}>
-              <ShareIcon sx={{ fontSize: 23, color: "black" }} />
-            </div>
-      </Tooltip>
+              <div className="card-icon ev-share-h" onClick={handleShareClick}>
+                <ShareIcon sx={{ fontSize: 23, color: "black" }} />
+              </div>
+            </Tooltip>
             {user !== null && (
               user.type === "attendee" ? (
                 <Tooltip

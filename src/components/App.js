@@ -23,10 +23,10 @@ import EditEvent from "./event/EditEvent";
 //Import user components
 import Profile from "./user/Profile.js";
 import Login from "./user/Login.js";
-import Signup from "./user/Signup.js";
+import Signup from "./user/SignupBase.js";
 import ResetPassword from "./user/ResetPassword.js";
-import SignUpGuest from "./user/SignupGuest.js";
-import SignUpOrganiser from "./user/SignupOrganiser";
+import SignupAttendee from "./user/SignupAttendee.js";
+import SignupOrganiser from "./user/SignupOrganiser";
 import Dashboard from "./user/Dashboard";
 //Import styling
 import "../static/style.css";
@@ -95,11 +95,11 @@ function App() {
                 <Route path={PATHS.EVENT_PAGE} element={<EventPage />} />
                 <Route
                   path={PATHS.SIGN_UP_ATTENDEE}
-                  element={<SignUpGuest />}
+                  element={<SignupAttendee />}
                 />
                 <Route
                   path={PATHS.SIGN_UP_ORGANISER}
-                  element={<SignUpOrganiser />}
+                  element={<SignupOrganiser />}
                 />
                 <Route path={PATHS.CREATE_EVENT} element={<CreateEvent />} />
                 <Route path={PATHS.EDIT_EVENT} element={<EditEvent />} />

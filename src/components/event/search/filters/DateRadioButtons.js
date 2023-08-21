@@ -9,18 +9,17 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
-import { Link } from "react-router-dom";
 import { getTodayISODates, getTomorrowISODates, getWeekendISODates, getThisWeekISODates, getThisMonthsISODates } from "../../../../utils/utils";
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 //Import search event props
-import { SearchEventsContext, SearchEventFiltersContext } from "../../../../props/search-events.prop";
+import { SearchEventFiltersContext } from "../../../../props/search-events.prop";
 import { v4 as uuidv4 } from 'uuid';
 
-
+/**
+ * Builds DateRadioBtns component
+ * @returns Render of DateRadioBtns component
+ */
 const DateRadioBtns = () => {
-
-
-
 
   /**
    * Prop context for search event filters
@@ -34,38 +33,11 @@ const DateRadioBtns = () => {
   } = useContext(SearchEventFiltersContext);
 
 
-
-
-
-
-  // //Handle chip data changes when selectedDateRange changes
-  // useEffect(() => {
-  //   console.log("TEST SELECTED DATE RANGE: ",selectedDateRange.get);
-  //   let temp = chipData.get;
-  //   temp = temp.filter((x) => x.searchCategory !== "date");
-  //   const newKey = uuidv4();
-  //   temp.push({
-  //     key: newKey,
-  //     searchCategory: "date",
-  //     label: selectedDateRange.get,
-  //     value: selectedDateRange.get,
-  //   });
-
-  //   //Delay setting the chip data to the next render cycle
-  //   setTimeout(() => {
-  //     chipData.set(temp, false);
-  //     change.set(!change.get);
-  //   }, 0);
-
-  // }, []);
-
-
   /**
    * Selects the event start-date filter display chip
    * @param {*} value
    */
   const chipSelectDate = (value) => {
-    console.log("Ran the chip select date");
     //Filter chip key
     const newKey = uuidv4();
     //Filter chips
@@ -76,40 +48,32 @@ const DateRadioBtns = () => {
 
     //Disable date range filtering
     if (value === DATE_RANGES.ANY) {
-      console.log("Disabling date range filtering");
       tempDateRange = { minDate: null, maxDate: null };
     }
     //Get ISO range for today
     else if (value === DATE_RANGES.TODAY) {
-      console.log("Getting Today's date range");
       tempDateRange = getTodayISODates();
     }
     //Get ISO range for tomorrow
     else if (value === DATE_RANGES.TOMORROW) {
-      console.log("Getting Tomorrow's date range");
       tempDateRange = getTomorrowISODates();
     }
     //Get ISO range for this weekend
     else if (value === DATE_RANGES.WEEKEND) {
-      console.log("Getting Weekend's date range");
       tempDateRange = getWeekendISODates();
     }
     //Get ISO range for this week
     else if (value === DATE_RANGES.WEEK) {
-      console.log("Getting this Week's date range");
       tempDateRange = getThisWeekISODates();
     }
     //Get ISO range for this month
     else if (value === DATE_RANGES.MONTH) {
-      console.log("Getting this Month's date range");
       tempDateRange = getThisMonthsISODates();
     }
     else return;
 
     //Set the value for the date range radio buttons
     selectedDateRange.set(value);
-
-    console.log("Result: ", tempDateRange);
 
     //Remove old date filter chip
     temp = temp.filter(x => x.searchCategory !== "date");

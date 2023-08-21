@@ -6,46 +6,27 @@
 import { MenuItem, Select, FormControl, Box } from "@mui/material";
 import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
 import SvgIcon from "@mui/material/SvgIcon";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 //Import search event props
 import {
   SearchEventsContext,
-  SearchEventFiltersContext,
+  SearchEventFiltersContext
 } from "../../../../props/search-events.prop";
-import { capitaliseString, getAllSuburbs} from "../../../../utils/utils";
+import { getAllSuburbs } from "../../../../utils/utils";
 
-
+/**
+ * Builds ByLocation component
+ * @returns Render of ByLocation component
+ */
 const ByLocation = () => {
-  // const [lat, setLat] = useState(0);
-  // const [lng, setLng] = useState(0);
-  // const [userLocation, setUserLocation] = useState(2001);
-  const [suburbs, setSuburbs] = useState(getAllSuburbs());
 
-  // geolocation. User permission asked
-  // if (navigator.geolocation) {
-  //   navigator.geolocation.getCurrentPosition(success, error);
-  // } else {
-  //   console.log("Geolocation not supported");
-  // }
-  // function success(position) {
-  //   setLat(position.coords.latitude);
-  //   setLng(position.coords.longitude);
-  // }
-  // function error() {
-  //   console.log("Unable to retrieve your location");
-  // }
-
-
-
-  /**
-   * Prop context for search event data
-   */
-  const { events, pageCount, tags } = useContext(SearchEventsContext);
+  //Suburbs of Sydney
+  const [suburbs] = useState(getAllSuburbs());
 
   /**
    * Prop context for search event filters
    */
-  const { change, location, chipData } = useContext(SearchEventFiltersContext);
+  const { location } = useContext(SearchEventFiltersContext);
 
   //The HTML template
   return (

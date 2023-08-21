@@ -29,7 +29,6 @@ import {
 import { PartialLoadSpinner } from "../shared/LoadingSpinner";
 import { PATHS } from "../../utils/constants.util";
 import { useNavigate } from "react-router-dom";
-
 import AccountSettings from "./AccountSettings";
 import { scrollToTop } from "../../utils/utils";
 
@@ -49,41 +48,39 @@ const Dashboard = () => {
 
   //Get the user session data
   const user = getUser();
-
+  //SPA navigator
   const navigate = useNavigate();
 
-  const [modalOpen, setModalOpen] = useState(false);
-  const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
-  const [updateSuccess, setUpdateSuccess] = useState(false);
 
   /**
- * Prop context for search event data
- */
+   * Prop context for search event data
+   */
   const { fetchStatus, pageCount } = useContext(SearchEventsContext);
-
-  const [modalSpinner, setModalSpinner] = useState(false);
-
   /**
    * Prop context for search event filters
    */
   const { currPage } = useContext(SearchEventFiltersContext);
 
-
-
-  // Modal functions
+  //Modal-related props
+  const [modalOpen, setModalOpen] = useState(false);
+  const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
+  const [updateSuccess, setUpdateSuccess] = useState(false);
+  const [modalSpinner, setModalSpinner] = useState(false);
+  //Modal functions
   const handleModalOpen = () => setModalOpen(true);
   const handleModalClose = () => setModalOpen(false);
   const handleConfirmationModalOpen = () => setConfirmationModalOpen(true);
   const handleConfirmationModalClose = () => setConfirmationModalOpen(false);
 
+
   // Function handling the organiser's profile update
   const handleUserUpdate = async () => {
-    // create formData
+    
     let formData = null;
 
     let removeImg = false;
     if (user.imgUrl || imgDelete) removeImg = true;
-
+    //If new image is being added
     if (newImg) {
       formData = {
         bio: bio,
@@ -93,7 +90,9 @@ const Dashboard = () => {
         "profile-img": newImg,
         filename: newImg.name.split(".")[0],
       };
-    } else {
+    }
+    //If no new image is being added 
+    else {
       formData = {
         bio: bio,
         organizationName: name,
@@ -101,7 +100,7 @@ const Dashboard = () => {
         removeImg: removeImg,
       };
     }
-
+    //Perform user update request
     try {
       setModalSpinner(true);
       const response = await updateUser(formData);
@@ -119,31 +118,30 @@ const Dashboard = () => {
     }
   };
 
-  // UPDATE PROFILE STATES
+  //Update-related states for user profile
   const [name, setName] = useState(user.organizationName);
   const [phoneNo, setPhoneNo] = useState(user.phoneNumber);
   const [bio, setBio] = useState(user.bio);
   const [newImg, setNewImg] = useState();
   const [imgDelete, setImgDelete] = useState(false);
 
-  // change selected image
+  //Change selected image
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
       setNewImg(e.target.files[0]);
     }
   };
 
-  // This function will be triggered when the "Remove This Image" button is clicked
+  //Remove staged image for user update form
   const removeNewImg = () => {
     setNewImg();
   };
 
-  // remove all images and flag that the existing image needs to be removed from the bucket on update
+  //Remove all images and flag that the existing image needs to be removed from the bucket on update
   const removeAllImgs = () => {
     setNewImg();
     setImgDelete(true);
   };
-
 
 
   /**
@@ -158,7 +156,6 @@ const Dashboard = () => {
         fetchStatus.set(true);
 
         const data = await searchOwnedEvents(currPage.get);
-        console.log("Owned events search results: ", data);
         setOwnedEvents(data.events);
         pageCount.set(data.pageCount);
         //Toggle loading UI off
@@ -180,17 +177,12 @@ const Dashboard = () => {
     setDrafts(getDrafts());
   }, [refresh]);
 
-  console.log("currPage:", currPage.get);
-  console.log("pageCount:", pageCount.get);
-
   /**
    * Load more owned events
    */
   const loadMoreHandler = async (event) => {
     //Prevent default submit form behaviour
     event.preventDefault();
-
-    console.log("Owned event load more fired");
 
     //Toggle loading UI on
     fetchStatus.set(true);

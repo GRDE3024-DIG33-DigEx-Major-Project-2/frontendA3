@@ -1,8 +1,12 @@
+/**
+ * CreatedEventCardHorizontal component
+ */
+
+//Import dependencies
 import {
   Card,
   CardContent,
   CardMedia,
-  CardActionArea,
   Box,
   Link,
   MenuItem,
@@ -29,8 +33,18 @@ import { deleteEvent } from "../../services/EventAPI";
 import { LoadingContext } from "../../props/loading-spinner.prop";
 import { PartialLoadSpinner } from "../shared/LoadingSpinner";
 
+
+/**
+ * Builds the CreatedEventCardHorizontal component
+ * @param {*} props props to consume
+ * @returns Render of the CreatedEventCardHorizontal component
+ */
 const CreatedEventCardHorizontal = (props) => {
+  
+  //SPA navigator
   const navigate = useNavigate();
+  
+  //Props
   const [menuOpen, setMenuOpen] = useState(false);
   const anchorRef = useRef(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -39,24 +53,33 @@ const CreatedEventCardHorizontal = (props) => {
   const [favourite, setFavourite] = useState(false);
   const { isLoading } = useContext(LoadingContext);
   const [tooltipMessage, setTooltipMessage] = useState("Share this event");
+
+  //User data
   const user = getUser();
 
-  // Modal functions
+  //Modal functions
   const handleModalOpen = () => setModalOpen(true);
   const handleModalClose = () => setModalOpen(false);
   const handleConfirmationModalOpen = () => setConfirmationModalOpen(true);
   const handleConfirmationModalClose = () => setConfirmationModalOpen(false);
 
+  /**
+   * Close the modal
+   * @param {*} event 
+   */
   const handleDelete = (event) => {
     handleModalOpen();
     setMenuOpen(false);
   };
 
+
+  /**
+   * Handler for deleting event
+   */
   const handleEventDelete = async () => {
     try {
       setModalSpinner(true);
       const response = await deleteEvent(props.event.event.id);
-      console.log(response);
       handleConfirmationModalOpen();
       handleModalClose();
     }
@@ -66,14 +89,20 @@ const CreatedEventCardHorizontal = (props) => {
     finally {
       setModalSpinner(false);
     }
-
   };
 
-  // Dropdown menu functions
+  /**
+   * Toggle menu open/close for event actions
+   */
   const handleToggle = () => {
     setMenuOpen((prevOpen) => !prevOpen);
   };
 
+  /**
+   * Close menu
+   * @param {*} event 
+   * @returns 
+   */
   const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
@@ -81,6 +110,10 @@ const CreatedEventCardHorizontal = (props) => {
     setMenuOpen(false);
   };
 
+  /**
+   * Handler for keydown events with the event card menu
+   * @param {*} event 
+   */
   function handleListKeyDown(event) {
     if (event.key === "Tab") {
       event.preventDefault();
@@ -90,12 +123,18 @@ const CreatedEventCardHorizontal = (props) => {
     }
   }
 
+  /**
+   * Navigate to event edit page for selected event
+   * @param {*} event 
+   */
   const handleEdit = (event) => {
     setMenuOpen(false);
     navigate(PATHS.EDIT_EVENT, { state: { event: props.event } });
   };
 
-  // return focus to the button when we transitioned from !open -> open
+  /**
+   * Return focus to the button after transition from not open, to open
+   */
   const prevOpen = useRef(menuOpen);
   useEffect(() => {
     if (prevOpen.current === true && menuOpen === false) {
@@ -105,29 +144,38 @@ const CreatedEventCardHorizontal = (props) => {
     prevOpen.current = menuOpen;
   }, [menuOpen]);
 
-  // get date range
+  /**
+   * Get date range string for event card UI
+   */
   const stringDate = getDateRangeString(
     props.event.event.startDate,
     props.event.event.endDate
   );
 
-  // get price range
+  /**
+   * Get price range string for event card UI
+   */
   const priceString = getPriceRangeString(props.event.ticketTypes);
 
-  // find URL - if image not added, use default image
+  /**
+   * Find the event image url, else display the placeholder image
+   */
   let imgUrl = EVENT_IMG_PLACEHOLDER;
   if (props.event.eventImg) {
     imgUrl = props.event.eventImg.url;
   }
 
+  /**
+   * Redirect to the event's page
+   */
   const cardRedirect = () => {
     navigate(PATHS.EVENT_PAGE, { state: { event: props.event } });
   };
 
     /**
-   * Constructs shareable link and saves it to clipboard
-   * @param {*} event The event to generate a link for
-   */
+     * Constructs shareable link and saves it to clipboard
+     * @param {*} event The event to generate a link for
+     */
     const handleShareClick = (event) => {
       //Prevent parent element events from propagating
       event.stopPropagation();
@@ -158,14 +206,13 @@ const CreatedEventCardHorizontal = (props) => {
    */
   useEffect(() => {
     if (user.type == "attendee") {
-      console.log("IS AN ATTENDEE");
-      console.log(props.event.event.isFavourite);
       let val = props.event.event.isFavourite;
       if (val == true || val == "true") setFavourite(true);
       else if (val == false || val == "false") setFavourite(false);
     }
   }, []);
 
+  //Return render of the component
   return (
     <Card className="horizontal-card-created">
       <CardMedia
@@ -294,4 +341,5 @@ const CreatedEventCardHorizontal = (props) => {
   );
 };
 
+//Export CreatedEventCardHorizontal component
 export default CreatedEventCardHorizontal;

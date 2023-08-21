@@ -1,5 +1,8 @@
-import * as React from "react";
-import InputLabel from "@mui/material/InputLabel";
+/**
+ * Signup base component
+ */
+
+//Import dependencies
 import MenuItem from "@mui/material/MenuItem";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
@@ -7,9 +10,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
-import InputAdornment from "@mui/material/InputAdornment";
 import { Button } from "@mui/material";
-import { useLoading } from "../../props/loading-spinner.prop";
 import {
   GIGNEY_SIGNUP_LOGO,
   PATHS,
@@ -17,12 +18,22 @@ import {
   GIGNEY_SIGNUP_RIGHT_LOGO,
 } from "../../utils/constants.util";
 
-function SignUp() {
+
+/**
+ * Build the signup base component
+ * @returns Render of signup component
+ */
+function SignupBase() {
+
+  //Account type flag
   const [accountType, setAccountType] = useState("");
 
+  /**
+   * Handle signup user type change
+   * @param {*} event 
+   */
   const handleChange = (event) => {
     setAccountType(event.target.value);
-    console.log(accountType);
   };
   const navigate = useNavigate();
   const handleClick = () => {
@@ -30,6 +41,7 @@ function SignUp() {
     else if (accountType == "organiser") navigate(PATHS.SIGN_UP_ORGANISER);
   };
 
+  //Return render of signup base page
   return (
     <>
       <div className="signup">
@@ -109,6 +121,7 @@ function SignUp() {
       </div>
     </>
   );
-}
+};
 
-export default SignUp;
+//Export base signup page
+export default SignupBase;

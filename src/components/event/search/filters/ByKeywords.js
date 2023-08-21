@@ -1,5 +1,5 @@
 /**
- * Keywords filter component
+ * Keywords filter component for searching events
  */
 
 //Import dependencies
@@ -12,10 +12,13 @@ import InputAdornment from "@mui/material/InputAdornment";
 import { useContext } from "react";
 //Import search event props
 import {
-  SearchEventsContext,
-  SearchEventFiltersContext,
+  SearchEventFiltersContext
 } from "../../../../props/search-events.prop";
 
+/**
+ * Builds ByKeywords component
+ * @returns Render of ByKeywords component
+ */
 const ByKeywords = () => {
 
   /**

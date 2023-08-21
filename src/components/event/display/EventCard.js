@@ -17,11 +17,10 @@ import { useNavigate } from "react-router-dom";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import { getDateRangeString } from "../../../utils/utils";
-import { useState, useEffect, useReducer } from "react";
-import { toggleFavourite, isFavourited } from "../../../services/EventAPI";
+import { useState, useEffect } from "react";
+import { toggleFavourite } from "../../../services/EventAPI";
 import { getUser } from "../../../utils/localStorage";
 import { EVENT_IMG_PLACEHOLDER, PATHS } from "../../../utils/constants.util";
-import { logoutErrorHandler } from "../../../services/AuthAPI";
 
 /**
  * Builds the event listing component for homepage
@@ -41,8 +40,6 @@ const EventCard = (props) => {
   useEffect(() => {
     if (user)
       if (user.type == "attendee") {
-        console.log("IS AN ATTENDEE");
-        console.log(props.event.event.isFavourite);
         let val = props.event.event.isFavourite;
         if (val == true || val == "true") setFavourite(true);
         else if (val == false || val == "false") setFavourite(false);
@@ -63,10 +60,8 @@ const EventCard = (props) => {
     //Prevent parent element events from propagating
     event.stopPropagation();
     if (favourite) {
-      console.log("removing from favourite events");
       setFavourite(false);
     } else {
-      console.log("adding to favourite events");
       setFavourite(true);
     }
     toggleFavourite(props.event.event.id);

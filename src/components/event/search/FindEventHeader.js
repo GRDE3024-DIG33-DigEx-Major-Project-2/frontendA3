@@ -30,7 +30,7 @@ const FindEventHeader = () => {
   /**
    * Prop context for search event data
    */
-  const { events, pageCount, tags, fetchStatus } =
+  const { events, pageCount, tags } =
     useContext(SearchEventsContext);
 
   /**
@@ -41,20 +41,17 @@ const FindEventHeader = () => {
     location,
     dateRange,
     priceRange,
-    change,
     tagSelection,
-    chipData,
     currPage,
   } = useContext(SearchEventFiltersContext);
 
+  //Fullpage spinner loading context
   const { isLoading } = useContext(LoadingContext);
-
   //React navigator
   const navigate = useNavigate();
-
   //Location specifier
   const spaLocation = useLocation();
-
+  //User data
   const user = getUser();
 
   /**
@@ -79,7 +76,6 @@ const FindEventHeader = () => {
       return events;
     }
 
-    //try {
     const response = await isFavourited(events.map((x) => x.event.id));
     return events.map((eventContainer) => {
       const favEvent = response.data.favStatuses.find(
@@ -92,10 +88,6 @@ const FindEventHeader = () => {
           : eventContainer.event,
       };
     });
-    //} catch (error) {
-    // logoutErrorHandler(error);
-    //  return events;
-    //}
   }
 
   /**
@@ -108,24 +100,10 @@ const FindEventHeader = () => {
     //Prevent default submit form behaviour
     event.preventDefault();
 
-    console.log(spaLocation.pathname);
-
     //Navigate to the event search component
     if (spaLocation.pathname !== "/events") navigate(PATHS.SEARCH_EVENTS);
     //Toggle loading UI on
     isLoading.set(true);
-
-    console.log("Search event fired");
-    console.log(
-      tagSelection.get,
-      keywords.get,
-      dateRange.minDate.get,
-      dateRange.maxDate.get,
-      location.get,
-      0
-    );
-    console.log(priceRange.minPrice.get);
-    console.log(priceRange.maxPrice.get);
 
     //Make request for filtered events
     let searchResult = await searchEvents(
@@ -148,10 +126,6 @@ const FindEventHeader = () => {
     //Set state props of events and page count
     events.set(searchEventsWithFavourites);
     pageCount.set(searchResult.pageCount);
-
-    console.log("After search result found");
-    console.log(searchResult);
-    console.log("Page Count: " + pageCount.get);
 
     //Toggle loading UI off
     isLoading.set(false);

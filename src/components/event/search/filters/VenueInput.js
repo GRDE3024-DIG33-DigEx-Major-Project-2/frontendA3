@@ -10,13 +10,15 @@ import {
   RadioGroup,
   Button,
 } from "@mui/material";
-import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 //Import search event props
 import { SearchEventsContext, SearchEventFiltersContext } from "../../../../props/search-events.prop";
 import { v4 as uuidv4 } from 'uuid';
 
-
+/**
+ * Builds VenueInput component
+ * @returns Render of VenueInput component
+ */
 const VenueInput = () => {
 
 
@@ -24,9 +26,7 @@ const VenueInput = () => {
    * Prop context for search event data
    */
   const {
-    events,
-    pageCount,
-    tags
+    events
   } = useContext(SearchEventsContext);
 
   /**
@@ -91,8 +91,6 @@ const VenueInput = () => {
         value: "Any Date",
       });
     }
-
-
     //Delay setting the chip data to the next render cycle
     setTimeout(() => {
       chipData.set(temp, false);
@@ -108,7 +106,6 @@ const VenueInput = () => {
    */
   const loadMoreVenues = (event) => {
     setNumDisplayedVenues(numDisplayedVenues + 10);
-    console.log("TODO LOAD MORE VENUES");
   };
 
 
