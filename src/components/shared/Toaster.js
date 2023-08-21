@@ -20,12 +20,12 @@ const styleProps = {
  */
 export const showToast = (msg, id) => {
   toast(msg, {
-    toastId: id | "neutral",
+    toastId: id || "neutral",
     position: 'top-right',
     autoClose: 4000,
     hideProgressBar: false,
     closeOnClick: true,
-    pauseOnHover: true,
+    pauseOnHover: false,
     draggable: false,
     style: styleProps
   });
@@ -39,10 +39,10 @@ export const showToast = (msg, id) => {
 export const showSuccessToast = (msg) => {
   toast.success(msg, {
     position: 'top-right',
-    autoClose: 2500,
+    autoClose: 4000,
     hideProgressBar: false,
     closeOnClick: true,
-    pauseOnHover: true,
+    pauseOnHover: false,
     draggable: false,
     style: styleProps
   });
@@ -58,7 +58,7 @@ export const showErrorToast = (msg) => {
     autoClose: 4000,
     hideProgressBar: false,
     closeOnClick: true,
-    pauseOnHover: true,
+    pauseOnHover: false,
     draggable: false,
     style: styleProps
   });

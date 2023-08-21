@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\components",
+    "\\src\\components\\base",
+    "\\src\\components\\event",
+    "\\src\\components\\event\\create",
+    "\\src\\components\\event\\display",
+    "\\src\\components\\event\\edit",
+    "\\src\\components\\event\\search",
+    "\\src\\components\\event\\search\\filters"
+  ],
+  "SelectedNode": "\\src\\components\\event\\create\\CE6_EventMedia.js",
+  "PreviewInSolutionExplorer": false
+}

@@ -49,7 +49,6 @@ export const FullPageSpinner = () => {
         </Box>
       ) : null}
     </>
-
   );
 };
 
@@ -75,8 +74,7 @@ export const PartialLoadSpinner = () => {
         />
       </Box>
     </>
-
   );
-}
+};
 
 
