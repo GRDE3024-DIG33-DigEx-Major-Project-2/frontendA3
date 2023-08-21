@@ -2,7 +2,6 @@ import axios from "axios";
 let ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 export const forwardGeocoding = async function (address) {
-  
   // default value - Sydney
   let lat = -33.86;
   let lng = 151.2;
@@ -36,33 +35,3 @@ export const forwardGeocoding = async function (address) {
   result.push(lng);
   return result;
 };
-
-export const reverseGeocodingPostcode = async function (lat, lng) {
-
-  let postcode = null;
-
-  let url =
-    "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
-    lng + "," + lat + 
-    ".json?access_token=" +
-    ACCESS_TOKEN +
-    "&limit=1";
-
-  //Get the array of events and the page number
-  await axios
-    .get(url)
-    .then((response) => {
-      if (response.data.features.length === 0) {
-        console.log("Unable to find location. Try to search another location.");
-      } else {
-        postcode = response.data.features[0].context[0].text;
-      }
-      console.log(postcode);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-
-  return postcode;
-};
-
