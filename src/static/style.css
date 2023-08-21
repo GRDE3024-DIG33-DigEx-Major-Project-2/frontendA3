@@ -1325,6 +1325,11 @@ footer {
   top: 428px;
 }
 
+/*EDIT EVENT*/
+.edit-event-description .MuiOutlinedInput-notchedOutline {
+  height: 245px;
+}
+
 .prev-event-body {
   display: block;
   padding: 1% 2%;
@@ -1740,6 +1745,10 @@ footer {
   .profile-banner h1 {
     font-size: 1.5em;
   }
+  /*EDIT EVENT*/
+  .edit-event-description .MuiOutlinedInput-notchedOutline {
+    height: 245px;
+  }
   /*CREATE EVENTS PAGE*/
   .create-event-header h1 {
     font-size: 2.2em;
@@ -1775,6 +1784,9 @@ footer {
   }
   .create-event-screen h2 {
     text-align: center;
+  }
+  #create-event-multiple-tags {
+    padding: 7.5px 14px;
   }
   /* Event page & preview */
   .event-prev-tags .MuiChip-labelMedium {
@@ -2263,6 +2275,10 @@ footer {
   .ev-menu-h svg {
     font-size: 2.2em;
   }
+  /*EDIT EVENT*/
+  .edit-event-description .MuiOutlinedInput-notchedOutline {
+    height: 245px;
+  }
   /*CREATE EVENTS PAGE*/
   .create-event-screen h2 {
     margin: 0 12px 0 12px;
@@ -2613,6 +2629,7 @@ footer {
   #create-ev-bttns-right,
   #create-ev-bttns-left {
     flex-direction: column;
+    gap: 4px;
   }
   .create-ev-img-box img {
     object-fit: fit;
@@ -2625,6 +2642,10 @@ footer {
   }
   .event-preview-screen #buy-tickets-btn {
     margin-top: 30px;
+  }
+  /*EDIT EVENT*/
+  .edit-event-description .MuiOutlinedInput-notchedOutline {
+    height: 245px;
   }
   /*SIGNUP PAGE*/
   .signup {
@@ -2772,7 +2793,7 @@ footer {
     width: 40%;
   }
   .event-prev-title-2 {
-    top: -20% !important;
+    top: -32% !important;
   }
   .create-prev-lineup .event-prev-title {
     top: -15% !important;

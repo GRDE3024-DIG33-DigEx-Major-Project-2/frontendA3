@@ -107,7 +107,7 @@ const EditBasicInfo = (props) => {
                     variant="outlined"
                   />
                 </Grid>
-                <Grid container item l={12} direction="row">
+                <Grid container item l={12} direction="row" className="edit-event-description">
                   <p>Event description:</p>
                   <TextField
                     fullWidth
