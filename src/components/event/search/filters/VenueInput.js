@@ -35,7 +35,8 @@ const VenueInput = () => {
   const {
     change,
     chipData,
-    selectedVenue
+    selectedVenue,
+    selectedVenueLoading
   } = useContext(SearchEventFiltersContext);
 
 
@@ -53,11 +54,15 @@ const VenueInput = () => {
    * @param {*} venue 
    */
   const chipSelectVenue = (venue) => {
+    selectedVenueLoading.set(true);
     let temp = chipData.get;
     //Don't duplicate venue listings.
     if (!temp.find(x => x.value === venue)) {
       selectedVenue.set(venue);
     }
+    setTimeout(() => {
+      selectedVenueLoading.set(false);
+  }, 300);
   };
 
   //Handle chip data changes when selectedVenue changes

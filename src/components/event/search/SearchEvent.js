@@ -65,6 +65,7 @@ const SearchEvent = () => {
     IMMUTABLE_CHIP_VALUES,
     DATE_RANGES,
     selectedDateRange,
+    selectedVenueLoading
   } = useContext(SearchEventFiltersContext);
 
   const IMMUTABLE_CHIP_MAP = {
@@ -277,6 +278,7 @@ const SearchEvent = () => {
       events.set(data.events);
       pageCount.set(data.pageCount);
       fetchStatus.set(false);
+      selectedVenueLoading.set(false);
     }
 
     fetchFilteredEvents();
@@ -299,7 +301,7 @@ const SearchEvent = () => {
    */
   let eventListings = (
     <Box className="events-result">
-      {fetchStatus.get ? (
+      {fetchStatus.get || selectedVenueLoading.get ? (
         <PartialLoadSpinner className="partial-loader"></PartialLoadSpinner>
       ) : events.get && events.get.length ? (
         events.get.map((event, i) => {

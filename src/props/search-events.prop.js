@@ -152,6 +152,8 @@ const SearchEventFiltersProvider = ({ children }) => {
     //Filter for selected venue
     const [selectedVenue, setSelectedVenue] = useState(DEFAULT_VENUE_SELECT);
     const [isFree, setIsFree] = useState("free");
+    //Loading status for venue input change
+    const [selectedVenueLoading, setSelectedVenueLoading] = useState(false);
 
       /**
    * Date range values for filtering and UI
@@ -239,7 +241,11 @@ const SearchEventFiltersProvider = ({ children }) => {
             set: setSelectedDateRange
         },
         DATE_RANGES: DATE_RANGES,
-        IMMUTABLE_CHIP_VALUES: IMMUTABLE_CHIP_VALUES
+        IMMUTABLE_CHIP_VALUES: IMMUTABLE_CHIP_VALUES,
+        selectedVenueLoading: {
+            get:selectedVenueLoading,
+            set:setSelectedVenueLoading
+        }
     };
 
     //Return the context provider with props
