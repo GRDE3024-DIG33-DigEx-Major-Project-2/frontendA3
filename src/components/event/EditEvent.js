@@ -16,7 +16,7 @@ import {
   Button,
   Link,
   Box,
-  Modal
+  Modal,
 } from "@mui/material";
 import { getFirstLetters, isValidURL, mergeDateTime } from "../../utils/utils";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
@@ -34,18 +34,16 @@ import EditEventMedia from "./edit/EE6_EventMedia";
 import { PATHS } from "../../utils/constants.util";
 import { LoadingContext } from "../../props/loading-spinner.prop";
 
-
 /**
  * Builds the EditEvent component
  * @returns Render of the EditEvent component
  */
 function EditEvent() {
-  
   //Props
   const location = useLocation();
   const event = location.state.event;
   const [activeStep, setActiveStep] = useState(0);
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
   const { isLoading } = useContext(LoadingContext);
   //Modal-related props
   const [modalOpen, setModalOpen] = useState(false);
@@ -72,16 +70,12 @@ function EditEvent() {
       console.log(response);
       handleConfirmationModalOpen();
       handleModalClose();
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
-    }
-    finally {
+    } finally {
       setModalSpinner(false);
     }
   };
-
-
 
   //** FIRST SCREEN - BASIC INFO **//
   const [eventID, setEventID] = useState(event.event.id);
@@ -140,8 +134,8 @@ function EditEvent() {
   const [suburb, setSuburb] = useState(event.event.suburb);
   const [eventAddress1, setEventAddress1] = useState(event.event.address);
   const eventCity = "Sydney";
-  const eventCountry = "Australia"
-  const eventState = "NSW"
+  const eventCountry = "Australia";
+  const eventState = "NSW";
   const [eventPostCode, setEventPostCode] = useState(event.event.postcode);
 
   /* Third screen error flags */
@@ -233,10 +227,10 @@ function EditEvent() {
 
   /**
    * Determines if the conditions are satisfied for users to proceed to screen six
-   * @param {*} enableArtist 
-   * @param {*} eventPrice 
-   * @param {*} eventTierName 
-   * @returns 
+   * @param {*} enableArtist
+   * @param {*} eventPrice
+   * @param {*} eventTierName
+   * @returns
    */
   const canProceed = (enableArtist, eventPrice, eventTierName) => {
     if (enableArtist) {
@@ -248,7 +242,7 @@ function EditEvent() {
 
   /**
    * Handles validation and changes pages in the form
-   * @param {*} e 
+   * @param {*} e
    */
   const handleNext = (e) => {
     switch (activeStep) {
@@ -266,7 +260,12 @@ function EditEvent() {
         if (isValidURL(eventURL)) setUrlError(false);
         else setUrlError(true);
 
-        if (eventName !== "" && description !== "" && eventURL && isValidURL(eventURL))
+        if (
+          eventName !== "" &&
+          description !== "" &&
+          eventURL &&
+          isValidURL(eventURL)
+        )
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
         break;
       // RULES: At least one artist. Summary is required.
@@ -301,12 +300,7 @@ function EditEvent() {
         if (!eventPostCode) setPostcodeError(true);
         else setPostcodeError(false);
 
-        if (
-          venueName &&
-          suburb &&
-          eventAddress1 &&
-          eventPostCode
-        ) {
+        if (venueName && suburb && eventAddress1 && eventPostCode) {
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
         }
 
@@ -368,14 +362,15 @@ function EditEvent() {
     }
   };
 
+  // Stepper handler - go back one step
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleSave = () => {
-    console.log("TO DO SAVE");
+  // Redirects users to dashboard without saving changes
+  const handleExit = () => {
+    navigate(PATHS.DASHBOARD);
   };
-
 
   /**
    * Submit event handler for performing event update
@@ -383,21 +378,21 @@ function EditEvent() {
   const submitEvent = async () => {
     // merge date and time into single date field
     var startDateTime = new Date(
-      eventStartDate.year(),
-      eventStartDate.month(),
-      eventStartDate.date(),
-      eventStartTime.hour(),
-      eventStartTime.minute(),
-      eventStartTime.second()
+      dayjs(eventStartDate).year(),
+      dayjs(eventStartDate).month(),
+      dayjs(eventStartDate).date(),
+      dayjs(eventStartTime).hour(),
+      dayjs(eventStartTime).minute(),
+      dayjs(eventStartTime).second()
     );
 
     var endDateTime = new Date(
-      eventEndDate.year(),
-      eventEndDate.month(),
-      eventEndDate.date(),
-      eventEndTime.hour(),
-      eventEndTime.minute(),
-      eventEndTime.second()
+      dayjs(eventEndDate).year(),
+      dayjs(eventEndDate).month(),
+      dayjs(eventEndDate).date(),
+      dayjs(eventEndTime).hour(),
+      dayjs(eventEndTime).minute(),
+      dayjs(eventEndTime).second()
     );
 
     const event = {
@@ -497,7 +492,6 @@ function EditEvent() {
         tags: formattedTags,
       };
 
-
       if (newImg) {
         formData["eventImg"] = null;
         formData["filename"] = selectedImage.name.split(".")[0];
@@ -509,14 +503,11 @@ function EditEvent() {
       await updateEvent(formData);
 
       navigate(PATHS.DASHBOARD);
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
-    }
-    finally {
+    } finally {
       isLoading.set(false);
     }
-
   };
 
   //Return render of the EditEvent component
@@ -552,8 +543,8 @@ function EditEvent() {
           <Box className="delete-event-modal">
             <h2>Are you sure you want to delete this event?</h2>
             <span>
-              All event data will be removed and permanently deleted, so you will
-              not be able to retrieve aby of the existing information.
+              All event data will be removed and permanently deleted, so you
+              will not be able to retrieve aby of the existing information.
             </span>
             <div>
               <Button
@@ -584,11 +575,7 @@ function EditEvent() {
           <Box className="delete-event-modal">
             <h2>Success!</h2>
             <span>This event has been permanently deleted.</span>
-            <Button
-              id="save-cont-ev-btn"
-              variant="contained"
-              href="/dashboard"
-            >
+            <Button id="save-cont-ev-btn" variant="contained" href="/dashboard">
               Go to Dashboard
             </Button>
           </Box>
@@ -689,7 +676,9 @@ function EditEvent() {
                       divider={<Divider orientation="vertical" flexItem />}
                     >
                       {eventFree && (
-                        <h2 style={{ padding: "3% 5%" }}>This event is free.</h2>
+                        <h2 style={{ padding: "3% 5%" }}>
+                          This event is free.
+                        </h2>
                       )}
                       {eventPaid && (
                         <div className="event-prev-price">
@@ -800,9 +789,9 @@ function EditEvent() {
               <Button
                 id="save-ex-ev-btn"
                 variant="contained"
-                onClick={handleSave}
+                onClick={handleExit}
               >
-                Save and exit
+                Exit without saving
               </Button>
               <Button
                 id="save-publish-ev-btn"
@@ -972,6 +961,13 @@ function EditEvent() {
               </div>
               <div id="create-ev-bttns-right">
                 <Button
+                  id="save-ex-ev-btn"
+                  variant="contained"
+                  onClick={handleExit}
+                >
+                  Exit without saving
+                </Button>
+                <Button
                   id="save-cont-ev-btn"
                   variant="contained"
                   onClick={handleNext}
@@ -985,7 +981,7 @@ function EditEvent() {
       </Box>
     </div>
   );
-};
+}
 
 //Export EditEvent component
 export default EditEvent;
