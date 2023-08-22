@@ -3,27 +3,35 @@
  */
 
 //Import dependencies
-import { FormControl, TextField, InputAdornment, Button, IconButton } from "@mui/material";
+import {
+  FormControl,
+  TextField,
+  InputAdornment,
+  Button,
+  IconButton,
+} from "@mui/material";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { setAccessToken, setUserSession, setDrafts } from "../../utils/localStorage";
+import {
+  setAccessToken,
+  setUserSession,
+  setDrafts,
+} from "../../utils/localStorage";
 import { LoadingContext } from "../../props/loading-spinner.prop";
 import { login } from "../../services/AuthAPI";
 import { showSuccessToast, showErrorToast } from "../shared/Toaster";
 import { PATHS } from "../../utils/constants.util";
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 /**
  * Login component
  * @param {*} param0 props to consume in component
- * @returns 
+ * @returns
  */
 const Login = ({ setIsLoggedIn }) => {
-
   //Props
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,14 +42,11 @@ const Login = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
 
   //Loading spinner props
-  const {
-    setLoading
-  } = useContext(LoadingContext);
-
+  const { setLoading } = useContext(LoadingContext);
 
   /**
    * Handle login attempt
-   * @param {*} event 
+   * @param {*} event
    */
   const loginHandler = async (event) => {
     event.preventDefault();
@@ -59,7 +64,6 @@ const Login = ({ setIsLoggedIn }) => {
       //Disable fullpage loading spinner
       setLoading(false);
     } else {
-
       //Attempt login request
       try {
         response = await login(email, password);
@@ -79,10 +83,10 @@ const Login = ({ setIsLoggedIn }) => {
             password: response.data.user.password,
             phoneNumber: response.data.user.phoneNumber,
             organizationName: response.data.user.organizationName,
-            imgUrl: response.data.user.imgUrl
+            imgUrl: response.data.user.imgUrl,
           };
           destinationPage = "../dashboard";
-        } 
+        }
         //Configure the Attendee
         else {
           user = {
@@ -109,21 +113,16 @@ const Login = ({ setIsLoggedIn }) => {
         setDrafts([]);
 
         //Navigate to profile or dashboard
-        if (destinationPage == "../dashboard")
-          navigate(PATHS.DASHBOARD);
-        else if (destinationPage == "../profile")
-          navigate(PATHS.PROFILE);
-      }
-      catch (error) {
+        if (destinationPage == "../dashboard") navigate(PATHS.DASHBOARD);
+        else if (destinationPage == "../profile") navigate(PATHS.PROFILE);
+      } catch (error) {
         console.log(error);
         setMessage("Invalid email or password. Try again.");
         showErrorToast("Invalid email or password. Try again.");
-      }
-      finally {
+      } finally {
         //Disable fullpage loading spinner
         setLoading(false);
       }
-
     }
   };
 
@@ -198,20 +197,21 @@ const Login = ({ setIsLoggedIn }) => {
             />
             {/* if the message is defined, show it */}
             {message && <p className="error-message">{message}</p>}
-            <Button
-              variant="contained"
-              id="login-btn"
-              className="input-btn"
-              type="submit"
-            >
-              Login
-            </Button>
-            <p>&nbsp;</p>
-              <span className="login-link">
-                Need to create an account?
-                <Link to={PATHS.SIGN_UP}>Register</Link>
-                here
-              </span>
+            <div className="login-btn-container">
+              <Button
+                variant="contained"
+                id="login-btn"
+                className="input-btn"
+                type="submit"
+              >
+                Login
+              </Button>
+            </div>
+            <span className="login-link">
+              Need to create an account?
+              <Link to={PATHS.SIGN_UP}>Register</Link>
+              here
+            </span>
           </FormControl>
         </form>
       </div>

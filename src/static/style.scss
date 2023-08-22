@@ -51,6 +51,10 @@ body {
   margin: 0;
 }
 
+.App {
+  min-height: 100vh;
+}
+
 header {
   padding: 1% 2%;
   max-height: 8vh;
@@ -86,7 +90,6 @@ nav {
   }
 }
 
-// I tried to convert this animation snippet into scss but to no avail - Cara
 .hover-underline-animation {
   display: inline-block;
   position: relative;
@@ -288,7 +291,7 @@ a {
 
 // *********************** LOGIN PAGE  ************************ //
 .login-page {
-  min-height: 82vh;
+  min-height: 88vh;
   height: 700px;
   max-height: fit-content;
   width: 100%;
@@ -350,6 +353,11 @@ a {
   font-size: larger;
 }
 
+.login-btn-container {
+  text-align: center;
+  margin: 30px 0;
+}
+
 #login-btn {
   background-color: $orange1;
   margin: 4% 0;
@@ -383,7 +391,6 @@ a {
   min-height: 100%;
   gap: 8%;
   padding: 5% 0 0 0;
-  margin: 2% 0;
   .signup-logo {
     width: 100%;
     @include flex-column;
@@ -457,17 +464,9 @@ a {
 #demo-simple-select {
   background-color: $purple1;
   font-size: 1.1em;
-  border: 2px solid #D3D3D3;
+  border: 2px solid #d3d3d3;
   border-radius: 0px !important;
 }
-
-// .MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.css-i4bv87-MuiSvgIcon-root {
-//   color: $purple1;
-// }
-
-// .MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.MuiSelect-icon.MuiSelect-iconOutlined.css-hfutr2-MuiSvgIcon-root-MuiSelect-icon {
-//   color: $white;
-// }
 
 .mobile-signup-logo,
 .mobile-login-logo {
@@ -484,10 +483,6 @@ a {
   gap: 10%;
   padding: 5% 0 0 0;
   margin-bottom: 3%;
-}
-
-#guest-height {
-  height: 850px;
 }
 
 .signup-second-page-logo {
@@ -570,7 +565,6 @@ footer {
 }
 
 // *********************** SEARCH RESULTS PAGE ************************ //
-
 
 .search-results-grid {
   min-height: 90%;
@@ -672,11 +666,11 @@ footer {
 }
 
 .search-results-grid .card-date .MuiSvgIcon-fontSizeMedium,
-.search-results-grid .card-price .MuiSvgIcon-fontSizeMedium{
+.search-results-grid .card-price .MuiSvgIcon-fontSizeMedium {
   font-size: 23px;
 }
 
-.search-results-grid .card-location .MuiSvgIcon-fontSizeMedium{
+.search-results-grid .card-location .MuiSvgIcon-fontSizeMedium {
   font-size: 30px;
   margin-left: -5px;
 }
@@ -1051,20 +1045,20 @@ footer {
   height: 100%;
   position: relative;
   padding-left: 3%;
-  h3{
+  h3 {
     font-size: 2vw;
   }
-  p{
+  p {
     font-size: 1.3vw;
   }
 }
 
-.horizontal-card-action{
+.horizontal-card-action {
   width: 100%;
   aspect-ratio: 3.5 / 1;
 }
 
-.horizontal-card-created{
+.horizontal-card-created {
   position: relative;
   width: 100%;
   aspect-ratio: 3.5 / 1;
@@ -1349,18 +1343,18 @@ footer {
   @include flex-row(flex-end, center);
 }
 #create-event-main .event-preview-screen .event-prev-card-icon-share,
-#create-event-main .event-preview-screen .event-prev-card-icon-bookmark{
+#create-event-main .event-preview-screen .event-prev-card-icon-bookmark {
   top: 428px;
 }
 
-  /*EDIT EVENT*/
-  .edit-event-description .MuiOutlinedInput-notchedOutline{
-    height: 245px;
-  }
-  
-  #create-event-multiple-tags{
-    padding: 7.5px 14px;
-  }
+/*EDIT EVENT*/
+.edit-event-description .MuiOutlinedInput-notchedOutline {
+  height: 245px;
+}
+
+#create-event-multiple-tags {
+  padding: 7.5px 14px;
+}
 
 // *********************** EVENT && EVENT PREVIEW *********************** //
 
@@ -1711,6 +1705,11 @@ footer {
     padding: 6px 15px;
   }
 
+  /*LOGIN*/
+  .login-page {
+    min-height: 90vh;
+  }
+
   /*HOME PAGE*/
   .find-event-search {
     @include flex-column(space-evenly, center);
@@ -1722,16 +1721,16 @@ footer {
   }
   .find-event-header-text {
     margin: 17px;
-}
-#search-form-submit-btn {
-  width: 33%;
-  font-size: 20px;
-}
+  }
+  #search-form-submit-btn {
+    width: 33%;
+    font-size: 20px;
+  }
   #location-field-search,
   #date-field-search,
   #events-txt-field {
     width: 80%;
-}
+  }
   .home-section .home-row .swiper-slide {
     width: 340px !important;
     padding-left: 9% !important;
@@ -1787,9 +1786,9 @@ footer {
   }
 
   /*EDIT EVENT*/
-.edit-event-description .MuiOutlinedInput-notchedOutline{
-  height: 245px;
-}
+  .edit-event-description .MuiOutlinedInput-notchedOutline {
+    height: 245px;
+  }
 
   /*CREATE EVENTS PAGE*/
 
@@ -1833,19 +1832,19 @@ footer {
   .create-event-screen h2 {
     text-align: center;
   }
-  #create-event-multiple-tags{
+  #create-event-multiple-tags {
     padding: 7.5px 14px;
   }
   /* Event page & preview */
   .search-results-grid {
     display: grid;
     grid-template-areas:
-        "filters"
-        "gap"
-        "results";
+      "filters"
+      "gap"
+      "results";
     grid-template-columns: 100%;
-}
-  .search-filters-top{
+  }
+  .search-filters-top {
     flex-wrap: wrap;
   }
   .event-prev-tags .MuiChip-labelMedium {
@@ -1889,59 +1888,58 @@ footer {
     flex-direction: column;
     height: 400px;
   }
-    .event-prev-first-row h1 {
-      font-size: 30px;
-    }
-  
-    .event-prev-first-row .event-buy-button {
-      padding: 8px 24px;
-    }
-  
-    .event-prev-second-row .prev-date-time{
-      width: 50%;
-      padding: 0 2%;
-    }
-    .event-prev-second-row .prev-date-time h3,
-    .event-prev-second-row .prev-location h3 {
-      font-size: 0.7em;
-    }
-  
-    .event-prev-second-row .strong-string-prev {
-      padding-left: 18px;
-      font-size: 16px;
-    }
-    .prev-date-time .strong-string-prev{
-      font-size: 16px;
-    }
-  
-    .event-prev-second-row .when-where-box,
-    .event-prev-second-row .organiser-box {
-      min-height: 34%;
-      width: 100%;
-      height: fit-content;
-    }
-    .event-prev-second-row .event-prev-title {
-      top: -40% !important;
+  .event-prev-first-row h1 {
+    font-size: 30px;
   }
-    .event-prev-second-row {
-      .event-prev-title {
-        font-size: 2em !important;
-      }
-      .when-where-box .event-prev-title {
-        top: -30% !important;
-      }
+
+  .event-prev-first-row .event-buy-button {
+    padding: 8px 24px;
+  }
+
+  .event-prev-second-row .prev-date-time {
+    width: 50%;
+    padding: 0 2%;
+  }
+  .event-prev-second-row .prev-date-time h3,
+  .event-prev-second-row .prev-location h3 {
+    font-size: 0.7em;
+  }
+
+  .event-prev-second-row .strong-string-prev {
+    padding-left: 18px;
+    font-size: 16px;
+  }
+  .prev-date-time .strong-string-prev {
+    font-size: 16px;
+  }
+
+  .event-prev-second-row .when-where-box,
+  .event-prev-second-row .organiser-box {
+    min-height: 34%;
+    width: 100%;
+    height: fit-content;
+  }
+  .event-prev-second-row .event-prev-title {
+    top: -40% !important;
+  }
+  .event-prev-second-row {
+    .event-prev-title {
+      font-size: 2em !important;
     }
-    .event-prev-second-row #event-avatar {
-      font-size: 26px;
-      height: 80px;
-      width: 80px;
+    .when-where-box .event-prev-title {
+      top: -30% !important;
     }
-  
-    .event-prev-second-row .organiser-box h2 {
-      font-size: 2em;
-    }
+  }
+  .event-prev-second-row #event-avatar {
+    font-size: 26px;
+    height: 80px;
+    width: 80px;
+  }
+
+  .event-prev-second-row .organiser-box h2 {
+    font-size: 2em;
+  }
 }
-  
 
 /* Small Tablet */
 @media screen and (max-width: 800px) {
@@ -2043,7 +2041,7 @@ footer {
   .swiper-button-prev {
     left: 86% !important;
   }
-  .search-form-els .MuiChip-filled{
+  .search-form-els .MuiChip-filled {
     margin: 9px;
   }
   /* SIGNUP PAGE */
@@ -2057,7 +2055,7 @@ footer {
   }
 
   .signup-right {
-    min-height: 30%;
+    min-height: 40%;
   }
 
   #signup-right-img {
@@ -2068,6 +2066,7 @@ footer {
     @include flex-column(center, center);
     min-height: 60%;
     height: 60%;
+    padding: 0;
     .signup-logo {
       img {
         display: none;
@@ -2076,7 +2075,9 @@ footer {
   }
 
   .signup-form {
-    height: 70%;
+    height: fit-content;
+    @include flex-column(center, center);
+    gap: 40px;
     width: 80vw;
   }
 
@@ -2085,18 +2086,27 @@ footer {
     height: 3em;
   }
 
+  .mobile-login-logo{
+    top: 25%;
+  }
+
+  .mobile-signup-logo{
+    top: 17%;
+  }
+
   .mobile-signup-logo,
   .mobile-login-logo {
     display: block;
     position: absolute;
-    width: 50%;
-    top: 15%;
-    left: 31%;
+    width: 100%;
+    left: 0%;
+    text-align: center;
 
     .signup-logo-img,
     .login-logo-img {
       object-fit: cover;
       max-width: 100%;
+      width: 300px;
       max-height: 100%;
       filter: brightness(0) invert(1);
     }
@@ -2107,9 +2117,8 @@ footer {
     @include flex-column(center, center);
     gap: 0;
     width: 100vw;
-    max-height: 110vw;
-    height: 95vh;
-    min-height: 95vh;
+    height: fit-content;
+    min-height: 800px;
   }
 
   .left,
@@ -2142,7 +2151,8 @@ footer {
   .login-form {
     @include flex-column(left, left);
     gap: 2%;
-    height: 45vh;
+    height: fit-content;
+    padding: 0 0 5% 0 !important;
     width: 80vw;
   }
 
@@ -2150,7 +2160,7 @@ footer {
   .search-results-grid {
     grid-template-columns: 33% 1% 76%;
   }
-  .search-filters-top{
+  .search-filters-top {
     flex-wrap: wrap;
   }
   .event-preview {
@@ -2158,7 +2168,7 @@ footer {
       right: 13%;
     }
   }
- 
+
   .event-prev-second-row {
     flex-direction: column;
     height: 500px;
@@ -2182,62 +2192,62 @@ footer {
     flex-direction: column;
     height: 400px;
   }
-    .event-prev-first-row h1 {
-      font-size: 30px;
-    }
-  
-    .event-prev-first-row .event-buy-button {
-      padding: 8px 24px;
-    }
-  
-    .event-prev-second-row .prev-date-time{
-      width: 50%;
-      padding: 0 2%;
-    }
-    .event-prev-second-row .prev-date-time h3,
-    .event-prev-second-row .prev-location h3 {
-      font-size: 0.7em;
-    }
-  
-    .event-prev-second-row .strong-string-prev {
-      padding-left: 18px;
-      font-size: 16px;
-    }
-    .prev-date-time .strong-string-prev{
-      font-size: 16px;
-    }
-  
-    .event-prev-second-row .when-where-box,
-    .event-prev-second-row .organiser-box {
-      min-height: 34%;
-      width: 100%;
-      height: fit-content;
-    }
-    .event-prev-second-row .event-prev-title {
-      top: -40% !important;
+  .event-prev-first-row h1 {
+    font-size: 30px;
   }
-    .event-prev-second-row {
-      .event-prev-title {
-        font-size: 2em !important;
-      }
-      .when-where-box .event-prev-title {
-        top: -30% !important;
-      }
-    }
-    .event-prev-second-row #event-avatar {
-      font-size: 26px;
-      height: 80px;
-      width: 80px;
-    }
-  
-    .event-prev-second-row .organiser-box h2 {
-      font-size: 2em;
-    }
 
-    /* Create event additional stepper */
-    .event-additional-stepper{
-      display: none;
+  .event-prev-first-row .event-buy-button {
+    padding: 8px 24px;
+  }
+
+  .event-prev-second-row .prev-date-time {
+    width: 50%;
+    padding: 0 2%;
+  }
+  .event-prev-second-row .prev-date-time h3,
+  .event-prev-second-row .prev-location h3 {
+    font-size: 0.7em;
+  }
+
+  .event-prev-second-row .strong-string-prev {
+    padding-left: 18px;
+    font-size: 16px;
+  }
+  .prev-date-time .strong-string-prev {
+    font-size: 16px;
+  }
+
+  .event-prev-second-row .when-where-box,
+  .event-prev-second-row .organiser-box {
+    min-height: 34%;
+    width: 100%;
+    height: fit-content;
+  }
+  .event-prev-second-row .event-prev-title {
+    top: -40% !important;
+  }
+  .event-prev-second-row {
+    .event-prev-title {
+      font-size: 2em !important;
     }
+    .when-where-box .event-prev-title {
+      top: -30% !important;
+    }
+  }
+  .event-prev-second-row #event-avatar {
+    font-size: 26px;
+    height: 80px;
+    width: 80px;
+  }
+
+  .event-prev-second-row .organiser-box h2 {
+    font-size: 2em;
+  }
+
+  /* Create event additional stepper */
+  .event-additional-stepper {
+    display: none;
+  }
 }
 
 /* Phone */
@@ -2364,15 +2374,16 @@ footer {
   }
 
   // EVENT CARDS HORIZONTAL
-  .horizontal-card-created, .horizontal-card-action{
+  .horizontal-card-created,
+  .horizontal-card-action {
     aspect-ratio: 2.2/1;
   }
 
   .horizontal-card-box {
-    h3{
+    h3 {
       font-size: 14px;
     }
-    p{
+    p {
       font-size: 11px;
     }
   }
@@ -2424,6 +2435,22 @@ footer {
     }
   }
 
+  .mobile-login-logo{
+    top: 25%;
+  }
+
+  .mobile-signup-logo{
+    top: 22%;
+  }
+
+  .mobile-signup-logo,
+  .mobile-login-logo {
+
+    .signup-logo-img,
+    .login-logo-img {
+      width: 200px;
+    }
+  }
   .signup-second-page-form {
     width: 90%;
     max-height: 100%;
@@ -2448,9 +2475,10 @@ footer {
 
   .right {
     padding: 4% 0;
-    h1 {
-      margin-top: -10%;
-    }
+  }
+
+  .login-form {
+    min-height: fit-content;
   }
 
   /*PROFILE PAGE*/
@@ -2509,7 +2537,7 @@ footer {
     height: 20px;
     padding: 2%;
 
-    svg{
+    svg {
       font-size: 17px;
     }
   }
@@ -2518,7 +2546,7 @@ footer {
     width: 17px;
     height: 17px;
 
-    svg{
+    svg {
       font-size: 17px;
     }
   }
@@ -2556,9 +2584,9 @@ footer {
   }
 
   /*EDIT EVENT*/
-.edit-event-description .MuiOutlinedInput-notchedOutline{
-  height: 245px;
-}
+  .edit-event-description .MuiOutlinedInput-notchedOutline {
+    height: 245px;
+  }
 
   /*CREATE EVENTS PAGE*/
 
@@ -2595,7 +2623,7 @@ footer {
       font-size: 45px;
     }
   }
-  
+
   .event-prev-second-row .when-where-box,
   .event-prev-second-row .organiser-box {
     height: 65%;
@@ -2733,7 +2761,7 @@ footer {
     background-color: $offwhite;
     padding-bottom: 1%;
     max-height: 250vh;
-}
+  }
   #save-exit-ev-btn {
     padding: 5px 6px;
     margin: 10px;
@@ -2769,15 +2797,15 @@ footer {
     font-size: 1em;
     padding: 7.5px 8px;
   }
-  #create-event-multiple-tags{
+  #create-event-multiple-tags {
     padding: 6.5px 14px;
   }
-  #create-event-multiple-tags .MuiChip-filled{
+  #create-event-multiple-tags .MuiChip-filled {
     height: 24px;
   }
   .basic-information .MuiOutlinedInput-notchedOutline {
     height: 40px;
-}
+  }
   #create-event-name,
   #create-event-organiser,
   #create-event-eventURL,
@@ -2790,7 +2818,7 @@ footer {
   }
   #create-event-name-helper-text,
   #create-event-description-helper-text,
-  #create-event-eventURL-helper-text{
+  #create-event-eventURL-helper-text {
     margin-top: 12px;
   }
   .create-event-header {
@@ -2801,11 +2829,11 @@ footer {
   }
   .create-event-location-div {
     height: 106vh;
-}
-.create-event-screen {
-  max-height: 190vh;
-  height: 90vh;
-}
+  }
+  .create-event-screen {
+    max-height: 190vh;
+    height: 90vh;
+  }
   .artist-and-summary .MuiGrid-container,
   .basic-information .MuiGrid-container,
   .create-event-location-div .MuiGrid-container,
@@ -2891,37 +2919,36 @@ footer {
   .create-event-venue-name .MuiOutlinedInput-notchedOutline,
   .create-event-venue-suburb .MuiOutlinedInput-notchedOutline,
   .create-event-city .MuiOutlinedInput-notchedOutline,
-  .create-event-country .MuiOutlinedInput-notchedOutline{
+  .create-event-country .MuiOutlinedInput-notchedOutline {
     width: 100% !important;
     height: 45px;
   }
   .create-event-state .MuiOutlinedInput-notchedOutline,
-  .create-event-postcode .MuiOutlinedInput-notchedOutline{
+  .create-event-postcode .MuiOutlinedInput-notchedOutline {
     width: 112% !important;
     height: 45px;
   }
-  .create-event-address1 .MuiOutlinedInput-notchedOutline{
+  .create-event-address1 .MuiOutlinedInput-notchedOutline {
     width: 89%;
     height: 45px;
   }
-  .create-event-location-box .MuiGrid-grid-xs-6{
+  .create-event-location-box .MuiGrid-grid-xs-6 {
     display: grid;
-    grid-template-areas:
-        "event-state event-postcode";
-    }
-    
-    .create-event-state{
+    grid-template-areas: "event-state event-postcode";
+  }
+
+  .create-event-state {
     grid-area: event-state;
-    }
-    
-    .create-event-postcode{
+  }
+
+  .create-event-postcode {
     grid-area: event-postcode;
-    }
-        
-  .artist-and-summary .MuiGrid-grid-xs-5 .MuiOutlinedInput-notchedOutline{
+  }
+
+  .artist-and-summary .MuiGrid-grid-xs-5 .MuiOutlinedInput-notchedOutline {
     width: 100%;
   }
-  .artist-and-summary .MuiOutlinedInput-notchedOutline{
+  .artist-and-summary .MuiOutlinedInput-notchedOutline {
     width: 82%;
   }
   .create-event-location-div .MuiGrid-grid-xs-3 {
@@ -2933,22 +2960,22 @@ footer {
     padding-left: 0px !important;
     margin-bottom: 2px;
   }
-  .create-event-location-div .MuiGrid-grid-xs-6{
+  .create-event-location-div .MuiGrid-grid-xs-6 {
     gap: 5px;
   }
-  .create-event-location-box p{
+  .create-event-location-box p {
     margin: 4px;
   }
-  .create-event-location-box .MuiGrid-grid-xs-6{
+  .create-event-location-box .MuiGrid-grid-xs-6 {
     padding-top: 10px;
   }
-  .create-event-location-div .MuiOutlinedInput-input{
+  .create-event-location-div .MuiOutlinedInput-input {
     padding: 9.5px 14px;
   }
-  .create-event-pricing .MuiGrid-container{
+  .create-event-pricing .MuiGrid-container {
     gap: 5px;
   }
-  .create-event-pricing .MuiOutlinedInput-notchedOutline{
+  .create-event-pricing .MuiOutlinedInput-notchedOutline {
     width: 100%;
   }
   .create-event-pricing .form-label-active {
@@ -2968,42 +2995,37 @@ footer {
 
   .create-ev-img-box img {
     object-fit: fit;
-}
-.event-preview-screen .event-prev-card-icon-share,
-.event-preview-screen .event-prev-card-icon-bookmark{
-  height: 40px;
-  width: 40px;
-  top: 434px !important;
-}
-.event-preview-screen #buy-tickets-btn{
-  margin-top: 30px;
-}
+  }
+  .event-preview-screen .event-prev-card-icon-share,
+  .event-preview-screen .event-prev-card-icon-bookmark {
+    height: 40px;
+    width: 40px;
+    top: 434px !important;
+  }
+  .event-preview-screen #buy-tickets-btn {
+    margin-top: 30px;
+  }
 
-/*EDIT EVENT*/
-.edit-event-description .MuiOutlinedInput-notchedOutline{
-  height: 245px;
-}
+  /*EDIT EVENT*/
+  .edit-event-description .MuiOutlinedInput-notchedOutline {
+    height: 245px;
+  }
   /*SIGNUP PAGE*/
 
   .signup {
     height: 82.6vh;
   }
-  .signup #signup-right-img {
-    height: 35vw;
+
+  .mobile-login-logo{
+    top: 20%;
   }
 
-  .mobile-signup-logo {
-    width: 38%;
-    top: 13%;
-    left: 29%;
+  .mobile-signup-logo{
+    top: 17%;
   }
 
   .signup-left h1 {
     font-size: 2em;
-  }
-
-  .signup-left {
-    min-height: 70% !important;
   }
 
   .signup-form {
@@ -3032,26 +3054,24 @@ footer {
   }
 
   .login-link {
-    font-size: 0.8em;
-  }
-  .signup-left .signup-form {
-    row-gap: 7em;
+    font-size: 15px;
   }
 
   /*SIGNUP PAGE - ATTENDEE*/
   .signup-second-page-logo img {
-    width: 45vh;
+    width: 250px;
   }
   .signup-second-page {
-    padding: 5.5% 0;
+    padding: 5% 0 15px 0 ;
   }
 
   #guest-height {
     height: 1200px;
-}
-.login-link{
-  margin-top: 117px;
-}
+  }
+  .login-link {
+    margin-top: 8%;
+  }
+
   /*LOGIN PAGE*/
   .login-page {
     justify-content: flex-start;
@@ -3069,9 +3089,9 @@ footer {
   .right .login-form {
     row-gap: 0em;
   }
-.right .login-link{
-  margin: 0;
-}
+  .right .login-link {
+    margin: 0;
+  }
   .login-logo h1 {
     margin-bottom: 0px;
     margin-top: 0%;
@@ -3097,11 +3117,11 @@ footer {
   /*EVENT PAGE*/
   .event-main-image img {
     object-fit: fit;
-}
-.event-prev-second-row {
-  flex-direction: column;
-  height: 400px;
-}
+  }
+  .event-prev-second-row {
+    flex-direction: column;
+    height: 400px;
+  }
   .event-prev-first-row h1 {
     font-size: 30px;
   }
@@ -3110,7 +3130,7 @@ footer {
     padding: 8px 24px;
   }
 
-  .event-prev-second-row .prev-date-time{
+  .event-prev-second-row .prev-date-time {
     width: 50%;
     padding: 0 2%;
   }
@@ -3123,7 +3143,7 @@ footer {
     padding-left: 18px;
     font-size: 13px;
   }
-  .prev-date-time .strong-string-prev{
+  .prev-date-time .strong-string-prev {
     font-size: 12px;
   }
 
@@ -3134,7 +3154,7 @@ footer {
   }
   .event-prev-second-row .event-prev-title {
     top: -21% !important;
-}
+  }
   .event-prev-second-row {
     .event-prev-title {
       font-size: 1em !important;
@@ -3158,10 +3178,10 @@ footer {
   }
   .event-prev-title-2 {
     top: -32% !important;
-}
-.create-prev-lineup .event-prev-title {
-  top: -15% !important;
-}
+  }
+  .create-prev-lineup .event-prev-title {
+    top: -15% !important;
+  }
   .create-prev-lineup {
     margin-top: 13%;
     h2 {
@@ -3187,13 +3207,12 @@ footer {
     }
   }
 
-
   /*HOME PAGE*/
   .home-section .event-card {
     width: 280px !important;
     height: 295px !important;
-}
-  .home-section .home-row .event-card-media{
+  }
+  .home-section .home-row .event-card-media {
     width: 100% !important;
     height: 48% !important;
   }
@@ -3224,7 +3243,6 @@ footer {
     padding-left: 97px !important;
   }
 
-
   // CARDS
   .card-name {
     font-size: 21px;
@@ -3235,7 +3253,8 @@ footer {
     font-size: 17px;
   }
 
-  .horizontal-card-created, .horizontal-card-action{
+  .horizontal-card-created,
+  .horizontal-card-action {
     aspect-ratio: 1.7/1;
   }
 
@@ -3244,38 +3263,38 @@ footer {
   }
 
   /*Profile*/
-  .update-profile-modal .MuiGrid-container{
+  .update-profile-modal .MuiGrid-container {
     display: grid;
     grid-template-areas:
-        "profile-name"
-        "profile-phone"
-        "profile-bio"
-        "profile-avatar";
-    }
+      "profile-name"
+      "profile-phone"
+      "profile-bio"
+      "profile-avatar";
+  }
 
-    .update-profile-name .MuiFormControl-fullWidth,
-    .update-profile-phone .MuiFormControl-fullWidth{
-      width: 220%;
-    }
-    
-    .update-profile-bio .MuiFormControl-fullWidth{
-      width: 100%;
-    }
-    .update-profile-modal .update-profile-name{
+  .update-profile-name .MuiFormControl-fullWidth,
+  .update-profile-phone .MuiFormControl-fullWidth {
+    width: 220%;
+  }
+
+  .update-profile-bio .MuiFormControl-fullWidth {
+    width: 100%;
+  }
+  .update-profile-modal .update-profile-name {
     grid-area: profile-name;
-    }
-    
-    .update-profile-modal .update-profile-bio{
+  }
+
+  .update-profile-modal .update-profile-bio {
     grid-area: profile-bio;
-    }
-    
-    .update-profile-modal .update-profile-phone{
+  }
+
+  .update-profile-modal .update-profile-phone {
     grid-area: profile-phone;
-    }
-    .update-profile-modal .avatar-row{
-      grid-area: profile-avatar;
-    }
-  .update-profile-modal p{
+  }
+  .update-profile-modal .avatar-row {
+    grid-area: profile-avatar;
+  }
+  .update-profile-modal p {
     font-size: 0.8em;
     text-align: center;
   }
@@ -3286,139 +3305,140 @@ footer {
   .profile-container .saved-events .ev-share-h {
     bottom: 4%;
     right: 8%;
-}
-  .profile-container .saved-events .card-icon{
-  width: 23px;
-  height: 23px;
-  padding: 3%;
-}
-.profile-container .saved-events .card-icon-selected {
-  width: 23px;
-  height: 23px;
-  padding: 2%;
-}
-#event-drafts #save-cont-ev-btn,
-#event-drafts #save-exit-ev-btn{
-  height: 3.5em;
-}
+  }
+  .profile-container .saved-events .card-icon {
+    width: 23px;
+    height: 23px;
+    padding: 3%;
+  }
+  .profile-container .saved-events .card-icon-selected {
+    width: 23px;
+    height: 23px;
+    padding: 2%;
+  }
+  #event-drafts #save-cont-ev-btn,
+  #event-drafts #save-exit-ev-btn {
+    height: 3.5em;
+  }
 
-.delete-event-modal, .update-profile-modal {
-  padding: 13px;
-}
+  .delete-event-modal,
+  .update-profile-modal {
+    padding: 13px;
+  }
 
   /*SEARCH EVENT*/
   .search-results-grid {
     display: grid;
     grid-template-areas:
-        "filters"
-        "gap"
-        "results";
+      "filters"
+      "gap"
+      "results";
     grid-template-columns: 100%;
-}
+  }
 
-.search-filters .MuiTypography-root{
-  font-size: 1em;
-}
-.search-results-grid .search-filters {
-  margin: 1em;
-}
-.search-results-grid .search-filters .MuiGrid-grid-xs-4{
-  flex-basis: 33%;
-}
-.search-results-grid .search-filters .filter-box {
-  padding: 3%;
-  width: 113%;
-}
-.search-results-grid .search-filters-top {
-  width: 108%;
-}
-.search-filters-top{
-  flex-wrap: wrap;
-}
-.search-filters-top .MuiChip-deletable{
-  margin:2px;
-}
+  .search-filters .MuiTypography-root {
+    font-size: 1em;
+  }
+  .search-results-grid .search-filters {
+    margin: 1em;
+  }
+  .search-results-grid .search-filters .MuiGrid-grid-xs-4 {
+    flex-basis: 33%;
+  }
+  .search-results-grid .search-filters .filter-box {
+    padding: 3%;
+    width: 113%;
+  }
+  .search-results-grid .search-filters-top {
+    width: 108%;
+  }
+  .search-filters-top {
+    flex-wrap: wrap;
+  }
+  .search-filters-top .MuiChip-deletable {
+    margin: 2px;
+  }
 
-.search-results-grid .events-result {
-  width: 115%;
-}
-#price-select-box p{
-  font-size: 0.7em;
-}
-.search-results-grid .search-results {
-  margin: 1.6em;
-  margin-right: 0.3em;
-}
-.search-results-grid .search-results .MuiChip-label{
-  font-size: 0.6rem;
-}
+  .search-results-grid .events-result {
+    width: 115%;
+  }
+  #price-select-box p {
+    font-size: 0.7em;
+  }
+  .search-results-grid .search-results {
+    margin: 1.6em;
+    margin-right: 0.3em;
+  }
+  .search-results-grid .search-results .MuiChip-label {
+    font-size: 0.6rem;
+  }
 
-.search-results-grid .search-results .search-filters-top a{
-  font-size: 0.8rem;
-  padding: 2%;
-}
-.home-section .search-results-grid .MuiCardMedia-img {
-  width: 50% !important;
-  height: 100% !important;
-  object-fit: fit;
-}
-.search-results-grid .card-icon {
-  width: 26px;
-  height: 26px;
-}
-.search-results-grid .MuiSvgIcon-fontSizeMedium {
-  font-size: 1.5em;
-}
-.ev-share-h .MuiSvgIcon-fontSizeMedium,
-.ev-bookmark-h .MuiSvgIcon-fontSizeMedium{
-  font-size: 1.8em;
-}
-.ev-share-h {
-  bottom: 4%;
-  right: 4%;
-}
-.ev-bookmark-h {
-  bottom: 4%;
-  right: 29%;
-}
-.search-buttons {
-  padding-top: 1em;
-}
-#card-name-link h3{
-  font-size: 19px;
-}
-.search-results-grid .card-date,
-.search-results-grid .card-location{
-  font-size: 1em;
-}
-.search-results-grid #ev-bookmark-h-selected {
-  padding: 2%;
-  width: 24px;
-  height: 24px;
-}
-.search-results-grid #bookmark-show{
-  bottom:1%;
-}
-.event-prev-third-row .horizontal-stack{
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-content: center;
-  padding:0;
-}
+  .search-results-grid .search-results .search-filters-top a {
+    font-size: 0.8rem;
+    padding: 2%;
+  }
+  .home-section .search-results-grid .MuiCardMedia-img {
+    width: 50% !important;
+    height: 100% !important;
+    object-fit: fit;
+  }
+  .search-results-grid .card-icon {
+    width: 26px;
+    height: 26px;
+  }
+  .search-results-grid .MuiSvgIcon-fontSizeMedium {
+    font-size: 1.5em;
+  }
+  .ev-share-h .MuiSvgIcon-fontSizeMedium,
+  .ev-bookmark-h .MuiSvgIcon-fontSizeMedium {
+    font-size: 1.8em;
+  }
+  .ev-share-h {
+    bottom: 4%;
+    right: 4%;
+  }
+  .ev-bookmark-h {
+    bottom: 4%;
+    right: 29%;
+  }
+  .search-buttons {
+    padding-top: 1em;
+  }
+  #card-name-link h3 {
+    font-size: 19px;
+  }
+  .search-results-grid .card-date,
+  .search-results-grid .card-location {
+    font-size: 1em;
+  }
+  .search-results-grid #ev-bookmark-h-selected {
+    padding: 2%;
+    width: 24px;
+    height: 24px;
+  }
+  .search-results-grid #bookmark-show {
+    bottom: 1%;
+  }
+  .event-prev-third-row .horizontal-stack {
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    padding: 0;
+  }
 
-.event-prev-price{
-  margin-left: 0px;
-  width: 100%;
-  max-width: 75%;
-  padding: 0 3%;
-  border-bottom: $lightgrey 1px solid;
-}
+  .event-prev-price {
+    margin-left: 0px;
+    width: 100%;
+    max-width: 75%;
+    padding: 0 3%;
+    border-bottom: $lightgrey 1px solid;
+  }
 
-/*DELETE ACCOUNT*/
-.delete-event-modal #save-exit-ev-btn,
-.delete-event-modal #save-cont-ev-btn{
-  height: 5.5em;
-}
+  /*DELETE ACCOUNT*/
+  .delete-event-modal #save-exit-ev-btn,
+  .delete-event-modal #save-cont-ev-btn {
+    height: 5.5em;
+  }
 }
 
 /*LOADERS*/
@@ -3431,5 +3451,3 @@ footer {
   background-color: red;
   height: 100%;
 }
-
-
