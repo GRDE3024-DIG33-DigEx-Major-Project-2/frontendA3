@@ -297,8 +297,6 @@ export const getSuburbs = async (postcode) => {
       console.log(error);
     });
 
-  console.log(suburbs);
-
   return suburbs;
 };
 
