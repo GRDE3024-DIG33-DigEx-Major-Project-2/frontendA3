@@ -24,6 +24,7 @@ import timezone from "dayjs/plugin/timezone";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
 import { getAustralianTimezones, mergeDateTime } from "../../../utils/utils";
+import 'dayjs/locale/en-au';
 
 //Add UTC and timezone support to dayjs
 dayjs.extend(utc);
@@ -70,7 +71,7 @@ const EditDateTime = (props) => {
                   components={["DatePicker"]}
                 >
                   <p>Event start date:</p>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-au">
                     <DatePicker
                       id="start-date-field-create-event"
                       className="search-form-els"
@@ -102,7 +103,7 @@ const EditDateTime = (props) => {
                     />
                   </LocalizationProvider>
                   <p>Event end date:</p>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-au">
                     <DatePicker
                       id="start-date-field-create-event"
                       className="search-form-els"
@@ -152,7 +153,7 @@ const EditDateTime = (props) => {
                 </Grid>
                 <Grid container item xs={6} direction="column">
                   <p>Event start time:</p>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-au">
                     <TimePicker
                       value={
                         props.eventStartTime
@@ -181,7 +182,7 @@ const EditDateTime = (props) => {
                     />
                   </LocalizationProvider>
                   <p>Event end time:</p>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-au">
                     <TimePicker
                       value={
                         props.eventEndTime

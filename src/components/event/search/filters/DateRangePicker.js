@@ -13,13 +13,13 @@ import { useState, useEffect } from "react";
 import { useContext } from "react";
 //Import search event props
 import {
-  SearchEventsContext,
   SearchEventFiltersContext,
 } from "../../../../props/search-events.prop";
 import * as dayjs from "dayjs";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import 'dayjs/locale/en-au';
 
 
 /**
@@ -153,10 +153,9 @@ const DateRangePicker = () => {
   //The HTML template
   return (
     <FormControl id="date-field-search">
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-au">
         <DateTimePicker
           className="search-form-els date-picker"
-          dateFormat="YYYY-MM-DD HH:MM:SS"
           minDate={dayjs()}
           value={selectedMinDate ? dayjs(selectedMinDate) : null}
           onChange={(minDate) => SetDateHandler(minDate, "minDate")}
@@ -179,7 +178,7 @@ const DateRangePicker = () => {
         />
         <DateTimePicker
           className="search-form-els date-picker"
-          dateFormat="YYYY-MM-DD HH:MM:SS"
+          minDate={dayjs()}
           value={selectedMaxDate ? dayjs(selectedMaxDate) : null}
           onChange={(maxDate) => SetDateHandler(maxDate, "maxDate")}
           shouldDisableDate={(maxDate) => ShouldDisableDate(maxDate, "maxDate")}
