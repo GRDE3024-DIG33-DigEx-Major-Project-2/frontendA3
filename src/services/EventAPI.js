@@ -14,7 +14,7 @@ import axiosClient from "./Axios";
  * @param {*} keywords Keywords that match
  * @param {*} minDate The minimum date for an event
  * @param {*} maxDate The maximum date for an event
- * @param {*} city The city the event is in
+ * @param {*} suburb The suburb the event is in
  * @param {*} priceRange Object that contains minPrice and maxPrice
  * @param {*} page The page of event matches requested
  * @returns Array of events and number of pages that match the filter options
@@ -24,7 +24,7 @@ export const searchEvents = async function (
   keywords,
   minDate,
   maxDate,
-  city,
+  suburb,
   priceRange,
   page
 ) {
@@ -59,7 +59,7 @@ export const searchEvents = async function (
     keywords: keywords,
     minDate: minDate,
     maxDate: maxDate,
-    city: city,
+    suburb: suburb,
     priceRange: priceSetting,
     page: page | 0,
   };
@@ -74,7 +74,7 @@ export const searchEvents = async function (
       });
   } catch (error) {
     console.log("An error occured while searching events!");
-    console.log(tagIds, keywords, minDate, maxDate, city, page);
+    console.log(tagIds, keywords, minDate, maxDate, suburb, page);
     //Request body is invalid!
     if (error.response.status === 422) {
       console.log("Request body is invalid!");
