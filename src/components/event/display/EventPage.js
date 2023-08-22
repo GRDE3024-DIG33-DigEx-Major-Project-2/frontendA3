@@ -187,7 +187,16 @@ function EventPage() {
         <div className="prev-event-body">
           <div className="event-prev-first-row">
             <h1 className="event-title">{event.event.title}</h1>
-            <button className="event-buy-button">Buy Tickets</button>
+            <Button
+              href={event.event.purchaseUrl}
+              variant="contained"
+              // id="buy-tickets-btn"
+              className="event-buy-button"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Buy Tickets
+            </Button>
           </div>
           <div className="event-prev-second-row">
             <div className="when-where-box outlined">

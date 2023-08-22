@@ -675,7 +675,13 @@ function EditEvent() {
               <div className="prev-event-body">
                 <div className="event-prev-first-row">
                   <h1 className="event-title">{eventName}</h1>
-                  <button className="event-buy-button">Buy Tickets</button>
+                  <Button
+                    href={eventURL}
+                    variant="contained"
+                    id="buy-tickets-btn"
+                  >
+                    Buy Tickets
+                  </Button>
                 </div>
                 <div className="event-prev-second-row">
                   <div className="when-where-box outlined">
