@@ -36,7 +36,6 @@ const EditBasicInfo = (props) => {
       target: { value },
     } = event;
     props.setTags(typeof value === "string" ? value.split(",") : value);
-    console.log(props.tags);
   };
   //Select tags style
   const ITEM_HEIGHT = 48;

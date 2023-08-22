@@ -17,6 +17,15 @@ const maxMs = 999;
 const isoFormat = "YYYY-MM-DD HH:mm:ss";
 const isoTimezone = "Z";
 
+
+/**
+ * Play a sound file
+ */
+export const playSound = (soundFile) => {
+  const audio = new Audio(soundFile);
+  audio.play();
+};
+
 /**
  * Delay by ms specified
  * @param {*} ms
@@ -287,8 +296,6 @@ export const getSuburbs = async (postcode) => {
     .catch((error) => {
       console.log(error);
     });
-
-  console.log(suburbs);
 
   return suburbs;
 };
