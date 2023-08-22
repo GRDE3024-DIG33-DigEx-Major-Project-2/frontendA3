@@ -21,13 +21,19 @@ const CreateEventMap = (props) => {
   //Initialize the event map component
   useEffect(() => {
     //Only initialize the map once
-    if (map.current) return; 
+    if (map.current) return;
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/streets-v12",
       center: [props.lng, props.lat],
       zoom: 15,
     });
+
+    // Create a default Marker and add it to the map.
+    const marker1 = new mapboxgl.Marker()
+      .setLngLat([props.lng, props.lat])
+      .addTo(map.current);
+
     //Add geolocate control to the map.
     map.current.addControl(
       new mapboxgl.GeolocateControl({
@@ -49,7 +55,6 @@ const CreateEventMap = (props) => {
     </>
   );
 };
-
 
 //Export Create/Update Event map component
 export default CreateEventMap;

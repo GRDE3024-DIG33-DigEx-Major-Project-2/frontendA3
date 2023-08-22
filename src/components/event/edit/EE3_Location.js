@@ -14,7 +14,6 @@ import { useState, useEffect } from "react";
  * @returns Render of EditLocation component
  */
 const EditLocation = (props) => {
-
   //Props
   const [lat, setLat] = useState(-33.86);
   const [lng, setLng] = useState(151.2);
@@ -43,8 +42,24 @@ const EditLocation = (props) => {
       setLat(result[0]);
       setLng(result[1]);
       setMapKey(result[0] + result[1]);
+      // update address fields accordingly
+      props.setVenueName(result[2].text);
+      props.setSuburb(result[2].context[1].text);
+      props.setEventAddress1(result[2].properties.address);
+      props.setEventPostCode(result[2].context[0].text);
     }
-    if (props.venueName) fetchCoordinates();
+    if (
+      props.venueName &&
+      !props.suburb &&
+      !props.eventAddress1 &&
+      !props.eventPostCode
+    ) {
+      const timer = setTimeout(() => {
+        fetchCoordinates();
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
   }, [
     props.venueName,
     props.eventAddress1,
@@ -69,7 +84,7 @@ const EditLocation = (props) => {
                     required
                     onChange={(event) => props.setVenueName(event.target.value)}
                     id="create-event-venue-name"
-                    placeholder="Enter the name of the venue"
+                    placeholder="Start typing the venue name to find the address..."
                     variant="outlined"
                     error={props.venueNameError && !props.venueName}
                     helperText={
