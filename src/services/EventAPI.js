@@ -3,10 +3,12 @@
  */
 
 //Import dependencies
+import { showErrorToast } from "../components/shared/Toaster";
 import { EVENT_ENDPOINTS } from "../utils/constants.util";
 import { getAccessToken } from "../utils/localStorage";
 import { logoutErrorHandler } from "./AuthAPI";
 import axiosClient from "./Axios";
+import dayjs from 'dayjs';
 
 /**
  * Get a page of events from api endpoint
@@ -28,6 +30,15 @@ export const searchEvents = async function (
   priceRange,
   page
 ) {
+
+  //Validate minDate and maxDate time range
+  if (typeof minDate === "string" && typeof maxDate === "string" &&
+    dayjs(minDate).isSame(dayjs(maxDate), 'day') &&
+    dayjs(minDate).isAfter(dayjs(maxDate), 'second')) {
+    showErrorToast("Start time cannot be after the end time.");
+  }
+
+
   //The sanitized price range for request body
   let priceSetting = null;
 
@@ -124,15 +135,15 @@ export const deleteEvent = async function (eventId) {
     },
   };
 
-    let response = await axiosClient
-      .delete(EVENT_ENDPOINTS.deleteEventUrl + `/${eventId}`, options)
-      .catch((error) => logoutErrorHandler(error));
+  let response = await axiosClient
+    .delete(EVENT_ENDPOINTS.deleteEventUrl + `/${eventId}`, options)
+    .catch((error) => logoutErrorHandler(error));
 
-    //Success!
-    if (response.status === 200) {
-      console.log("Event deleted!");
-      return response;
-    }
+  //Success!
+  if (response.status === 200) {
+    console.log("Event deleted!");
+    return response;
+  }
 };
 
 /**
@@ -177,25 +188,25 @@ export const searchOwnedEvents = async function (page) {
     page: page | 0,
   };
 
-    //Get the array of events and the page number
-    let response = await axiosClient.post(
-      EVENT_ENDPOINTS.searchOwnedEventsUrl,
-      requestBody,
-      options
-    );
+  //Get the array of events and the page number
+  let response = await axiosClient.post(
+    EVENT_ENDPOINTS.searchOwnedEventsUrl,
+    requestBody,
+    options
+  );
 
-    //Success!
-    if (response.status === 200) {
-      console.log("Owned events search completed!");
-      events = response.data.events;
-      pageCount = response.data.pageCount;
-    }
-    //Failed!
-    else {
-      console.log("Error while searching owned events");
-      console.log(response.status);
-      console.log(response);
-    }
+  //Success!
+  if (response.status === 200) {
+    console.log("Owned events search completed!");
+    events = response.data.events;
+    pageCount = response.data.pageCount;
+  }
+  //Failed!
+  else {
+    console.log("Error while searching owned events");
+    console.log(response.status);
+    console.log(response);
+  }
 
   //Return object containing API response data
   return { events: events, pageCount: pageCount };
@@ -226,18 +237,18 @@ export const createEvent = async function (formData) {
     },
   };
 
-    //Perform first event create request
-    let response = await axiosClient.post(
-      EVENT_ENDPOINTS.createEventUrl,
-      formData,
-      createEventOptions
-    );
+  //Perform first event create request
+  let response = await axiosClient.post(
+    EVENT_ENDPOINTS.createEventUrl,
+    formData,
+    createEventOptions
+  );
 
-    //Success!
-    if (response.status === 201) {
-      console.log("Create Event Success!");
-      createdEvent = response.data;
-    }
+  //Success!
+  if (response.status === 201) {
+    console.log("Create Event Success!");
+    createdEvent = response.data;
+  }
 
   //Return object containing API response data
   return createdEvent;
@@ -266,19 +277,19 @@ export const searchFavourites = async function (page) {
     page: page | 0,
   };
 
-    //Get the array of favourited events and the page number
-    let response = await axiosClient.post(
-      EVENT_ENDPOINTS.searchFavouritesUrl,
-      requestBody,
-      options
-    );
+  //Get the array of favourited events and the page number
+  let response = await axiosClient.post(
+    EVENT_ENDPOINTS.searchFavouritesUrl,
+    requestBody,
+    options
+  );
 
-    //Success!
-    if (response.status === 200) {
-      console.log("Favourited events search completed!");
-      events = response.data.events;
-      pageCount = response.data.pageCount;
-    }
+  //Success!
+  if (response.status === 200) {
+    console.log("Favourited events search completed!");
+    events = response.data.events;
+    pageCount = response.data.pageCount;
+  }
 
   //Return object containing API response data
   return { events: events, pageCount: pageCount };
@@ -300,17 +311,17 @@ export const toggleFavourite = async function (eventId) {
     eventId: eventId,
   };
 
-    let response = await axiosClient.post(
-      EVENT_ENDPOINTS.toggleFavouriteUrl,
-      requestBody,
-      options
-    );
+  let response = await axiosClient.post(
+    EVENT_ENDPOINTS.toggleFavouriteUrl,
+    requestBody,
+    options
+  );
 
-    //Success!
-    if (response.status === 200) {
-      console.log("Event favourited toggled!");
-      return response;
-    }
+  //Success!
+  if (response.status === 200) {
+    console.log("Event favourited toggled!");
+    return response;
+  }
 };
 
 /**
@@ -329,13 +340,13 @@ export const isFavourited = async function (eventIds) {
       Authorization: `Bearer ${getAccessToken()}`,
     },
   };
-    let response = await axiosClient.post(
-      EVENT_ENDPOINTS.isFavourited,
-      requestBody,
-      options
-    );
-    console.log(response.data);
-    return response;
+  let response = await axiosClient.post(
+    EVENT_ENDPOINTS.isFavourited,
+    requestBody,
+    options
+  );
+  console.log(response.data);
+  return response;
 };
 
 /**
@@ -352,13 +363,13 @@ export const updateEvent = async function (formData) {
       Authorization: `Bearer ${getAccessToken()}`,
     },
   };
-    //Perform first event update request
-    let response = await axiosClient
-      .put(EVENT_ENDPOINTS.updateEventUrl, formData, updateEventOptions);
+  //Perform first event update request
+  let response = await axiosClient
+    .put(EVENT_ENDPOINTS.updateEventUrl, formData, updateEventOptions);
 
-    //Success!
-    if (response === 200) {
-      console.log("Update Event Success!");
-      return response.data;
-    }
+  //Success!
+  if (response === 200) {
+    console.log("Update Event Success!");
+    return response.data;
+  }
 };
