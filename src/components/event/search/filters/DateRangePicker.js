@@ -34,23 +34,68 @@ const DateRangePicker = () => {
   const { dateRange, change, chipData, selectedDateRange } =
     useContext(SearchEventFiltersContext);
 
-  //Props
+  //Prop states for selected min-max dates in template
   const [selectedMinDate, setSelectedMinDate] = useState();
   const [selectedMaxDate, setSelectedMaxDate] = useState();
 
   /**
-   * Disable invalid dates for min-max datetime picker
-   * @param {*} date
-   * @returns
+   * Checks and disables invalid dates for minDate
+   * @param {*} date The calendar date to assess
+   * @returns {boolean} True if invalid date, false for valid date
    */
-  const ShouldDisableDate = (date, dateVal) => {
-    if (dateVal === "maxDate" && dateRange.minDate.get) {
-      return dayjs(date).isBefore(dayjs(dateRange.minDate.get));
-    } else if (dateVal === "minDate" && dateRange.maxDate.get) {
+  const shouldDisableMinDate = (date) => {
+    //Current date
+    const currentDate = dayjs();
+
+    if (dayjs(date).isBefore(currentDate, 'day')) {
+      return true;
+    }
+
+    //Disable past dates
+    if (dateRange.maxDate.get) {
+    //Checks if min and max date are on the same day
+    const isSameDay = dateRange.maxDate.get && dayjs(date).isSame(dayjs(dateRange.maxDate.get), 'day');
+    //Disable the time if the time is after maxDate's selected time
+    if (isSameDay && dayjs(date).isAfter(dayjs(dateRange.maxDate.get))) {
+      return true;
+    }
       return dayjs(date).isAfter(dayjs(dateRange.maxDate.get));
     }
+
+    //Date is valid, so flag as not invalid
     return false;
   };
+
+
+  /**
+   * Checks and disables invalid dates for maxDate
+   * @param {*} date The calendar date to assess
+   * @returns {boolean} True if invalid date, false for valid date
+   */
+  const shouldDisableMaxDate = (date) => {
+    //Current date
+    const currentDate = dayjs();
+
+
+    //Check if date is before today's date
+    if (dayjs(date).isBefore(currentDate, 'day')) {
+      return true;
+    }
+    //If the minDate is set, disable calendar dates before the minDate 
+    else if (dateRange.minDate.get) {
+    //Checks if min and max date are on the same day
+    const isSameDay = dayjs(date).isSame(dayjs(dateRange.minDate.get), 'day');
+    //Disable the time if the time is before minDate's selected time
+    if (isSameDay && dayjs(date).isBefore(dayjs(dateRange.minDate.get))) {
+      return true;
+    }
+      return dayjs(date).isBefore(dayjs(dateRange.minDate.get));
+    }
+
+    //Date is valid, so flag as not invalid
+    return false;
+  };
+
 
   /**
    * Set the date range values
@@ -58,35 +103,32 @@ const DateRangePicker = () => {
    * @param {*} dateVal
    */
   const SetDateHandler = (selectedDate, dateVal) => {
-    if (
-      dateVal === "minDate" &&
-      dayjs(selectedDate).isBefore(dayjs(dateRange.maxDate.get))
-    ) {
-      setSelectedMinDate(selectedDate);
-    } else if (
-      dateVal === "maxDate" &&
-      dayjs(selectedDate).isAfter(dayjs(dateRange.minDate.get))
-    ) {
-      setSelectedMaxDate(selectedDate);
+    const formattedDate = selectedDate.format("YYYY-MM-DD HH:mm:ss");
+  
+    if (dateVal === "minDate") {
+      setSelectedMinDate(formattedDate);
+    } else if (dateVal === "maxDate") {
+      setSelectedMaxDate(formattedDate);
     }
   };
+  
+
 
   /**
-   * Update the date range prop values and filter diaplay
+   * Update the date range prop values and filter display
    */
   useEffect(() => {
-    if(!selectedMinDate || !selectedMaxDate) {
+    if (!selectedMinDate || !selectedMaxDate) {
       return;
-   }
+    }
 
     dateRange.minDate.set(selectedMinDate);
-
     dateRange.maxDate.set(selectedMaxDate);
 
     const replaceDateChip = () => {
-      if(!selectedMinDate || !selectedMaxDate) {
+      if (!selectedMinDate || !selectedMaxDate) {
         return;
-     }
+      }
       //Filter chip key
       let newKey = chipData.get.length + 1;
       //Filter chips
@@ -159,7 +201,7 @@ const DateRangePicker = () => {
           minDate={dayjs()}
           value={selectedMinDate ? dayjs(selectedMinDate) : null}
           onChange={(minDate) => SetDateHandler(minDate, "minDate")}
-          shouldDisableDate={(minDate) => ShouldDisableDate(minDate, "minDate")}
+          shouldDisableDate={shouldDisableMinDate}
           slots={{
             openPickerIcon: ArrowDropDownOutlinedIcon,
           }}
@@ -181,7 +223,7 @@ const DateRangePicker = () => {
           minDate={dayjs()}
           value={selectedMaxDate ? dayjs(selectedMaxDate) : null}
           onChange={(maxDate) => SetDateHandler(maxDate, "maxDate")}
-          shouldDisableDate={(maxDate) => ShouldDisableDate(maxDate, "maxDate")}
+          shouldDisableDate={shouldDisableMaxDate}
           slots={{
             openPickerIcon: ArrowDropDownOutlinedIcon,
           }}
