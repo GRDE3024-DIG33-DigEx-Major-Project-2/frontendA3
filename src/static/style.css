@@ -117,6 +117,10 @@ a {
   font-size: 40px;
 }
 
+.find-event-search .MuiSvgIcon-fontSizeMedium {
+  color: #5b5be6;
+}
+
 .bttn-style-purple {
   border: 2px solid #7759a6;
   padding: 10px 30px;
