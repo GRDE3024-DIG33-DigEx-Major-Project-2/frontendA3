@@ -249,7 +249,7 @@ function CreateEvent() {
   // checks that all steps are completed
   const allCompleted = (completed) => {
     let flag = true;
-    for(let i=0; i<6; i++){
+    for(let i=0; i<5; i++){
       if(!completed[i]) flag = false;
     }
 
@@ -368,8 +368,17 @@ function CreateEvent() {
       //RULES: Start date cannot be earlier than end date. All fields required. End time needs to be at least one hour later than start time
       case 3:
         if (eventStartDate && eventEndDate && eventStartTime && eventEndTime)
+        {
+          const newCompleted = completed;
+          newCompleted[activeStep] = true;
+          setCompleted(newCompleted);
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        else alert("All date and time fields are required to continue.");
+        } else {
+          alert("All date and time fields are required to continue.");
+          const newCompleted = completed;
+          newCompleted[activeStep] = false;
+          setCompleted(newCompleted);
+        }
         break;
       //RULES: At least general admission price required if the event is paid. Once a ticket type is enabled, name and price are required.
       case 4:
@@ -401,8 +410,12 @@ function CreateEvent() {
           else setTicket4Error(false);
         }
 
-        if (eventFree) setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        if (
+        if (eventFree) {
+          const newCompleted = completed;
+          newCompleted[activeStep] = true;
+          setCompleted(newCompleted);
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        } else if (
           !eventFree &&
           canProceed(enableArtist2, eventPrice2, eventTierName2) &&
           canProceed(enableArtist3, eventPrice3, eventTierName3) &&

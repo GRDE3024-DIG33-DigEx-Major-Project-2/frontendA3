@@ -1061,6 +1061,7 @@ footer {
 .horizontal-card-action {
   width: 100%;
   aspect-ratio: 3.5 / 1;
+  min-height: fit-content;
 }
 
 .horizontal-card-created {
@@ -1235,19 +1236,6 @@ footer {
 
 .basic-information p {
   font-size: 18px;
-}
-
-#create-event-description {
-  font-size: 1.5em;
-  padding: 13px;
-}
-
-.basic-information .MuiOutlinedInput-notchedOutline {
-  height: 50px;
-}
-
-.event-description fieldset {
-  height: 243px !important;
 }
 
 .create-ev-bttns-right .save-exit-ev-btn {
@@ -1718,12 +1706,18 @@ footer {
   /*HOME PAGE*/
   .find-event-search {
     @include flex-column(space-evenly, center);
+    gap: 15px;
     width: 80%;
     min-height: 32vh;
-    max-height: 45vh;
     padding: 0;
     flex-wrap: wrap;
   }
+
+  #date-field-search{
+    justify-content: space-between;
+    gap: 10px;
+  }
+  
   .find-event-header-text {
     margin: 17px;
   }
@@ -1990,6 +1984,7 @@ footer {
   .find-event-search {
     @include flex-column(space-between, center);
     width: 80%;
+    gap: 20px;
     min-height: 32vh;
     max-height: 45vh;
     padding: 4% 0;
@@ -2018,7 +2013,7 @@ footer {
   #date-field-search {
     flex-direction: column;
     width: 100%;
-    gap: 10px;
+    gap: 20px;
     .date-picker {
       width: 100%;
     }
@@ -2733,6 +2728,10 @@ footer {
   .find-event-search {
     padding: 10vh 0;
     max-height: 50vh;
+    gap: 15px;
+    #date-field-search{
+      gap: 15px;
+    }
   }
 
   #location-field-search {
@@ -2788,7 +2787,7 @@ footer {
   #create-event-main {
     background-color: $offwhite;
     padding-bottom: 1%;
-    max-height: 250vh;
+    min-height: fit-content;
   }
   #save-exit-ev-btn {
     padding: 5px 6px;
@@ -2821,18 +2820,12 @@ footer {
     margin-bottom: 12px;
     font-size: 2em;
   }
-  #create-event-description {
-    font-size: 1em;
-    padding: 7.5px 8px;
-  }
+
   #create-event-multiple-tags {
     padding: 6.5px 14px;
   }
   #create-event-multiple-tags .MuiChip-filled {
     height: 24px;
-  }
-  .basic-information .MuiOutlinedInput-notchedOutline {
-    height: 40px;
   }
   #create-event-name,
   #create-event-organiser,
@@ -2855,12 +2848,10 @@ footer {
   .create-event-header h1 {
     font-size: 2.2em;
   }
-  .create-event-location-div {
-    height: 106vh;
-  }
+  
   .create-event-screen {
-    max-height: 190vh;
-    height: 90vh;
+    height: fit-content;
+    margin-top: 20px;
   }
   .artist-and-summary .MuiGrid-container,
   .basic-information .MuiGrid-container,
@@ -2910,7 +2901,7 @@ footer {
   }
 
   .artist-and-summary .MuiInputBase-multiline {
-    width: 19em;
+    width: 120%;
   }
   .basic-information .MuiInputBase-formControl {
     width: 17em !important;
@@ -2942,7 +2933,7 @@ footer {
   .map-container {
     height: 18em;
     width: 23em;
-    margin: 0px 30px 10px 30px;
+    margin: 0px 11% 10px 11%;
   }
   .create-event-venue-name .MuiOutlinedInput-notchedOutline,
   .create-event-venue-suburb .MuiOutlinedInput-notchedOutline,
@@ -2982,17 +2973,19 @@ footer {
   .create-event-location-div .MuiGrid-grid-xs-3 {
     padding-left: 0 !important;
     margin-bottom: 2px;
+    gap: 10px;
   }
   .create-event-location-div .MuiGrid-grid-xs-1,
   .create-event-location-div .MuiGrid-grid-xs-5 {
     padding-left: 0px !important;
     margin-bottom: 2px;
+    gap: 10px;
   }
   .create-event-location-div .MuiGrid-grid-xs-6 {
-    gap: 5px;
+    gap: 10px;
   }
   .create-event-location-box p {
-    margin: 4px;
+    margin: 7px;
   }
   .create-event-location-box .MuiGrid-grid-xs-6 {
     padding-top: 10px;

@@ -174,9 +174,9 @@ const BasicInfo = (props) => {
                     placeholder="Enter a URL for ticket purchasing"
                     id="create-event-eventURL"
                     variant="outlined"
-                    error={props.urlError && props.eventURL === "" || !isValidURL(props.eventURL)}
+                    error={props.urlError && props.eventURL === "" || (props.eventURL !== "" && !isValidURL(props.eventURL))}
                     helperText={
-                      props.urlError && props.eventURL === "" || !isValidURL(props.eventURL)
+                      props.urlError && props.eventURL === "" || (props.eventURL !== "" && !isValidURL(props.eventURL))
                         ? "A valid URL is required to continue"
                         : null
                     }
