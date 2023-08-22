@@ -34,7 +34,7 @@ const ByLocation = () => {
       <Select
         className="search-form-els"
         displayEmpty
-        placeholder="My location"
+        placeholder="Any Suburb"
         onChange={(event) => location.set(event.target.value)}
         renderValue={(value) => {
           return (
@@ -42,11 +42,14 @@ const ByLocation = () => {
               <SvgIcon color="primary">
                 <FmdGoodOutlinedIcon />
               </SvgIcon>
-              {value ? value : "My Location"}
+              {value ? value : "Any Suburb"}
             </Box>
           );
         }}
       >
+        <MenuItem value={null} sx={{ backgroundColor: "#f5f5f5" }}>
+          Any Suburb
+        </MenuItem>
         {suburbs.length > 0 ? (
           suburbs.map(
             (sub, i) =>
