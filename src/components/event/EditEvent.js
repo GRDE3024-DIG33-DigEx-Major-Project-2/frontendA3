@@ -368,14 +368,15 @@ function EditEvent() {
     }
   };
 
+  // Stepper handler - go back one step
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleSave = () => {
-    console.log("TO DO SAVE");
-  };
-
+  // Redirects users to dashboard without saving changes
+  const handleExit = () => {
+    navigate(PATHS.DASHBOARD);
+  }
 
   /**
    * Submit event handler for performing event update
@@ -383,21 +384,21 @@ function EditEvent() {
   const submitEvent = async () => {
     // merge date and time into single date field
     var startDateTime = new Date(
-      eventStartDate.year(),
-      eventStartDate.month(),
-      eventStartDate.date(),
-      eventStartTime.hour(),
-      eventStartTime.minute(),
-      eventStartTime.second()
+      dayjs(eventStartDate).year(),
+      dayjs(eventStartDate).month(),
+      dayjs(eventStartDate).date(),
+      dayjs(eventStartTime).hour(),
+      dayjs(eventStartTime).minute(),
+      dayjs(eventStartTime).second()
     );
 
     var endDateTime = new Date(
-      eventEndDate.year(),
-      eventEndDate.month(),
-      eventEndDate.date(),
-      eventEndTime.hour(),
-      eventEndTime.minute(),
-      eventEndTime.second()
+      dayjs(eventEndDate).year(),
+      dayjs(eventEndDate).month(),
+      dayjs(eventEndDate).date(),
+      dayjs(eventEndTime).hour(),
+      dayjs(eventEndTime).minute(),
+      dayjs(eventEndTime).second()
     );
 
     const event = {
@@ -800,9 +801,9 @@ function EditEvent() {
               <Button
                 id="save-ex-ev-btn"
                 variant="contained"
-                onClick={handleSave}
+                onClick={handleExit}
               >
-                Save and exit
+                Exit without saving
               </Button>
               <Button
                 id="save-publish-ev-btn"
