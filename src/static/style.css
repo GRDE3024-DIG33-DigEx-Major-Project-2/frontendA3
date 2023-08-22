@@ -676,7 +676,7 @@ footer {
   min-height: 1000px;
   display: grid;
   grid-template-areas: "head head" "bio events" "account events";
-  grid-template-rows: 100px fit-content(200px) auto;
+  grid-template-rows: fit-content(100px) fit-content(200px) auto;
   grid-template-columns: 30% 70%;
   background-color: #e6e2e2;
 }
@@ -685,13 +685,13 @@ footer {
   margin: 10% 0 0 0;
 }
 .profile-container h2 {
-  font-size: 1.8em;
+  font-size: 2vw;
 }
 .profile-container h3 {
-  font-size: 1.5em;
+  font-size: 1.9vw;
 }
-.profile-container p {
-  font-size: 1em;
+.profile-container p, .profile-container a {
+  font-size: 1.3vw;
 }
 .profile-container .profile-banner {
   grid-area: head;
@@ -704,7 +704,7 @@ footer {
 }
 .profile-container .profile-banner h1 {
   color: #ffffff;
-  font-size: 2em;
+  font-size: 3vw;
 }
 .profile-container .personal-bio {
   grid-area: bio;
@@ -1006,6 +1006,11 @@ footer {
 }
 
 #ev-share {
+  top: 72%;
+  right: 15%;
+}
+
+.home-row #ev-share {
   top: 51.5%;
   right: 5%;
 }
@@ -1039,10 +1044,10 @@ footer {
   padding-left: 3%;
 }
 .horizontal-card-box h3 {
-  font-size: 2vw;
+  font-size: 1.9vw;
 }
 .horizontal-card-box p {
-  font-size: 1.3vw;
+  font-size: 1.2vw;
 }
 
 .horizontal-card-action {
@@ -1789,6 +1794,18 @@ footer {
     grid-template-rows: 100px fit-content fit-content fit-content;
     grid-template-columns: 100%;
   }
+  .profile-container h2 {
+    font-size: unset;
+  }
+  .profile-container h3 {
+    font-size: unset;
+  }
+  .profile-container p, .profile-container a {
+    font-size: unset;
+  }
+  .profile-container .profile-banner h1 {
+    font-size: unset;
+  }
   .profile-box {
     padding: 2%;
   }
@@ -2307,13 +2324,16 @@ footer {
   }
   .horizontal-card-created,
   .horizontal-card-action {
-    aspect-ratio: 2.2/1;
+    aspect-ratio: 2.5/1;
   }
   .horizontal-card-box h3 {
     font-size: 14px;
   }
   .horizontal-card-box p {
     font-size: 11px;
+  }
+  #ev-share {
+    top: 75%;
   }
   .mobile-signup-logo {
     width: 60%;
@@ -3044,10 +3064,17 @@ footer {
   }
   .horizontal-card-created,
   .horizontal-card-action {
-    aspect-ratio: 1.7/1;
+    aspect-ratio: 1.8/1;
   }
   .content-body {
     font-size: 2em;
+  }
+  #ev-share {
+    top: 74%;
+    right: 20%;
+  }
+  #ev-share svg {
+    padding-top: 15%;
   }
   /*Profile*/
   .update-profile-modal .MuiGrid-container {
@@ -3079,10 +3106,6 @@ footer {
   }
   .update-profile-modal #avatar-row {
     padding-left: 26%;
-  }
-  .profile-container .saved-events .ev-share-h {
-    bottom: 4%;
-    right: 8%;
   }
   .profile-container .saved-events .card-icon {
     width: 23px;

@@ -684,7 +684,7 @@ footer {
     "head head"
     "bio events"
     "account events";
-  grid-template-rows: 100px fit-content(200px) auto;
+  grid-template-rows: fit-content(100px) fit-content(200px) auto;
   grid-template-columns: 30% 70%;
   background-color: $lightgrey;
 
@@ -694,15 +694,15 @@ footer {
   }
 
   h2 {
-    font-size: 1.8em;
+    font-size: 2vw;
   }
 
   h3 {
-    font-size: 1.5em;
+    font-size: 1.9vw;
   }
 
-  p {
-    font-size: 1em;
+  p, a {
+    font-size: 1.3vw;
   }
 
   .profile-banner {
@@ -712,7 +712,7 @@ footer {
     background: linear-gradient(90deg, $lightblue 23%, $lightorange 100%);
     h1 {
       color: $white;
-      font-size: 2em;
+      font-size: 3vw;
     }
   }
 
@@ -1014,6 +1014,11 @@ footer {
 }
 
 #ev-share {
+  top: 72%;
+  right: 15%;
+}
+
+.home-row #ev-share{
   top: 51.5%;
   right: 5%;
 }
@@ -1046,10 +1051,10 @@ footer {
   position: relative;
   padding-left: 3%;
   h3 {
-    font-size: 2vw;
+    font-size: 1.9vw;
   }
   p {
-    font-size: 1.3vw;
+    font-size: 1.2vw;
   }
 }
 
@@ -1769,6 +1774,24 @@ footer {
       "events events";
     grid-template-rows: 100px fit-content fit-content fit-content;
     grid-template-columns: 100%;
+
+    h2 {
+      font-size: unset;
+    }
+  
+    h3 {
+      font-size: unset;
+    }
+  
+    p, a {
+      font-size: unset;
+    }
+
+    .profile-banner{
+      h1{
+        font-size: unset;
+      }
+    }
   }
 
   .profile-box {
@@ -2044,6 +2067,7 @@ footer {
   .search-form-els .MuiChip-filled {
     margin: 9px;
   }
+
   /* SIGNUP PAGE */
   .signup {
     flex-direction: column-reverse;
@@ -2376,7 +2400,7 @@ footer {
   // EVENT CARDS HORIZONTAL
   .horizontal-card-created,
   .horizontal-card-action {
-    aspect-ratio: 2.2/1;
+    aspect-ratio: 2.5/1;
   }
 
   .horizontal-card-box {
@@ -2386,6 +2410,10 @@ footer {
     p {
       font-size: 11px;
     }
+  }
+
+  #ev-share {
+    top: 75%;
   }
 
   //SIGNUP
@@ -3255,11 +3283,20 @@ footer {
 
   .horizontal-card-created,
   .horizontal-card-action {
-    aspect-ratio: 1.7/1;
+    aspect-ratio: 1.8/1;
   }
 
   .content-body {
     font-size: 2em;
+  }
+
+  #ev-share {
+    top: 74%;
+    right: 20%;
+
+    svg{
+      padding-top: 15%;
+    }
   }
 
   /*Profile*/
@@ -3291,9 +3328,11 @@ footer {
   .update-profile-modal .update-profile-phone {
     grid-area: profile-phone;
   }
+
   .update-profile-modal .avatar-row {
     grid-area: profile-avatar;
   }
+
   .update-profile-modal p {
     font-size: 0.8em;
     text-align: center;
@@ -3302,15 +3341,13 @@ footer {
   .update-profile-modal #avatar-row {
     padding-left: 26%;
   }
-  .profile-container .saved-events .ev-share-h {
-    bottom: 4%;
-    right: 8%;
-  }
+
   .profile-container .saved-events .card-icon {
     width: 23px;
     height: 23px;
     padding: 3%;
   }
+
   .profile-container .saved-events .card-icon-selected {
     width: 23px;
     height: 23px;
