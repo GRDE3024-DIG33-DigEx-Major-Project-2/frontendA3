@@ -17,6 +17,9 @@ import {
   Link,
   Box,
   Modal,
+  Stepper,
+  Step,
+  StepButton
 } from "@mui/material";
 import { getFirstLetters, isValidURL, mergeDateTime } from "../../utils/utils";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
@@ -43,6 +46,15 @@ function EditEvent() {
   const location = useLocation();
   const event = location.state.event;
   const [activeStep, setActiveStep] = useState(0);
+  const [completed, setCompleted] = useState({0:true, 1:true, 2:true, 3:true, 4:true, 5:true, 6:true});
+  const steps = [
+    "Basic Information",
+    "Artists and Summary",
+    "Location",
+    "Date and Time",
+    "Pricing",
+    "Event Media",
+  ];
   const navigate = useNavigate();
   const { isLoading } = useContext(LoadingContext);
   //Modal-related props
@@ -59,6 +71,10 @@ function EditEvent() {
   event.tags.forEach((tag) => {
     tagString.push(tag.name + "," + tag.id);
   });
+
+  const handleStep = (step) => () => {
+    setActiveStep(step);
+  };
 
   /**
    * Handler for event deletion
@@ -240,6 +256,16 @@ function EditEvent() {
     } else return true;
   };
 
+  // checks that all steps are completed
+  const allCompleted = (completed) => {
+    let flag = true;
+    for(let i=0; i<6; i++){
+      if(!completed[i]) flag = false;
+    }
+
+    return flag;
+  }
+
   /**
    * Handles validation and changes pages in the form
    * @param {*} e
@@ -265,8 +291,16 @@ function EditEvent() {
           description !== "" &&
           eventURL &&
           isValidURL(eventURL)
-        )
+        ){
+          const newCompleted = completed;
+          newCompleted[activeStep] = true;
+          setCompleted(newCompleted);
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        } else {
+          const newCompleted = completed;
+          newCompleted[activeStep] = false;
+          setCompleted(newCompleted);
+        }
         break;
       // RULES: At least one artist. Summary is required.
       case 1:
@@ -284,7 +318,17 @@ function EditEvent() {
         else setSummaryError(false);
 
         if (atLeastOneArtist && eventSummary)
+        {
+          const newCompleted = completed;
+          newCompleted[activeStep] = true;
+          setCompleted(newCompleted);
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
+          console.log(completed);
+        } else {
+          const newCompleted = completed;
+          newCompleted[activeStep] = false;
+          setCompleted(newCompleted);
+        }
         break;
       // RULES: Venue name and all address fields are required.
       case 2:
@@ -301,7 +345,15 @@ function EditEvent() {
         else setPostcodeError(false);
 
         if (venueName && suburb && eventAddress1 && eventPostCode) {
+          const newCompleted = completed;
+          newCompleted[activeStep] = true;
+          setCompleted(newCompleted);
+          allCompleted(completed);
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        } else {
+          const newCompleted = completed;
+          newCompleted[activeStep] = false;
+          setCompleted(newCompleted);
         }
 
         break;
@@ -349,12 +401,20 @@ function EditEvent() {
           canProceed(enableArtist4, eventPrice4, eventTierName4) &&
           eventPrice1 !== parseFloat(0.0).toFixed(2)
         ) {
+          const newCompleted = completed;
+          newCompleted[activeStep] = true;
+          setCompleted(newCompleted);
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        } else {
+          const newCompleted = completed;
+          newCompleted[activeStep] = false;
+          setCompleted(newCompleted);
         }
         break;
       // RULES: Image upload is required.
       case 5:
         if (!selectedImage) alert("Please upload an image to proceed");
+        else if(!allCompleted(completed)) alert("Please complete all the steps to proceed");
         else setActiveStep((prevActiveStep) => prevActiveStep + 1);
         break;
       default:
@@ -805,6 +865,17 @@ function EditEvent() {
         ) : (
           <>
             <div className="create-event-screen">
+              <div className="event-additional-stepper">
+                <Stepper nonLinear activeStep={activeStep}>
+                  {steps.map((label, index) => (
+                    <Step key={label} completed={completed[index]}>
+                        <StepButton color="inherit" onClick={handleStep(index)}>
+                          {label}
+                        </StepButton>
+                    </Step>
+                  ))}
+                </Stepper>
+              </div>
               {(() => {
                 // FIRST SCREEN - BASIC INFO
                 if (activeStep === 0) {

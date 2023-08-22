@@ -9,6 +9,9 @@ import dayjs from "dayjs";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
   MobileStepper,
+  Stepper,
+  StepButton,
+  Step,
   Stack,
   Divider,
   Avatar,
@@ -40,7 +43,6 @@ import { LoadingContext } from "../../props/loading-spinner.prop";
  * @returns Render of the CreateEvent component
  */
 function CreateEvent() {
-
   //SPA navigator
   const navigate = useNavigate();
   //SPA location for linking
@@ -58,6 +60,15 @@ function CreateEvent() {
 
   //Stepper state
   const [activeStep, setActiveStep] = useState(0);
+  const [completed, setCompleted] = useState({});
+  const steps = [
+    "Basic Information",
+    "Artists and Summary",
+    "Location",
+    "Date and Time",
+    "Pricing",
+    "Event Media",
+  ];
 
   //Modal for discard option
   const [modalOpen, setModalOpen] = useState(false);
@@ -235,12 +246,22 @@ function CreateEvent() {
     draft && draft.selectedImage ? draft.selectedImage : null
   );
 
+  // checks that all steps are completed
+  const allCompleted = (completed) => {
+    let flag = true;
+    for(let i=0; i<6; i++){
+      if(!completed[i]) flag = false;
+    }
+
+    return flag;
+  }
+
   /**
    * Determines if the conditions are satisfied for users to proceed to screen six
-   * @param {*} enableArtist 
-   * @param {*} eventPrice 
-   * @param {*} eventTierName 
-   * @returns 
+   * @param {*} enableArtist
+   * @param {*} eventPrice
+   * @param {*} eventTierName
+   * @returns
    */
   const canProceed = (enableArtist, eventPrice, eventTierName) => {
     if (enableArtist) {
@@ -252,7 +273,7 @@ function CreateEvent() {
 
   /**
    * Handles validation and changes pages in the form
-   * @param {*} e 
+   * @param {*} e
    */
   const handleNext = (e) => {
     switch (activeStep) {
@@ -275,8 +296,17 @@ function CreateEvent() {
           description !== "" &&
           eventURL !== "" &&
           isValidURL(eventURL)
-        )
+        ) {
+          const newCompleted = completed;
+          newCompleted[activeStep] = true;
+          setCompleted(newCompleted);
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        } else {
+          const newCompleted = completed;
+          newCompleted[activeStep] = false;
+          setCompleted(newCompleted);
+        }
+
         break;
       //RULES: At least one artist. Summary is required.
       case 1:
@@ -293,8 +323,16 @@ function CreateEvent() {
         if (eventSummary === "") setSummaryError(true);
         else setSummaryError(false);
 
-        if (atLeastOneArtist && eventSummary !== "")
+        if (atLeastOneArtist && eventSummary !== "") {
+          const newCompleted = completed;
+          newCompleted[activeStep] = true;
+          setCompleted(newCompleted);
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        } else {
+          const newCompleted = completed;
+          newCompleted[activeStep] = false;
+          setCompleted(newCompleted);
+        }
         break;
       //RULES: Venue name and all address fields are required.
       case 2:
@@ -316,7 +354,14 @@ function CreateEvent() {
           eventAddress1 !== "" &&
           eventPostCode !== ""
         ) {
+          const newCompleted = completed;
+          newCompleted[activeStep] = true;
+          setCompleted(newCompleted);
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        } else {
+          const newCompleted = completed;
+          newCompleted[activeStep] = false;
+          setCompleted(newCompleted);
         }
 
         break;
@@ -364,12 +409,20 @@ function CreateEvent() {
           canProceed(enableArtist4, eventPrice4, eventTierName4) &&
           eventPrice1 !== parseFloat(0.0).toFixed(2)
         ) {
+          const newCompleted = completed;
+          newCompleted[activeStep] = true;
+          setCompleted(newCompleted);
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        } else {
+          const newCompleted = completed;
+          newCompleted[activeStep] = false;
+          setCompleted(newCompleted);
         }
         break;
       //RULES: Image upload is required.
       case 5:
         if (!selectedImage) alert("Please upload an image to proceed");
+        else if(!allCompleted(completed)) alert("Please complete all the steps to proceed");
         else setActiveStep((prevActiveStep) => prevActiveStep + 1);
         break;
       default:
@@ -377,18 +430,21 @@ function CreateEvent() {
     }
   };
 
+  const handleStep = (step) => () => {
+    setActiveStep(step);
+  };
+
   /**
    * Moves the stepper backwards one step
    */
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  }; 
+  };
 
   /**
    * Create event request handler
    */
   const submitEvent = async () => {
-
     //Merge date and time into single startDate field
     var startDateTime = new Date(
       dayjs(eventStartDate).year(),
@@ -824,6 +880,23 @@ function CreateEvent() {
         ) : (
           <>
             <div className="create-event-screen">
+              <div className="event-additional-stepper">
+                <Stepper nonLinear activeStep={activeStep}>
+                  {steps.map((label, index) => (
+                    <Step key={label} completed={completed[index]}>
+                      {completed[index] || completed[index - 1] ? (
+                        <StepButton color="inherit" onClick={handleStep(index)}>
+                          {label}
+                        </StepButton>
+                      ) : (
+                        <StepButton color="inherit" disabled>
+                          {label}
+                        </StepButton>
+                      )}
+                    </Step>
+                  ))}
+                </Stepper>
+              </div>
               {(() => {
                 if (activeStep === 0) {
                   return (
@@ -982,7 +1055,7 @@ function CreateEvent() {
       </Box>
     </div>
   );
-};
+}
 
 //Export the CreateEvent component
 export default CreateEvent;

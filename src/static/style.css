@@ -2176,6 +2176,10 @@ footer {
   .event-prev-second-row .organiser-box h2 {
     font-size: 2em;
   }
+  /* Create event additional stepper */
+  .event-additional-stepper {
+    display: none;
+  }
 }
 /* Phone */
 @media screen and (max-width: 640px) {
