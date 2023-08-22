@@ -10,7 +10,7 @@ import {
   RadioGroup,
 } from "@mui/material";
 import { getTodayISODates, getTomorrowISODates, getWeekendISODates, getThisWeekISODates, getThisMonthsISODates } from "../../../../utils/utils";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 //Import search event props
 import { SearchEventFiltersContext } from "../../../../props/search-events.prop";
 import { v4 as uuidv4 } from 'uuid';
@@ -31,6 +31,14 @@ const DateRadioBtns = () => {
     DATE_RANGES,
     selectedDateRange
   } = useContext(SearchEventFiltersContext);
+
+  useEffect(() => {
+    //If date is reset, reset radio button selection
+    if (!dateRange.minDate.get && !dateRange.maxDate.get) {
+        selectedDateRange.set(DATE_RANGES.ANY);
+    }
+}, [dateRange.minDate.get, dateRange.maxDate.get]);
+
 
 
   /**

@@ -4,6 +4,8 @@
 
 //Import dependencies
 import { toast } from 'react-toastify';
+import notificationSound from '../../static/mixkit-message-pop-alert-2354.mp3';
+import { playSound } from '../../utils/utils';
 
 
 //Toast UI stylesheet props
@@ -19,6 +21,8 @@ const styleProps = {
  * @param {*} msg The message to display
  */
 export const showToast = (msg, id) => {
+  //Play notification sound
+  playSound(notificationSound);
   toast(msg, {
     toastId: id || "neutral",
     position: 'top-right',
@@ -37,6 +41,8 @@ export const showToast = (msg, id) => {
  * @param {*} msg The message to display
  */
 export const showSuccessToast = (msg) => {
+  //Play notification sound
+  playSound(notificationSound);
   toast.success(msg, {
     position: 'top-right',
     autoClose: 4000,
@@ -53,6 +59,8 @@ export const showSuccessToast = (msg) => {
  * @param {*} msg The error message to display
  */
 export const showErrorToast = (msg) => {
+  //Play notification sound
+  playSound(notificationSound);
   toast.error(msg, {
     position: 'top-right',
     autoClose: 4000,

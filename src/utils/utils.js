@@ -17,6 +17,15 @@ const maxMs = 999;
 const isoFormat = "YYYY-MM-DD HH:mm:ss";
 const isoTimezone = "Z";
 
+
+/**
+ * Play a sound file
+ */
+export const playSound = (soundFile) => {
+  const audio = new Audio(soundFile);
+  audio.play();
+};
+
 /**
  * Delay by ms specified
  * @param {*} ms

@@ -42,10 +42,10 @@ const SearchEvent = () => {
   /**
    * Prop context for search event data
    */
-  const { events, 
-    pageCount, 
-    tags, 
-    fetchStatus 
+  const { events,
+    pageCount,
+    tags,
+    fetchStatus
   } = useContext(SearchEventsContext);
 
   /**
@@ -62,8 +62,32 @@ const SearchEvent = () => {
     currPage,
     selectedVenue,
     isFree,
-    IMMUTABLE_CHIP_VALUES
+    IMMUTABLE_CHIP_VALUES,
+    DATE_RANGES,
+    selectedDateRange,
   } = useContext(SearchEventFiltersContext);
+
+  const IMMUTABLE_CHIP_MAP = {
+    venue: {
+      key: uuidv4(),
+      searchCategory: "venue",
+      label: "All Venues",
+      value: "All Venues"
+    },
+    isFree: {
+      key: uuidv4(),
+      searchCategory: "isFree",
+      label: "Free",
+      value: "free"
+    },
+    date: {
+      key: uuidv4(),
+      searchCategory: "date",
+      label: "Any Date",
+      value: "Any Date"
+    }
+  };
+
 
   /**
    * Load more events
@@ -109,10 +133,29 @@ const SearchEvent = () => {
    * @returns
    */
   const handleDelete = (chipToDelete) => () => {
-    if (chipToDelete !== "All Venues" || chipToDelete !== "Any Date")
-      chipData.set((chips) =>
-        chips.filter((chip) => chip.key !== chipToDelete.key)
-      );
+    chipData.set((chips) =>
+      chips.filter((chip) => chip.key !== chipToDelete.key)
+    );
+
+    //Check if chip is date category
+    if (chipToDelete.searchCategory === "date") {
+      //Reset minDate and maxDate to null values
+      dateRange.minDate.set(null);
+      dateRange.maxDate.set(null);
+      selectedDateRange.set(DATE_RANGES.ANY);
+    }
+
+    //Reset selected venue to default
+    if(chipToDelete.searchCategory === "venue") {
+      selectedVenue.set("All Venues");  
+    }
+
+    //Check if the chip category is in the immutable map
+    const immutableChip = IMMUTABLE_CHIP_MAP[chipToDelete.searchCategory];
+    if (immutableChip) {
+      chipData.set((prevChips) => [...prevChips, immutableChip]);
+    }
+
     change.set(!change.get);
   };
 
@@ -121,14 +164,14 @@ const SearchEvent = () => {
    * Clear search filters
    */
   const clearFilters = () => {
-  
+
     //Only remove chips that aren't immutable
     const remainingChips = chipData.get.filter(chip => Object.values(IMMUTABLE_CHIP_VALUES).includes(chip.label));
     chipData.set(remainingChips);
-  
+
     //Reset pagination
     currPage.set(0);
-  
+
     //Reset filter props
     tagSelection.set([]);
     keywords.set("");
@@ -138,10 +181,10 @@ const SearchEvent = () => {
     priceRange.minPrice.set(null);
     priceRange.maxPrice.set(null);
     isFree.set("free");
-  
+
     //Render initial chips only if they don't already exist in the current chips
     const chipValues = chipData.get.map(chip => chip.label);
-    
+
     if (!chipValues.includes("All Venues")) {
       chipData.set(prev => [...prev, {
         key: uuidv4(),
@@ -150,7 +193,7 @@ const SearchEvent = () => {
         value: "All Venues",
       }]);
     }
-  
+
     if (!chipValues.includes("Free")) {
       chipData.set(prev => [...prev, {
         key: uuidv4(),
@@ -159,7 +202,7 @@ const SearchEvent = () => {
         value: "free",
       }]);
     }
-  
+
     if (!chipValues.includes("Any Date")) {
       chipData.set(prev => [...prev, {
         key: uuidv4(),
@@ -168,10 +211,10 @@ const SearchEvent = () => {
         value: "Any Date",
       }]);
     }
-  
+
     change.set(!change.get);
   };
-  
+
 
   /**
    * React hook that is used for fetching data on load
@@ -184,7 +227,7 @@ const SearchEvent = () => {
       events.set([]);
       pageCount.set(0);
       fetchStatus.set(true);
-  
+
       const data = await searchEvents(
         tagSelection.get,
         keywords.get,
@@ -197,13 +240,13 @@ const SearchEvent = () => {
         },
         currPage.get
       );
-  
+
       let newArr = [...data.events];
       fetchStatus.set(false);
       events.set(newArr);
       pageCount.set(data.pageCount);
     }
-  
+
     if (tags.get.length === 0) {
       fetchTagsAndEvents();
     }
@@ -217,7 +260,7 @@ const SearchEvent = () => {
       fetchStatus.set(true);
       events.set([]);
       pageCount.set(0);
-  
+
       const data = await searchEvents(
         tagSelection.get,
         keywords.get,
@@ -230,20 +273,20 @@ const SearchEvent = () => {
         },
         currPage.get
       );
-  
+
       events.set(data.events);
       pageCount.set(data.pageCount);
       fetchStatus.set(false);
     }
-  
+
     fetchFilteredEvents();
 
   }, [
-    keywords.get, 
-    dateRange.minDate.get, 
-    dateRange.maxDate.get, 
-    priceRange.minPrice.get, 
-    priceRange.maxPrice.get, 
+    keywords.get,
+    dateRange.minDate.get,
+    dateRange.maxDate.get,
+    priceRange.minPrice.get,
+    priceRange.maxPrice.get,
     location.get,
     tagSelection.get,
     change.get,
@@ -256,35 +299,35 @@ const SearchEvent = () => {
    */
   let eventListings = (
     <Box className="events-result">
-        {fetchStatus.get ? (
-            <PartialLoadSpinner className="partial-loader"></PartialLoadSpinner>
-        ) : events.get && events.get.length ? (
-            events.get.map((event, i) => {
-                //Filter out event display results by venue selected
-                if (
-                    event.event.venueName === selectedVenue.get ||
-                    selectedVenue.get === "All Venues"
-                ) {
-                    return <EventCardHorizontal key={i} event={event} />;
-                }
-                return null;
-            })
-        ) : (
-            <h2>No results found</h2>
-        )}
+      {fetchStatus.get ? (
+        <PartialLoadSpinner className="partial-loader"></PartialLoadSpinner>
+      ) : events.get && events.get.length ? (
+        events.get.map((event, i) => {
+          //Filter out event display results by venue selected
+          if (
+            event.event.venueName === selectedVenue.get ||
+            selectedVenue.get === "All Venues"
+          ) {
+            return <EventCardHorizontal key={i} event={event} />;
+          }
+          return null;
+        })
+      ) : (
+        <h2>No results found</h2>
+      )}
 
-        {currPage.get + 1 < pageCount.get && (
-            <div className="search-buttons">
-                <Button variant="contained" id="load-more-events-btn" onClick={loadMoreHandler}>
-                    Load More
-                </Button>
-                <Button variant="outlined" id="back-to-top-btn" onClick={scrollToTop}>
-                    Back To Top
-                </Button>
-            </div>
-        )}
+      {currPage.get + 1 < pageCount.get && (
+        <div className="search-buttons">
+          <Button variant="contained" id="load-more-events-btn" onClick={loadMoreHandler}>
+            Load More
+          </Button>
+          <Button variant="outlined" id="back-to-top-btn" onClick={scrollToTop}>
+            Back To Top
+          </Button>
+        </div>
+      )}
     </Box>
-);
+  );
 
 
 
