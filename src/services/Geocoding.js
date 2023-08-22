@@ -16,6 +16,7 @@ export const forwardGeocoding = async function (address) {
   //Default value - Sydney
   let lat = -33.86;
   let lng = 151.2;
+  let tempAddress = null;
 
   let url =
     "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
@@ -31,11 +32,11 @@ export const forwardGeocoding = async function (address) {
       if (response.data.features.length === 0) {
         console.log("Unable to find location. Try to search another location.");
       } else {
+        tempAddress = response.data.features[0];
         lng = response.data.features[0].center[0];
         lat = response.data.features[0].center[1];
-        //let location = response.data.features[0].place_name;
+        console.log(tempAddress);
       }
-      console.log(response.data.features);
     })
     .catch((error) => {
       console.log(error);
@@ -44,5 +45,6 @@ export const forwardGeocoding = async function (address) {
   let result = [];
   result.push(lat);
   result.push(lng);
+  result.push(tempAddress);
   return result;
 };
