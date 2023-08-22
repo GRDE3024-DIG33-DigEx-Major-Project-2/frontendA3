@@ -30,10 +30,10 @@ const Location = (props) => {
       if (props.suburb !== "") {
         address += "," + props.suburb;
       }
-      if (props.eventCity !== "") {
-        address += "," + props.eventCity;
-      }
+
+      address += "," + props.eventCity;
       address += "," + props.eventState;
+
       if (props.eventPostCode !== "") {
         address += "," + props.eventPostCode;
       }
@@ -49,7 +49,6 @@ const Location = (props) => {
     props.venueName,
     props.eventAddress1,
     props.suburb,
-    props.eventCity,
     props.eventPostCode,
   ]);
 
@@ -133,18 +132,12 @@ const Location = (props) => {
                     <TextField
                       value={props.eventCity}
                       required
-                      onChange={(event) =>
-                        props.setEventCity(event.target.value)
-                      }
+                      InputProps={{
+                        readOnly: true,
+                      }}
                       id="create-event-city"
                       placeholder="City"
                       variant="outlined"
-                      error={props.cityError && props.eventCity === ""}
-                      helperText={
-                        props.cityError && props.eventCity === ""
-                          ? "The city is required to continue"
-                          : null
-                      }
                     />
                   </Grid>
                   <Grid container item xs={3} direction="column" className="create-event-country">

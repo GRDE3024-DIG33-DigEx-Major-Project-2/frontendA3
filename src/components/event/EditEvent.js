@@ -139,7 +139,7 @@ function EditEvent() {
   const [venueName, setVenueName] = useState(event.event.venueName);
   const [suburb, setSuburb] = useState(event.event.suburb);
   const [eventAddress1, setEventAddress1] = useState(event.event.address);
-  const [eventCity, setEventCity] = useState(event.event.city);
+  const eventCity = "Sydney";
   const eventCountry = "Australia"
   const eventState = "NSW"
   const [eventPostCode, setEventPostCode] = useState(event.event.postcode);
@@ -148,7 +148,6 @@ function EditEvent() {
   const [venueNameError, setVenueNameError] = useState(false);
   const [suburbError, setSuburbError] = useState(false);
   const [addressError, setAddressError] = useState(false);
-  const [cityError, setCityError] = useState(false);
   const [postcodeError, setPostcodeError] = useState(false);
 
   // ** FOURTH SCREEN - DATE AND TIME ** //
@@ -299,9 +298,6 @@ function EditEvent() {
         if (!eventAddress1) setAddressError(true);
         else setAddressError(false);
 
-        if (!eventCity) setCityError(true);
-        else setCityError(false);
-
         if (!eventPostCode) setPostcodeError(true);
         else setPostcodeError(false);
 
@@ -309,7 +305,6 @@ function EditEvent() {
           venueName &&
           suburb &&
           eventAddress1 &&
-          eventCity &&
           eventPostCode
         ) {
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -880,7 +875,6 @@ function EditEvent() {
                       eventAddress1={eventAddress1}
                       setEventAddress1={setEventAddress1}
                       eventCity={eventCity}
-                      setEventCity={setEventCity}
                       eventCountry={eventCountry}
                       eventState={eventState}
                       eventPostCode={eventPostCode}
@@ -888,7 +882,6 @@ function EditEvent() {
                       venueNameError={venueNameError}
                       suburbError={suburbError}
                       addressError={addressError}
-                      cityError={cityError}
                       postcodeError={postcodeError}
                     />
                   );
