@@ -140,9 +140,9 @@ function CreateEvent() {
   const [eventAddress1, setEventAddress1] = useState(
     draft && draft.eventAddress1 ? draft.eventAddress1 : ""
   );
-  const [eventCity, setEventCity] = useState(
-    draft && draft.eventCity ? draft.eventCity : ""
-  );
+
+  // Hardcoded values as the app is meant to function in Sydney only
+  const eventCity = "Sydney";
   const eventCountry = "Australia";
   const eventState = "NSW";
 
@@ -154,7 +154,6 @@ function CreateEvent() {
   const [venueNameError, setVenueNameError] = useState(false);
   const [suburbError, setSuburbError] = useState(false);
   const [addressError, setAddressError] = useState(false);
-  const [cityError, setCityError] = useState(false);
   const [postcodeError, setPostcodeError] = useState(false);
 
   // ** FOURTH SCREEN - DATE AND TIME ** //
@@ -244,7 +243,6 @@ function CreateEvent() {
    * @returns 
    */
   const canProceed = (enableArtist, eventPrice, eventTierName) => {
-    console.log("HI");
     if (enableArtist) {
       if (eventPrice === parseFloat(0.0).toFixed(2) || eventTierName === "") {
         return false;
@@ -309,9 +307,6 @@ function CreateEvent() {
         if (eventAddress1 === "") setAddressError(true);
         else setAddressError(false);
 
-        if (eventCity === "") setCityError(true);
-        else setCityError(false);
-
         if (eventPostCode === "") setPostcodeError(true);
         else setPostcodeError(false);
 
@@ -319,7 +314,6 @@ function CreateEvent() {
           venueName !== "" &&
           suburb !== "" &&
           eventAddress1 !== "" &&
-          eventCity !== "" &&
           eventPostCode !== ""
         ) {
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -397,21 +391,21 @@ function CreateEvent() {
 
     //Merge date and time into single startDate field
     var startDateTime = new Date(
-      eventStartDate.getFullYear(),
-      eventStartDate.getMonth(),
-      eventStartDate.getDate(),
-      eventStartTime.hour(),
-      eventStartTime.minute(),
-      eventStartTime.second()
+      dayjs(eventStartDate).year(),
+      dayjs(eventStartDate).month(),
+      dayjs(eventStartDate).date(),
+      dayjs(eventStartTime).hour(),
+      dayjs(eventStartTime).minute(),
+      dayjs(eventStartTime).second()
     );
     //Merge date and time into single endDate field
     var endDateTime = new Date(
-      eventEndDate.getFullYear(),
-      eventEndDate.getMonth(),
-      eventEndDate.getDate(),
-      eventEndTime.hour(),
-      eventEndTime.minute(),
-      eventEndTime.second()
+      dayjs(eventEndDate).year(),
+      dayjs(eventEndDate).month(),
+      dayjs(eventEndDate).date(),
+      dayjs(eventEndTime).hour(),
+      dayjs(eventEndTime).minute(),
+      dayjs(eventEndTime).second()
     );
 
     //Build the Event object to send
@@ -472,6 +466,13 @@ function CreateEvent() {
     } finally {
       isLoading.set(false);
     }
+
+    //If the event comes from a draft, delete existing draft when publishing
+    if (draft) {
+      console.log("Deleting Darft No: ", draftNo);
+      removeDraft(draftNo);
+    }
+
     //Navigate to the organiser's dashboard on completion
     navigate(PATHS.DASHBOARD);
   };
@@ -873,7 +874,6 @@ function CreateEvent() {
                       eventAddress1={eventAddress1}
                       setEventAddress1={setEventAddress1}
                       eventCity={eventCity}
-                      setEventCity={setEventCity}
                       eventCountry={eventCountry}
                       eventState={eventState}
                       eventPostCode={eventPostCode}
@@ -881,7 +881,6 @@ function CreateEvent() {
                       venueNameError={venueNameError}
                       suburbError={suburbError}
                       addressError={addressError}
-                      cityError={cityError}
                       postcodeError={postcodeError}
                     />
                   );
