@@ -100,13 +100,13 @@ const EventCardHorizontal = (props) => {
     //Copy link to clipboard
     navigator.clipboard.writeText(linkToCopy).then(() => {
       //Update tooltip message
-      setTooltipMessage('Copied!');
+      setTooltipMessage('Event Link Copied!');
       //The ms delay after event url is copied to revert the tooltip message
       const MS_TIL_REVERT_MSG = 2200;
 
       //Revert back to the original message after 2 seconds
       setTimeout(() => {
-        setTooltipMessage('Share this event');
+        setTooltipMessage('Share this event!');
       }, MS_TIL_REVERT_MSG);
     }).catch(err => {
       console.error('Failed to copy link: ', err);
