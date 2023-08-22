@@ -98,6 +98,15 @@ const VenueInput = () => {
     }, 100);
   }, [selectedVenue.get]);
 
+  /**
+   * When this component is unmounted, reset the selected venue to All Venues
+   */
+  useEffect(() => {
+    return () => {
+        selectedVenue.set("All Venues");
+    };
+}, []);
+
 
 
   /**

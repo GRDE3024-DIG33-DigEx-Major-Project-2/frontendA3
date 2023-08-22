@@ -47,7 +47,7 @@ const ByLocation = () => {
           );
         }}
       >
-        <MenuItem value={null} sx={{ backgroundColor: "#f5f5f5" }}>
+        <MenuItem value={null}>
           Any Suburb
         </MenuItem>
         {suburbs.length > 0 ? (
