@@ -694,6 +694,7 @@ function CreateEvent() {
                     href={eventURL}
                     variant="contained"
                     id="buy-tickets-btn"
+                    disabled={true}
                   >
                     Buy Tickets
                   </Button>
@@ -873,6 +874,7 @@ function CreateEvent() {
                     href={eventURL}
                     variant="contained"
                     id="buy-tickets-btn"
+                    disabled={true}
                   >
                     Buy Tickets
                   </Button>
