@@ -2459,6 +2459,7 @@ footer {
   .find-event-search {
     display: flex;
     flex-direction: column;
+    align-content: center;
   }
   #location-field-search,
   #events-txt-field {
@@ -2466,7 +2467,7 @@ footer {
     margin: 5px;
   }
   #date-field-search {
-    width: 165%;
+    width: 82%;
     flex-direction: column;
     margin: 5px;
   }
