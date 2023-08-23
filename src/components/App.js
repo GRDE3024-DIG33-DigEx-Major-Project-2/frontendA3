@@ -40,6 +40,7 @@ import { LoadingProvider } from "../props/loading-spinner.prop";
 import { AuthContext } from "../props/auth.prop";
 //Import shared components
 import { FullPageSpinner } from "./shared/LoadingSpinner";
+import { initializeDB } from "../utils/indexedDb";
 
 
 /**
@@ -53,14 +54,19 @@ function App() {
   const navigate = useNavigate();
 
   /**
-   * Build the Axios client instance
+   * Build the Axios client instance and initialize client-side db
    */
   useEffect(() => {
     const axiosClient = setupAxiosInterceptors(navigate, setIsLoggedIn);
+    initializeDB()
+    .then(() => console.log('DB initialized'))
+    .catch(error => console.error('Error initializing DB:', error));    
     return () => {
       axiosClient.interceptors.response.eject();
     };
   }, []);
+
+
 
   //The rendered main component module
   return (

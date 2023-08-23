@@ -22,7 +22,7 @@ const DraftCard = (props) => {
   const navigate = useNavigate();
   //Retrieve draft from local storage
   const drafts = getDrafts();
-  const draft = drafts[props.draftNo];
+  const draft = drafts.find((x) => x.id === props.draftNo);
   const [modalOpen, setModalOpen] = useState(false);
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
   const [modalSpinner, setModalSpinner] = useState(false);

@@ -2,6 +2,9 @@
  * Client-side data storage handlers
  */
 
+import { clearAll } from "./indexedDb";
+import { v4 as uuidv4 } from 'uuid';
+
 /**
  * Gets user data from session storage
  * @returns User data
@@ -83,11 +86,12 @@ export const setDrafts = function (drafts) {
 };
 
 /**
- * Clears draft events from session storage
+ * Clears draft events from session storage and index db
  */
 export const resetDrafts = async function () {
   sessionStorage.setItem("drafts", null);
   sessionStorage.removeItem("drafts");
+  clearAll();
 };
 
 /**
@@ -95,17 +99,24 @@ export const resetDrafts = async function () {
  * @param {*} draft The draft event to add
  */
 export const addDraft = function (draft) {
-  let drafts = getDrafts();
+  let drafts = getDrafts() || [];
   drafts.push(draft);
   setDrafts(drafts);
 };
 
 /**
  * Remove draft event from session storage
- * @param {*} draftNo The index of the draft to remove
+ * @param {*} draftId The id of the draft to remove
  */
-export const removeDraft = function (draftNo) {
+export const removeDraft = function (draftId) {
   let drafts = getDrafts();
-  drafts.splice(draftNo, 1);
-  setDrafts(drafts);
+  const indexToRemove = drafts.findIndex(draft => draft.id === draftId);
+
+  if (indexToRemove !== -1) {
+    drafts.splice(indexToRemove, 1);
+    setDrafts(drafts);
+  }
 };
+
+
+

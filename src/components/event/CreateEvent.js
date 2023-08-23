@@ -4,7 +4,7 @@
 
 //Import dependencies
 import * as React from "react";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import dayjs from "dayjs";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
@@ -37,6 +37,8 @@ import EventMedia from "./create/CE6_EventMedia";
 import { PATHS } from "../../utils/constants.util";
 import { addDraft, getUser, removeDraft } from "../../utils/localStorage";
 import { LoadingContext } from "../../props/loading-spinner.prop";
+import { clearBlob, storeBlob } from "../../utils/indexedDb";
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  * Builds the CreateEvent component
@@ -50,13 +52,14 @@ function CreateEvent() {
   //User data
   const user = getUser();
 
-  //Draft setup
+  // //Draft setup
   let draft = null;
   let draftNo = null;
   if (location.state) {
     draft = location.state.draft;
     draftNo = location.state.draftNo;
   }
+  
 
   //Stepper state
   const [activeStep, setActiveStep] = useState(0);
@@ -88,7 +91,8 @@ function CreateEvent() {
    */
   const handleDiscard = () => {
     // set draft to null if it exists
-    if (draft) removeDraft(draftNo);
+    if (draft) removeDraft(draft.id);
+    clearBlob(draftNo);
     // open confirmation modal
     handleConfirmationModalOpen();
     handleModalClose();
@@ -242,15 +246,39 @@ function CreateEvent() {
   const [ticket4Error, setTicket4Error] = useState(false);
 
   // ** SIXTH SCREEN - MEDIA **//
-  const [selectedImage, setSelectedImage] = useState(
-    draft && draft.selectedImage ? draft.selectedImage : null
-  );
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  //Retrieve draft event image from cache when the component mounts
+  useEffect(() => {
+    console.log("SELECTED IMG: ", selectedImage);
+    getCachedImage((imageUrl) => {
+      setSelectedImage(imageUrl);
+    });
+  }, []);
+
+  function getCachedImage(callback) {
+    caches.open('draft-images').then((cache) => {
+      cache.match('draft-image-key').then((response) => {
+        if (response) {
+          return response.blob();
+        }
+        return null;
+      }).then((imageBlob) => {
+        if (imageBlob) {
+          let imageUrl = URL.createObjectURL(imageBlob);
+          callback(imageUrl);  // Update the state with the retrieved image URL.
+        } else {
+          callback(null);  // No image in cache. This line can be omitted if you don't need it.
+        }
+      });
+    });
+  }
 
   // checks that all steps are completed
   const allCompleted = (completed) => {
     let flag = true;
-    for(let i=0; i<5; i++){
-      if(!completed[i]) flag = false;
+    for (let i = 0; i < 5; i++) {
+      if (!completed[i]) flag = false;
     }
 
     return flag;
@@ -367,8 +395,7 @@ function CreateEvent() {
         break;
       //RULES: Start date cannot be earlier than end date. All fields required. End time needs to be at least one hour later than start time
       case 3:
-        if (eventStartDate && eventEndDate && eventStartTime && eventEndTime)
-        {
+        if (eventStartDate && eventEndDate && eventStartTime && eventEndTime) {
           const newCompleted = completed;
           newCompleted[activeStep] = true;
           setCompleted(newCompleted);
@@ -435,7 +462,7 @@ function CreateEvent() {
       //RULES: Image upload is required.
       case 5:
         if (!selectedImage) alert("Please upload an image to proceed");
-        else if(!allCompleted(completed)) alert("Please complete all the steps to proceed");
+        else if (!allCompleted(completed)) alert("Please complete all the steps to proceed");
         else setActiveStep((prevActiveStep) => prevActiveStep + 1);
         break;
       default:
@@ -538,25 +565,36 @@ function CreateEvent() {
 
     //If the event comes from a draft, delete existing draft when publishing
     if (draft) {
-      console.log("Deleting Darft No: ", draftNo);
+      console.log("Deleting Draft No: ", draftNo);
       removeDraft(draftNo);
+      clearBlob(draftNo);
     }
 
     //Navigate to the organiser's dashboard on completion
     navigate(PATHS.DASHBOARD);
   };
 
+  const handleImageChange = (blob) => {
+    setSelectedImage(blob);
+  };
+  
+
   /**
    * Draft implementation handler
    */
-  const saveExit = () => {
+  const saveExit = async () => {
+    
+    const newKey = uuidv4();
+
     if (draft) {
       console.log("Deleting Darft No: ", draftNo);
       removeDraft(draftNo);
     }
+    
 
     //Init the current draft to save
     const currentDraft = {
+      id:newKey,
       eventName: eventName,
       eventOrganiser: eventOrganiser,
       description: description,
@@ -596,8 +634,33 @@ function CreateEvent() {
       enableTicket4: enableTicket4,
     };
 
+
+    console.log("Saving and exiting");
+    //Cache the selected image if exists
+    if (selectedImage instanceof Blob) {
+      console.log('SAVING BLOB: ', selectedImage);
+      console.log("Key for saving blob:", newKey);
+      await storeBlob(newKey, selectedImage).catch(err => {
+          console.error("Error storing blob:", err);
+      });
+    }
+    else if (typeof selectedImage === 'string') {
+    console.log('SAVING string: ', selectedImage);
+      try {
+          const response = await fetch(selectedImage);
+          const blobData = await response.blob();
+          await storeBlob(newKey, blobData);
+      } catch (err) {
+          console.error("Error fetching or storing blob:", err);
+      }
+  }
+  else {
+    console.log("FAILED TO SAVE IMG DRAFT: ", selectedImage);
+  }
+
+
+
     console.log("Current Draft: ", currentDraft);
-    //Save event draft to session storage
     addDraft(currentDraft);
     //Navigate to the organiser's dashboard on completion
     navigate(PATHS.DASHBOARD);
@@ -1035,6 +1098,8 @@ function CreateEvent() {
                     <EventMedia
                       selectedImage={selectedImage}
                       setSelectedImage={setSelectedImage}
+                      draftNo={draftNo}
+                      onImageChange={handleImageChange}
                     />
                   );
                 } else {

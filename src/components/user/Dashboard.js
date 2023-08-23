@@ -31,7 +31,7 @@ import { PATHS } from "../../utils/constants.util";
 import { useNavigate } from "react-router-dom";
 import AccountSettings from "./AccountSettings";
 import { scrollToTop } from "../../utils/utils";
-
+import { v4 as uuidv4 } from 'uuid';
 
 
 /**
@@ -458,11 +458,11 @@ const Dashboard = () => {
                   <Box className="drafts">
                     {drafts.map((draft, i) => (
                       <DraftCard
-                        key={i}
+                        key={draft.id}
                         name={
                           draft.eventName ? draft.eventName : "Draft " + (i + 1)
                         }
-                        draftNo={i}
+                        draftNo={draft.id}
                         setRefresh={setRefresh}
                         refresh={refresh}
                       />

@@ -2,8 +2,11 @@
  * Create Event Step 6 -- Event Media
  */
 
-//Import dependencies
+// Import dependencies
 import { Box, FormControl, Grid, Link } from "@mui/material";
+import { clearBlob, getBlob } from "../../../utils/indexedDb";
+import { useState, useEffect } from "react";
+import { PartialLoadSpinner } from "../../shared/LoadingSpinner";
 
 /**
  * Builds EventMedia component
@@ -11,25 +14,67 @@ import { Box, FormControl, Grid, Link } from "@mui/material";
  * @returns Render of EventMedia component
  */
 const EventMedia = (props) => {
+  const { selectedImage, setSelectedImage, draftNo, onImageChange } = props;
+  const [blobURL, setBlobURL] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (!draftNo) {
+      setIsLoading(false);
+      return;
+  }
   
-  /**
-   * Stage image for event
-   * @param {*} e 
-   */
+    const fetchCachedImage = async () => {
+      try {
+        console.log("THE KEY: ", draftNo);
+        const imageBlob = await getBlob(draftNo);
+        if (imageBlob) {
+          const url = URL.createObjectURL(imageBlob);
+          setBlobURL(url);
+          setSelectedImage(imageBlob);
+        }
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        setError("Error retrieving cached image");
+        console.error("Error retrieving cached image:", error);
+      }
+    };
+
+    fetchCachedImage();
+
+    // Cleanup the object URL if it exists
+    return () => {
+      if (blobURL) URL.revokeObjectURL(blobURL);
+    };
+  }, [draftNo, setSelectedImage]);
+
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
-      props.setSelectedImage(e.target.files[0]);
+      const blob = e.target.files[0];
+      const url = URL.createObjectURL(blob);
+      setBlobURL(url);
+      setSelectedImage(blob); // notify parent about the new blob
+      onImageChange(blob);    // notify parent about the change
     }
   };
 
-  /**
-   * Unstage the event image
-   */
   const removeSelectedImage = () => {
-    props.setSelectedImage();
+    setSelectedImage(null);
+    clearBlob(draftNo);
+    if (blobURL) {
+      URL.revokeObjectURL(blobURL);
+      setBlobURL(null);
+    }
   };
 
-  //Return render of EventMedia component
+
+  if (isLoading) {
+    return <PartialLoadSpinner></PartialLoadSpinner>;
+  }
+
+  // Return render of EventMedia component
   return (
     <>
       <h2>Event media</h2>
@@ -46,9 +91,8 @@ const EventMedia = (props) => {
                   paddingBottom="15px"
                   direction="row"
                 >
-                  {!props.selectedImage && (
+                  {!selectedImage && (
                     <div className="create-ev-img-box">
-                      {" "}
                       <label>
                         <input
                           id="create-ev-img-input"
@@ -60,21 +104,12 @@ const EventMedia = (props) => {
                       </label>
                     </div>
                   )}
-                  {props.selectedImage && (
+                  {blobURL && (
                     <>
                       <div className="create-ev-img-box">
-                        <img
-                          src={URL.createObjectURL(props.selectedImage)}
-                          onerror="this.onerror=null"
-                          alt="Thumb"
-                          className="preview-image"
-                        />
+                        <img src={blobURL} alt="Uploaded Event" />
                       </div>
-                      <div id="remove-img-box">
-                        <Link color="#f58146" onClick={removeSelectedImage}>
-                          Remove This Image
-                        </Link>
-                      </div>
+                      ...
                     </>
                   )}
                 </Grid>
@@ -87,5 +122,5 @@ const EventMedia = (props) => {
   );
 };
 
-//Export EventMedia component
+// Export EventMedia component
 export default EventMedia;
