@@ -2868,7 +2868,7 @@ footer {
   .find-event-search #date-field-search {
     gap: 15px;
     flex-direction: column;
-    width: 205%;
+    width: 100%;
   }
   .search-form-els {
     height: 39px;
@@ -2910,7 +2910,7 @@ footer {
     width: 100%;
   }
   #events-txt-field {
-    min-width: 76vw;
+    width: 100%;
   }
   /*CREATE EVENTS PAGE*/
   #create-event-main {
