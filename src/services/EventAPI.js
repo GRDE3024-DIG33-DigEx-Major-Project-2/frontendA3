@@ -86,7 +86,6 @@ export const searchEvents = async function (
   } catch (error) {
     console.log("An error occured while searching events!");
     console.log(tagIds, keywords, minDate, maxDate, suburb, page);
-    console.log("API URL: ", EVENT_ENDPOINTS.searchEventsUrl);
     //Request body is invalid!
     if (error.response.status === 422) {
       console.log("Request body is invalid!");
