@@ -1697,6 +1697,11 @@ footer {
     font-size: 1.2em;
   }
 
+  /* SIGNUP */
+  .signup{
+    min-height: 91.5vh;
+  }
+
   /* HEADER */
   nav {
     .nav-links {
@@ -2576,21 +2581,16 @@ footer {
     height: 100%;
   }
 
-  .mobile-signup-logo {
-    width: 60%;
-    top: 20%;
-    left: 20%;
-  }
   .signup-right,
   .signup-left {
     width: 100%;
     height: 50%;
 }
 .signup-right{
-margin-top: -247px;
-z-index: -5;
+height: 450px;
 }
   .signup-left {
+    height: 650px;
     gap: 3%;
     padding: 0;
     h1 {
