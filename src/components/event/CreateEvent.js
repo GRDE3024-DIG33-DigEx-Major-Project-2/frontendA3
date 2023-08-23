@@ -4,7 +4,7 @@
 
 //Import dependencies
 import * as React from "react";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import dayjs from "dayjs";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
@@ -60,7 +60,7 @@ function CreateEvent() {
 
   //Stepper state
   const [activeStep, setActiveStep] = useState(0);
-  const [completed, setCompleted] = useState({});
+  const [completed, setCompleted] = useState(draft ? draft.completed : {});
   const steps = [
     "Basic Information",
     "Artists and Summary",
@@ -594,6 +594,7 @@ function CreateEvent() {
       enableTicket2: enableTicket2,
       enableTicket3: enableTicket3,
       enableTicket4: enableTicket4,
+      completed: completed
     };
 
     console.log("Current Draft: ", currentDraft);
