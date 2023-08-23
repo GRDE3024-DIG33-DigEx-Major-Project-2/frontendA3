@@ -620,6 +620,9 @@ footer {
   background-color: #ffffff;
   flex-wrap: wrap;
 }
+.search-results-grid .search-filters-top .MuiChip-sizeMedium {
+  margin: 1%;
+}
 .search-results-grid .events-result {
   width: 96%;
   display: flex;

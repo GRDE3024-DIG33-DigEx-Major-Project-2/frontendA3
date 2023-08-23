@@ -632,6 +632,10 @@ footer {
     flex-wrap: wrap;
   }
 
+  .search-filters-top .MuiChip-sizeMedium{
+    margin: 1%;
+  }
+
   .events-result {
     width: 96%;
     @include flex-column(flex-start, flex-start);
