@@ -16,7 +16,7 @@ const Footer = () => {
 
     //Return render of footer component
     return <footer>
-      {`© ${year}. Team X Inc. All rights reserved`} | <Link id="footer-tou" to={PATHS.TERMS_OF_USE}>Terms of Use</Link> | <Link id="footer-privpol" to={PATHS.PRIVACY_POLICY}>Privacy Policy</Link>
+      {`© ${year}. Team X Inc. All rights reserved`} | <Link id="footer-tou" target="_blank" to={PATHS.TERMS_OF_USE}>Terms of Use</Link> | <Link id="footer-privpol" target="_blank" to={PATHS.PRIVACY_POLICY}>Privacy Policy</Link>
     </footer>;
   };
   
