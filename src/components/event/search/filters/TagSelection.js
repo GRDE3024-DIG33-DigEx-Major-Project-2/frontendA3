@@ -8,7 +8,7 @@ import {
     Chip,
     Grid,
 } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { SearchEventsContext, SearchEventFiltersContext } from "../../../../props/search-events.prop";
 
 
@@ -34,7 +34,6 @@ export const HeaderSelectedTags = () => {
         tagSelection,
         chipData
     } = useContext(SearchEventFiltersContext);
-
 
     /**
      * Handles tag selection display chip
@@ -113,6 +112,14 @@ export const SearchSelectedTags = () => {
         chipData
     } = useContext(SearchEventFiltersContext);
 
+    //Deselect all tags when navigating away from event search
+    useEffect(() => {
+        return () => {
+          tagSelection.set([]);
+          chipData.set([]);
+          change.set(!change.get);
+        };
+      }, []);
 
     /**
      * Handles tag selection display chip
