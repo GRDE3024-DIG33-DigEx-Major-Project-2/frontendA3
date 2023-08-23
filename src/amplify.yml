@@ -1,0 +1,4 @@
+redirects:
+  - from: </^[^.]+$|.(?!(css|gif|ico|jpg|js|png|wav|txt|svg|woff|ttf|map|json)$)([^.]+$)/>
+    to: /index.html
+    status: 200
