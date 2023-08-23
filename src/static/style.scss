@@ -779,7 +779,15 @@ footer {
       border-bottom: 1px lightgrey solid;
       padding: 17px;
     }
+    p:empty {
+      border: none;
   }
+  }
+
+  .create-ev-img-box .MuiTypography-inherit{
+    font-size: 20px;
+  }
+
 
   .prof-left {
     @include flex-column(space-around, left);
@@ -1679,7 +1687,7 @@ footer {
 
 // *********************** MEDIA QUERIES *********************** //
 /* Tablet */
-@media screen and (max-width: 960px) and (min-width: 801px){
+@media screen and (max-width: 960px){
   /* General Styling */
 
   h2 {
@@ -1993,7 +2001,7 @@ footer {
 }
 
 /* Small Tablet */
-@media screen and (max-width: 800px) and (min-width: 641px) {
+@media screen and (max-width: 800px){
   /* HEADER */
   header {
     padding: 3%;
@@ -2316,7 +2324,7 @@ footer {
 }
 
 /* Phone */
-@media screen and (max-width: 640px) and (min-width: 481px) {
+@media screen and (max-width: 640px){
   /* General Styling */
   h2 {
     font-size: 1.3em;
@@ -2669,6 +2677,7 @@ z-index: -5;
     padding: 4% 0;
   }
 
+
   .login-form {
     min-height: fit-content;
   }
@@ -2838,7 +2847,7 @@ z-index: -5;
     }
   }
 
-  .event-prev-second-row .when-where-box,
+  .event-prev-second-row .when-where-box,LOGIN
   .event-prev-second-row .organiser-box {
     height: 65%;
   }
@@ -2973,7 +2982,7 @@ z-index: -5;
 @media screen and (max-width: 480px) {
   /* HEADER */
   header {
-    height: 3em;
+    height: 3em !important;
   }
   .find-event-header {
     min-height: 100vh;
@@ -3028,11 +3037,16 @@ z-index: -5;
     padding: 10vh 0;
     max-height: 50vh;
     gap: 10px;
+    flex-direction: column;
     #date-field-search{
       gap: 15px;
+      flex-direction: column;
+      width: 205%;
     }
   }
-
+  .search-form-els {
+    height: 39px;
+  }
   #location-field-search {
     width: 100%;
   }
@@ -3044,7 +3058,7 @@ z-index: -5;
 
   #search-event-form .MuiInputBase-root {
     height: 40px;
-    margin: 2% 0;
+    margin: 0;
   }
 
   #search-event-form .MuiTextField-root {
@@ -3079,7 +3093,7 @@ z-index: -5;
   }
 
   #events-txt-field {
-    min-width: 50vw;
+    min-width: 76vw;
   }
 
   /*CREATE EVENTS PAGE*/
@@ -3539,14 +3553,16 @@ z-index: -5;
   .swiper {
     margin-left: -14% !important;
     width: 101.5% !important;
-    padding-top: 10% !important;
+    padding-top: 13% !important;
   }
   .swiper-button-prev {
     left: 79% !important;
+    top: 7% !important;
   }
 
   .swiper-button-next {
     left: 90% !important;
+    top: 7% !important;
   }
 
   .home-row h1 {
@@ -3583,7 +3599,7 @@ z-index: -5;
   }
 
   #ev-share {
-    top: 74%;
+    top: 42% !important;
     right: 20%;
 
     svg{

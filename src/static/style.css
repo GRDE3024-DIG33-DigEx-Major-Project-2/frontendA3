@@ -767,6 +767,12 @@ footer {
   border-bottom: 1px lightgrey solid;
   padding: 17px;
 }
+.profile-container .prof-center p:empty {
+  border: none;
+}
+.profile-container .create-ev-img-box .MuiTypography-inherit {
+  font-size: 20px;
+}
 .profile-container .prof-left {
   display: flex;
   flex-direction: column;
@@ -1713,7 +1719,7 @@ footer {
 }
 
 /* Tablet */
-@media screen and (max-width: 960px) and (min-width: 801px) {
+@media screen and (max-width: 960px) {
   /* General Styling */
   h2 {
     font-size: 1.5em;
@@ -1969,7 +1975,7 @@ footer {
   }
 }
 /* Small Tablet */
-@media screen and (max-width: 800px) and (min-width: 641px) {
+@media screen and (max-width: 800px) {
   /* HEADER */
   header {
     padding: 3%;
@@ -2251,7 +2257,7 @@ footer {
   }
 }
 /* Phone */
-@media screen and (max-width: 640px) and (min-width: 481px) {
+@media screen and (max-width: 640px) {
   /* General Styling */
   h2 {
     font-size: 1.3em;
@@ -2691,8 +2697,7 @@ footer {
   .event-prev-first-row h1 {
     font-size: 45px;
   }
-  .event-prev-second-row .when-where-box,
-  .event-prev-second-row .organiser-box {
+  .event-prev-second-row .when-where-box, LOGIN .event-prev-second-row .organiser-box {
     height: 65%;
   }
   .event-prev-second-row .event-prev-title {
@@ -2811,7 +2816,7 @@ footer {
 @media screen and (max-width: 480px) {
   /* HEADER */
   header {
-    height: 3em;
+    height: 3em !important;
   }
   .find-event-header {
     min-height: 100vh;
@@ -2859,9 +2864,15 @@ footer {
     padding: 10vh 0;
     max-height: 50vh;
     gap: 10px;
+    flex-direction: column;
   }
   .find-event-search #date-field-search {
     gap: 15px;
+    flex-direction: column;
+    width: 205%;
+  }
+  .search-form-els {
+    height: 39px;
   }
   #location-field-search {
     width: 100%;
@@ -2872,7 +2883,7 @@ footer {
   }
   #search-event-form .MuiInputBase-root {
     height: 40px;
-    margin: 2% 0;
+    margin: 0;
   }
   #search-event-form .MuiTextField-root {
     background-color: transparent !important;
@@ -2900,7 +2911,7 @@ footer {
     width: 100%;
   }
   #events-txt-field {
-    min-width: 50vw;
+    min-width: 76vw;
   }
   /*CREATE EVENTS PAGE*/
   #create-event-main {
@@ -3302,13 +3313,15 @@ footer {
   .swiper {
     margin-left: -14% !important;
     width: 101.5% !important;
-    padding-top: 10% !important;
+    padding-top: 13% !important;
   }
   .swiper-button-prev {
     left: 79% !important;
+    top: 7% !important;
   }
   .swiper-button-next {
     left: 90% !important;
+    top: 7% !important;
   }
   .home-row h1 {
     text-align: center;
@@ -3336,7 +3349,7 @@ footer {
     font-size: 2em;
   }
   #ev-share {
-    top: 74%;
+    top: 42% !important;
     right: 20%;
   }
   #ev-share svg {
