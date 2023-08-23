@@ -77,7 +77,7 @@ export const HeaderSelectedTags = () => {
                         color: "white",
                         margin: "1%",
                     }}
-                    key={i}
+                    key={tag.id}
                     label={tag.name}
                     id={tag.id}
                     color="default"
@@ -159,7 +159,7 @@ export const SearchSelectedTags = () => {
             <h2>Genre</h2>
             <Grid container rowSpacing={2} columnSpacing={2}>
                 {tags.get.map((tag, i) => (
-                    <Grid item xs={4} key={i}>
+                    <Grid item xs={4} key={tag.id}>
                         <Chip
                             sx={{
                                 width: 1,
