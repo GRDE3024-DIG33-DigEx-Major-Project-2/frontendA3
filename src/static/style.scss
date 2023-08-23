@@ -62,7 +62,7 @@ header {
 
   a {
     color: $white;
-    padding: 5px 0px;
+    padding: 5px 0;
   }
 }
 
@@ -476,7 +476,7 @@ color: $purple;
   background-color: $purple1;
   font-size: 1.1em;
   border: 2px solid #d3d3d3;
-  border-radius: 0px !important;
+  border-radius: 0 !important;
 }
 
 .mobile-signup-logo,
@@ -800,7 +800,7 @@ footer {
 
   .events-profile {
     height: 100%;
-    width: 100%;
+    width: 86%;
     @include flex-column(flex-start, flex-start);
     gap: 12px;
   }
@@ -1407,7 +1407,7 @@ footer {
 }
 
 .event-buy-button {
-  margin-right: 0px !important;
+  margin-right: 0 !important;
   margin-top: 20px !important;
   border: 2px solid #f58146 !important;
   padding: 10px 30px !important;
@@ -1478,7 +1478,7 @@ footer {
 .horizontal-stack {
   height: 80%;
   width: 100%;
-  padding: 3% 0%;
+  padding: 3% 0;
 }
 
 .prev-date-time {
@@ -1773,7 +1773,7 @@ footer {
   .card-name {
     font-size: 21px;
     font-weight: 700;
-    margin-top: 0px;
+    margin-top: 0;
 }
 
   /*PROFILE PAGE*/
@@ -2142,7 +2142,7 @@ footer {
     display: block;
     position: absolute;
     width: 100%;
-    left: 0%;
+    left: 0;
     text-align: center;
 
     .signup-logo-img,
@@ -2362,7 +2362,7 @@ footer {
 
   .home-section .home-row .swiper-slide {
     width: 274px !important;
-    margin-left: 0px !important;
+    margin-left: 0 !important;
     padding-left: 22px !important;
     #ev-share,
     #ev-bookmark,
@@ -2403,7 +2403,7 @@ footer {
 
   .home-section .MuiSvgIcon-fontSizeMedium {
     font-size: 0.8em;
-    padding-bottom: 0px;
+    padding-bottom: 0;
   }
 
   .swiper {
@@ -2572,7 +2572,7 @@ footer {
   }
 
   .card-name {
-    margin-top: 0px;
+    margin-top: 0;
     margin-bottom: 5px;
   }
 
@@ -2733,7 +2733,7 @@ footer {
   .mobile-menu-box h1 {
     font-size: 2em;
     margin-bottom: 10px;
-    margin-top: 0px;
+    margin-top: 0;
   }
 
   #menu-drawer .MuiDrawer-paper {
@@ -2771,7 +2771,7 @@ footer {
   .find-event-search {
     padding: 10vh 0;
     max-height: 50vh;
-    gap: 15px;
+    gap: 10px;
     #date-field-search{
       gap: 15px;
     }
@@ -2926,7 +2926,7 @@ footer {
   .create-event-pricing .MuiGrid-spacing-xs-1 {
     flex-direction: row !important;
     flex-wrap: wrap !important;
-    padding: 0px;
+    padding: 0;
   }
 
   .create-event-pricing .MuiGrid-grid-xs-6,
@@ -2976,7 +2976,7 @@ footer {
   .map-container {
     height: 18em;
     width: 23em;
-    margin: 0px 11% 10px 11%;
+    margin: 0 11% 10px 11%;
   }
   .create-event-venue-name .MuiOutlinedInput-notchedOutline,
   .create-event-venue-suburb .MuiOutlinedInput-notchedOutline,
@@ -3020,7 +3020,7 @@ footer {
   }
   .create-event-location-div .MuiGrid-grid-xs-1,
   .create-event-location-div .MuiGrid-grid-xs-5 {
-    padding-left: 0px !important;
+    padding-left: 0 !important;
     margin-bottom: 2px;
     gap: 10px;
   }
@@ -3151,14 +3151,14 @@ footer {
   }
 
   .right .login-form {
-    row-gap: 0em;
+    row-gap: 0;
   }
   .right .login-link {
     margin: 0;
   }
   .login-logo h1 {
-    margin-bottom: 0px;
-    margin-top: 0%;
+    margin-bottom: 0;
+    margin-top: 0;
   }
 
   .login-page footer {
@@ -3298,12 +3298,12 @@ footer {
   }
 
   .home-section {
-    margin: 0px !important;
+    margin: 0 !important;
   }
 
   .home-section .home-row .swiper-slide {
     width: 291px !important;
-    margin-left: 0px !important;
+    margin-left: 0 !important;
     padding-left: 97px !important;
   }
 
@@ -3500,7 +3500,7 @@ footer {
   }
 
   .event-prev-price {
-    margin-left: 0px;
+    margin-left: 0;
     width: 100%;
     max-width: 75%;
     padding: 0 3%;
