@@ -3192,6 +3192,12 @@ footer {
     justify-content: flex-start;
     min-height: 86vh;
   }
+  .login-form p {
+    margin-top: 15px;
+  }
+  .login-btn-container {
+    margin-bottom: 27px;
+  }
   .left {
     height: 33%;
   }
