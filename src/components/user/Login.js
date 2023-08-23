@@ -103,6 +103,7 @@ const Login = ({ setIsLoggedIn }) => {
             phoneNumber: response.data.user.phoneNumber,
             bio: response.data.user.bio,
             dob: response.data.user.dob,
+            imgUrl: response.data.user.imgUrl,
           };
           destinationPage = "../profile";
         }
