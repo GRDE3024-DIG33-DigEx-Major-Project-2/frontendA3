@@ -2540,15 +2540,12 @@ footer {
     top: 15%;
   }
   .right .login-logo {
-    margin-top: 69px;
+    margin: 69px;
   }
   .right .login-form {
     width: 100%;
-    row-gap: 0;
+    row-gap: 17px;
     top: -11px;
-  }
-  .right .login-link {
-    padding-bottom: 91px;
   }
   .login-logo h1 {
     margin-bottom: 0;
