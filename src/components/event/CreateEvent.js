@@ -59,7 +59,7 @@ function CreateEvent() {
     draft = location.state.draft;
     draftNo = location.state.draftNo;
   }
-  
+
 
   //Stepper state
   const [activeStep, setActiveStep] = useState(0);
@@ -577,24 +577,24 @@ function CreateEvent() {
   const handleImageChange = (blob) => {
     setSelectedImage(blob);
   };
-  
+
 
   /**
    * Draft implementation handler
    */
   const saveExit = async () => {
-    
+
     const newKey = uuidv4();
 
     if (draft) {
       console.log("Deleting Darft No: ", draftNo);
       removeDraft(draftNo);
     }
-    
+
 
     //Init the current draft to save
     const currentDraft = {
-      id:newKey,
+      id: newKey,
       eventName: eventName,
       eventOrganiser: eventOrganiser,
       description: description,
@@ -639,29 +639,20 @@ function CreateEvent() {
     console.log("Saving and exiting");
     //Cache the selected image if exists
     if (selectedImage instanceof Blob) {
-      console.log('SAVING BLOB: ', selectedImage);
-      console.log("Key for saving blob:", newKey);
       await storeBlob(newKey, selectedImage).catch(err => {
-          console.error("Error storing blob:", err);
+        console.error("Error storing blob:", err);
       });
     }
     else if (typeof selectedImage === 'string') {
-    console.log('SAVING string: ', selectedImage);
       try {
-          const response = await fetch(selectedImage);
-          const blobData = await response.blob();
-          await storeBlob(newKey, blobData);
+        const response = await fetch(selectedImage);
+        const blobData = await response.blob();
+        await storeBlob(newKey, blobData);
       } catch (err) {
-          console.error("Error fetching or storing blob:", err);
+        console.error("Error fetching or storing blob:", err);
       }
-  }
-  else {
-    console.log("FAILED TO SAVE IMG DRAFT: ", selectedImage);
-  }
+    }
 
-
-
-    console.log("Current Draft: ", currentDraft);
     addDraft(currentDraft);
     //Navigate to the organiser's dashboard on completion
     navigate(PATHS.DASHBOARD);
