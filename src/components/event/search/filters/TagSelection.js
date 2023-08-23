@@ -46,21 +46,21 @@ export const HeaderSelectedTags = () => {
 
         //Select tag
         if (!temp.find(x => x.value === genre.id)) {
-        temp.push({
-            key: newKey,
-            searchCategory: "genre",
-            label: genre.name,
-            value: genre.id,
-        });  
-        tagSelection.set([...tagSelection.get, genre.id]);        
+            temp.push({
+                key: newKey,
+                searchCategory: "genre",
+                label: genre.name,
+                value: genre.id,
+            });
+            tagSelection.set([...tagSelection.get, genre.id]);
         }
         //Deselect tag
         else if (temp.find(x => x.value === genre.id)) {
             temp = temp.filter((tag) => tag.value !== genre.id);
             if (Array.isArray(tagSelection.get))
-            tagSelection.set(tagSelection.get.filter((tagId) => tagId !== genre.id));
+                tagSelection.set(tagSelection.get.filter((tagId) => tagId !== genre.id));
             else
-            tagSelection.set([genre.id]); 
+                tagSelection.set([genre.id]);
         }
         chipData.set(temp);
         change.set(!change.get);
@@ -71,21 +71,21 @@ export const HeaderSelectedTags = () => {
     //The HTML template
     return (
         <div className="find-event-tags">
-          {tags.get.map((tag, i) => (
-            <Chip
-              sx={{
-                backgroundColor: chipData.get.find(x => x.value === tag.id) ? "#FF9800" : "#7759A6",
-                color: "white",
-                margin: "1%",
-              }}
-              key={i}
-              label={tag.name}
-              id={tag.id}
-              color="default"
-              onClick={() => toggleGenreChip(tag)}
-            />
-          ))}
-        </div>  
+            {tags.get.map((tag, i) => (
+                <Chip
+                    sx={{
+                        backgroundColor: chipData.get.find(x => x.value === tag.id) ? "#FF9800" : "#7759A6",
+                        color: "white",
+                        margin: "1%",
+                    }}
+                    key={i}
+                    label={tag.name}
+                    id={tag.id}
+                    color="default"
+                    onClick={() => toggleGenreChip(tag)}
+                />
+            ))}
+        </div>
     );
 };
 
@@ -124,21 +124,21 @@ export const SearchSelectedTags = () => {
 
         //Select tag
         if (!temp.find(x => x.value === genre.id)) {
-        temp.push({
-            key: newKey,
-            searchCategory: "genre",
-            label: genre.name,
-            value: genre.id,
-        });  
-        tagSelection.set([...tagSelection.get, genre.id]);        
+            temp.push({
+                key: newKey,
+                searchCategory: "genre",
+                label: genre.name,
+                value: genre.id,
+            });
+            tagSelection.set([...tagSelection.get, genre.id]);
         }
         //Deselect tag
         else if (temp.find(x => x.value === genre.id)) {
             temp = temp.filter((tag) => tag.value !== genre.id);
             if (Array.isArray(tagSelection.get))
-            tagSelection.set(tagSelection.get.filter((tagId) => tagId !== genre.id));
+                tagSelection.set(tagSelection.get.filter((tagId) => tagId !== genre.id));
             else
-            tagSelection.set([genre.id]); 
+                tagSelection.set([genre.id]);
         }
         chipData.set(temp);
         change.set(!change.get);
