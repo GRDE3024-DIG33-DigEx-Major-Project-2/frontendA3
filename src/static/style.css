@@ -200,7 +200,7 @@ a {
   width: 90%;
   max-height: 500px;
   text-align: center;
-  background-image: url("https://gigney.s3.ap-southeast-2.amazonaws.com/frontend/Homepage-background.jpeg");
+  background-image: url("../assets/Homepage-background.png");
   padding: 3% 5%;
   background-size: cover;
   background-repeat: no-repeat;
