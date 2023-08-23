@@ -239,7 +239,7 @@ function EventPage() {
               </Stack>
             </div>
             <div className="organiser-box outlined">
-              <h2 className="event-prev-title">Organiser</h2>
+              <h2 className="event-prev-title organiser-title">Organiser</h2>
               {event.event.organizerImg && (
                 <Avatar id="event-avatar" alt={event.event.organizationName} src={event.event.organizerImg} />
               )}
@@ -248,7 +248,7 @@ function EventPage() {
                   {getFirstLetters(event.event.organizationName)}
                 </Avatar>
               )}
-              <h2>{event.event.organizationName}</h2>
+              <h2 className="organiser-name">{event.event.organizationName}</h2>
             </div>
           </div>
           <div className="event-prev-third-row">

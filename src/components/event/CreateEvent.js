@@ -755,11 +755,11 @@ function CreateEvent() {
                     </Stack>
                   </div>
                   <div className="organiser-box outlined">
-                    <h2 className="event-prev-title">Organiser</h2>
+                    <h2 className="event-prev-title organiser-title">Organiser</h2>
                     <Avatar id="event-avatar">
                       {getFirstLetters(eventOrganiser)}
                     </Avatar>
-                    <h2>{eventOrganiser}</h2>
+                    <h2 className="organiser-name">{eventOrganiser}</h2>
                   </div>
                 </div>
                 <div className="event-prev-third-row">

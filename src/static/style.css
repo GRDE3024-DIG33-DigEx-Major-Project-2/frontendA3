@@ -254,6 +254,7 @@ a {
 
 #location-field-search {
   width: 25%;
+  border: 2px solid #D3D3D3;
 }
 
 #date-field-search {
@@ -266,10 +267,12 @@ a {
 }
 #date-field-search .date-picker {
   width: 48.5%;
+  border: 2px solid #D3D3D3;
 }
 
 #events-txt-field {
   width: 25%;
+  border: 2px solid #D3D3D3;
 }
 
 .login-page {
@@ -1703,7 +1706,7 @@ footer {
 }
 
 /* Tablet */
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 960px) and (min-width: 801px) {
   /* General Styling */
   h2 {
     font-size: 1.5em;
@@ -1959,7 +1962,7 @@ footer {
   }
 }
 /* Small Tablet */
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 800px) and (min-width: 641px) {
   /* HEADER */
   header {
     padding: 3%;
@@ -2241,7 +2244,7 @@ footer {
   }
 }
 /* Phone */
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 640px) and (min-width: 481px) {
   /* General Styling */
   h2 {
     font-size: 1.3em;
@@ -2343,9 +2346,64 @@ footer {
     text-align: center;
     color: #ffffff;
   }
+  /*HOME PAGE*/
+  .swiper-button-prev,
+  .swiper-button-next {
+    top: 7% !important;
+  }
+  .swiper {
+    padding: 7% 0 0 0 !important;
+  }
+  .find-event-search {
+    display: flex;
+    flex-direction: column;
+  }
+  #location-field-search,
+  #events-txt-field {
+    width: 80%;
+    margin: 5px;
+  }
+  #date-field-search {
+    width: 165%;
+    flex-direction: column;
+    margin: 5px;
+  }
+  #date-field-search .date-picker {
+    margin: 5px;
+  }
+  #search-form-submit-btn {
+    width: 80%;
+  }
+  /*EVENT PREVIEW*/
+  .event-prev-second-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 59px;
+  }
+  .event-prev-second-row .when-where-box {
+    width: 100%;
+  }
+  .event-preview p {
+    font-size: 16px !important;
+  }
+  .event-prev-second-row .organiser-box {
+    width: 98%;
+  }
+  .organiser-name {
+    margin: 40px;
+  }
+  .organiser-title {
+    top: -32px !important;
+  }
+  .prev-date-time .strong-string-prev {
+    margin: 0;
+  }
   .horizontal-card-created,
   .horizontal-card-action {
     aspect-ratio: 2.5/1;
+  }
+  .event-preview .event-prev-title-2 {
+    top: -31% !important;
   }
   .horizontal-card-box h3 {
     font-size: 14px;
@@ -2356,10 +2414,71 @@ footer {
   #ev-share {
     top: 75%;
   }
+  /*LOGIN PAGE*/
+  .login-page {
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 86vh;
+  }
+  .left,
+  .right {
+    height: 50%;
+    width: 100%;
+  }
+  .mobile-login-logo {
+    top: 15%;
+  }
+  .right .login-logo {
+    margin-top: 69px;
+  }
+  .right .login-form {
+    width: 100%;
+    row-gap: 0;
+    top: -11px;
+  }
+  .right .login-link {
+    padding-bottom: 91px;
+  }
+  .login-logo h1 {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+  .login-form p {
+    margin-top: 0;
+  }
+  .login-page footer {
+    margin-top: 35px;
+  }
+  .right .MuiOutlinedInput-input {
+    padding: 6px 14px;
+  }
+  #login-btn {
+    top: 9px;
+  }
+  .login-btn-container {
+    text-align: center;
+    margin-top: -2px;
+    margin-bottom: 0;
+  }
+  .signup {
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+    min-height: 86vh;
+    height: 100%;
+  }
   .mobile-signup-logo {
     width: 60%;
     top: 20%;
     left: 20%;
+  }
+  .signup-right,
+  .signup-left {
+    width: 100%;
+    height: 50%;
+  }
+  .signup-right {
+    margin-top: -247px;
+    z-index: -5;
   }
   .signup-left {
     gap: 3%;
@@ -2371,6 +2490,8 @@ footer {
   }
   .signup-form {
     height: 50%;
+    width: 76%;
+    gap: 9px;
   }
   .signup-form label {
     font-size: 0.9em;
@@ -2435,10 +2556,17 @@ footer {
   /*PROFILE PAGE*/
   .profile-container {
     grid-template-areas: "head" "bio" "account" "events";
+    grid-template-columns: 100%;
   }
   .profile-container .events-profile {
     height: auto;
     margin: 40px 0;
+  }
+  .profile-container h2 {
+    font-size: 16px;
+  }
+  .profile-container p, .profile-container a {
+    font-size: 2.3vw;
   }
   .profile-box {
     padding: 2%;
@@ -2522,6 +2650,12 @@ footer {
   .create-event-media {
     margin-top: 20px;
   }
+  #create-ev-bttns div {
+    width: 47%;
+  }
+  .create-event-date-time .MuiInputBase-adornedStart {
+    width: 273px;
+  }
   /*EVENT PAGE*/
   .search-results #card-name-link h3 {
     font-size: 2.5vw;
@@ -2552,7 +2686,7 @@ footer {
     height: 65%;
   }
   .event-prev-second-row .event-prev-title {
-    top: -26%;
+    top: -16%;
   }
   .event-prev-third-row .event-prev-title-2 {
     top: -32%;
@@ -2562,6 +2696,105 @@ footer {
   }
   .event-preview .event-prev-card-icon-bookmark {
     right: 15%;
+  }
+  /*SEARCH RESULTS*/
+  .search-results #card-name-link h3 {
+    font-size: 3.5vw;
+  }
+  .search-results .horizontal-card-box p {
+    font-size: 2.8vw;
+  }
+  .search-results-grid {
+    display: grid;
+    grid-template-areas: "filters" "gap" "results";
+    grid-template-columns: 100%;
+  }
+  .search-filters .MuiTypography-root {
+    font-size: 1em;
+  }
+  .search-results-grid .search-filters {
+    margin: 1em;
+  }
+  .search-results-grid .search-filters .MuiGrid-grid-xs-4 {
+    flex-basis: 33%;
+  }
+  .search-results-grid .search-filters .filter-box {
+    padding: 3%;
+    width: 100%;
+  }
+  .search-results-grid .search-filters-top {
+    width: 100%;
+  }
+  .search-filters-top {
+    flex-wrap: wrap;
+  }
+  .search-filters-top .MuiChip-deletable {
+    margin: 2px;
+  }
+  .search-results-grid .events-result {
+    width: 100%;
+  }
+  #price-select-box p {
+    font-size: 0.7em;
+  }
+  .search-results-grid .search-results {
+    margin: 1.6em;
+    margin-right: 0.3em;
+  }
+  .search-results-grid .search-results .MuiChip-label {
+    font-size: 0.6rem;
+  }
+  .search-results-grid .search-results .search-filters-top a {
+    font-size: 0.8rem;
+    padding: 2%;
+  }
+  .home-section .search-results-grid .MuiCardMedia-img {
+    width: 50% !important;
+    height: 100% !important;
+    object-fit: fit;
+  }
+  .search-results-grid .card-icon {
+    width: 26px;
+    height: 26px;
+  }
+  .search-results-grid .MuiSvgIcon-fontSizeMedium {
+    font-size: 1.5em !important;
+  }
+  .ev-share-h .MuiSvgIcon-fontSizeMedium,
+  .ev-bookmark-h .MuiSvgIcon-fontSizeMedium {
+    font-size: 1.8em;
+  }
+  .ev-share-h {
+    bottom: 4%;
+    right: 4%;
+  }
+  .ev-bookmark-h {
+    bottom: 4%;
+    right: 29%;
+  }
+  .search-buttons {
+    padding-top: 1em;
+  }
+  .search-results-grid #ev-bookmark-h-selected {
+    padding: 2%;
+    width: 24px;
+    height: 24px;
+  }
+  .search-results-grid #bookmark-show {
+    bottom: 1%;
+  }
+  .event-prev-third-row .horizontal-stack {
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    padding: 0;
+  }
+  .event-prev-price {
+    margin-left: 0;
+    width: 100%;
+    max-width: 75%;
+    padding: 0 3%;
+    border-bottom: #e6e2e2 1px solid;
   }
 }
 /* Small Phone */
