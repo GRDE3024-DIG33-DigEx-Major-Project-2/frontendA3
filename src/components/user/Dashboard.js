@@ -33,7 +33,6 @@ import AccountSettings from "./AccountSettings";
 import { scrollToTop } from "../../utils/utils";
 
 
-
 /**
  * Builds the Dashboard react component
  * @returns The rendered react component
@@ -75,7 +74,7 @@ const Dashboard = () => {
 
   // Function handling the organiser's profile update
   const handleUserUpdate = async () => {
-    
+
     let formData = null;
 
     let removeImg = false;
@@ -458,11 +457,11 @@ const Dashboard = () => {
                   <Box className="drafts">
                     {drafts.map((draft, i) => (
                       <DraftCard
-                        key={i}
+                        key={draft.id}
                         name={
                           draft.eventName ? draft.eventName : "Draft " + (i + 1)
                         }
-                        draftNo={i}
+                        draftNo={draft.id}
                         setRefresh={setRefresh}
                         refresh={refresh}
                       />

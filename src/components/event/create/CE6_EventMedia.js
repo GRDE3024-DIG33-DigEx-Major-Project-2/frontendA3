@@ -4,6 +4,9 @@
 
 //Import dependencies
 import { Box, FormControl, Grid, Link } from "@mui/material";
+import { getBlob } from "../../../utils/indexedDb";
+import { useState, useEffect } from "react";
+import { PartialLoadSpinner } from "../../shared/LoadingSpinner";
 
 /**
  * Builds EventMedia component
@@ -11,23 +14,58 @@ import { Box, FormControl, Grid, Link } from "@mui/material";
  * @returns Render of EventMedia component
  */
 const EventMedia = (props) => {
-  
-  /**
-   * Stage image for event
-   * @param {*} e 
-   */
+  const { selectedImage, setSelectedImage, draftNo, onImageChange } = props;
+  const [blobURL, setBlobURL] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (!draftNo) {
+      setIsLoading(false);
+      return;
+    }
+
+    /**
+     * Fetch the cached event image
+     */
+    const fetchCachedImage = async () => {
+      try {
+        console.log("THE KEY: ", draftNo);
+        const imageBlob = await getBlob(draftNo);
+        if (imageBlob) {
+          const url = URL.createObjectURL(imageBlob);
+          setBlobURL(url);
+          setSelectedImage(imageBlob);
+        }
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        setError("Error retrieving cached image");
+        console.error("Error retrieving cached image:", error);
+      }
+    };
+
+    fetchCachedImage();
+
+    //Cleanup the object URL if it exists
+    return () => {
+      if (blobURL) URL.revokeObjectURL(blobURL);
+    };
+  }, [draftNo, setSelectedImage]);
+
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
-      props.setSelectedImage(e.target.files[0]);
+      const blob = e.target.files[0];
+      const url = URL.createObjectURL(blob);
+      setBlobURL(url);
+      setSelectedImage(blob);
+      onImageChange(blob);
     }
   };
 
-  /**
-   * Unstage the event image
-   */
-  const removeSelectedImage = () => {
-    props.setSelectedImage();
-  };
+  if (isLoading) {
+    return <PartialLoadSpinner></PartialLoadSpinner>;
+  }
 
   //Return render of EventMedia component
   return (
@@ -46,9 +84,8 @@ const EventMedia = (props) => {
                   paddingBottom="15px"
                   direction="row"
                 >
-                  {!props.selectedImage && (
+                  {!selectedImage && (
                     <div className="create-ev-img-box">
-                      {" "}
                       <label>
                         <input
                           id="create-ev-img-input"
@@ -60,21 +97,12 @@ const EventMedia = (props) => {
                       </label>
                     </div>
                   )}
-                  {props.selectedImage && (
+                  {blobURL && (
                     <>
                       <div className="create-ev-img-box">
-                        <img
-                          src={URL.createObjectURL(props.selectedImage)}
-                          onerror="this.onerror=null"
-                          alt="Thumb"
-                          className="preview-image"
-                        />
+                        <img src={blobURL} alt="Uploaded Event" />
                       </div>
-                      <div id="remove-img-box">
-                        <Link color="#f58146" onClick={removeSelectedImage}>
-                          Remove This Image
-                        </Link>
-                      </div>
+                      ...
                     </>
                   )}
                 </Grid>

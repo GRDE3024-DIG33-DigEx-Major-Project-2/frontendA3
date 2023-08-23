@@ -6,6 +6,10 @@ body {
   margin: 0;
 }
 
+h1 {
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25);
+}
+
 .App {
   min-height: 100vh;
 }
@@ -200,7 +204,7 @@ a {
   width: 90%;
   max-height: 500px;
   text-align: center;
-  background-image: url("https://gigney.s3.ap-southeast-2.amazonaws.com/frontend/Homepage-background.jpeg");
+  background-image: url("../assets/Homepage-background.png");
   padding: 3% 5%;
   background-size: cover;
   background-repeat: no-repeat;
@@ -560,14 +564,17 @@ footer {
   width: 98%;
   text-align: center;
   color: #ffffff;
+  font-size: 1em;
 }
 
 #footer-tou {
   text-decoration: underline;
+  font-size: 1em;
 }
 
 #footer-privpol {
   text-decoration: underline;
+  font-size: 1em;
 }
 
 .search-results-grid {
@@ -1969,7 +1976,7 @@ footer {
   }
   nav .nav-links {
     width: 75vw;
-    gap: 2%;
+    gap: 5%;
   }
   .bttn-style-purple,
   .bttn-style-orange {
@@ -2264,6 +2271,9 @@ footer {
     align-items: center;
   }
   #mobile-menu {
+    display: block;
+  }
+  #mobile-menu button {
     display: block;
   }
   .mobile-menu-link {
