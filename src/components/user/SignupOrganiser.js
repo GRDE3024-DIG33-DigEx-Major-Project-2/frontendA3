@@ -16,6 +16,7 @@ import { LoadingContext } from "../../props/loading-spinner.prop";
 import { register } from "../../services/UserAPI";
 import { showSuccessToast, showErrorToast } from "../shared/Toaster";
 import { PATHS } from "../../utils/constants.util";
+import GIGNEY_SIGNUP_LEFT_LOGO from "../../assets/gigney_logo_black_square_no_bg_web.png";
 
 /**
  * Builds the Signup Organiser component
@@ -95,7 +96,7 @@ function SignupOrganiser() {
       <div id="organsier-height" className="signup-second-page">
         <div className="signup-second-page-logo">
           <img
-            src="../gigney_logo_black_square_no_bg_web.png"
+            src={GIGNEY_SIGNUP_LEFT_LOGO}
             alt="gigney logo"
           />
           <h1>Create an account</h1>

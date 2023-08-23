@@ -11,12 +11,10 @@ import Select from "@mui/material/Select";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@mui/material";
-import {
-  GIGNEY_SIGNUP_LOGO,
-  PATHS,
-  GIGNEY_SIGNUP_LEFT_LOGO,
-  GIGNEY_SIGNUP_RIGHT_LOGO,
-} from "../../utils/constants.util";
+import { PATHS } from "../../utils/constants.util";
+import GIGNEY_SIGNUP_LOGO from "../../assets/Gigney-signup-img.png";
+import GIGNEY_SIGNUP_LEFT_LOGO from "../../assets/gigney_logo_black_square_no_bg_web.png";
+import GIGNEY_SIGNUP_RIGHT_LOGO from "../../assets//gigney_logo_white_square_no_bg_web.png";
 
 /**
  * Build the signup base component

@@ -28,6 +28,7 @@ import { showSuccessToast, showErrorToast } from "../shared/Toaster";
 import { PATHS } from "../../utils/constants.util";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import GIGNEY_SIGNUP_LEFT_LOGO from "../../assets/gigney_logo_black_square_no_bg_web.png";
 
 /**
  * Build the signup attendee component
@@ -112,7 +113,7 @@ function SignupAttendee() {
       <div id="guest-height" className="signup-second-page">
         <div className="signup-second-page-logo">
           <img
-            src="../gigney_logo_black_square_no_bg_web.png"
+            src={GIGNEY_SIGNUP_LEFT_LOGO}
             alt="gigney logo"
           />
           <h1>Create an account</h1>

@@ -25,6 +25,9 @@ import { showSuccessToast, showErrorToast } from "../shared/Toaster";
 import { PATHS } from "../../utils/constants.util";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import GIGNEY_LOGIN from "../../assets/Gigney_login.png"
+import GIGNEY_SIGNUP_LEFT_LOGO from "../../assets/gigney_logo_black_square_no_bg_web.png";
+import GIGNEY_SIGNUP_RIGHT_LOGO from "../../assets//gigney_logo_white_square_no_bg_web.png";
 
 /**
  * Login component
@@ -132,13 +135,13 @@ const Login = ({ setIsLoggedIn }) => {
       <div className="left">
         {" "}
         <img
-          src="Gigney_login.png"
+          src={GIGNEY_LOGIN}
           alt="Band playing music"
           className="left-img"
         ></img>
         <div className="mobile-login-logo">
           <img
-            src="./gigney_logo_white_square_no_bg_web.png"
+            src={GIGNEY_SIGNUP_RIGHT_LOGO}
             alt="live concert"
             className="login-logo-img"
           />
@@ -147,7 +150,7 @@ const Login = ({ setIsLoggedIn }) => {
       <div className="right">
         <div className="login-logo">
           <img
-            src="../gigney_logo_black_square_no_bg_web.png"
+            src={GIGNEY_SIGNUP_LEFT_LOGO}
             alt="gigney logo"
           />
           <h1>Sign in</h1>
