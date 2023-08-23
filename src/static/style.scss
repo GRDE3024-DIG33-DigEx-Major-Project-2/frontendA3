@@ -3041,7 +3041,7 @@ z-index: -5;
     #date-field-search{
       gap: 15px;
       flex-direction: column;
-      width: 205%;
+      width: 100%;
     }
   }
   .search-form-els {
@@ -3093,7 +3093,7 @@ z-index: -5;
   }
 
   #events-txt-field {
-    min-width: 76vw;
+    width: 100%;
   }
 
   /*CREATE EVENTS PAGE*/
