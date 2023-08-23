@@ -1762,7 +1762,6 @@ footer {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    gap: 15px;
     width: 80%;
     min-height: 32vh;
     padding: 0;

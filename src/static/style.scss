@@ -1739,7 +1739,6 @@ footer {
   /*HOME PAGE*/
   .find-event-search {
     @include flex-column(space-evenly, center);
-    gap: 15px;
     width: 80%;
     min-height: 32vh;
     padding: 0;
