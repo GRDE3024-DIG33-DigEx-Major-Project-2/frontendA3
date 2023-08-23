@@ -39,7 +39,7 @@ const EventCard = (props) => {
    */
   useEffect(() => {
     if (user)
-      if (user.type === "attendee") {
+      if (user.type === "attendee" || user.userType === "attendee") {
         let val = props.event.event.isFavourite;
         if (val === true || val === "true") setFavourite(true);
         else if (val === false || val === "false") setFavourite(false);
@@ -139,7 +139,7 @@ const EventCard = (props) => {
         </div>
       </Tooltip>
       {user !== null &&
-        (user.type === "attendee" ? (
+        (user.type === "attendee" || user.userType === "attendee" ? (
           <Tooltip
             title={!favourite ? "Add to favourites" : "Remove from favourites"}
           >

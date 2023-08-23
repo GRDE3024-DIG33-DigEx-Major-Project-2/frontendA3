@@ -58,7 +58,6 @@ const Profile = () => {
 
   //Get the user session data
   const user = getUser();
-  console.log(user);
 
   const fullName = user.firstName + " " + user.lastName;
 

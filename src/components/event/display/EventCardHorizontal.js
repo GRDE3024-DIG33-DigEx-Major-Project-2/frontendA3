@@ -35,7 +35,7 @@ const EventCardHorizontal = (props) => {
    */
   useEffect(() => {
     if (user)
-      if (user.type === "attendee") {
+      if (user.type === "attendee" || user.userType === "attendee") {
         let val = props.event.event.isFavourite;
         if (val === true || val === "true")
           setFavourite(true);
@@ -140,7 +140,7 @@ const EventCardHorizontal = (props) => {
               </div>
             </Tooltip>
             {user !== null && (
-              user.type === "attendee" ? (
+              user.type === "attendee" || user.userType === "attendee" ? (
                 <Tooltip
                   title={!favourite ? "Add to favourites" : "Remove from favourites"}
                 >
