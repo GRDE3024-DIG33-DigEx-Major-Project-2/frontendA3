@@ -8,10 +8,7 @@ import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
 import SvgIcon from "@mui/material/SvgIcon";
 import { useContext, useState } from "react";
 //Import search event props
-import {
-  SearchEventsContext,
-  SearchEventFiltersContext
-} from "../../../../props/search-events.prop";
+import { SearchEventFiltersContext } from "../../../../props/search-events.prop";
 import { getAllSuburbs } from "../../../../utils/utils";
 
 /**
@@ -19,7 +16,6 @@ import { getAllSuburbs } from "../../../../utils/utils";
  * @returns Render of ByLocation component
  */
 const ByLocation = () => {
-
   //Suburbs of Sydney
   const [suburbs] = useState(getAllSuburbs());
 
@@ -47,9 +43,7 @@ const ByLocation = () => {
           );
         }}
       >
-        <MenuItem value={null}>
-          Any Suburb
-        </MenuItem>
+        <MenuItem value={null}>Any Suburb</MenuItem>
         {suburbs.length > 0 ? (
           suburbs.map(
             (sub, i) =>

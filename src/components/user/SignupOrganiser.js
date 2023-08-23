@@ -17,17 +17,13 @@ import { register } from "../../services/UserAPI";
 import { showSuccessToast, showErrorToast } from "../shared/Toaster";
 import { PATHS } from "../../utils/constants.util";
 
-
 /**
  * Builds the Signup Organiser component
  * @returns Render of Signup Organiser component
  */
 function SignupOrganiser() {
-
   //Fullpage loading spinner props
-  const {
-    setLoading
-  } = useContext(LoadingContext);
+  const { setLoading } = useContext(LoadingContext);
 
   //Props
   const [organizationName, setOrganizationName] = useState("");
@@ -59,7 +55,7 @@ function SignupOrganiser() {
 
   /**
    * Registration request handler
-   * @param {*} event 
+   * @param {*} event
    */
   const signupHandler = async (event) => {
     event.preventDefault();
@@ -68,7 +64,6 @@ function SignupOrganiser() {
     if (password !== confirmPassword) {
       showErrorToast("Passwords must match");
     } else {
-
       const requestBody = {
         userType: "organizer",
         email: email,
@@ -83,13 +78,14 @@ function SignupOrganiser() {
           navigate(PATHS.LOGIN);
         })
         .catch((error) => {
-          showErrorToast("Sorry, the backend server is down! Please try again later.");
+          showErrorToast(
+            "Sorry, the backend server is down! Please try again later."
+          );
         })
         .finally(() => {
           //Disable fullpage loading spinner
           setLoading(false);
         });
-
     }
   };
 
@@ -239,7 +235,7 @@ function SignupOrganiser() {
       </div>
     </>
   );
-};
+}
 
 //Export the signup organiser component
 export default SignupOrganiser;

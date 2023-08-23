@@ -4,24 +4,17 @@
 
 //Import dependencies
 import { Link } from "react-router-dom";
-import {
-  Box,
-  Button,
-  FormControl,
-  Modal,
-} from "@mui/material";
+import { Box, Button, FormControl, Modal } from "@mui/material";
 import ResetPassword from "./ResetPassword";
 import { useState } from "react";
 import { deleteUser } from "../../services/UserAPI";
 import { PartialLoadSpinner } from "../shared/LoadingSpinner";
-
 
 /**
  * Builds the Account Settings component
  * @returns Render of Account Settings component
  */
 const AccountSettings = () => {
-
   //Modal-related props
   const [modalOpen, setModalOpen] = useState(false);
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
@@ -38,63 +31,64 @@ const AccountSettings = () => {
   const handleDelete = async (e) => {
     e.preventDefault();
     console.log("...deleting account");
-      try {
-        setModalSpinner(true);
-        let response = await deleteUser();
-        handleConfirmationModalOpen();
-        handleModalClose();
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setModalSpinner(false);
-      }
+    try {
+      setModalSpinner(true);
+      let response = await deleteUser();
+      handleConfirmationModalOpen();
+      handleModalClose();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setModalSpinner(false);
+    }
   };
 
-
   //Delete user modal template
-  let deleteModal = <>
+  let deleteModal = (
+    <>
       <Modal
-  open={modalOpen}
-  onClose={handleModalClose}
-  aria-labelledby="modal-modal-title"
-  aria-describedby="modal-modal-description"
->
-  <Box className="delete-event-modal">
-    <h2>Are you sure you want to delete your Gigney account?</h2>
-    <span>
-      All your data will be removed and permanently deleted, so you will
-      not be able to retrieve any of your existing information.
-    </span>
-    <div>
-      {modalSpinner ? (
-        <PartialLoadSpinner></PartialLoadSpinner>
-      ) : (
-        <>
-          <Button
-            id="save-exit-ev-btn"
-            variant="contained"
-            className="input-btn"
-            onClick={handleModalClose}
-          >
-            No, I've changed my mind
-          </Button>
-          <Button
-            id="save-cont-ev-btn"
-            variant="contained"
-            onClick={handleDelete}
-          >
-            Yes, delete my account
-          </Button>
-        </>
-      )}
-    </div>
-  </Box>
-</Modal>  
-  </>;
+        open={modalOpen}
+        onClose={handleModalClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box className="delete-event-modal">
+          <h2>Are you sure you want to delete your Gigney account?</h2>
+          <span>
+            All your data will be removed and permanently deleted, so you will
+            not be able to retrieve any of your existing information.
+          </span>
+          <div>
+            {modalSpinner ? (
+              <PartialLoadSpinner></PartialLoadSpinner>
+            ) : (
+              <>
+                <Button
+                  id="save-exit-ev-btn"
+                  variant="contained"
+                  className="input-btn"
+                  onClick={handleModalClose}
+                >
+                  No, I've changed my mind
+                </Button>
+                <Button
+                  id="save-cont-ev-btn"
+                  variant="contained"
+                  onClick={handleDelete}
+                >
+                  Yes, delete my account
+                </Button>
+              </>
+            )}
+          </div>
+        </Box>
+      </Modal>
+    </>
+  );
 
-
-//Confirmation modal template
-let confirmationModal = <>
+  //Confirmation modal template
+  let confirmationModal = (
+    <>
       <Modal
         open={confirmationModalOpen}
         onClose={handleConfirmationModalClose}
@@ -112,9 +106,8 @@ let confirmationModal = <>
           </Button>
         </Box>
       </Modal>
-</>;
-
-
+    </>
+  );
 
   //Return render of Account Settings component
   return (
@@ -123,20 +116,16 @@ let confirmationModal = <>
       <Box className="profile-box prof-left">
         <FormControl fullWidth>
           <ResetPassword></ResetPassword>
-          <Link
-            id="delete-account-profile"
-            onClick={handleModalOpen}
-          >
+          <Link id="delete-account-profile" onClick={handleModalOpen}>
             Delete this account
           </Link>
         </FormControl>
       </Box>
-    {deleteModal}
-    {confirmationModal}
+      {deleteModal}
+      {confirmationModal}
     </>
   );
 };
-
 
 //Export Account Settings component
 export default AccountSettings;

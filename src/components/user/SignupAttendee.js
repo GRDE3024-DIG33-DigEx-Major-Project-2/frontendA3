@@ -3,7 +3,13 @@
  */
 
 //Import dependencies
-import { FormControl, TextField, InputAdornment, Button, IconButton } from "@mui/material";
+import {
+  FormControl,
+  TextField,
+  InputAdornment,
+  Button,
+  IconButton,
+} from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { useNavigate, Link } from "react-router-dom";
 import { useState, useContext } from "react";
@@ -17,22 +23,19 @@ import dayjs from "dayjs";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
 import { LoadingContext } from "../../props/loading-spinner.prop";
-import {register} from "../../services/UserAPI";
+import { register } from "../../services/UserAPI";
 import { showSuccessToast, showErrorToast } from "../shared/Toaster";
 import { PATHS } from "../../utils/constants.util";
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 /**
  * Build the signup attendee component
  * @returns Render of signup attendee component
  */
 function SignupAttendee() {
-
   //Fullpage loading spinner props
-  const {
-    setLoading
-  } = useContext(LoadingContext);
+  const { setLoading } = useContext(LoadingContext);
 
   //Props
   const [showPassword, setShowPassword] = useState(false);
@@ -66,7 +69,7 @@ function SignupAttendee() {
 
   /**
    * Registration request handler
-   * @param {*} event 
+   * @param {*} event
    */
   const signupHandler = async (event) => {
     event.preventDefault();
@@ -77,7 +80,6 @@ function SignupAttendee() {
     if (password !== confirmPassword) {
       showErrorToast("Passwords must match");
     } else {
-
       const requestBody = {
         userType: "attendee",
         firstName: firstName,
@@ -88,18 +90,19 @@ function SignupAttendee() {
       };
 
       await register(requestBody)
-      .then((response) => {
-        showSuccessToast("Registration Succesful");
-        navigate(PATHS.LOGIN);
-      })
-      .catch((error) => {
-        showErrorToast("Sorry, the backend server is down! Please try again later.");
-      })
-      .finally(() => {
-        //Disable fullpage loading spinner
-        setLoading(false);        
-      });
-
+        .then((response) => {
+          showSuccessToast("Registration Succesful");
+          navigate(PATHS.LOGIN);
+        })
+        .catch((error) => {
+          showErrorToast(
+            "Sorry, the backend server is down! Please try again later."
+          );
+        })
+        .finally(() => {
+          //Disable fullpage loading spinner
+          setLoading(false);
+        });
     }
   };
 
@@ -285,7 +288,7 @@ function SignupAttendee() {
       </div>
     </>
   );
-};
+}
 
 //Export the signup attendee component
 export default SignupAttendee;

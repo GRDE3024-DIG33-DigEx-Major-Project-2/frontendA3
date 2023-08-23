@@ -14,11 +14,10 @@ import {
 import FindEventHeader from "./FindEventHeader";
 import EventCardHorizontal from "../display/EventCardHorizontal";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 //Import endpoint handlers for events
 import { searchEvents, getAllTags } from "../../../services/EventAPI";
 import { scrollToTop } from "../../../utils/utils";
-import { useContext } from "react";
 //Import search event props
 import {
   SearchEventsContext,

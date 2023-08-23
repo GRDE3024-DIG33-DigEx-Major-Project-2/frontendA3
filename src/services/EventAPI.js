@@ -8,7 +8,7 @@ import { EVENT_ENDPOINTS } from "../utils/constants.util";
 import { getAccessToken } from "../utils/localStorage";
 import { logoutErrorHandler } from "./AuthAPI";
 import axiosClient from "./Axios";
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 
 /**
  * Get a page of events from api endpoint
@@ -30,14 +30,15 @@ export const searchEvents = async function (
   priceRange,
   page
 ) {
-
   //Validate minDate and maxDate time range
-  if (typeof minDate === "string" && typeof maxDate === "string" &&
-    dayjs(minDate).isSame(dayjs(maxDate), 'day') &&
-    dayjs(minDate).isAfter(dayjs(maxDate), 'second')) {
+  if (
+    typeof minDate === "string" &&
+    typeof maxDate === "string" &&
+    dayjs(minDate).isSame(dayjs(maxDate), "day") &&
+    dayjs(minDate).isAfter(dayjs(maxDate), "second")
+  ) {
     showErrorToast("Start time cannot be after the end time.");
   }
-
 
   //The sanitized price range for request body
   let priceSetting = null;
@@ -107,7 +108,7 @@ export const getEventById = async function (id) {
     let response = await axiosClient.get(EVENT_ENDPOINTS.getByIdUrl + `/${id}`);
 
     //Success!
-    if (response.status == 200) {
+    if (response.status === 200) {
       console.log("Event found by id!");
       return response;
     }
@@ -171,7 +172,6 @@ export const getAllTags = async function () {
  * @returns Array of events and number of pages that match the filter options
  */
 export const searchOwnedEvents = async function (page) {
-
   const options = {
     headers: {
       Authorization: `Bearer ${getAccessToken()}`,
@@ -260,7 +260,6 @@ export const createEvent = async function (formData) {
  * @returns Array of events and number of pages that match the filter options
  */
 export const searchFavourites = async function (page) {
-
   const options = {
     headers: {
       Authorization: `Bearer ${getAccessToken()}`,
@@ -295,7 +294,6 @@ export const searchFavourites = async function (page) {
   return { events: events, pageCount: pageCount };
 };
 
-
 /**
  * Toggles an event as favourited/unfavourited for an Attendee
  * @param {*} eventId
@@ -327,10 +325,9 @@ export const toggleFavourite = async function (eventId) {
 /**
  * Checks favourited status of several events by id
  * @param {*} eventIds Array of event ids to find the favourite status of
- * @returns 
+ * @returns
  */
 export const isFavourited = async function (eventIds) {
-
   let requestBody = {
     eventIds: eventIds,
   };
@@ -364,8 +361,11 @@ export const updateEvent = async function (formData) {
     },
   };
   //Perform first event update request
-  let response = await axiosClient
-    .put(EVENT_ENDPOINTS.updateEventUrl, formData, updateEventOptions);
+  let response = await axiosClient.put(
+    EVENT_ENDPOINTS.updateEventUrl,
+    formData,
+    updateEventOptions
+  );
 
   //Success!
   if (response === 200) {

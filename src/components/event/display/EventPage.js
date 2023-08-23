@@ -47,10 +47,10 @@ function EventPage() {
    */
   useEffect(() => {
     if (user)
-      if (user.type == "attendee") {
+      if (user.type === "attendee") {
         let val = event.event.isFavourite;
-        if (val == true || val == "true") setFavourite(true);
-        else if (val == false || val == "false") setFavourite(false);
+        if (val === true || val === "true") setFavourite(true);
+        else if (val === false || val === "false") setFavourite(false);
       }
   }, []);
 

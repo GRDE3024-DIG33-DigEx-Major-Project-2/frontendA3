@@ -18,27 +18,25 @@ import {
   GIGNEY_SIGNUP_RIGHT_LOGO,
 } from "../../utils/constants.util";
 
-
 /**
  * Build the signup base component
  * @returns Render of signup component
  */
 function SignupBase() {
-
   //Account type flag
   const [accountType, setAccountType] = useState("");
 
   /**
    * Handle signup user type change
-   * @param {*} event 
+   * @param {*} event
    */
   const handleChange = (event) => {
     setAccountType(event.target.value);
   };
   const navigate = useNavigate();
   const handleClick = () => {
-    if (accountType == "attendee") navigate(PATHS.SIGN_UP_ATTENDEE);
-    else if (accountType == "organiser") navigate(PATHS.SIGN_UP_ORGANISER);
+    if (accountType === "attendee") navigate(PATHS.SIGN_UP_ATTENDEE);
+    else if (accountType === "organiser") navigate(PATHS.SIGN_UP_ORGANISER);
   };
 
   //Return render of signup base page
@@ -121,7 +119,7 @@ function SignupBase() {
       </div>
     </>
   );
-};
+}
 
 //Export base signup page
 export default SignupBase;

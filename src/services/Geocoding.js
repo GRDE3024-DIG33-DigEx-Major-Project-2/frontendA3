@@ -9,8 +9,8 @@ let ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 /**
  * Forward's geocoding for Mapbox
- * @param {*} address 
- * @returns 
+ * @param {*} address
+ * @returns
  */
 export const forwardGeocoding = async function (address) {
   //Default value - Sydney
