@@ -31,7 +31,6 @@ import { PATHS } from "../../utils/constants.util";
 import { useNavigate } from "react-router-dom";
 import AccountSettings from "./AccountSettings";
 import { scrollToTop } from "../../utils/utils";
-import { v4 as uuidv4 } from 'uuid';
 
 
 /**
@@ -75,7 +74,7 @@ const Dashboard = () => {
 
   // Function handling the organiser's profile update
   const handleUserUpdate = async () => {
-    
+
     let formData = null;
 
     let removeImg = false;

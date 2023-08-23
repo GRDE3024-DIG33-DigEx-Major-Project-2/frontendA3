@@ -3,7 +3,6 @@
  */
 
 import { clearAll } from "./indexedDb";
-import { v4 as uuidv4 } from 'uuid';
 
 /**
  * Gets user data from session storage

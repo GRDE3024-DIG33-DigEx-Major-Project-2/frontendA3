@@ -2,9 +2,9 @@
  * Create Event Step 6 -- Event Media
  */
 
-// Import dependencies
+//Import dependencies
 import { Box, FormControl, Grid, Link } from "@mui/material";
-import { clearBlob, getBlob } from "../../../utils/indexedDb";
+import { getBlob } from "../../../utils/indexedDb";
 import { useState, useEffect } from "react";
 import { PartialLoadSpinner } from "../../shared/LoadingSpinner";
 
@@ -23,8 +23,11 @@ const EventMedia = (props) => {
     if (!draftNo) {
       setIsLoading(false);
       return;
-  }
-  
+    }
+
+    /**
+     * Fetch the cached event image
+     */
     const fetchCachedImage = async () => {
       try {
         console.log("THE KEY: ", draftNo);
@@ -44,7 +47,7 @@ const EventMedia = (props) => {
 
     fetchCachedImage();
 
-    // Cleanup the object URL if it exists
+    //Cleanup the object URL if it exists
     return () => {
       if (blobURL) URL.revokeObjectURL(blobURL);
     };
@@ -55,26 +58,16 @@ const EventMedia = (props) => {
       const blob = e.target.files[0];
       const url = URL.createObjectURL(blob);
       setBlobURL(url);
-      setSelectedImage(blob); // notify parent about the new blob
-      onImageChange(blob);    // notify parent about the change
+      setSelectedImage(blob);
+      onImageChange(blob);
     }
   };
-
-  const removeSelectedImage = () => {
-    setSelectedImage(null);
-    clearBlob(draftNo);
-    if (blobURL) {
-      URL.revokeObjectURL(blobURL);
-      setBlobURL(null);
-    }
-  };
-
 
   if (isLoading) {
     return <PartialLoadSpinner></PartialLoadSpinner>;
   }
 
-  // Return render of EventMedia component
+  //Return render of EventMedia component
   return (
     <>
       <h2>Event media</h2>
@@ -122,5 +115,5 @@ const EventMedia = (props) => {
   );
 };
 
-// Export EventMedia component
+//Export EventMedia component
 export default EventMedia;
