@@ -1998,7 +1998,7 @@ footer {
   nav {
     .nav-links {
       width: 75vw;
-      gap: 2%;
+      gap: 5%;
     }
   }
 
@@ -2335,6 +2335,9 @@ footer {
 
   #mobile-menu {
     display: block;
+    button{
+      display: block;
+    }
   }
 
   .mobile-menu-link {
