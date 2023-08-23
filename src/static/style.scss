@@ -787,12 +787,6 @@ footer {
       border: none;
   }
   }
-
-  .create-ev-img-box .MuiTypography-inherit{
-    font-size: 20px;
-  }
-
-
   .prof-left {
     @include flex-column(space-around, left);
 
@@ -1353,6 +1347,7 @@ footer {
   height: 60vh;
   background-color: $lightgrey;
   @include flex-row(center, center);
+  font-size: 26px;
   img {
     object-fit: cover;
     width: 100%;

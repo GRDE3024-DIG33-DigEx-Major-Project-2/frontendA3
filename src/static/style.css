@@ -773,9 +773,6 @@ footer {
 .profile-container .prof-center p:empty {
   border: none;
 }
-.profile-container .create-ev-img-box .MuiTypography-inherit {
-  font-size: 20px;
-}
 .profile-container .prof-left {
   display: flex;
   flex-direction: column;
@@ -1359,6 +1356,7 @@ footer {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  font-size: 26px;
 }
 .create-ev-img-box img {
   object-fit: cover;
