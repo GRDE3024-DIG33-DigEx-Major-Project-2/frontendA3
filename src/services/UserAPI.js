@@ -30,22 +30,25 @@ export const updateUser = async function (formData) {
       Authorization: `Bearer ${getAccessToken()}`,
     },
   };
-    let response = await axiosClient
-      .put(USER_ENDPOINTS.updateUrl, formData, options);
+  let response = await axiosClient.put(
+    USER_ENDPOINTS.updateUrl,
+    formData,
+    options
+  );
 
-    //Success! Set new user and access token
-    if (response.status === 200) {
-      console.log("Update User Success!");
-      setUserSession(response.data.user);
-      setAccessToken(response.data.accessToken);
-      return "Success";
-    }
-    //Failed!
-    else {
-      console.log("Update User Failed!");
-      console.log(response.status);
-      return "Error";
-    }
+  //Success! Set new user and access token
+  if (response.status === 200) {
+    console.log("Update User Success!");
+    setUserSession(response.data.user);
+    setAccessToken(response.data.accessToken);
+    return "Success";
+  }
+  //Failed!
+  else {
+    console.log("Update User Failed!");
+    console.log(response.status);
+    return "Error";
+  }
 };
 
 /**
@@ -100,21 +103,21 @@ export const deleteUser = async function () {
     },
   };
 
-    let response = await axiosClient.delete(USER_ENDPOINTS.deleteUrl, options);
+  let response = await axiosClient.delete(USER_ENDPOINTS.deleteUrl, options);
 
-    //Success! Set new user and access token
-    if (response.status === 200) {
-      console.log("User Delete Success!");
-      showSuccessToast("Your account was successfully deleted!");
-      logoutErrorHandler();
-      return response;
-    }
-    //Failed!
-    else {
-      console.log(
-        "A problem occured whiile deleting your account. Please try again later."
-      );
-      console.log(response);
-      return response;
-    }
+  //Success! Set new user and access token
+  if (response.status === 200) {
+    console.log("User Delete Success!");
+    showSuccessToast("Your account was successfully deleted!");
+    logoutErrorHandler();
+    return response;
+  }
+  //Failed!
+  else {
+    console.log(
+      "A problem occured whiile deleting your account. Please try again later."
+    );
+    console.log(response);
+    return response;
+  }
 };

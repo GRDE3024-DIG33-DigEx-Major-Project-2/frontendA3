@@ -51,7 +51,7 @@ const ResetPassword = () => {
     event.preventDefault();
 
     //Both new password inputs must match
-    if (newPassword != confirmPassword) {
+    if (newPassword !== confirmPassword) {
       showErrorToast("New password input mismatch!");
     }
     //Password inputs match, attempting reset password request

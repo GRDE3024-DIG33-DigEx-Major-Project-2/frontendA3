@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useContext } from "react";
-import { SearchEventsContext, SearchEventFiltersContext } from "../../../../props/search-events.prop";
+import { SearchEventFiltersContext } from "../../../../props/search-events.prop";
 import { v4 as uuidv4 } from 'uuid';
 
 /**
@@ -73,7 +73,7 @@ const TicketPriceRange = () => {
 
   //If set to free, set price range to default
   useEffect(() => {
-    if (isFree.get == IMMUTABLE_CHIP_VALUES.FREE) {
+    if (isFree.get === IMMUTABLE_CHIP_VALUES.FREE) {
       setMinPrice(1);
       setMaxPrice(200);
     }

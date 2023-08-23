@@ -3,7 +3,7 @@
  */
 
 //Import dependencies
-import { Button, Card, Link, Modal,Box } from "@mui/material";
+import { Button, Card, Link, Modal, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { getDrafts, removeDraft } from "../../utils/localStorage";
 import { PATHS } from "../../utils/constants.util";
@@ -13,11 +13,10 @@ import { PartialLoadSpinner } from "../shared/LoadingSpinner";
 
 /**
  * Builds the DraftCard component
- * @param {*} props 
+ * @param {*} props
  * @returns Render of the DraftCard component
  */
 const DraftCard = (props) => {
-
   //SPA navigator
   const navigate = useNavigate();
   //Retrieve draft from local storage
@@ -32,7 +31,9 @@ const DraftCard = (props) => {
    * Redirect to the create event flow with the selected draft
    */
   const cardRedirect = () => {
-    navigate(PATHS.CREATE_EVENT, { state: { draft: draft, draftNo: props.draftNo } });
+    navigate(PATHS.CREATE_EVENT, {
+      state: { draft: draft, draftNo: props.draftNo },
+    });
   };
 
   /**
@@ -58,25 +59,21 @@ const DraftCard = (props) => {
       const response = await deleteEvent(props.event.event.id);
       handleConfirmationModalOpen();
       handleModalClose();
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
-    }
-    finally {
+    } finally {
       setModalSpinner(false);
     }
   };
 
   /**
    * Close the modal
-   * @param {*} event 
+   * @param {*} event
    */
   const handleDelete = (event) => {
     handleModalOpen();
     setMenuOpen(false);
   };
-
-
 
   //Return render of the DraftCard component
   return (
@@ -85,50 +82,58 @@ const DraftCard = (props) => {
         <h3>{props.name}</h3>
       </Link>
       <div>
-        <Button id="save-cont-ev-btn" variant="contained" onClick={cardRedirect}>
+        <Button
+          id="save-cont-ev-btn"
+          variant="contained"
+          onClick={cardRedirect}
+        >
           Keep editing
         </Button>
-        <Button id="save-exit-ev-btn" variant="contained" onClick={handleDelete}>
+        <Button
+          id="save-exit-ev-btn"
+          variant="contained"
+          onClick={handleDelete}
+        >
           Delete draft
         </Button>
       </div>
       <Modal
-  open={modalOpen}
-  onClose={handleModalClose}
-  aria-labelledby="modal-modal-title"
-  aria-describedby="modal-modal-description"
->
-  <Box className="delete-event-modal">
-    <h2>Are you sure you want to delete this event?</h2>
-    <span>
-      All event data will be removed and permanently deleted, so you
-      will not be able to retrieve any of the existing information.
-    </span>
-    <div>
-      {modalSpinner ? (
-        <PartialLoadSpinner></PartialLoadSpinner>
-      ) : (
-        <>
-          <Button
-            id="save-exit-ev-btn"
-            variant="contained"
-            className="input-btn"
-            onClick={handleModalClose}
-          >
-            No, I've changed my mind
-          </Button>
-          <Button
-            id="save-cont-ev-btn"
-            variant="contained"
-            onClick={remove}
-          >
-            Yes, delete this event
-          </Button>
-        </>
-      )}
-    </div>
-  </Box>
-</Modal>
+        open={modalOpen}
+        onClose={handleModalClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box className="delete-event-modal">
+          <h2>Are you sure you want to delete this event?</h2>
+          <span>
+            All event data will be removed and permanently deleted, so you will
+            not be able to retrieve any of the existing information.
+          </span>
+          <div>
+            {modalSpinner ? (
+              <PartialLoadSpinner></PartialLoadSpinner>
+            ) : (
+              <>
+                <Button
+                  id="save-exit-ev-btn"
+                  variant="contained"
+                  className="input-btn"
+                  onClick={handleModalClose}
+                >
+                  No, I've changed my mind
+                </Button>
+                <Button
+                  id="save-cont-ev-btn"
+                  variant="contained"
+                  onClick={remove}
+                >
+                  Yes, delete this event
+                </Button>
+              </>
+            )}
+          </div>
+        </Box>
+      </Modal>
       <Modal
         open={confirmationModalOpen}
         onClose={handleConfirmationModalClose}
@@ -145,7 +150,6 @@ const DraftCard = (props) => {
         </Box>
       </Modal>
     </Card>
-    
   );
 };
 

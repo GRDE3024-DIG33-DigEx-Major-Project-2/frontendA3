@@ -10,31 +10,28 @@ import {
   resetTokenSession,
   resetUserSession,
 } from "../utils/localStorage";
-import {
-  showToast,
-} from "../components/shared/Toaster";
+import { showToast } from "../components/shared/Toaster";
 
 //Init Axios instance
 const axiosClient = axios.create({
-  withCredentials: true
+  withCredentials: true,
 });
 
 /**
  * Sets up Axios client's interceptors
- * @param {*} navigate 
- * @param {*} setIsLoggedIn 
- * @returns The Axios client after interceptor setup 
+ * @param {*} navigate
+ * @param {*} setIsLoggedIn
+ * @returns The Axios client after interceptor setup
  */
 export const setupAxiosInterceptors = (navigate, setIsLoggedIn) => {
-  
   /**
    * Setup refresh JWT interceptor
    */
   axiosClient.interceptors.response.use(
     //Return response if it was initially successful
-    response => response,
+    (response) => response,
     //Handle error if initial request failed
-    async error => {
+    async (error) => {
       //Deconstruct original request instance
       const originalRequest = error.config;
 
@@ -53,19 +50,26 @@ export const setupAxiosInterceptors = (navigate, setIsLoggedIn) => {
 
       //Attempt refresh token request, then original request
       try {
-        const refreshTokenResponse = await axiosClient.get(AUTH_ENDPOINTS.refreshTokenUrl);
+        const refreshTokenResponse = await axiosClient.get(
+          AUTH_ENDPOINTS.refreshTokenUrl
+        );
         if (
-          (refreshTokenResponse.status >= 200 && refreshTokenResponse.status <= 299) ||
+          (refreshTokenResponse.status >= 200 &&
+            refreshTokenResponse.status <= 299) ||
           refreshTokenResponse.status === 400
         ) {
           setAccessToken(refreshTokenResponse.data.accessToken);
-          originalRequest.headers["Authorization"] = `Bearer ${refreshTokenResponse.data.accessToken}`;
+          originalRequest.headers[
+            "Authorization"
+          ] = `Bearer ${refreshTokenResponse.data.accessToken}`;
           return axiosClient(originalRequest);
         }
-        
+
         //Logout user and reject promise on failed requests
         logoutAndRedirect(navigate, setIsLoggedIn);
-        return Promise.reject(new Error("Refresh token responded with a failed status"));
+        return Promise.reject(
+          new Error("Refresh token responded with a failed status")
+        );
 
         //Logout user and reject promise on caught error
       } catch (refreshError) {
@@ -78,7 +82,6 @@ export const setupAxiosInterceptors = (navigate, setIsLoggedIn) => {
   //Return axios instance with the interceptors configured
   return axiosClient;
 };
-
 
 /**
  * Handles normal logout procedures

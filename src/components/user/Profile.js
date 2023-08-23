@@ -14,12 +14,11 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import EventCardHorizontal from "../event/display/EventCardHorizontal";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { getFirstLetters } from "../../utils/utils";
 //Search for favourited events
 import { searchFavourites } from "../../services/EventAPI";
 import { updateUser } from "../../services/UserAPI";
-import { useContext } from "react";
 //Import search event props
 import {
   SearchEventsContext,
@@ -32,7 +31,6 @@ import { PATHS } from "../../utils/constants.util";
 import { useNavigate } from "react-router-dom";
 import AccountSettings from "./AccountSettings";
 import { scrollToTop } from "../../utils/utils";
-import { LoadingContext } from "../../props/loading-spinner.prop";
 
 /**
  * Builds the Profile react component

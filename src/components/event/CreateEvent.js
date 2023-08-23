@@ -63,7 +63,7 @@ function CreateEvent() {
 
   //Stepper state
   const [activeStep, setActiveStep] = useState(0);
-  const [completed, setCompleted] = useState({});
+  const [completed, setCompleted] = useState(draft ? draft.completed : {});
   const steps = [
     "Basic Information",
     "Artists and Summary",
@@ -632,6 +632,7 @@ function CreateEvent() {
       enableTicket2: enableTicket2,
       enableTicket3: enableTicket3,
       enableTicket4: enableTicket4,
+      completed: completed
     };
 
 
